@@ -121,6 +121,34 @@ function LoginInner() {
         </div>
 
         <form onSubmit={submit}>
+          {isSignup && (
+            <div className="row2">
+              <div className="field">
+                <label className="label">이름</label>
+                <input
+                  className="input"
+                  type="text"
+                  autoComplete="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="예: 임찬호"
+                  required
+                />
+              </div>
+              <div className="field">
+                <label className="label">생년월일</label>
+                <input
+                  className="input"
+                  type="date"
+                  autoComplete="bday"
+                  value={birth}
+                  onChange={(e) => setBirth(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+          )}
+
           <div className="field">
             <label className="label">이메일</label>
             <input
@@ -149,50 +177,22 @@ function LoginInner() {
           </div>
 
           {isSignup && (
-            <>
-              <div className="field">
-                <label className="label">비밀번호 확인</label>
-                <input
-                  className="input"
-                  type="password"
-                  autoComplete="new-password"
-                  value={passwordConfirm}
-                  onChange={(e) => setPasswordConfirm(e.target.value)}
-                  placeholder="비밀번호를 다시 입력"
-                  minLength={6}
-                  required
-                />
-                {passwordConfirm.length > 0 && password !== passwordConfirm && (
-                  <p className="hint" style={{ color: 'var(--danger)' }}>비밀번호가 일치하지 않아요.</p>
-                )}
-              </div>
-
-              <div className="row2">
-                <div className="field">
-                  <label className="label">이름</label>
-                  <input
-                    className="input"
-                    type="text"
-                    autoComplete="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="예: 임찬호"
-                    required
-                  />
-                </div>
-                <div className="field">
-                  <label className="label">생년월일</label>
-                  <input
-                    className="input"
-                    type="date"
-                    autoComplete="bday"
-                    value={birth}
-                    onChange={(e) => setBirth(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-            </>
+            <div className="field">
+              <label className="label">비밀번호 확인</label>
+              <input
+                className="input"
+                type="password"
+                autoComplete="new-password"
+                value={passwordConfirm}
+                onChange={(e) => setPasswordConfirm(e.target.value)}
+                placeholder="비밀번호를 다시 입력"
+                minLength={6}
+                required
+              />
+              {passwordConfirm.length > 0 && password !== passwordConfirm && (
+                <p className="hint" style={{ color: 'var(--danger)' }}>비밀번호가 일치하지 않아요.</p>
+              )}
+            </div>
           )}
 
           {error && <div className="alert"><Icon name="alert" size={16} /> {error}</div>}
