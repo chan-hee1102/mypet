@@ -43,7 +43,7 @@ export async function retrieveKnowledge(query: string, species: Species, count =
   try {
     const admin = createAdminClient();
     const { data, error } = await admin.rpc('match_knowledge', {
-      query_embedding: vec,
+      query_embedding: '[' + vec.join(',') + ']', // pgvector 텍스트 형식
       match_species: species,
       match_count: count,
     });
