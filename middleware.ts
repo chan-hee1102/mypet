@@ -1,9 +1,12 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 
+/** 로그인이 필요한 경로 (엣지에서 중앙 가드). */
+const PROTECTED = ['/create', '/pets', '/symptom', '/account'];
+
 /**
- * 매 요청마다 Supabase 세션을 갱신(쿠키 재설정)한다.
- * 이게 없으면 로그인 세션이 만료된 뒤 갱신되지 않아 자꾸 로그아웃된다.
+ * 매 요청마다 Supabase 세션을 갱신(쿠키 재설정)하고,
+ * 보호 경로는 비로그인 시 엣지에서 깔끔하게 /login 으로 리다이렉트한다.
  */
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -28,7 +31,17 @@ export async function middleware(request: NextRequest) {
   );
 
   // 반드시 호출 — 세션 토큰을 갱신한다.
-  await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  const path = request.nextUrl.pathname;
+  const needsAuth = PROTECTED.some((p) => path === p || path.startsWith(p + '/'));
+  if (needsAuth && !user) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/login';
+    url.search = '';
+    url.searchParams.set('next', path);
+    return NextResponse.redirect(url);
+  }
 
   return response;
 }
