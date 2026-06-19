@@ -11,10 +11,11 @@ export default function BottomNav({ authed }: { authed: boolean }) {
   const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
   const accountHref = authed ? '/account' : '/login';
   const accountActive = pathname.startsWith('/account') || pathname.startsWith('/login');
+  const homeHref = authed ? '/dashboard' : '/';
 
   return (
     <nav className="bottomnav" aria-label="하단 메뉴">
-      <Link href="/" className={`bn-item ${isActive('/') ? 'on' : ''}`}>
+      <Link href={homeHref} className={`bn-item ${isActive('/') || pathname.startsWith('/dashboard') ? 'on' : ''}`}>
         <span className="bn-ico"><Icon name="home" size={21} /></span>
         <span className="bn-label">홈</span>
       </Link>

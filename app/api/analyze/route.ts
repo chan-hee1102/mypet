@@ -3,6 +3,7 @@ import { generateCareCard } from '@/lib/careAdvisor';
 import { PetInput, Species } from '@/lib/types';
 import { createClient } from '@/lib/supabase/server';
 import { validateImage } from '@/lib/validation';
+import { defaultSchedules } from '@/lib/careSchedule';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -80,6 +81,16 @@ export async function POST(req: NextRequest) {
             .from('care_cards')
             .insert({ pet_id: pet.id, user_id: user.id, card });
           if (cardErr) console.error('[analyze] 케어카드 저장 실패:', cardErr.message);
+
+          // 기본 케어 일정 자동 생성 (예방접종·구충·검진 권장 예상치)
+          const schedules = defaultSchedules(input.species, input.birth).map((s) => ({
+            ...s,
+            pet_id: pet.id,
+            user_id: user.id,
+            auto_generated: true,
+          }));
+          const { error: schErr } = await supabase.from('care_schedules').insert(schedules);
+          if (schErr) console.error('[analyze] 일정 생성 실패:', schErr.message);
         }
       } catch (saveErr: any) {
         // 저장 실패해도 생성된 카드는 보여준다.

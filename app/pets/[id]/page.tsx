@@ -1,6 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import SavedReport from '@/components/SavedReport';
+import PetCare from '@/components/PetCare';
 import { CareCard as CareCardType, PreviewCard, Species } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
@@ -39,6 +40,12 @@ export default async function PetDetailPage({ params }: { params: { id: string }
   const full = cc.card as CareCardType;
   const preview: PreviewCard = { photoAnalysis: full.photoAnalysis, breedTraits: full.breedTraits };
 
+  // 케어 일정 + 기록 (연속성 허브)
+  const [schedRes, recRes] = await Promise.all([
+    supabase.from('care_schedules').select('id,type,title,due_date,status').eq('pet_id', params.id).order('due_date', { ascending: true }),
+    supabase.from('pet_records').select('id,kind,value,note,recorded_at').eq('pet_id', params.id).order('recorded_at', { ascending: false }).limit(30),
+  ]);
+
   return (
     <main className="container">
       <SavedReport
@@ -50,6 +57,7 @@ export default async function PetDetailPage({ params }: { params: { id: string }
         fullCard={unlocked ? full : null}
         unlocked={unlocked}
       />
+      <PetCare petId={pet.id} schedules={(schedRes.data ?? []) as any} records={(recRes.data ?? []) as any} />
     </main>
   );
 }

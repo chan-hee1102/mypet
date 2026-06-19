@@ -1,5 +1,7 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { Icon } from '@/components/icons';
+import { createClient } from '@/lib/supabase/server';
 
 const STEPS = [
   { icon: 'camera', title: '사진·정보 입력', desc: '아이 사진과 이름·품종·나이를 간단히 입력해요.' },
@@ -23,7 +25,14 @@ const FAQ = [
   { q: '강아지·고양이 둘 다 되나요?', a: '네, 강아지와 고양이 모두 지원합니다.' },
 ];
 
-export default function Home() {
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
+  // 로그인한 사용자는 마케팅 랜딩 대신 대시보드(허브)로.
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (user) redirect('/dashboard');
+
   return (
     <main className="container">
       {/* 히어로 */}
