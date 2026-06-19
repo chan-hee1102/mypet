@@ -131,7 +131,7 @@ function LoginInner() {
                   autoComplete="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="예: 임찬호"
+                  placeholder="예: 홍길동"
                   required
                 />
               </div>
