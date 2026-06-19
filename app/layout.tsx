@@ -3,13 +3,17 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { Icon } from '@/components/icons';
+import { createClient } from '@/lib/supabase/server';
 
 export const metadata: Metadata = {
   title: 'mypet — 반려동물 맞춤 케어 리포트',
   description: '사진과 간단한 정보만으로 AI가 만들어주는 반려동물 맞춤 케어 가이드. 강아지·고양이 모두 지원.',
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
   return (
     <html lang="ko">
       <head>
@@ -31,7 +35,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </Link>
             <nav className="appbar-nav">
               <Link href="/symptom" className="nav-link">증상 체크</Link>
-              <Link href="/#pricing" className="nav-link">요금</Link>
+              {user ? (
+                <>
+                  <Link href="/pets" className="nav-link">내 아이</Link>
+                  <span className="nav-user" title={user.email ?? undefined}>{user.email}</span>
+                  <form action="/auth/signout" method="post">
+                    <button type="submit" className="nav-link nav-link--btn">로그아웃</button>
+                  </form>
+                </>
+              ) : (
+                <Link href="/login" className="nav-link">로그인</Link>
+              )}
               <Link href="/create" className="btn btn--primary btn--sm">시작하기</Link>
             </nav>
           </div>

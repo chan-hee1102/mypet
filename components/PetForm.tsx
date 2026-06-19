@@ -20,6 +20,7 @@ export default function PetForm() {
   const [error, setError] = useState('');
   const [card, setCard] = useState<CareCardType | null>(null);
   const [unlocked, setUnlocked] = useState(false);
+  const [petId, setPetId] = useState<string | null>(null);
 
   function onFile(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -63,6 +64,7 @@ export default function PetForm() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || '오류가 발생했습니다.');
       setUnlocked(false);
+      setPetId((json.petId as string | null) ?? null);
       setCard(json.card as CareCardType);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err: any) {
@@ -79,10 +81,25 @@ export default function PetForm() {
         petName={name}
         card={card}
         unlocked={unlocked}
-        onUnlock={() => setUnlocked(true)}
+        onUnlock={async () => {
+          // 로그인 사용자라 저장된 펫이면 잠금 해제를 서버에 기록한다.
+          if (petId) {
+            try {
+              await fetch('/api/unlock', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ petId }),
+              });
+            } catch {
+              /* 기록 실패해도 화면은 열어준다 */
+            }
+          }
+          setUnlocked(true);
+        }}
         onReset={() => {
           setCard(null);
           setUnlocked(false);
+          setPetId(null);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
       />
