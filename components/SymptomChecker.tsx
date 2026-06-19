@@ -5,6 +5,7 @@ import { Species, SymptomInput, SymptomTriage } from '@/lib/types';
 import { SYMPTOMS } from '@/lib/symptomData';
 import { Icon } from './icons';
 import { fileToImage } from '@/lib/imageClient';
+import SourceBadges from './SourceBadges';
 
 const VET_SEARCH = 'https://map.naver.com/p/search/%EB%8F%99%EB%AC%BC%EB%B3%91%EC%9B%90'; // 동물병원
 
@@ -110,6 +111,8 @@ export default function SymptomChecker() {
             <Icon name="cross" size={17} /> 주변 동물병원 찾기
           </a>
         )}
+
+        <SourceBadges sources={result.sources} />
 
         <Section icon="info" title="가능한 원인"><Bullets items={result.possibleCauses} /></Section>
         <Section icon="shield" title="집에서 확인·조치할 것"><Bullets items={result.homeCare} /></Section>

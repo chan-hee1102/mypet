@@ -1,0 +1,74 @@
+import { createAdminClient } from './supabase/admin';
+import { Species, Source } from './types';
+
+const EMBED_MODEL = 'gemini-embedding-001';
+const EMBED_DIM = 768;
+
+export type KnowledgeChunk = {
+  topic: string;
+  content: string;
+  source_org: string;
+  source_title: string | null;
+  source_url: string | null;
+  similarity: number;
+};
+
+async function embed(text: string): Promise<number[] | null> {
+  const key = process.env.GEMINI_API_KEY;
+  if (!key) return null;
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${EMBED_MODEL}:embedContent`,
+      {
+        method: 'POST',
+        headers: { 'x-goog-api-key': key, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: { parts: [{ text }] }, outputDimensionality: EMBED_DIM }),
+      },
+    );
+    if (!res.ok) return null;
+    const j = await res.json();
+    return j?.embedding?.values ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * 질문과 관련된 "검증된 수의 지식" 청크를 검색(RAG).
+ * 임베딩 실패·KB 미적재여도 빈 배열을 반환해 생성은 정상 진행된다.
+ */
+export async function retrieveKnowledge(query: string, species: Species, count = 6): Promise<KnowledgeChunk[]> {
+  const vec = await embed(query);
+  if (!vec) return [];
+  try {
+    const admin = createAdminClient();
+    const { data, error } = await admin.rpc('match_knowledge', {
+      query_embedding: vec,
+      match_species: species,
+      match_count: count,
+    });
+    if (error || !data) return [];
+    return (data as KnowledgeChunk[]).filter((c) => (c.similarity ?? 0) > 0.45);
+  } catch {
+    return [];
+  }
+}
+
+/** 청크를 프롬프트 주입용 근거 텍스트로. */
+export function knowledgeToPrompt(chunks: KnowledgeChunk[]): string {
+  if (!chunks.length) return '';
+  return chunks.map((c, i) => `[근거${i + 1} · 출처:${c.source_org}] ${c.content}`).join('\n');
+}
+
+/** 출처 목록(중복 제거). UI 배지용. */
+export function knowledgeSources(chunks: KnowledgeChunk[]): Source[] {
+  const seen = new Set<string>();
+  const out: Source[] = [];
+  for (const c of chunks) {
+    const k = (c.source_org || '') + '|' + (c.source_title || '');
+    if (!c.source_org || seen.has(k)) continue;
+    seen.add(k);
+    out.push({ org: c.source_org, title: c.source_title ?? null, url: c.source_url ?? null });
+  }
+  return out.slice(0, 6);
+}

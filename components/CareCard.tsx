@@ -5,6 +5,7 @@ import { CareCard as CareCardType, PreviewCard, Species } from '@/lib/types';
 import { TOXIC_FOODS, GOOD_FOODS } from '@/lib/petData';
 import { Icon } from './icons';
 import Paywall from './Paywall';
+import SourceBadges from './SourceBadges';
 
 const CONF_KO: Record<string, string> = { high: '높음', medium: '보통', low: '낮음' };
 
@@ -156,6 +157,8 @@ export default function CareCardView({
           <Icon name="refresh" size={14} /> 다시
         </button>
       </div>
+
+      <SourceBadges sources={preview.sources} />
 
       {/* ── 미리보기 (무료) ── */}
       <Section icon="info" title="사진·기본 분석">

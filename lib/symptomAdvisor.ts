@@ -1,6 +1,7 @@
 import { GoogleGenAI, Type } from '@google/genai';
 import { SymptomInput, SymptomTriage } from './types';
 import { detectEmergency, symptomLabels, speciesKo } from './symptomData';
+import { retrieveKnowledge, knowledgeToPrompt, knowledgeSources } from './rag';
 
 const MODEL = 'gemini-2.5-flash';
 
@@ -30,6 +31,15 @@ export async function analyzeSymptoms(
   const emergency = detectEmergency(input.symptomIds, input.description || '');
   const labels = symptomLabels(input.symptomIds);
 
+  // RAG: 증상 관련 검증된 수의 근거(응급도·원인) 검색
+  const ragQuery = [speciesKo(input.species), labels, input.description, '증상 응급 원인 트리아지']
+    .filter(Boolean)
+    .join(' ');
+  const chunks = await retrieveKnowledge(ragQuery, input.species, 5);
+  const evidenceBlock = chunks.length
+    ? `\n\n[검증된 수의 근거 — 참고]\n아래는 신뢰할 수 있는 수의 자료에서 검색된 근거다. 응급도·원인 판단 시 참고하되, 안전을 위해 애매하면 더 높은 응급도로 판단하라:\n${knowledgeToPrompt(chunks)}`
+    : '';
+
   const system = `당신은 한국 반려동물 보호자를 돕는 신중한 케어 어시스턴트입니다.
 
 [절대 규칙]
@@ -38,7 +48,7 @@ export async function analyzeSymptoms(
 ${emergency ? '- 이번 사례에는 응급 신호가 포함되어 있다. urgency는 반드시 "emergency"로 한다.' : ''}
 - urgency 의미: emergency=지금 즉시 병원, soon=가능한 빨리(당일~익일) 병원, monitor=집에서 경과 관찰 가능하되 악화 시 병원.
 - 사진이 첨부되면 피부·눈·잇몸·자세 등 보이는 상태를 참고하되, 사진만으로 단정하지 말 것.
-- 모든 답변은 한국어. 이 안내는 일반 정보일 뿐 수의사의 진단·진료를 대체하지 않는다.`;
+- 모든 답변은 한국어. 이 안내는 일반 정보일 뿐 수의사의 진단·진료를 대체하지 않는다.${evidenceBlock}`;
 
   const userText = `반려동물: ${speciesKo(input.species)}${input.petName ? ' ' + input.petName : ''}
 선택한 증상: ${labels || '(선택 없음)'}
@@ -75,5 +85,6 @@ ${emergency ? '- 이번 사례에는 응급 신호가 포함되어 있다. urgen
 
   // 안전 최종 강제: 응급 신호가 감지되면 무조건 emergency 로 고정
   if (emergency) triage.urgency = 'emergency';
+  if (chunks.length) triage.sources = knowledgeSources(chunks);
   return triage;
 }

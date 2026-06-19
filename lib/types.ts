@@ -1,6 +1,9 @@
 export type Species = 'dog' | 'cat';
 export type Sex = 'female' | 'male';
 
+/** RAG 근거 출처 (UI 배지용) */
+export type Source = { org: string; title: string | null; url: string | null };
+
 /** 사용자가 폼에 입력하는 값 */
 export interface PetInput {
   name: string;
@@ -29,10 +32,12 @@ export interface CareCard {
   ageCare: { stage: string; tips: string[] };
   routine: { bath: string; walk: string; grooming: string };
   redFlags: string[];
+  /** RAG로 근거를 활용한 경우 출처 목록 */
+  sources?: Source[];
 }
 
 /** 무료로 보여주는 미리보기 필드만. 프리미엄 필드는 결제 전 클라이언트로 전송하지 않는다. */
-export type PreviewCard = Pick<CareCard, 'photoAnalysis' | 'breedTraits'>;
+export type PreviewCard = Pick<CareCard, 'photoAnalysis' | 'breedTraits' | 'sources'>;
 
 /** 증상 체커 입력 */
 export interface SymptomInput {
@@ -51,4 +56,6 @@ export interface SymptomTriage {
   homeCare: string[];
   vetSigns: string[];
   note: string;
+  /** RAG로 근거를 활용한 경우 출처 목록 */
+  sources?: Source[];
 }

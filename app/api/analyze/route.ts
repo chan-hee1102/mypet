@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 결제 전이므로 미리보기 필드만 클라이언트로 전송한다. (전체 카드는 DB에만 저장)
-    const preview = { photoAnalysis: card.photoAnalysis, breedTraits: card.breedTraits };
+    const preview = { photoAnalysis: card.photoAnalysis, breedTraits: card.breedTraits, sources: card.sources };
     return NextResponse.json({ card: preview, petId });
   } catch (e: any) {
     console.error('[analyze] error:', e);

@@ -1,6 +1,7 @@
 import { GoogleGenAI, Type } from '@google/genai';
 import { PetInput, CareCard } from './types';
 import { TOXIC_FOODS, computeAge, lifeStage } from './petData';
+import { retrieveKnowledge, knowledgeToPrompt, knowledgeSources } from './rag';
 
 // 안정·저비용·넉넉한 무료 할당량. 더 빠르게는 'gemini-3.1-flash-lite' 가능.
 const MODEL = 'gemini-2.5-flash';
@@ -90,6 +91,15 @@ export async function generateCareCard(
   const speciesKo = input.species === 'dog' ? '강아지' : '고양이';
   const toxicList = TOXIC_FOODS[input.species].map((f) => `${f.name}(${f.reason})`).join('; ');
 
+  // RAG: 검증된 수의 가이드라인 근거 검색
+  const ragQuery = [input.breed, speciesKo, stage, '예방접종 영양 호발질환 케어', input.notes]
+    .filter(Boolean)
+    .join(' ');
+  const chunks = await retrieveKnowledge(ragQuery, input.species, 6);
+  const evidenceBlock = chunks.length
+    ? `\n\n[검증된 수의 근거 — 반드시 우선 반영]\n아래는 신뢰할 수 있는 수의 가이드라인에서 검색된 근거다. 케어 카드 내용이 이 근거와 충돌하지 않게 하고, 관련 항목은 이 근거를 우선 반영하라:\n${knowledgeToPrompt(chunks)}`
+    : '';
+
   const system = `당신은 한국 반려동물 보호자를 돕는 따뜻하고 신뢰할 수 있는 케어 어시스턴트입니다.
 
 [규칙]
@@ -99,7 +109,7 @@ export async function generateCareCard(
   ${toxicList}
 - 사진으로 품종·체형·털 상태를 추정하되, 확신이 없으면 confidence를 medium 또는 low로.
 - 사진이 없으면 입력된 품종 정보를 바탕으로 작성하고 confidence는 low.
-- 모든 조언은 일반 정보이며 수의사 상담을 대체하지 않는다.`;
+- 모든 조언은 일반 정보이며 수의사 상담을 대체하지 않는다.${evidenceBlock}`;
 
   const userText = `다음 반려동물에 맞춘 케어 카드를 만들어줘.
 
@@ -137,7 +147,9 @@ export async function generateCareCard(
     throw new Error('AI 응답이 비어 있습니다. 다시 시도해 주세요.');
   }
   try {
-    return JSON.parse(text) as CareCard;
+    const card = JSON.parse(text) as CareCard;
+    if (chunks.length) card.sources = knowledgeSources(chunks);
+    return card;
   } catch {
     throw new Error('AI 응답 형식 오류. 다시 시도해 주세요.');
   }
