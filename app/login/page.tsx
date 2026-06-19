@@ -31,7 +31,8 @@ function LoginInner() {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [name, setName] = useState('');
-  const [birth, setBirth] = useState('');
+  const [birthYear, setBirthYear] = useState('');
+  const [birthMonth, setBirthMonth] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [info, setInfo] = useState('');
@@ -60,6 +61,12 @@ function LoginInner() {
         setError('이름을 입력해 주세요.');
         return;
       }
+      const y = Number(birthYear);
+      const mo = Number(birthMonth);
+      if (!y || y < 1900 || y > 2026 || !mo || mo < 1 || mo > 12) {
+        setError('태어난 년도(예: 1990)와 월(1~12)을 올바르게 입력해 주세요.');
+        return;
+      }
     }
 
     setLoading(true);
@@ -70,10 +77,11 @@ function LoginInner() {
         router.push(next);
         router.refresh();
       } else {
+        const birth = `${birthYear}-${String(Number(birthMonth)).padStart(2, '0')}`; // "YYYY-MM"
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
-          options: { data: { name: name.trim(), birth: birth || null } },
+          options: { data: { name: name.trim(), birth } },
         });
         if (error) throw error;
         if (data.session) {
@@ -122,7 +130,7 @@ function LoginInner() {
 
         <form onSubmit={submit}>
           {isSignup && (
-            <div className="row2">
+            <>
               <div className="field">
                 <label className="label">이름</label>
                 <input
@@ -135,18 +143,35 @@ function LoginInner() {
                   required
                 />
               </div>
+
               <div className="field">
-                <label className="label">생년월일</label>
-                <input
-                  className="input"
-                  type="date"
-                  autoComplete="bday"
-                  value={birth}
-                  onChange={(e) => setBirth(e.target.value)}
-                  required
-                />
+                <label className="label">태어난 시기</label>
+                <div className="row2">
+                  <input
+                    className="input"
+                    type="number"
+                    inputMode="numeric"
+                    value={birthYear}
+                    onChange={(e) => setBirthYear(e.target.value)}
+                    placeholder="년도 (예: 1990)"
+                    min={1900}
+                    max={2026}
+                    required
+                  />
+                  <input
+                    className="input"
+                    type="number"
+                    inputMode="numeric"
+                    value={birthMonth}
+                    onChange={(e) => setBirthMonth(e.target.value)}
+                    placeholder="월 (1~12)"
+                    min={1}
+                    max={12}
+                    required
+                  />
+                </div>
               </div>
-            </div>
+            </>
           )}
 
           <div className="field">
