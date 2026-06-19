@@ -2,8 +2,8 @@ import { GoogleGenAI, Type } from '@google/genai';
 import { PetInput, CareCard } from './types';
 import { TOXIC_FOODS, computeAge, lifeStage } from './petData';
 
-// 비용 우선이면 'gemini-3.1-flash-lite' 로 교체 가능
-const MODEL = 'gemini-3.1-pro-preview';
+// 안정·저비용·넉넉한 무료 할당량. 더 빠르게는 'gemini-3.1-flash-lite' 가능.
+const MODEL = 'gemini-2.5-flash';
 
 // 요청 시점에 1회만 생성 (모듈 로드/빌드 때 키 없이 만들어지는 경고 방지)
 let _ai: GoogleGenAI | null = null;

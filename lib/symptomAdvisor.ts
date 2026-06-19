@@ -2,7 +2,7 @@ import { GoogleGenAI, Type } from '@google/genai';
 import { SymptomInput, SymptomTriage } from './types';
 import { detectEmergency, symptomLabels, speciesKo } from './symptomData';
 
-const MODEL = 'gemini-3.1-pro-preview';
+const MODEL = 'gemini-2.5-flash';
 
 let _ai: GoogleGenAI | null = null;
 function getClient(): GoogleGenAI {
