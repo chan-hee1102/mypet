@@ -17,6 +17,8 @@ body{
   font-family:'Pretendard','Pretendard Variable',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
   letter-spacing:-.012em;font-size:15px;position:relative;
+  /* 한국어 줄바꿈: 어절(띄어쓰기) 단위로만 끊고, 음절 중간에서 깨지지 않게 (토스·네이버·당근 방식) */
+  word-break:keep-all;overflow-wrap:break-word;
 }
 /* 상단 은은한 2색 글로우 — 단색감 제거 */
 body::before{
