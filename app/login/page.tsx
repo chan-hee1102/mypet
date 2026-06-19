@@ -25,25 +25,56 @@ function LoginInner() {
   const [supabase] = useState(() => createClient());
 
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
+  const isSignup = mode === 'signup';
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [name, setName] = useState('');
+  const [birth, setBirth] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [info, setInfo] = useState('');
+
+  function switchMode(m: 'signin' | 'signup') {
+    setMode(m);
+    setError('');
+    setInfo('');
+  }
 
   async function submit(e: FormEvent) {
     e.preventDefault();
     setError('');
     setInfo('');
+
+    if (isSignup) {
+      if (password.length < 6) {
+        setError('비밀번호는 6자 이상이어야 해요.');
+        return;
+      }
+      if (password !== passwordConfirm) {
+        setError('비밀번호가 일치하지 않아요.');
+        return;
+      }
+      if (!name.trim()) {
+        setError('이름을 입력해 주세요.');
+        return;
+      }
+    }
+
     setLoading(true);
     try {
-      if (mode === 'signin') {
+      if (!isSignup) {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         router.push(next);
         router.refresh();
       } else {
-        const { data, error } = await supabase.auth.signUp({ email, password });
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { data: { name: name.trim(), birth: birth || null } },
+        });
         if (error) throw error;
         if (data.session) {
           router.push(next);
@@ -51,7 +82,7 @@ function LoginInner() {
         } else {
           // 이메일 인증이 켜져 있는 경우
           setInfo('확인 메일을 보냈어요. 메일의 링크를 누른 뒤 로그인해 주세요.');
-          setMode('signin');
+          switchMode('signin');
         }
       }
     } catch (err: any) {
@@ -75,33 +106,19 @@ function LoginInner() {
     <main className="container container--narrow">
       <section className="hero">
         <span className="eyebrow"><Icon name="paw" size={14} filled /> mypet</span>
-        <h1>{mode === 'signin' ? '다시 오셨네요' : '환영해요'}</h1>
+        <h1>{isSignup ? '환영해요' : '다시 오셨네요'}</h1>
         <p className="hero-sub">로그인하고 우리 아이의 케어 기록을 저장·관리하세요.</p>
       </section>
 
       <div className="card">
         <div className="seg auth-tabs">
-          <button
-            type="button"
-            className={`seg-opt ${mode === 'signin' ? 'on' : ''}`}
-            onClick={() => { setMode('signin'); setError(''); }}
-          >
+          <button type="button" className={`seg-opt ${!isSignup ? 'on' : ''}`} onClick={() => switchMode('signin')}>
             로그인
           </button>
-          <button
-            type="button"
-            className={`seg-opt ${mode === 'signup' ? 'on' : ''}`}
-            onClick={() => { setMode('signup'); setError(''); }}
-          >
+          <button type="button" className={`seg-opt ${isSignup ? 'on' : ''}`} onClick={() => switchMode('signup')}>
             회원가입
           </button>
         </div>
-
-        <button type="button" className="btn btn--secondary btn--lg btn--block auth-google" onClick={google}>
-          <GoogleLogo size={18} /> Google로 계속하기
-        </button>
-
-        <div className="auth-divider"><span>또는 이메일로</span></div>
 
         <form onSubmit={submit}>
           <div className="field">
@@ -116,12 +133,13 @@ function LoginInner() {
               required
             />
           </div>
+
           <div className="field">
             <label className="label">비밀번호</label>
             <input
               className="input"
               type="password"
-              autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
+              autoComplete={isSignup ? 'new-password' : 'current-password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="6자 이상"
@@ -130,19 +148,72 @@ function LoginInner() {
             />
           </div>
 
+          {isSignup && (
+            <>
+              <div className="field">
+                <label className="label">비밀번호 확인</label>
+                <input
+                  className="input"
+                  type="password"
+                  autoComplete="new-password"
+                  value={passwordConfirm}
+                  onChange={(e) => setPasswordConfirm(e.target.value)}
+                  placeholder="비밀번호를 다시 입력"
+                  minLength={6}
+                  required
+                />
+                {passwordConfirm.length > 0 && password !== passwordConfirm && (
+                  <p className="hint" style={{ color: 'var(--danger)' }}>비밀번호가 일치하지 않아요.</p>
+                )}
+              </div>
+
+              <div className="row2">
+                <div className="field">
+                  <label className="label">이름</label>
+                  <input
+                    className="input"
+                    type="text"
+                    autoComplete="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="예: 임찬호"
+                    required
+                  />
+                </div>
+                <div className="field">
+                  <label className="label">생년월일</label>
+                  <input
+                    className="input"
+                    type="date"
+                    autoComplete="bday"
+                    value={birth}
+                    onChange={(e) => setBirth(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+            </>
+          )}
+
           {error && <div className="alert"><Icon name="alert" size={16} /> {error}</div>}
           {info && <div className="alert alert--ok"><Icon name="check" size={16} /> {info}</div>}
 
           <button className="btn btn--primary btn--lg btn--block" type="submit" disabled={loading}>
-            {loading ? <><span className="spinner" /> 처리 중…</> : mode === 'signin' ? '로그인' : '회원가입'}
+            {loading ? <><span className="spinner" /> 처리 중…</> : isSignup ? '회원가입' : '로그인'}
           </button>
         </form>
 
+        <div className="auth-divider"><span>또는</span></div>
+
+        <button type="button" className="btn btn--secondary btn--lg btn--block auth-google" onClick={google}>
+          <GoogleLogo size={18} /> Google로 계속하기
+        </button>
+
         <p className="hint center auth-switch">
-          {mode === 'signin' ? (
-            <>처음이신가요? <button type="button" className="linklike" onClick={() => setMode('signup')}>회원가입</button></>
+          {isSignup ? (
+            <>이미 계정이 있나요? <button type="button" className="linklike" onClick={() => switchMode('signin')}>로그인</button></>
           ) : (
-            <>이미 계정이 있나요? <button type="button" className="linklike" onClick={() => setMode('signin')}>로그인</button></>
+            <>처음이신가요? <button type="button" className="linklike" onClick={() => switchMode('signup')}>회원가입</button></>
           )}
         </p>
       </div>
