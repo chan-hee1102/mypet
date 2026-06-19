@@ -259,6 +259,11 @@ function LoginInner() {
             <>처음이신가요? <button type="button" className="linklike" onClick={() => switchMode('signup')}>회원가입</button></>
           )}
         </p>
+        {!isSignup && (
+          <p className="hint center" style={{ marginTop: 4 }}>
+            <Link href="/reset-password" className="linklike">비밀번호를 잊으셨나요?</Link>
+          </p>
+        )}
       </div>
 
       <p className="hint center" style={{ marginTop: 16 }}>

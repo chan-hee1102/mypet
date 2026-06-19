@@ -1,18 +1,22 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Icon } from './icons';
+import { SITE } from '@/lib/site';
 
 export default function Paywall({ petName, onUnlock }: { petName: string; onUnlock: () => void }) {
-  const [paying, setPaying] = useState(false);
+  const [working, setWorking] = useState(false);
+  const [agreed, setAgreed] = useState(false);
 
-  async function pay() {
-    setPaying(true);
-    // TODO(결제): 실제로는 토스페이먼츠/포트원 결제창 호출 → 서버에서 결제 검증 →
-    //   검증 성공 시 서버가 전체 리포트를 내려주고 onUnlock() 호출.
-    //   지금은 MVP 데모용 모의 결제 (1.2초 후 성공 처리).
-    await new Promise((r) => setTimeout(r, 1200));
-    setPaying(false);
+  async function unlock() {
+    if (!agreed) return;
+    setWorking(true);
+    // TODO(결제): PG(토스페이먼츠/포트원) 결제위젯 호출 → 서버 /api/payments/confirm 에서
+    //   승인 API로 금액·상태 검증 후에만 onUnlock. 사업자등록·PG 키 발급 후 연동 예정.
+    //   현재는 베타 무료 해금.
+    await new Promise((r) => setTimeout(r, 600));
+    setWorking(false);
     onUnlock();
   }
 
@@ -27,10 +31,28 @@ export default function Paywall({ petName, onUnlock }: { petName: string; onUnlo
         <li><Icon name="repeat" size={16} /> 목욕 · 산책 · 빗질 권장 주기</li>
         <li><Icon name="cross" size={16} /> 병원 방문이 필요한 신호</li>
       </ul>
-      <button className="btn btn--primary btn--lg btn--block" onClick={pay} disabled={paying}>
-        {paying ? <><span className="spinner" /> 결제 처리 중…</> : <>₩3,900 결제하고 전체 보기</>}
+
+      <div className="paywall-price">
+        정식 가격 <b>{SITE.pricePerPet.toLocaleString()}원</b> · 마리당 1회
+        <span className="paywall-beta">베타 기간 무료</span>
+      </div>
+
+      <label className="paywall-agree">
+        <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} />
+        <span>
+          주문 내용을 확인했으며 <Link href="/terms" target="_blank">이용약관</Link>,{' '}
+          <Link href="/refund" target="_blank">환불정책</Link>,{' '}
+          <Link href="/privacy" target="_blank">개인정보처리방침</Link>에 동의합니다.
+        </span>
+      </label>
+
+      <button className="btn btn--primary btn--lg btn--block" onClick={unlock} disabled={working || !agreed}>
+        {working ? <><span className="spinner" /> 처리 중…</> : '동의하고 전체 리포트 보기'}
       </button>
-      <p className="paywall-note"><Icon name="shield" size={13} /> 마리당 1회 결제 · 안전한 결제</p>
+
+      <p className="paywall-note">
+        판매자 {SITE.company} · 결제 완료 즉시 콘텐츠가 제공되어 청약철회가 제한될 수 있습니다(<Link href="/refund" target="_blank">환불정책</Link>).
+      </p>
     </div>
   );
 }

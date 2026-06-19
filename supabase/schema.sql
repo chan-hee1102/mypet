@@ -31,14 +31,22 @@ create table if not exists public.care_cards (
 
 -- 3) 결제/잠금 해제 (마리당 1회 결제) ----------------------------------------
 create table if not exists public.unlocks (
-  id          uuid primary key default gen_random_uuid(),
-  user_id     uuid not null references auth.users (id) on delete cascade,
-  pet_id      uuid not null references public.pets (id) on delete cascade,
-  amount      integer,                     -- 결제 금액(원)
-  provider    text,                        -- 'toss' | 'portone' 등
-  paid_at     timestamptz not null default now(),
-  unique (pet_id)                          -- 한 마리당 한 번만
+  id            uuid primary key default gen_random_uuid(),
+  user_id       uuid not null references auth.users (id) on delete cascade,
+  pet_id        uuid not null references public.pets (id) on delete cascade,
+  amount        integer,                     -- 결제 금액(원)
+  provider      text,                        -- 'toss' | 'portone' | 'mock'
+  -- ── 결제 추적 (PG 연동용) ──
+  order_id      text,                        -- 멱등 주문번호
+  payment_key   text,                        -- PG 결제 키 (중복결제 방지)
+  status        text not null default 'paid' check (status in ('pending','paid','canceled','refunded')),
+  receipt_url   text,                        -- 영수증 URL
+  raw_response  jsonb,                       -- PG 승인 응답 원본
+  paid_at       timestamptz not null default now(),
+  unique (pet_id)                            -- 한 마리당 한 번만
 );
+create unique index if not exists unlocks_payment_key_uniq
+  on public.unlocks (payment_key) where payment_key is not null;
 
 create index if not exists pets_user_id_idx       on public.pets (user_id);
 create index if not exists care_cards_pet_id_idx  on public.care_cards (pet_id);
