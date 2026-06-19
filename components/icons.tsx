@@ -102,6 +102,26 @@ const PATHS: Record<string, ReactNode> = {
       <path d="M7 11V7a5 5 0 0 1 10 0v4" />
     </>
   ),
+  home: (
+    <>
+      <path d="M3 10.2 12 3l9 7.2" />
+      <path d="M5 9.2V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.2" />
+      <path d="M9.5 21v-6h5v6" />
+    </>
+  ),
+  user: (
+    <>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" />
+    </>
+  ),
+  image: (
+    <>
+      <rect x="3" y="3" width="18" height="18" rx="3" />
+      <circle cx="8.5" cy="8.5" r="1.8" />
+      <path d="m21 16-5-5L7 20" />
+    </>
+  ),
 };
 
 /** 구글 공식 4색 로고 (단색 Icon 시스템과 별개). */

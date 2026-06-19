@@ -150,22 +150,23 @@ export default function SymptomChecker() {
 
       <div className="field">
         <label className="label">사진 <span className="opt">선택</span></label>
-        <label className={`upload ${preview ? 'is-filled' : ''}`}>
-          {preview ? (
-            <>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={preview} alt="미리보기" className="upload-preview" />
-              <span className="upload-edit"><Icon name="camera" size={14} /> 사진 변경</span>
-            </>
-          ) : (
-            <span className="upload-inner">
-              <span className="upload-ico"><Icon name="camera" size={21} /></span>
-              <span className="upload-text">사진 추가하기</span>
-              <span className="upload-sub">피부·눈·잇몸 등 (선택)</span>
-            </span>
-          )}
-          <input type="file" accept="image/*" onChange={onFile} hidden />
-        </label>
+        {preview && (
+          <div className="upload-preview-wrap">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={preview} alt="미리보기" className="upload-preview-img" />
+          </div>
+        )}
+        <div className="upload-actions">
+          <label className="upload-btn">
+            <Icon name="camera" size={18} /> 카메라
+            <input type="file" accept="image/*" capture="environment" onChange={onFile} hidden />
+          </label>
+          <label className="upload-btn">
+            <Icon name="image" size={18} /> 갤러리
+            <input type="file" accept="image/*" onChange={onFile} hidden />
+          </label>
+        </div>
+        <p className="hint">피부·눈·잇몸 등 증상 부위 (선택)</p>
       </div>
 
       <div className="field">

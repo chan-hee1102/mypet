@@ -117,22 +117,25 @@ export default function PetForm() {
       {/* 사진 */}
       <div className="field">
         <label className="label">사진 <span className="opt">선택</span></label>
-        <label className={`upload ${preview ? 'is-filled' : ''}`}>
-          {preview ? (
-            <>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={preview} alt="미리보기" className="upload-preview" />
-              <span className="upload-edit"><Icon name="camera" size={14} /> 사진 변경</span>
-            </>
-          ) : (
-            <span className="upload-inner">
-              <span className="upload-ico"><Icon name="camera" size={21} /></span>
-              <span className="upload-text">사진 추가하기</span>
-              <span className="upload-sub">품종·체형 분석에 활용됩니다</span>
-            </span>
-          )}
-          <input type="file" accept="image/*" onChange={onFile} hidden />
-        </label>
+        {preview && (
+          <div className="upload-preview-wrap">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={preview} alt="미리보기" className="upload-preview-img" />
+          </div>
+        )}
+        <div className="upload-actions">
+          <label className="upload-btn">
+            <Icon name="camera" size={18} /> 카메라
+            <input type="file" accept="image/*" capture="environment" onChange={onFile} hidden />
+          </label>
+          <label className="upload-btn">
+            <Icon name="image" size={18} /> 갤러리
+            <input type="file" accept="image/*" onChange={onFile} hidden />
+          </label>
+        </div>
+        <p className="hint">
+          {preview ? '다시 선택하면 사진이 교체돼요 · 품종·체형 분석에 활용됩니다' : '품종·체형 분석에 활용됩니다'}
+        </p>
       </div>
 
       {/* 종류 */}

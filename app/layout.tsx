@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Icon } from '@/components/icons';
 import { createClient } from '@/lib/supabase/server';
 import { SITE } from '@/lib/site';
+import UserMenu from '@/components/UserMenu';
+import BottomNav from '@/components/BottomNav';
 
 export const metadata: Metadata = {
   title: 'mypet — 반려동물 맞춤 케어 리포트',
@@ -35,23 +37,19 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
               </span>
             </Link>
             <nav className="appbar-nav">
-              <Link href="/symptom" className="nav-link">증상 체크</Link>
+              <Link href="/symptom" className="nav-link nav-desktop">증상 체크</Link>
+              {user && <Link href="/pets" className="nav-link nav-desktop">내 아이</Link>}
+              <Link href="/create" className="btn btn--primary btn--sm nav-desktop">시작하기</Link>
               {user ? (
-                <>
-                  <Link href="/pets" className="nav-link">내 아이</Link>
-                  <span className="nav-user" title={user.email ?? undefined}>{user.email}</span>
-                  <form action="/auth/signout" method="post">
-                    <button type="submit" className="nav-link nav-link--btn">로그아웃</button>
-                  </form>
-                </>
+                <UserMenu email={user.email ?? ''} />
               ) : (
-                <Link href="/login" className="nav-link">로그인</Link>
+                <Link href="/login" className="nav-link nav-login">로그인</Link>
               )}
-              <Link href="/create" className="btn btn--primary btn--sm">시작하기</Link>
             </nav>
           </div>
         </header>
         {children}
+        <BottomNav authed={!!user} />
         <footer className="site-footer">
           <nav className="footer-links">
             <Link href="/terms">이용약관</Link>
