@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, type ChangeEvent, type FormEvent } from 'react';
-import { PetInput, Species, Sex, CareCard as CareCardType } from '@/lib/types';
+import { PetInput, Species, Sex, PreviewCard } from '@/lib/types';
 import { Icon } from './icons';
 import CareCardView from './CareCard';
 import { fileToImage } from '@/lib/imageClient';
@@ -19,7 +19,7 @@ export default function PetForm() {
   const [preview, setPreview] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [card, setCard] = useState<CareCardType | null>(null);
+  const [card, setCard] = useState<PreviewCard | null>(null);
   const [unlocked, setUnlocked] = useState(false);
   const [petId, setPetId] = useState<string | null>(null);
 
@@ -65,7 +65,7 @@ export default function PetForm() {
       if (!res.ok) throw new Error(json.error || '오류가 발생했습니다.');
       setUnlocked(false);
       setPetId((json.petId as string | null) ?? null);
-      setCard(json.card as CareCardType);
+      setCard(json.card as PreviewCard);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err: any) {
       setError(err?.message || '오류가 발생했습니다.');
@@ -79,7 +79,8 @@ export default function PetForm() {
       <CareCardView
         species={species}
         petName={name}
-        card={card}
+        petId={petId}
+        preview={card}
         unlocked={unlocked}
         onUnlock={async () => {
           // 로그인 사용자라 저장된 펫이면 잠금 해제를 서버에 기록한다.

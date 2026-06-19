@@ -1,7 +1,7 @@
 'use client';
 
-import type { ReactNode } from 'react';
-import { CareCard as CareCardType, Species } from '@/lib/types';
+import { useEffect, useState, type ReactNode } from 'react';
+import { CareCard as CareCardType, PreviewCard, Species } from '@/lib/types';
 import { TOXIC_FOODS, GOOD_FOODS } from '@/lib/petData';
 import { Icon } from './icons';
 import Paywall from './Paywall';
@@ -33,25 +33,111 @@ function Bullets({ items, warn }: { items: string[]; warn?: boolean }) {
   );
 }
 
+/** 잠금 해제된 프리미엄 섹션 (전체 리포트). */
+function PremiumSections({ species, petName, card }: { species: Species; petName: string; card: CareCardType }) {
+  const toxic = TOXIC_FOODS[species];
+  const goodFoods = Array.from(new Set([...GOOD_FOODS[species], ...card.food.goodFoods]));
+  return (
+    <>
+      <Section icon="scissors" title="그루밍">
+        <p>{card.grooming.summary}</p>
+        {card.grooming.cautions.length > 0 && <Bullets items={card.grooming.cautions} warn />}
+      </Section>
+
+      <Section icon="activity" title="운동·산책">
+        <p>{card.exercise.summary}</p>
+        <div className="meta-grid">
+          <span className="meta-pill accent">하루 권장<b>{card.exercise.walkMinutesPerDay}</b></span>
+        </div>
+        {card.exercise.cautions.length > 0 && <Bullets items={card.exercise.cautions} warn />}
+      </Section>
+
+      <Section icon="bowl" title="음식 가이드">
+        <div className="food">
+          <div className="food-col good">
+            <div className="food-col-head"><Icon name="check" size={15} strokeWidth={2.2} /> 먹어도 좋아요</div>
+            <ul className="food-list">{goodFoods.map((x, i) => <li key={i}>{x}</li>)}</ul>
+          </div>
+          <div className="food-col bad">
+            <div className="food-col-head"><Icon name="alert" size={15} /> 절대 금지</div>
+            <ul className="food-list">{toxic.map((f) => <li key={f.name}><b>{f.name}</b> — {f.reason}</li>)}</ul>
+          </div>
+        </div>
+        {card.food.cautionFoods.length > 0 && (
+          <div className="note"><Icon name="info" size={15} /><span>{petName} 특이사항 관련 주의: {card.food.cautionFoods.join(', ')}</span></div>
+        )}
+      </Section>
+
+      <Section icon="calendar" title={`나이별 케어 · ${card.ageCare.stage}`}>
+        <Bullets items={card.ageCare.tips} />
+      </Section>
+
+      <Section icon="repeat" title="권장 주기">
+        <div className="stats">
+          <div className="stat">
+            <div className="stat-ico"><Icon name="repeat" size={18} /></div>
+            <div className="stat-label">목욕</div>
+            <div className="stat-value">{card.routine.bath}</div>
+          </div>
+          <div className="stat">
+            <div className="stat-ico"><Icon name="activity" size={18} /></div>
+            <div className="stat-label">산책</div>
+            <div className="stat-value">{card.routine.walk}</div>
+          </div>
+          <div className="stat">
+            <div className="stat-ico"><Icon name="scissors" size={18} /></div>
+            <div className="stat-label">빗질·미용</div>
+            <div className="stat-value">{card.routine.grooming}</div>
+          </div>
+        </div>
+      </Section>
+
+      <Section icon="cross" title="병원 방문이 필요한 신호" variant="flags">
+        <Bullets items={card.redFlags} warn />
+      </Section>
+
+      <p className="disclaimer"><Icon name="info" size={14} /> 본 리포트는 일반 정보이며, 수의사의 진단·진료를 대체하지 않습니다.</p>
+    </>
+  );
+}
+
 export default function CareCardView({
   species,
   petName,
-  card,
+  petId,
+  preview,
+  fullCard,
   unlocked,
   onUnlock,
   onReset,
 }: {
   species: Species;
   petName: string;
-  card: CareCardType;
+  petId: string | null;
+  preview: PreviewCard;
+  /** 서버에서 이미 잠금해제 확인하고 내려준 전체 카드(있으면 추가 fetch 안 함). */
+  fullCard?: CareCardType | null;
   unlocked: boolean;
   onUnlock: () => void;
   onReset: () => void;
 }) {
   const speciesKo = species === 'dog' ? '강아지' : '고양이';
-  const toxic = TOXIC_FOODS[species];
-  const goodFoods = Array.from(new Set([...GOOD_FOODS[species], ...card.food.goodFoods]));
-  const conf = card.photoAnalysis.confidence;
+  const conf = preview.photoAnalysis.confidence;
+
+  // 프리미엄(전체 리포트)은 잠금 해제된 경우에만 서버 보호 라우트에서 가져온다.
+  const [premium, setPremium] = useState<CareCardType | null>(fullCard ?? null);
+  const [premiumErr, setPremiumErr] = useState(false);
+
+  useEffect(() => {
+    if (!unlocked || premium || !petId) return;
+    let cancelled = false;
+    setPremiumErr(false);
+    fetch(`/api/report/${petId}`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(r)))
+      .then((j) => { if (!cancelled) setPremium(j.card as CareCardType); })
+      .catch(() => { if (!cancelled) setPremiumErr(true); });
+    return () => { cancelled = true; };
+  }, [unlocked, premium, petId]);
 
   return (
     <div className="report">
@@ -62,7 +148,7 @@ export default function CareCardView({
           <h2 className="report-title">{petName}</h2>
           <div className="report-chips">
             <span className="chip chip--solid">{speciesKo}</span>
-            <span className="chip">{card.photoAnalysis.breedGuess}</span>
+            <span className="chip">{preview.photoAnalysis.breedGuess}</span>
             <span className={`chip conf-${conf}`}>신뢰도 {CONF_KO[conf] ?? conf}</span>
           </div>
         </div>
@@ -73,85 +159,34 @@ export default function CareCardView({
 
       {/* ── 미리보기 (무료) ── */}
       <Section icon="info" title="사진·기본 분석">
-        <p>{card.photoAnalysis.coatSkinNotes}</p>
+        <p>{preview.photoAnalysis.coatSkinNotes}</p>
         <div className="meta-grid">
-          <span className="meta-pill">체형<b>{card.photoAnalysis.bodyCondition}</b></span>
-          <span className="meta-pill">품종 추정<b>{card.photoAnalysis.breedGuess}</b></span>
+          <span className="meta-pill">체형<b>{preview.photoAnalysis.bodyCondition}</b></span>
+          <span className="meta-pill">품종 추정<b>{preview.photoAnalysis.breedGuess}</b></span>
         </div>
       </Section>
 
       <Section icon="tag" title="품종 특성">
-        <p>{card.breedTraits.summary}</p>
-        {card.breedTraits.healthRisks.length > 0 && (
+        <p>{preview.breedTraits.summary}</p>
+        {preview.breedTraits.healthRisks.length > 0 && (
           <>
             <div className="sub">주의할 질환</div>
-            <Bullets items={card.breedTraits.healthRisks} />
+            <Bullets items={preview.breedTraits.healthRisks} />
           </>
         )}
       </Section>
 
-      {/* ── 전체 리포트 (결제 후) ── */}
+      {/* ── 전체 리포트 (결제 후, 서버에서 가져옴) ── */}
       {unlocked ? (
-        <>
-          <Section icon="scissors" title="그루밍">
-            <p>{card.grooming.summary}</p>
-            {card.grooming.cautions.length > 0 && <Bullets items={card.grooming.cautions} warn />}
-          </Section>
-
-          <Section icon="activity" title="운동·산책">
-            <p>{card.exercise.summary}</p>
-            <div className="meta-grid">
-              <span className="meta-pill accent">하루 권장<b>{card.exercise.walkMinutesPerDay}</b></span>
-            </div>
-            {card.exercise.cautions.length > 0 && <Bullets items={card.exercise.cautions} warn />}
-          </Section>
-
-          <Section icon="bowl" title="음식 가이드">
-            <div className="food">
-              <div className="food-col good">
-                <div className="food-col-head"><Icon name="check" size={15} strokeWidth={2.2} /> 먹어도 좋아요</div>
-                <ul className="food-list">{goodFoods.map((x, i) => <li key={i}>{x}</li>)}</ul>
-              </div>
-              <div className="food-col bad">
-                <div className="food-col-head"><Icon name="alert" size={15} /> 절대 금지</div>
-                <ul className="food-list">{toxic.map((f) => <li key={f.name}><b>{f.name}</b> — {f.reason}</li>)}</ul>
-              </div>
-            </div>
-            {card.food.cautionFoods.length > 0 && (
-              <div className="note"><Icon name="info" size={15} /><span>{petName} 특이사항 관련 주의: {card.food.cautionFoods.join(', ')}</span></div>
-            )}
-          </Section>
-
-          <Section icon="calendar" title={`나이별 케어 · ${card.ageCare.stage}`}>
-            <Bullets items={card.ageCare.tips} />
-          </Section>
-
-          <Section icon="repeat" title="권장 주기">
-            <div className="stats">
-              <div className="stat">
-                <div className="stat-ico"><Icon name="repeat" size={18} /></div>
-                <div className="stat-label">목욕</div>
-                <div className="stat-value">{card.routine.bath}</div>
-              </div>
-              <div className="stat">
-                <div className="stat-ico"><Icon name="activity" size={18} /></div>
-                <div className="stat-label">산책</div>
-                <div className="stat-value">{card.routine.walk}</div>
-              </div>
-              <div className="stat">
-                <div className="stat-ico"><Icon name="scissors" size={18} /></div>
-                <div className="stat-label">빗질·미용</div>
-                <div className="stat-value">{card.routine.grooming}</div>
-              </div>
-            </div>
-          </Section>
-
-          <Section icon="cross" title="병원 방문이 필요한 신호" variant="flags">
-            <Bullets items={card.redFlags} warn />
-          </Section>
-
-          <p className="disclaimer"><Icon name="info" size={14} /> 본 리포트는 일반 정보이며, 수의사의 진단·진료를 대체하지 않습니다.</p>
-        </>
+        premium ? (
+          <PremiumSections species={species} petName={petName} card={premium} />
+        ) : premiumErr ? (
+          <div className="alert"><Icon name="alert" size={16} /> 리포트를 불러오지 못했어요. 새로고침해 주세요.</div>
+        ) : (
+          <div className="card" style={{ textAlign: 'center', padding: '28px', color: 'var(--muted)' }}>
+            <span className="spinner" style={{ borderColor: 'rgba(17,160,122,.25)', borderTopColor: 'var(--brand)' }} /> 전체 리포트를 불러오는 중…
+          </div>
+        )
       ) : (
         <Paywall petName={petName} onUnlock={onUnlock} />
       )}

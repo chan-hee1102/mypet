@@ -31,6 +31,9 @@ export interface CareCard {
   redFlags: string[];
 }
 
+/** 무료로 보여주는 미리보기 필드만. 프리미엄 필드는 결제 전 클라이언트로 전송하지 않는다. */
+export type PreviewCard = Pick<CareCard, 'photoAnalysis' | 'breedTraits'>;
+
 /** 증상 체커 입력 */
 export interface SymptomInput {
   species: Species;

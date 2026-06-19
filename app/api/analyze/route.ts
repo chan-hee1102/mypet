@@ -87,7 +87,9 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ card, petId });
+    // 결제 전이므로 미리보기 필드만 클라이언트로 전송한다. (전체 카드는 DB에만 저장)
+    const preview = { photoAnalysis: card.photoAnalysis, breedTraits: card.breedTraits };
+    return NextResponse.json({ card: preview, petId });
   } catch (e: any) {
     console.error('[analyze] error:', e);
     return NextResponse.json({ error: '분석 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' }, { status: 500 });

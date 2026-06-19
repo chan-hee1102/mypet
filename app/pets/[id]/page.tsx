@@ -1,7 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import SavedReport from '@/components/SavedReport';
-import { CareCard as CareCardType, Species } from '@/lib/types';
+import { CareCard as CareCardType, PreviewCard, Species } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
 
@@ -34,6 +34,10 @@ export default async function PetDetailPage({ params }: { params: { id: string }
     .select('id')
     .eq('pet_id', params.id)
     .maybeSingle();
+  const unlocked = !!unlock;
+
+  const full = cc.card as CareCardType;
+  const preview: PreviewCard = { photoAnalysis: full.photoAnalysis, breedTraits: full.breedTraits };
 
   return (
     <main className="container">
@@ -41,8 +45,10 @@ export default async function PetDetailPage({ params }: { params: { id: string }
         petId={pet.id}
         species={pet.species as Species}
         petName={pet.name}
-        card={cc.card as CareCardType}
-        unlocked={!!unlock}
+        preview={preview}
+        // 결제 전이면 프리미엄 필드를 클라이언트로 보내지 않는다.
+        fullCard={unlocked ? full : null}
+        unlocked={unlocked}
       />
     </main>
   );
