@@ -18,10 +18,23 @@ function toKo(msg?: string): string {
   return msg;
 }
 
+/** 오픈 리다이렉트 방지: 단일 슬래시로 시작하는 내부 경로만 허용. */
+function safeNext(raw: string | null): string {
+  if (!raw || !raw.startsWith('/') || raw.startsWith('//') || raw.startsWith('/\\')) return '/';
+  return raw;
+}
+
+/** URL의 error 파라미터(예: 콜백 실패)를 한국어 메시지로. */
+function oauthErrorKo(code: string | null): string {
+  if (!code) return '';
+  if (code === 'auth') return '로그인 처리에 실패했어요. 다시 시도해 주세요.';
+  return '로그인 중 오류가 발생했어요. 다시 시도해 주세요.';
+}
+
 function LoginInner() {
   const router = useRouter();
   const params = useSearchParams();
-  const next = params.get('next') || '/';
+  const next = safeNext(params.get('next'));
   const [supabase] = useState(() => createClient());
 
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
@@ -34,7 +47,7 @@ function LoginInner() {
   const [birthYear, setBirthYear] = useState('');
   const [birthMonth, setBirthMonth] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(oauthErrorKo(params.get('error')));
   const [info, setInfo] = useState('');
 
   function switchMode(m: 'signin' | 'signup') {
@@ -65,6 +78,11 @@ function LoginInner() {
       const mo = Number(birthMonth);
       if (!y || y < 1900 || y > 2026 || !mo || mo < 1 || mo > 12) {
         setError('태어난 년도(예: 1990)와 월(1~12)을 올바르게 입력해 주세요.');
+        return;
+      }
+      // 만 14세 미만 가입 차단 (개인정보보호법 제22조의2)
+      if (2026 - y < 14) {
+        setError('만 14세 이상만 가입할 수 있어요.');
         return;
       }
     }

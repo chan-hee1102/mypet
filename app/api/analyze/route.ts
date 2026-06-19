@@ -1,19 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateCareCard } from '@/lib/careAdvisor';
-import { PetInput } from '@/lib/types';
+import { PetInput, Species } from '@/lib/types';
 import { createClient } from '@/lib/supabase/server';
+import { validateImage } from '@/lib/validation';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
 export async function POST(req: NextRequest) {
   try {
+    // 1) 인증 강제 (Gemini 호출보다 먼저 — 비용 어뷰징 차단)
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: '로그인이 필요합니다.' }, { status: 401 });
+    }
+
     const body = await req.json();
     const input = body?.input as PetInput | undefined;
     const image = (body?.image as { data: string; mediaType: string } | null) ?? null;
 
     if (!input?.name || !input?.species) {
       return NextResponse.json({ error: '이름과 종류(강아지/고양이)는 필수입니다.' }, { status: 400 });
+    }
+    if (input.species !== ('dog' as Species) && input.species !== ('cat' as Species)) {
+      return NextResponse.json({ error: '종류가 올바르지 않습니다.' }, { status: 400 });
+    }
+    const imgCheck = validateImage(image);
+    if (!imgCheck.ok) {
+      return NextResponse.json({ error: imgCheck.error }, { status: 400 });
     }
     if (!process.env.GEMINI_API_KEY) {
       return NextResponse.json(
@@ -24,11 +39,9 @@ export async function POST(req: NextRequest) {
 
     const card = await generateCareCard(input, image);
 
-    // 로그인한 사용자면 반려동물 + 사진 + 케어카드를 저장한다. (비로그인이면 카드만 반환)
+    // 반려동물 + 사진 + 케어카드를 저장한다.
     let petId: string | null = null;
-    const supabase = createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
+    {
       try {
         // 1) 사진 업로드 (있으면). 비공개 버킷의 <userId>/ 폴더에 저장.
         let photoUrl: string | null = null;
@@ -77,6 +90,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ card, petId });
   } catch (e: any) {
     console.error('[analyze] error:', e);
-    return NextResponse.json({ error: e?.message || '분석 중 오류가 발생했습니다.' }, { status: 500 });
+    return NextResponse.json({ error: '분석 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' }, { status: 500 });
   }
 }

@@ -4,6 +4,7 @@ import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { PetInput, Species, Sex, CareCard as CareCardType } from '@/lib/types';
 import { Icon } from './icons';
 import CareCardView from './CareCard';
+import { fileToImage } from '@/lib/imageClient';
 
 export default function PetForm() {
   const [species, setSpecies] = useState<Species>('dog');
@@ -22,18 +23,17 @@ export default function PetForm() {
   const [unlocked, setUnlocked] = useState(false);
   const [petId, setPetId] = useState<string | null>(null);
 
-  function onFile(e: ChangeEvent<HTMLInputElement>) {
+  async function onFile(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      const url = reader.result as string; // "data:image/jpeg;base64,...."
-      setPreview(url);
-      const comma = url.indexOf(',');
-      const meta = url.slice(5, url.indexOf(';')); // "image/jpeg"
-      setImage({ mediaType: meta, data: url.slice(comma + 1) });
-    };
-    reader.readAsDataURL(file);
+    setError('');
+    try {
+      const { data, mediaType, preview } = await fileToImage(file);
+      setPreview(preview);
+      setImage({ data, mediaType });
+    } catch {
+      setError('사진을 처리하지 못했어요. 다른 사진을 시도해 주세요.');
+    }
   }
 
   async function submit(e: FormEvent) {

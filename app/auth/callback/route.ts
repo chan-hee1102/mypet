@@ -8,9 +8,14 @@ import { createClient } from '@/lib/supabase/server';
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
-  const next = searchParams.get('next') ?? '/';
+  const oauthError = searchParams.get('error'); // 사용자가 구글에서 취소/거부한 경우
 
-  if (code) {
+  // 오픈 리다이렉트 방지: 내부 상대경로만 허용
+  const rawNext = searchParams.get('next') ?? '/';
+  const next =
+    rawNext.startsWith('/') && !rawNext.startsWith('//') && !rawNext.startsWith('/\\') ? rawNext : '/';
+
+  if (!oauthError && code) {
     const supabase = createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {

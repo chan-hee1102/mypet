@@ -4,6 +4,7 @@ import { useState, type ReactNode, type FormEvent, type ChangeEvent } from 'reac
 import { Species, SymptomInput, SymptomTriage } from '@/lib/types';
 import { SYMPTOMS } from '@/lib/symptomData';
 import { Icon } from './icons';
+import { fileToImage } from '@/lib/imageClient';
 
 const VET_SEARCH = 'https://map.naver.com/p/search/%EB%8F%99%EB%AC%BC%EB%B3%91%EC%9B%90'; // 동물병원
 
@@ -50,18 +51,17 @@ export default function SymptomChecker() {
     setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
   }
 
-  function onFile(e: ChangeEvent<HTMLInputElement>) {
+  async function onFile(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      const url = reader.result as string;
-      setPreview(url);
-      const comma = url.indexOf(',');
-      const meta = url.slice(5, url.indexOf(';'));
-      setImage({ mediaType: meta, data: url.slice(comma + 1) });
-    };
-    reader.readAsDataURL(file);
+    try {
+      const { data, mediaType, preview } = await fileToImage(file);
+      setPreview(preview);
+      setImage({ data, mediaType });
+    } catch {
+      setPreview('');
+      setImage(null);
+    }
   }
 
   async function submit(e: FormEvent) {

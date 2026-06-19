@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { Icon } from '@/components/icons';
 import { createClient } from '@/lib/supabase/server';
+import { SITE } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'mypet — 반려동물 맞춤 케어 리포트',
@@ -52,7 +53,18 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         </header>
         {children}
         <footer className="site-footer">
-          <b>mypet</b> · AI 반려동물 케어 · 본 서비스는 일반 정보를 제공하며 수의사의 진단·진료를 대체하지 않습니다.
+          <nav className="footer-links">
+            <Link href="/terms">이용약관</Link>
+            <Link href="/privacy"><strong>개인정보처리방침</strong></Link>
+            <Link href="/refund">환불정책</Link>
+          </nav>
+          <p className="footer-biz">
+            {SITE.company} · 대표 {SITE.ceo} · 사업자등록번호 {SITE.bizNo} · 통신판매업신고 {SITE.mailOrderNo}<br />
+            {SITE.address} · {SITE.email} · {SITE.phone}
+          </p>
+          <p className="footer-note">
+            <b>mypet</b> · AI 반려동물 케어 · 본 서비스는 일반 정보를 제공하며 수의사의 진단·진료를 대체하지 않습니다.
+          </p>
         </footer>
       </body>
     </html>
