@@ -8,9 +8,27 @@ import { SITE } from '@/lib/site';
 import UserMenu from '@/components/UserMenu';
 import BottomNav from '@/components/BottomNav';
 
+const DESCRIPTION =
+  '사진과 간단한 정보만으로 AI가 만들어주는 반려동물 맞춤 케어 리포트. 품종·나이에 맞는 음식·운동·그루밍 가이드와 증상 체크까지. 강아지·고양이 모두 지원.';
+
 export const metadata: Metadata = {
-  title: 'mypet — 반려동물 맞춤 케어 리포트',
-  description: '사진과 간단한 정보만으로 AI가 만들어주는 반려동물 맞춤 케어 가이드. 강아지·고양이 모두 지원.',
+  metadataBase: new URL(SITE.url),
+  title: 'mypet — 반려동물 맞춤 AI 케어 리포트',
+  description: DESCRIPTION,
+  applicationName: 'mypet',
+  openGraph: {
+    type: 'website',
+    url: SITE.url,
+    siteName: 'mypet',
+    title: 'mypet — 반려동물 맞춤 AI 케어 리포트',
+    description: DESCRIPTION,
+    locale: 'ko_KR',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'mypet — 반려동물 맞춤 AI 케어 리포트',
+    description: DESCRIPTION,
+  },
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
