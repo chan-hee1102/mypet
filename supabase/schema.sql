@@ -4,6 +4,9 @@
 -- 안전하게 여러 번 실행 가능 (IF NOT EXISTS / DROP POLICY IF EXISTS).
 -- ============================================================================
 
+-- 0) 확장 ---------------------------------------------------------------------
+create extension if not exists vector;   -- RAG 임베딩 검색(pgvector)
+
 -- 1) 반려동물 -----------------------------------------------------------------
 create table if not exists public.pets (
   id          uuid primary key default gen_random_uuid(),
@@ -48,6 +51,63 @@ create table if not exists public.unlocks (
 create unique index if not exists unlocks_payment_key_uniq
   on public.unlocks (payment_key) where payment_key is not null;
 
+-- 4) 문의 (Contact form) --------------------------------------------------------
+create table if not exists public.inquiries (
+  id          uuid primary key default gen_random_uuid(),
+  user_id     uuid references auth.users (id) on delete set null,  -- 비로그인 문의 허용
+  name        text,
+  email       text not null,
+  category    text,                         -- '결제'|'환불'|'오류'|'제휴'|'기타'
+  message     text not null,
+  status      text not null default 'open' check (status in ('open','answered','closed')),
+  created_at  timestamptz not null default now()
+);
+create index if not exists inquiries_created_idx on public.inquiries (created_at desc);
+
+-- 5) 지식베이스 (RAG) — 검증된 수의 가이드라인 청크 + 임베딩 ------------------
+create table if not exists public.knowledge (
+  id           uuid primary key default gen_random_uuid(),
+  species      text not null check (species in ('dog', 'cat', 'both')),
+  topic        text not null,                 -- 예: '예방접종', '독성식품', '치아관리'
+  content      text not null,                 -- 프롬프트에 주입될 근거 텍스트
+  source_org   text not null,                 -- 출처 기관 (배지)
+  source_title text,
+  source_url   text,
+  embedding    vector(768),                   -- gemini-embedding-001 (768차원)
+  created_at   timestamptz not null default now()
+);
+-- 코사인 거리 인덱스 (행이 쌓이면 검색 가속)
+create index if not exists knowledge_embedding_idx
+  on public.knowledge using ivfflat (embedding vector_cosine_ops) with (lists = 100);
+
+-- 질문 임베딩과 가장 가까운 근거 청크 검색. species + 'both'(공통) 모두 포함.
+-- (반환형 변경 시 CREATE OR REPLACE가 막히므로 먼저 DROP — 재실행 안전)
+drop function if exists public.match_knowledge(vector, text, integer);
+create or replace function public.match_knowledge(
+  query_embedding vector(768),
+  match_species   text,
+  match_count     int default 6
+)
+returns table (
+  topic        text,
+  content      text,
+  source_org   text,
+  source_title text,
+  source_url   text,
+  similarity   float
+)
+language sql stable
+as $$
+  select
+    k.topic, k.content, k.source_org, k.source_title, k.source_url,
+    1 - (k.embedding <=> query_embedding) as similarity
+  from public.knowledge k
+  where k.embedding is not null
+    and (k.species = match_species or k.species = 'both')
+  order by k.embedding <=> query_embedding
+  limit match_count;
+$$;
+
 create index if not exists pets_user_id_idx       on public.pets (user_id);
 create index if not exists care_cards_pet_id_idx  on public.care_cards (pet_id);
 
@@ -57,6 +117,13 @@ create index if not exists care_cards_pet_id_idx  on public.care_cards (pet_id);
 alter table public.pets       enable row level security;
 alter table public.care_cards enable row level security;
 alter table public.unlocks    enable row level security;
+alter table public.inquiries  enable row level security;
+-- 문의: 제출/열람 모두 서버(service_role)로만 처리한다 → 클라이언트 정책 없음(전체 차단).
+--   · 제출: /api/inquiries 에서 검증 후 admin client로 INSERT
+--   · 열람: /admin 페이지(관리자 이메일만)에서 admin client로 SELECT
+
+alter table public.knowledge  enable row level security;
+-- 지식베이스: 검색은 서버(admin client)에서만. 클라이언트 정책 없음(전체 차단).
 
 drop policy if exists "pets_own" on public.pets;
 create policy "pets_own" on public.pets

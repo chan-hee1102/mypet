@@ -58,7 +58,7 @@ export default function TermsPage() {
       <h2>문의</h2>
       <p>
         {SITE.company} · 대표 {SITE.ceo}<br />
-        이메일 {SITE.email} · 전화 {SITE.phone}
+        이메일 {SITE.email}
       </p>
     </LegalLayout>
   );

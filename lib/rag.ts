@@ -13,7 +13,7 @@ export type KnowledgeChunk = {
   similarity: number;
 };
 
-async function embed(text: string): Promise<number[] | null> {
+export async function embed(text: string): Promise<number[] | null> {
   const key = process.env.GEMINI_API_KEY;
   if (!key) return null;
   try {

@@ -57,7 +57,7 @@ export default function PrivacyPage() {
 
       <h2>8. 개인정보 보호책임자</h2>
       <p>
-        성명: {SITE.ceo} · 연락처: {SITE.email} / {SITE.phone}<br />
+        성명: {SITE.ceo} · 연락처: {SITE.email}<br />
         기타 개인정보 침해에 대한 신고·상담은 개인정보침해신고센터(privacy.kisa.or.kr, 국번없이 118) 등에 문의하실 수 있습니다.
       </p>
     </LegalLayout>

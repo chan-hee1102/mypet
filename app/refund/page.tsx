@@ -26,7 +26,7 @@ export default function RefundPage() {
 
       <h2>3. 환불 절차</h2>
       <p>
-        ① 환불 요청은 {SITE.email} 또는 고객센터({SITE.phone})로 접수합니다.<br />
+        ① 환불 요청은 이메일({SITE.email})로 접수합니다.<br />
         ② 환불이 승인되면 결제수단과 동일한 방법으로 환불하며, 결제대행사(PG)·카드사 사정에 따라 영업일 기준 3~7일이 소요될 수 있습니다.
       </p>
 
@@ -43,7 +43,7 @@ export default function RefundPage() {
 
       <h2>문의</h2>
       <p>
-        {SITE.company} · 이메일 {SITE.email} · 전화 {SITE.phone}
+        {SITE.company} · 이메일 {SITE.email}
       </p>
     </LegalLayout>
   );
