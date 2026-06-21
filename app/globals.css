@@ -238,8 +238,19 @@ textarea.input{resize:vertical;min-height:46px}
 .section-head{display:flex;align-items:center;gap:11px;margin-bottom:12px}
 .section-ico{width:36px;height:36px;border-radius:11px;background:var(--brand-50);color:var(--brand);display:flex;align-items:center;justify-content:center;flex:none}
 .section-title{font-size:15.5px;font-weight:800;letter-spacing:-.01em}
-.section p{font-size:14px;color:var(--ink-2)}
+.section p{font-size:14px;color:var(--ink-2);line-height:1.65}
+.section p + p{margin-top:9px}
 .sub{font-size:12px;font-weight:700;color:var(--brand-600);margin:13px 0 5px}
+
+/* 접이식 섹션(아코디언) */
+.section--collapsible{padding-top:0;padding-bottom:0}
+.section--collapsible>summary.section-head{cursor:pointer;list-style:none;margin:0;padding:17px 0;user-select:none}
+.section--collapsible>summary.section-head::-webkit-details-marker{display:none}
+.section--collapsible[open]>summary.section-head{padding-bottom:4px}
+.section--collapsible .section-body{padding-bottom:18px}
+.section-chev{margin-left:auto;color:var(--muted);transition:transform .2s ease;flex:none}
+.section--collapsible[open] .section-chev{transform:rotate(180deg)}
+.section--collapsible.flags{padding-left:20px;padding-right:20px}
 .muted{color:var(--muted);font-size:13px}
 
 .meta-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
@@ -247,8 +258,8 @@ textarea.input{resize:vertical;min-height:46px}
 .meta-pill b{color:var(--ink);margin-left:5px}
 .meta-pill.accent{background:var(--brand-50);border-color:#cde7df;color:var(--brand-600)}
 
-.list{list-style:none;margin:6px 0 2px;display:flex;flex-direction:column;gap:5px}
-.list li{position:relative;padding-left:22px;font-size:13.8px;color:var(--ink-2)}
+.list{list-style:none;margin:6px 0 2px;display:flex;flex-direction:column;gap:9px}
+.list li{position:relative;padding-left:24px;font-size:13.8px;color:var(--ink-2);line-height:1.55}
 .list li svg{position:absolute;left:0;top:3px;color:var(--brand)}
 .list.warn li svg{color:var(--warn)}
 
@@ -263,8 +274,11 @@ textarea.input{resize:vertical;min-height:46px}
 .food-list{list-style:none;display:flex;flex-direction:column;gap:6px}
 .food-list li{font-size:13px;color:var(--ink-2);line-height:1.45}
 .food-list li b{color:var(--ink)}
-.note{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--warn);background:var(--warn-50);border:1px solid #f0dcae;border-radius:11px;padding:10px 12px;margin-top:12px}
+.note{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--warn);background:var(--warn-50);border:1px solid #f0dcae;border-radius:11px;padding:11px 13px;margin-top:12px}
 .note svg{flex:none;margin-top:1px}
+.note b{display:block;margin-bottom:5px}
+.note-list{list-style:disc;margin:0;padding-left:17px;display:flex;flex-direction:column;gap:4px}
+.note-list li{line-height:1.5}
 
 /* 주기 */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}

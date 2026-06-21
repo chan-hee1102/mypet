@@ -14,6 +14,10 @@ export interface PetInput {
   neutered?: boolean;
   weightKg?: number;
   notes?: string;
+  // ── 최근 접종 기록(알면 입력). 케어 일정 계산용. 모르면 비움 → "병원 확인"으로 처리. ──
+  lastVaccineCombo?: string; // 종합백신(DHPPL/FVRCP) 마지막 접종 "YYYY-MM"
+  lastVaccineRabies?: string; // 광견병 마지막 접종 "YYYY-MM"
+  lastHeartworm?: string; // 심장사상충·구충 마지막 투여 "YYYY-MM"
 }
 
 /** AI(Claude)가 생성하는 맞춤 케어 카드 */

@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: '로그인이 필요합니다.' }, { status: 401 });
 
-    const { data: pet } = await supabase.from('pets').select('id, species').eq('id', petId).single();
+    const { data: pet } = await supabase.from('pets').select('id, species, birth').eq('id', petId).single();
     if (!pet) return NextResponse.json({ error: '반려동물을 찾을 수 없습니다.' }, { status: 404 });
 
     const { count } = await supabase
@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       .eq('pet_id', petId);
     if (count && count > 0) return NextResponse.json({ ok: true, skipped: true });
 
-    const rows = defaultSchedules(pet.species as Species).map((s) => ({
+    const rows = defaultSchedules(pet.species as Species, { birth: pet.birth }).map((s) => ({
       ...s,
       pet_id: petId,
       user_id: user.id,

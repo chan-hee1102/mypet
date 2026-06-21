@@ -82,8 +82,13 @@ export async function POST(req: NextRequest) {
             .insert({ pet_id: pet.id, user_id: user.id, card });
           if (cardErr) console.error('[analyze] 케어카드 저장 실패:', cardErr.message);
 
-          // 기본 케어 일정 자동 생성 (예방접종·구충·검진 권장 예상치)
-          const schedules = defaultSchedules(input.species, input.birth).map((s) => ({
+          // 기본 케어 일정 자동 생성 — 마지막 접종일 입력 시 거기서 계산, 모르면 "병원 확인"
+          const schedules = defaultSchedules(input.species, {
+            birth: input.birth,
+            lastVaccineCombo: input.lastVaccineCombo,
+            lastVaccineRabies: input.lastVaccineRabies,
+            lastHeartworm: input.lastHeartworm,
+          }).map((s) => ({
             ...s,
             pet_id: pet.id,
             user_id: user.id,

@@ -9,13 +9,50 @@ import SourceBadges from './SourceBadges';
 
 const CONF_KO: Record<string, string> = { high: '높음', medium: '보통', low: '낮음' };
 
-function Section({ icon, title, variant, children }: { icon: string; title: string; variant?: string; children: ReactNode }) {
+/** RAG 내부 라벨("근거1)", "근거3, 5)")이 본문에 새어나온 것을 표시 단계에서만 제거. */
+function stripRefs(s: string): string {
+  if (!s) return s;
+  return s
+    .replace(/[.\s,]*근거[\d,\s]+(?=\))/g, '') // "…합니다. 근거1)" → "…합니다)"
+    .replace(/\(\s*\)/g, '') // 빈 괄호 "()" 정리
+    .replace(/\s{2,}/g, ' ')
+    .replace(/\s+([.,)])/g, '$1')
+    .trim();
+}
+
+function Section({
+  icon,
+  title,
+  variant,
+  collapsible,
+  defaultOpen = true,
+  children,
+}: {
+  icon: string;
+  title: string;
+  variant?: string;
+  collapsible?: boolean;
+  defaultOpen?: boolean;
+  children: ReactNode;
+}) {
+  const head = (
+    <>
+      <span className="section-ico"><Icon name={icon} size={18} /></span>
+      <h3 className="section-title">{title}</h3>
+      {collapsible && <span className="section-chev"><Icon name="chevron" size={18} /></span>}
+    </>
+  );
+  if (collapsible) {
+    return (
+      <details className={`section section--collapsible ${variant ?? ''}`} open={defaultOpen}>
+        <summary className="section-head">{head}</summary>
+        <div className="section-body">{children}</div>
+      </details>
+    );
+  }
   return (
     <section className={`section ${variant ?? ''}`}>
-      <div className="section-head">
-        <span className="section-ico"><Icon name={icon} size={18} /></span>
-        <h3 className="section-title">{title}</h3>
-      </div>
+      <div className="section-head">{head}</div>
       {children}
     </section>
   );
@@ -27,7 +64,7 @@ function Bullets({ items, warn }: { items: string[]; warn?: boolean }) {
       {items.map((x, i) => (
         <li key={i}>
           <Icon name={warn ? 'alert' : 'check'} size={14} strokeWidth={2} />
-          {x}
+          {stripRefs(x)}
         </li>
       ))}
     </ul>
@@ -40,20 +77,20 @@ function PremiumSections({ species, petName, card }: { species: Species; petName
   const goodFoods = Array.from(new Set([...GOOD_FOODS[species], ...card.food.goodFoods]));
   return (
     <>
-      <Section icon="scissors" title="그루밍">
-        <p>{card.grooming.summary}</p>
+      <Section icon="scissors" title="그루밍" collapsible defaultOpen={false}>
+        <p>{stripRefs(card.grooming.summary)}</p>
         {card.grooming.cautions.length > 0 && <Bullets items={card.grooming.cautions} warn />}
       </Section>
 
-      <Section icon="activity" title="운동·산책">
-        <p>{card.exercise.summary}</p>
+      <Section icon="activity" title="운동·산책" collapsible defaultOpen={false}>
+        <p>{stripRefs(card.exercise.summary)}</p>
         <div className="meta-grid">
           <span className="meta-pill accent">하루 권장<b>{card.exercise.walkMinutesPerDay}</b></span>
         </div>
         {card.exercise.cautions.length > 0 && <Bullets items={card.exercise.cautions} warn />}
       </Section>
 
-      <Section icon="bowl" title="음식 가이드">
+      <Section icon="bowl" title="음식 가이드" collapsible defaultOpen={false}>
         <div className="food">
           <div className="food-col good">
             <div className="food-col-head"><Icon name="check" size={15} strokeWidth={2.2} /> 먹어도 좋아요</div>
@@ -65,15 +102,23 @@ function PremiumSections({ species, petName, card }: { species: Species; petName
           </div>
         </div>
         {card.food.cautionFoods.length > 0 && (
-          <div className="note"><Icon name="info" size={15} /><span>{petName} 특이사항 관련 주의: {card.food.cautionFoods.join(', ')}</span></div>
+          <div className="note">
+            <Icon name="info" size={15} />
+            <div>
+              <b>{petName} 특이사항 관련 주의</b>
+              <ul className="note-list">
+                {card.food.cautionFoods.map((x, i) => <li key={i}>{stripRefs(x)}</li>)}
+              </ul>
+            </div>
+          </div>
         )}
       </Section>
 
-      <Section icon="calendar" title={`나이별 케어 · ${card.ageCare.stage}`}>
+      <Section icon="calendar" title={`나이별 케어 · ${card.ageCare.stage}`} collapsible defaultOpen={false}>
         <Bullets items={card.ageCare.tips} />
       </Section>
 
-      <Section icon="repeat" title="권장 주기">
+      <Section icon="repeat" title="권장 주기" collapsible defaultOpen={false}>
         <div className="stats">
           <div className="stat">
             <div className="stat-ico"><Icon name="repeat" size={18} /></div>
@@ -93,7 +138,7 @@ function PremiumSections({ species, petName, card }: { species: Species; petName
         </div>
       </Section>
 
-      <Section icon="cross" title="병원 방문이 필요한 신호" variant="flags">
+      <Section icon="cross" title="병원 방문이 필요한 신호" variant="flags" collapsible defaultOpen>
         <Bullets items={card.redFlags} warn />
       </Section>
 
@@ -162,7 +207,7 @@ export default function CareCardView({
 
       {/* ── 미리보기 (무료) ── */}
       <Section icon="info" title="사진·기본 분석">
-        <p>{preview.photoAnalysis.coatSkinNotes}</p>
+        <p>{stripRefs(preview.photoAnalysis.coatSkinNotes)}</p>
         <div className="meta-grid">
           <span className="meta-pill">체형<b>{preview.photoAnalysis.bodyCondition}</b></span>
           <span className="meta-pill">품종 추정<b>{preview.photoAnalysis.breedGuess}</b></span>
@@ -170,7 +215,7 @@ export default function CareCardView({
       </Section>
 
       <Section icon="tag" title="품종 특성">
-        <p>{preview.breedTraits.summary}</p>
+        <p>{stripRefs(preview.breedTraits.summary)}</p>
         {preview.breedTraits.healthRisks.length > 0 && (
           <>
             <div className="sub">주의할 질환</div>

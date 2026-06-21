@@ -15,6 +15,9 @@ export default function PetForm() {
   const [neutered, setNeutered] = useState<'' | 'yes' | 'no'>('');
   const [weight, setWeight] = useState('');
   const [notes, setNotes] = useState('');
+  const [lastCombo, setLastCombo] = useState('');
+  const [lastRabies, setLastRabies] = useState('');
+  const [lastHeartworm, setLastHeartworm] = useState('');
   const [image, setImage] = useState<{ data: string; mediaType: string } | null>(null);
   const [preview, setPreview] = useState('');
   const [loading, setLoading] = useState(false);
@@ -55,6 +58,9 @@ export default function PetForm() {
         neutered: neutered === '' ? undefined : neutered === 'yes',
         weightKg: weight ? Number(weight) : undefined,
         notes: notes.trim() || undefined,
+        lastVaccineCombo: lastCombo || undefined,
+        lastVaccineRabies: lastRabies || undefined,
+        lastHeartworm: lastHeartworm || undefined,
       };
       const res = await fetch('/api/analyze', {
         method: 'POST',
@@ -205,6 +211,28 @@ export default function PetForm() {
         <label className="label">특이사항 <span className="opt">선택</span></label>
         <textarea className="input" rows={2} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="알레르기·지병 등 (예: 닭고기 알레르기, 슬개골 탈구 이력)" />
       </div>
+
+      {/* 최근 접종 기록 — 알면 입력. 비우면 케어 일정이 "병원에서 이력 확인"으로 표시됨 */}
+      <details className="field">
+        <summary className="label" style={{ cursor: 'pointer', listStyle: 'revert' }}>
+          최근 접종 기록 <span className="opt">알면 입력</span>
+        </summary>
+        <p className="hint" style={{ marginTop: 6 }}>
+          마지막으로 맞은 달을 넣으면 다음 일정을 정확히 계산해요. <b>모르면 비워두세요</b> — 그땐 “병원에서 이력 확인”으로 안내합니다.
+        </p>
+        <div className="field" style={{ marginTop: 8 }}>
+          <label className="label">마지막 종합백신 ({species === 'dog' ? 'DHPPL' : 'FVRCP'})</label>
+          <input className="input" type="month" value={lastCombo} onChange={(e) => setLastCombo(e.target.value)} />
+        </div>
+        <div className="field">
+          <label className="label">마지막 광견병 접종</label>
+          <input className="input" type="month" value={lastRabies} onChange={(e) => setLastRabies(e.target.value)} />
+        </div>
+        <div className="field">
+          <label className="label">마지막 심장사상충·구충</label>
+          <input className="input" type="month" value={lastHeartworm} onChange={(e) => setLastHeartworm(e.target.value)} />
+        </div>
+      </details>
 
       {error && <div className="alert"><Icon name="alert" size={16} /> {error}</div>}
 

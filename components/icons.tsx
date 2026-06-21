@@ -122,6 +122,7 @@ const PATHS: Record<string, ReactNode> = {
       <path d="m21 16-5-5L7 20" />
     </>
   ),
+  chevron: <polyline points="6 9 12 15 18 9" />,
 };
 
 /** 구글 공식 4색 로고 (단색 Icon 시스템과 별개). */
