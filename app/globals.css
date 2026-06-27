@@ -322,6 +322,21 @@ textarea.input{resize:vertical;min-height:46px}
 .bstat-v{font-size:14.5px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
 .bstat-div{width:1px;background:var(--line);margin:4px 0;flex:none}
 .bstat-note{font-size:11.5px;color:var(--muted);text-align:center;margin-top:2px}
+
+/* 단계 표시 (1 품종가이드 → 2 맞춤진단) */
+.stepbar{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:16px}
+.stepbar-item{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.stepbar-item b{font-weight:800;color:var(--brand-600);font-size:10.5px;margin-left:1px}
+.stepbar-n{width:20px;height:20px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;flex:none}
+.stepbar-item.on{color:var(--ink)}
+.stepbar-item.on .stepbar-n{background:var(--brand);border-color:transparent;color:#fff}
+.stepbar-line{width:26px;height:2px;background:var(--line);border-radius:2px}
+
+/* 하단 고정 CTA (가이드에서 항상 보이는 다음 단계) */
+.bguide{padding-bottom:88px}
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:11px 16px;padding-bottom:calc(11px + env(safe-area-inset-bottom));background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.sticky-cta-inner{max-width:430px;margin:0 auto}
+.sticky-cta .btn{box-shadow:0 6px 18px rgba(17,160,122,.30)}
 /* 섹션 헤더 개수 배지 */
 .section-count{margin-left:8px;font-size:12px;font-weight:800;color:var(--brand-600);background:var(--brand-50);border-radius:999px;padding:1px 9px}
 .section--collapsible.flags .section-count{color:var(--warn);background:#fff}

@@ -60,6 +60,16 @@ function Bullets({ items }: { items: string[] }) {
   );
 }
 
+function Stepper({ step }: { step: 1 | 2 }) {
+  return (
+    <div className="stepbar">
+      <span className={`stepbar-item ${step >= 1 ? 'on' : ''}`}><span className="stepbar-n">1</span>품종 가이드 <b>무료</b></span>
+      <span className="stepbar-line" />
+      <span className={`stepbar-item ${step >= 2 ? 'on' : ''}`}><span className="stepbar-n">2</span>맞춤 진단</span>
+    </div>
+  );
+}
+
 export default function DiagnoseForm() {
   const router = useRouter();
   const [species, setSpecies] = useState<Species>('dog');
@@ -206,6 +216,8 @@ export default function DiagnoseForm() {
   // ═══════════ 1단계: 정보 입력 ═══════════
   if (stage === 'form1') {
     return (
+      <>
+      <Stepper step={1} />
       <form className="card" onSubmit={showGuide}>
         <div className="card-head">
           <h2 className="card-title">1단계 · 우리 아이 정보</h2>
@@ -273,6 +285,7 @@ export default function DiagnoseForm() {
           {loading ? <><span className="spinner" /> 불러오는 중…</> : <><Icon name="tag" size={18} /> 이 품종 가이드 보기 (무료)</>}
         </button>
       </form>
+      </>
     );
   }
 
@@ -281,6 +294,7 @@ export default function DiagnoseForm() {
     const { guide, ageLabel, foods } = result;
     return (
       <div className="bguide">
+        <Stepper step={1} />
         {guide.matched ? (
           <>
             <div className="bguide-hero">
@@ -358,11 +372,16 @@ export default function DiagnoseForm() {
         )}
 
         <div className="bguide-next">
-          <p>여기까지는 <b>일반 가이드</b>예요.<br /><b>{name}</b>의 사진·증상을 더하면 <b>우리 아이 맞춤 진단</b>을 받을 수 있어요.</p>
-          <button className="btn btn--primary btn--lg btn--block" onClick={() => { setStage('form2'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-            증상 진단 · 맞춤 가이드 받기 (2단계) →
-          </button>
-          <button className="btn btn--ghost btn--block" style={{ marginTop: 6 }} onClick={() => setStage('form1')}>← 정보 수정</button>
+          <p>여기까지는 <b>무료 일반 가이드</b>예요.<br /><b>{name}</b>의 <b>사진·증상</b>을 더하면 <b>우리 아이 맞춤 진단</b>을 받을 수 있어요.</p>
+          <button className="btn btn--ghost btn--block" onClick={() => setStage('form1')}>← 정보 수정</button>
+        </div>
+
+        <div className="sticky-cta">
+          <div className="sticky-cta-inner">
+            <button className="btn btn--primary btn--lg btn--block" onClick={() => { setStage('form2'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+              2단계 · 맞춤 진단 받기 ({SITE.pricePerPet.toLocaleString()}원) →
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -370,6 +389,8 @@ export default function DiagnoseForm() {
 
   // ═══════════ 2단계: 사진·증상 → 결제 ═══════════
   return (
+    <>
+    <Stepper step={2} />
     <div className="card">
       <div className="card-head">
         <h2 className="card-title">2단계 · {name} 맞춤 진단</h2>
@@ -417,5 +438,6 @@ export default function DiagnoseForm() {
       </p>
       <button className="btn btn--ghost btn--block" style={{ marginTop: 6 }} onClick={() => setStage('guide')} disabled={paying}>← 품종 가이드로</button>
     </div>
+    </>
   );
 }
