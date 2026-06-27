@@ -289,11 +289,14 @@ export default function DiagnoseForm() {
               <p className="bguide-en">{guide.breedEn}{ageLabel ? ` · ${name} ${ageLabel}` : ''}</p>
             </div>
 
-            <div className="stats bguide-stats">
-              <div className="stat"><div className="stat-ico"><Icon name="tag" size={18} /></div><div className="stat-label">크기</div><div className="stat-value">{guide.size ?? '-'}</div></div>
-              <div className="stat"><div className="stat-ico"><Icon name="activity" size={18} /></div><div className="stat-label">체중</div><div className="stat-value">{guide.weightKg ? `${guide.weightKg}kg` : '-'}</div></div>
-              <div className="stat"><div className="stat-ico"><Icon name="calendar" size={18} /></div><div className="stat-label">기대수명</div><div className="stat-value">{guide.lifeYears ? `${guide.lifeYears}년` : '-'}</div></div>
+            <div className="bstat-row">
+              <div className="bstat"><span className="bstat-l">크기</span><span className="bstat-v">{guide.size ?? '-'}</span></div>
+              <span className="bstat-div" />
+              <div className="bstat"><span className="bstat-l">체중</span><span className="bstat-v">{guide.weightKg ? `${guide.weightKg}kg` : '-'}</span></div>
+              <span className="bstat-div" />
+              <div className="bstat"><span className="bstat-l">기대수명</span><span className="bstat-v">{guide.lifeYears ? `${guide.lifeYears}년` : '-'}</span></div>
             </div>
+            <p className="bstat-note">※ 품종 평균 기준이에요 · 우리 아이 실제 값과 다를 수 있어요</p>
 
             <GuideCard icon="paw" title="이런 아이예요" collapsible defaultOpen>
               {guide.summary && <p>{guide.summary}</p>}
