@@ -68,14 +68,17 @@ create index if not exists inquiries_created_idx on public.inquiries (created_at
 create table if not exists public.knowledge (
   id           uuid primary key default gen_random_uuid(),
   species      text not null check (species in ('dog', 'cat', 'both')),
-  topic        text not null,                 -- 예: '예방접종', '독성식품', '치아관리'
+  topic        text not null,                 -- 예: '예방접종', '독성식품', '품종'
   content      text not null,                 -- 프롬프트에 주입될 근거 텍스트
   source_org   text not null,                 -- 출처 기관 (배지)
   source_title text,
   source_url   text,
+  breed        text,                          -- 품종 청크일 때 정확 매칭용(한국어 품종명)
   embedding    vector(768),                   -- gemini-embedding-001 (768차원)
   created_at   timestamptz not null default now()
 );
+alter table public.knowledge add column if not exists breed text; -- 기존 DB 호환
+create index if not exists knowledge_breed_idx on public.knowledge (breed);
 -- 코사인 거리 인덱스 (행이 쌓이면 검색 가속)
 create index if not exists knowledge_embedding_idx
   on public.knowledge using ivfflat (embedding vector_cosine_ops) with (lists = 100);
@@ -103,10 +106,31 @@ as $$
     1 - (k.embedding <=> query_embedding) as similarity
   from public.knowledge k
   where k.embedding is not null
+    and k.topic <> '품종'                       -- 품종 청크는 정확 매칭(getBreedProfile)으로만 사용
     and (k.species = match_species or k.species = 'both')
   order by k.embedding <=> query_embedding
   limit match_count;
 $$;
+
+-- 6) 일회성 진단 (익명 — 로그인 없이 결제·진단) --------------------------------
+create table if not exists public.diagnoses (
+  id          uuid primary key default gen_random_uuid(),
+  token       text not null unique,          -- 비밀 URL 토큰(재열람용)
+  species     text not null check (species in ('dog', 'cat')),
+  input       jsonb not null,                -- PetInput (이름·품종·성별·증상 등)
+  photo_b64   text,                          -- 생성 전까지 임시 보관(생성 후 비움)
+  photo_mime  text,
+  teaser      jsonb,                         -- 무료 티저(품종 인식·주의질환 수 등)
+  card        jsonb,                          -- 결제·생성 후 전체 진단
+  status      text not null default 'pending' check (status in ('pending','paid','done','failed')),
+  amount      integer,
+  order_id    text,
+  payment_id  text,
+  provider    text,
+  created_at  timestamptz not null default now(),
+  paid_at     timestamptz
+);
+create index if not exists diagnoses_token_idx on public.diagnoses (token);
 
 create index if not exists pets_user_id_idx       on public.pets (user_id);
 create index if not exists care_cards_pet_id_idx  on public.care_cards (pet_id);
@@ -124,6 +148,9 @@ alter table public.inquiries  enable row level security;
 
 alter table public.knowledge  enable row level security;
 -- 지식베이스: 검색은 서버(admin client)에서만. 클라이언트 정책 없음(전체 차단).
+
+alter table public.diagnoses  enable row level security;
+-- 일회성 진단: 서버(service_role) + 비밀 토큰으로만 접근. 클라이언트 정책 없음(전체 차단).
 
 drop policy if exists "pets_own" on public.pets;
 create policy "pets_own" on public.pets

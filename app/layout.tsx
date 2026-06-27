@@ -57,7 +57,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             <nav className="appbar-nav">
               <Link href="/symptom" className="nav-link nav-desktop">증상 체크</Link>
               {user && <Link href="/pets" className="nav-link nav-desktop">내 아이</Link>}
-              <Link href="/create" className="btn btn--primary btn--sm nav-desktop">시작하기</Link>
+              <Link href="/diagnose" className="btn btn--primary btn--sm nav-desktop">진단하기</Link>
               {user ? (
                 <UserMenu email={user.email ?? ''} />
               ) : (

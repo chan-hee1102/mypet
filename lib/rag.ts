@@ -54,6 +54,43 @@ export async function retrieveKnowledge(query: string, species: Species, count =
   }
 }
 
+/**
+ * 등록/추정 품종에 해당하는 품종 프로필 청크를 정확 매칭으로 가져온다.
+ * 품종명에 괄호·쉼표가 있으면(예: "웰시코기(펨브로크)") 앞 토큰으로 매칭.
+ * 정확 매칭이 우선이며, 실패 시 retrieveKnowledge의 의미검색이 폴백한다.
+ */
+export async function getBreedProfile(breed: string | undefined | null, species: Species): Promise<KnowledgeChunk | null> {
+  if (!breed) return null;
+  const base = breed.split(/[(,/·]/)[0].trim();
+  if (base.length < 2) return null;
+  try {
+    const admin = createAdminClient();
+    const sel = 'topic, content, source_org, source_title, source_url';
+    // 1) breed 칼럼 정확 매칭 우선
+    let { data } = await admin
+      .from('knowledge')
+      .select(sel)
+      .eq('topic', '품종')
+      .eq('species', species)
+      .ilike('breed', `%${base}%`)
+      .limit(1);
+    // 2) 없으면 본문에서 품종명 포함 매칭
+    if (!data || !data.length) {
+      ({ data } = await admin
+        .from('knowledge')
+        .select(sel)
+        .eq('topic', '품종')
+        .eq('species', species)
+        .ilike('content', `%${base}%`)
+        .limit(1));
+    }
+    if (data && data.length) return { ...(data[0] as any), similarity: 1 } as KnowledgeChunk;
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 /** 청크를 프롬프트 주입용 근거 텍스트로. */
 export function knowledgeToPrompt(chunks: KnowledgeChunk[]): string {
   if (!chunks.length) return '';

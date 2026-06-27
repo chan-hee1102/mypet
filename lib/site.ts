@@ -6,8 +6,8 @@ export const SITE = {
   name: 'mypet',
   serviceName: 'mypet (마이펫)',
   url: 'https://mypet.taif.kr',
-  /** 마리당 1회 결제 금액(원) — 가격 단일 출처 */
-  pricePerPet: 3900,
+  /** 1회 진단 결제 금액(원) — 가격 단일 출처 */
+  pricePerPet: 2900,
 
   // ── 사업자정보 (사업자등록증 기준) ─────────────────────────
   company: '카이랩',

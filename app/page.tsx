@@ -41,7 +41,7 @@ export default async function Home() {
         <h1>우리 아이에게 꼭 맞는<br /><em>케어 리포트</em>를 1분 만에</h1>
         <p className="lhero-sub">사진과 간단한 정보만 입력하면, 품종·나이에 맞춘 음식·운동·그루밍 가이드를 만들어 드립니다.</p>
         <div className="lhero-cta">
-          <Link href="/create" className="btn btn--primary btn--lg"><Icon name="sparkle" size={17} filled /> 무료로 시작하기</Link>
+          <Link href="/diagnose" className="btn btn--primary btn--lg"><Icon name="sparkle" size={17} filled /> 바로 진단하기</Link>
           <Link href="#how" className="btn btn--secondary btn--lg">어떻게 작동하나요</Link>
         </div>
         <div className="trust">
@@ -191,27 +191,27 @@ export default async function Home() {
         </div>
         <div className="price-grid">
           <div className="price-card">
-            <div className="price-name">무료 체험</div>
+            <div className="price-name">무료 미리보기</div>
             <div className="price-amt">₩0</div>
-            <div className="price-note">로그인 없이 바로 체험</div>
+            <div className="price-note">로그인 없이 바로</div>
             <ul className="price-list">
-              <li><Icon name="check" size={15} strokeWidth={2.2} /> 리포트 미리보기 (사진 분석·품종 특성)</li>
-              <li><Icon name="check" size={15} strokeWidth={2.2} /> 반려동물 1마리</li>
+              <li><Icon name="check" size={15} strokeWidth={2.2} /> 품종 인식·평균수명 확인</li>
+              <li><Icon name="check" size={15} strokeWidth={2.2} /> 어떤 진단을 받는지 미리보기</li>
               <li><Icon name="check" size={15} strokeWidth={2.2} /> 강아지·고양이 모두 지원</li>
             </ul>
-            <Link href="/create" className="btn btn--secondary btn--block">무료로 시작</Link>
+            <Link href="/diagnose" className="btn btn--secondary btn--block">진단 시작하기</Link>
           </div>
           <div className="price-card featured">
             <span className="price-badge">추천</span>
-            <div className="price-name">프리미엄 리포트</div>
-            <div className="price-amt">₩3,900<small> / 마리</small></div>
-            <div className="price-note">전체 리포트 해금</div>
+            <div className="price-name">전체 진단 리포트</div>
+            <div className="price-amt">₩2,900<small> / 1회</small></div>
+            <div className="price-note">결제 즉시 전체 공개</div>
             <ul className="price-list">
-              <li><Icon name="check" size={15} strokeWidth={2.2} /> 전체 리포트 (음식 금지·나이별·주기·병원 신호)</li>
-              <li><Icon name="check" size={15} strokeWidth={2.2} /> 여러 마리 저장·재열람</li>
-              <li><Icon name="check" size={15} strokeWidth={2.2} /> 목욕·예방접종 주기 알림 <small>(준비 중)</small></li>
+              <li><Icon name="check" size={15} strokeWidth={2.2} /> 품종 특성·호발/유전질환 (수의 근거)</li>
+              <li><Icon name="check" size={15} strokeWidth={2.2} /> 음식 금지목록·나이별·주기·병원 신호</li>
+              <li><Icon name="check" size={15} strokeWidth={2.2} /> 로그인 없이 · 비밀 링크로 다시 보기</li>
             </ul>
-            <Link href="/create" className="btn btn--primary btn--block">전체 리포트 받기</Link>
+            <Link href="/diagnose" className="btn btn--primary btn--block">진단 시작하기</Link>
           </div>
         </div>
       </section>
@@ -236,7 +236,7 @@ export default async function Home() {
       <section className="cta-band">
         <h2>지금 우리 아이 케어 리포트를 받아보세요</h2>
         <p>사진 한 장이면 충분해요. 무료로 바로 시작할 수 있습니다.</p>
-        <Link href="/create" className="btn btn--white btn--lg"><Icon name="sparkle" size={17} filled /> 무료로 시작하기</Link>
+        <Link href="/diagnose" className="btn btn--white btn--lg"><Icon name="sparkle" size={17} filled /> 바로 진단하기</Link>
       </section>
     </main>
   );

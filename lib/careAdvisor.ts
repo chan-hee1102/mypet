@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type } from '@google/genai';
 import { PetInput, CareCard } from './types';
 import { TOXIC_FOODS, computeAge, lifeStage } from './petData';
-import { retrieveKnowledge, knowledgeToPrompt, knowledgeSources } from './rag';
+import { retrieveKnowledge, knowledgeToPrompt, knowledgeSources, getBreedProfile } from './rag';
 
 // 안정·저비용·넉넉한 무료 할당량. 더 빠르게는 'gemini-3.1-flash-lite' 가능.
 const MODEL = 'gemini-2.5-flash';
@@ -91,14 +91,24 @@ export async function generateCareCard(
   const speciesKo = input.species === 'dog' ? '강아지' : '고양이';
   const toxicList = TOXIC_FOODS[input.species].map((f) => `${f.name}(${f.reason})`).join('; ');
 
-  // RAG: 검증된 수의 가이드라인 근거 검색
+  // RAG: ① 등록 품종의 공식 프로필을 정확 매칭으로 우선 확보 + ② 의미검색으로 일반 근거 보강
+  const breedProfile = await getBreedProfile(input.breed, input.species);
   const ragQuery = [input.breed, speciesKo, stage, '예방접종 영양 호발질환 케어', input.notes]
     .filter(Boolean)
     .join(' ');
   const chunks = await retrieveKnowledge(ragQuery, input.species, 6);
-  const evidenceBlock = chunks.length
-    ? `\n\n[검증된 수의 근거 — 반드시 우선 반영]\n아래는 신뢰할 수 있는 수의 가이드라인에서 검색된 근거다. 케어 카드 내용이 이 근거와 충돌하지 않게 하고, 관련 항목은 이 근거를 우선 반영하라:\n${knowledgeToPrompt(chunks)}`
-    : '';
+  // 품종 프로필을 맨 앞에 두고 중복 제거 (출처 배지/근거 통합용)
+  const evidenceChunks = breedProfile
+    ? [breedProfile, ...chunks.filter((c) => c.content !== breedProfile.content)]
+    : chunks;
+
+  let evidenceBlock = '';
+  if (breedProfile) {
+    evidenceBlock += `\n\n[품종 프로필 — ${input.breed} · 출처:${breedProfile.source_org}]\n이 아이의 품종 공식 정보다. 품종 특성·호발질환·그루밍·운동은 반드시 이 내용을 우선 반영하라:\n${breedProfile.content}`;
+  }
+  if (chunks.length) {
+    evidenceBlock += `\n\n[검증된 수의 근거 — 반드시 우선 반영]\n아래는 신뢰할 수 있는 수의 가이드라인에서 검색된 근거다. 케어 카드 내용이 이 근거와 충돌하지 않게 하고, 관련 항목은 이 근거를 우선 반영하라:\n${knowledgeToPrompt(chunks)}`;
+  }
 
   const system = `당신은 한국 반려동물 보호자를 돕는 따뜻하고 신뢰할 수 있는 케어 어시스턴트입니다.
 
@@ -148,7 +158,7 @@ export async function generateCareCard(
   }
   try {
     const card = JSON.parse(text) as CareCard;
-    if (chunks.length) card.sources = knowledgeSources(chunks);
+    if (evidenceChunks.length) card.sources = knowledgeSources(evidenceChunks);
     return card;
   } catch {
     throw new Error('AI 응답 형식 오류. 다시 시도해 주세요.');

@@ -23,7 +23,7 @@ export default function BottomNav({ authed }: { authed: boolean }) {
         <span className="bn-ico"><Icon name="cross" size={21} /></span>
         <span className="bn-label">증상</span>
       </Link>
-      <Link href="/create" className="bn-item bn-center" aria-label="케어 리포트 만들기">
+      <Link href="/diagnose" className="bn-item bn-center" aria-label="진단하기">
         <span className="bn-fab"><Icon name="sparkle" size={22} filled /></span>
       </Link>
       <Link href="/pets" className={`bn-item ${isActive('/pets') ? 'on' : ''}`}>

@@ -293,6 +293,35 @@ textarea.input{resize:vertical;min-height:46px}
 
 .disclaimer{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12px;color:var(--muted);text-align:center;padding:4px 0}
 
+/* ── 일회성 진단: 티저 ── */
+.teaser-card{text-align:center}
+.teaser-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--brand-600);background:var(--brand-50);border:1px solid #cde7df;border-radius:999px;padding:5px 12px}
+.teaser-title{font-size:21px;font-weight:800;margin:12px 0 16px;letter-spacing:-.02em}
+.teaser-hit{display:flex;gap:10px;align-items:center;text-align:left;background:var(--good-50);border:1px solid #cdeadb;border-radius:14px;padding:14px 16px;margin-bottom:14px}
+.teaser-hit>svg{color:var(--good);flex:none}
+.teaser-hit b{display:block;font-size:15.5px}
+.teaser-hit span{display:block;font-size:13px;color:var(--ink-2);margin-top:3px}
+.teaser-locked{text-align:left;background:var(--surface-2);border:1px dashed var(--line);border-radius:14px;padding:15px 16px;margin-bottom:16px}
+.teaser-locked-head{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:var(--muted);margin-bottom:11px}
+.teaser-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.teaser-list li{display:flex;align-items:center;gap:10px;font-size:13.8px;color:var(--ink-2)}
+.teaser-list li svg{color:var(--brand);flex:none}
+.teaser-terms{font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.6}
+
+/* ── 진단 결과: 저장 안내 배너 ── */
+.save-banner{display:flex;align-items:center;gap:9px;flex-wrap:wrap;background:var(--brand-50);border:1px solid #cde7df;border-radius:14px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:var(--brand-600)}
+.save-banner>svg{flex:none}
+.save-banner .btn{margin-left:auto}
+
+/* ── 어르신 친화: 결과 페이지 큰 글씨·넉넉한 간격 ── */
+.report--large .section p{font-size:16px;line-height:1.75}
+.report--large .section-title{font-size:18px}
+.report--large .list li{font-size:15.5px;line-height:1.65;padding-left:26px}
+.report--large .food-list li{font-size:15px;line-height:1.6}
+.report--large .report-title{font-size:28px}
+.report--large .stat-value{font-size:15px}
+.report--large .note,.report--large .note-list li{font-size:14px}
+
 /* ── 페이월 ── */
 .paywall{background:var(--surface);border:1.5px solid transparent;border-radius:18px;padding:28px 22px;text-align:center;box-shadow:0 0 0 2px var(--brand),var(--shadow);background-image:linear-gradient(180deg,#f4fbf8,#fff 34%)}
 .paywall-lock{width:54px;height:54px;border-radius:15px;background:linear-gradient(145deg,#14ab83,#0b7d5f);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 8px 18px rgba(17,160,122,.3)}
