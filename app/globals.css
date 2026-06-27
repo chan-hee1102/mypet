@@ -325,6 +325,12 @@ textarea.input{resize:vertical;min-height:46px}
 .section--sky{background:#eff5fb;border-color:#d6e6f5}
 .section--sky .section-ico{background:#fff;color:#2f6fb3}
 
+/* 주의할 질환 — 미니카드 그리드 */
+.dz-grid{display:flex;flex-direction:column;gap:8px;margin-top:2px}
+.dz-item{background:#fff;border:1px solid #f0dcae;border-radius:11px;padding:10px 13px}
+.dz-item b{display:block;font-size:13.8px;font-weight:700;color:var(--ink)}
+.dz-item span{display:block;font-size:12.5px;color:var(--ink-2);line-height:1.55;margin-top:3px}
+
 /* 입력 단위(살) */
 .input-suffix{position:relative}
 .input-suffix .input{padding-right:40px}

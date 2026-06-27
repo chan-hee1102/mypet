@@ -278,8 +278,8 @@ export default function DiagnoseForm() {
               <div className="stat"><div className="stat-ico"><Icon name="calendar" size={18} /></div><div className="stat-label">기대수명</div><div className="stat-value">{guide.lifeYears ? `${guide.lifeYears}년` : '-'}</div></div>
             </div>
 
-            <GuideCard icon="paw" title="이런 강아지예요">
-              {guide.intro && <p>{guide.intro}</p>}
+            <GuideCard icon="paw" title="이런 아이예요">
+              {guide.summary && <p>{guide.summary}</p>}
               {guide.traits && guide.traits.length > 0 && <Bullets items={guide.traits} />}
             </GuideCard>
 
@@ -287,12 +287,25 @@ export default function DiagnoseForm() {
               <GuideCard icon="scissors" title="털·그루밍" variant="section--mint"><Bullets items={guide.grooming} /></GuideCard>
             )}
 
-            <GuideCard icon="activity" title="산책·운동 주의" variant="section--sky">
-              <Bullets items={guide.exercise && guide.exercise.length > 0 ? guide.exercise : ['적절한 산책과 놀이로 활동량을 채워주세요. 우리 아이에게 맞는 정확한 운동량은 2단계 맞춤 진단에서 알려드려요.']} />
+            <GuideCard icon="activity" title="산책·운동" variant="section--sky">
+              <Bullets items={guide.exercise && guide.exercise.length > 0 ? guide.exercise : ['적절한 산책과 놀이로 활동량을 채워주세요. 정확한 운동량은 2단계 맞춤 진단에서 알려드려요.']} />
             </GuideCard>
 
-            {guide.diseases && guide.diseases.length > 0 && (
-              <GuideCard icon="cross" title="주의할 질환" variant="flags"><Bullets items={guide.diseases} /></GuideCard>
+            {guide.hereditary && guide.hereditary.length > 0 && (
+              <GuideCard icon="cross" title="주의할 질환" variant="flags">
+                <div className="dz-grid">
+                  {guide.hereditary.map((h, i) => (
+                    <div className="dz-item" key={i}>
+                      <b>{h.name}</b>
+                      {h.note && <span>{h.note}</span>}
+                    </div>
+                  ))}
+                </div>
+              </GuideCard>
+            )}
+
+            {guide.cautions && guide.cautions.length > 0 && (
+              <GuideCard icon="shield" title="키울 때 이건 꼭"><Bullets items={guide.cautions} /></GuideCard>
             )}
 
             <GuideCard icon="bowl" title={`${speciesKo}가 먹는 음식`}>
@@ -311,6 +324,7 @@ export default function DiagnoseForm() {
             {guide.sourceOrg && (
               <SourceBadges sources={[{ org: guide.sourceOrg, title: guide.sourceTitle ?? null, url: guide.sourceUrl ?? null }]} />
             )}
+            <p className="disclaimer"><Icon name="info" size={13} /> 본 정보는 일반 가이드이며 수의사의 진단을 대체하지 않습니다.</p>
           </>
         ) : (
           <div className="card" style={{ textAlign: 'center' }}>
