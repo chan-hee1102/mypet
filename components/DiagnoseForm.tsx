@@ -101,8 +101,26 @@ export default function DiagnoseForm() {
       if (!startRes.ok) throw new Error(started.error || '오류가 발생했습니다.');
       const token = started.token as string;
 
-      // 실결제(PortOne)는 키 발급 후 여기서 requestPayment → paymentId. 현재는 샌드박스.
+      // 결제: PortOne 키가 설정돼 있으면 실제 결제창 호출(KG이니시스 등), 없으면 샌드박스(테스트) 통과.
       let paymentId: string | null = null;
+      if (PAYMENTS_LIVE) {
+        const PortOne = await import('@portone/browser-sdk/v2');
+        const pid = `mypet-${token}`;
+        const resp = await PortOne.requestPayment({
+          storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID as string,
+          channelKey: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY as string,
+          paymentId: pid,
+          orderName: `mypet 맞춤 진단 (${name})`,
+          totalAmount: SITE.pricePerPet,
+          currency: 'CURRENCY_KRW' as any,
+          payMethod: 'CARD' as any,
+        });
+        if (!resp || resp.code != null) {
+          throw new Error(resp?.message || '결제가 취소되었어요.');
+        }
+        paymentId = resp.paymentId ?? pid;
+      }
+
       const finRes = await fetch('/api/diagnose/finalize', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
