@@ -24,13 +24,30 @@ function ageToBirth(age: string): string | undefined {
   return `${now.getFullYear() - Math.floor(n)}-${String(now.getMonth() + 1).padStart(2, '0')}`;
 }
 
-function GuideCard({ icon, title, variant, children }: { icon: string; title: string; variant?: string; children: ReactNode }) {
+function GuideCard({
+  icon, title, variant, collapsible, defaultOpen, count, children,
+}: {
+  icon: string; title: string; variant?: string; collapsible?: boolean; defaultOpen?: boolean; count?: number; children: ReactNode;
+}) {
+  const head = (
+    <>
+      <span className="section-ico"><Icon name={icon} size={18} /></span>
+      <h3 className="section-title">{title}</h3>
+      {count != null && <span className="section-count">{count}</span>}
+      {collapsible && <span className="section-chev"><Icon name="chevron" size={18} /></span>}
+    </>
+  );
+  if (collapsible) {
+    return (
+      <details className={`section section--collapsible ${variant ?? ''}`} open={defaultOpen}>
+        <summary className="section-head">{head}</summary>
+        <div className="section-body">{children}</div>
+      </details>
+    );
+  }
   return (
     <section className={`section ${variant ?? ''}`}>
-      <div className="section-head">
-        <span className="section-ico"><Icon name={icon} size={18} /></span>
-        <h3 className="section-title">{title}</h3>
-      </div>
+      <div className="section-head">{head}</div>
       {children}
     </section>
   );
@@ -278,21 +295,21 @@ export default function DiagnoseForm() {
               <div className="stat"><div className="stat-ico"><Icon name="calendar" size={18} /></div><div className="stat-label">기대수명</div><div className="stat-value">{guide.lifeYears ? `${guide.lifeYears}년` : '-'}</div></div>
             </div>
 
-            <GuideCard icon="paw" title="이런 아이예요">
+            <GuideCard icon="paw" title="이런 아이예요" collapsible defaultOpen>
               {guide.summary && <p>{guide.summary}</p>}
               {guide.traits && guide.traits.length > 0 && <Bullets items={guide.traits} />}
             </GuideCard>
 
             {guide.grooming && guide.grooming.length > 0 && (
-              <GuideCard icon="scissors" title="털·그루밍" variant="section--mint"><Bullets items={guide.grooming} /></GuideCard>
+              <GuideCard icon="scissors" title="털·그루밍" variant="section--mint" collapsible><Bullets items={guide.grooming} /></GuideCard>
             )}
 
-            <GuideCard icon="activity" title="산책·운동" variant="section--sky">
+            <GuideCard icon="activity" title="산책·운동" variant="section--sky" collapsible>
               <Bullets items={guide.exercise && guide.exercise.length > 0 ? guide.exercise : ['적절한 산책과 놀이로 활동량을 채워주세요. 정확한 운동량은 2단계 맞춤 진단에서 알려드려요.']} />
             </GuideCard>
 
             {guide.hereditary && guide.hereditary.length > 0 && (
-              <GuideCard icon="cross" title="주의할 질환" variant="flags">
+              <GuideCard icon="cross" title="주의할 질환" variant="flags" collapsible count={guide.hereditary.length}>
                 <div className="dz-grid">
                   {guide.hereditary.map((h, i) => (
                     <div className="dz-item" key={i}>
@@ -305,10 +322,10 @@ export default function DiagnoseForm() {
             )}
 
             {guide.cautions && guide.cautions.length > 0 && (
-              <GuideCard icon="shield" title="키울 때 이건 꼭"><Bullets items={guide.cautions} /></GuideCard>
+              <GuideCard icon="shield" title="키울 때 이건 꼭" collapsible><Bullets items={guide.cautions} /></GuideCard>
             )}
 
-            <GuideCard icon="bowl" title={`${speciesKo}가 먹는 음식`}>
+            <GuideCard icon="bowl" title={`${speciesKo}가 먹는 음식`} collapsible count={foods.toxic.length}>
               <div className="food">
                 <div className="food-col good">
                   <div className="food-col-head"><Icon name="check" size={15} strokeWidth={2.2} /> 먹어도 좋아요</div>
