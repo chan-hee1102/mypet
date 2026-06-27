@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, type ChangeEvent, type FormEvent, type ReactNode } from 'react';
+import { useState, useEffect, useRef, type ChangeEvent, type FormEvent, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { PetInput, Species, Sex } from '@/lib/types';
@@ -66,6 +66,145 @@ function Stepper({ step }: { step: 1 | 2 }) {
       <span className={`stepbar-item ${step >= 1 ? 'on' : ''}`}><span className="stepbar-n">1</span>품종 가이드 <b>무료</b></span>
       <span className="stepbar-line" />
       <span className={`stepbar-item ${step >= 2 ? 'on' : ''}`}><span className="stepbar-n">2</span>맞춤 진단</span>
+    </div>
+  );
+}
+
+type Sec = { icon: string; title: string; short: string; variant?: string; count?: number; body: ReactNode };
+
+/** 1단계 품종 가이드 — 섹션을 탭/스와이프로 한 개씩(스크롤 최소). */
+function GuideView({
+  result, name, speciesKo, breed, onNext, onEdit,
+}: {
+  result: GuideResult; name: string; speciesKo: string; breed: string; onNext: () => void; onEdit: () => void;
+}) {
+  const { guide, ageLabel, foods } = result;
+  const [idx, setIdx] = useState(0);
+  const touchX = useRef<number | null>(null);
+
+  if (!guide.matched) {
+    return (
+      <div className="bguide">
+        <Stepper step={1} />
+        <div className="card" style={{ textAlign: 'center' }}>
+          <div className="gate-ico" style={{ margin: '0 auto 10px' }}><Icon name="paw" size={22} filled /></div>
+          <h2 className="card-title">{breed ? `'${breed}'` : speciesKo} 일반 가이드를 못 찾았어요</h2>
+          <p className="card-desc" style={{ marginTop: 6 }}>
+            믹스견이거나 등록 전 품종일 수 있어요(예: 폼피츠 = 포메라니안×스피츠 믹스).
+            순종이면 <b>정확한 품종명</b>으로 다시 입력하거나, 2단계에서 <b>사진으로 분석</b>해 드립니다.
+          </p>
+          <button className="btn btn--ghost btn--block" style={{ marginTop: 12 }} onClick={onEdit}>← 정보 수정</button>
+        </div>
+        <div className="sticky-cta"><div className="sticky-cta-inner">
+          <button className="btn btn--primary btn--lg btn--block" onClick={onNext}>2단계 · 맞춤 진단 받기 ({SITE.pricePerPet.toLocaleString()}원) →</button>
+        </div></div>
+      </div>
+    );
+  }
+
+  const sections: Sec[] = [];
+  sections.push({
+    icon: 'paw', title: '이런 아이예요', short: '소개',
+    body: (<>{guide.summary && <p>{guide.summary}</p>}{guide.traits && guide.traits.length > 0 && <Bullets items={guide.traits} />}</>),
+  });
+  if (guide.grooming && guide.grooming.length > 0)
+    sections.push({ icon: 'scissors', title: '털·그루밍', short: '그루밍', variant: 'section--mint', body: <Bullets items={guide.grooming} /> });
+  sections.push({
+    icon: 'activity', title: '산책·운동', short: '산책', variant: 'section--sky',
+    body: <Bullets items={guide.exercise && guide.exercise.length > 0 ? guide.exercise : ['적절한 산책과 놀이로 활동량을 채워주세요. 정확한 운동량은 2단계 맞춤 진단에서 알려드려요.']} />,
+  });
+  if (guide.hereditary && guide.hereditary.length > 0)
+    sections.push({
+      icon: 'cross', title: '주의할 질환', short: '질환', variant: 'flags', count: guide.hereditary.length,
+      body: (<div className="dz-grid">{guide.hereditary.map((h, i) => (<div className="dz-item" key={i}><b>{h.name}</b>{h.note && <span>{h.note}</span>}</div>))}</div>),
+    });
+  if (guide.cautions && guide.cautions.length > 0)
+    sections.push({ icon: 'shield', title: '키울 때 이건 꼭', short: '주의', body: <Bullets items={guide.cautions} /> });
+  sections.push({
+    icon: 'bowl', title: `${speciesKo}가 먹는 음식`, short: '음식', count: foods.toxic.length,
+    body: (
+      <div className="food">
+        <div className="food-col good">
+          <div className="food-col-head"><Icon name="check" size={15} strokeWidth={2.2} /> 먹어도 좋아요</div>
+          <ul className="food-list">{foods.good.map((x, i) => <li key={i}>{x}</li>)}</ul>
+        </div>
+        <div className="food-col bad">
+          <div className="food-col-head"><Icon name="alert" size={15} /> 절대 주면 안돼요</div>
+          <ul className="food-list">{foods.toxic.map((f) => <li key={f.name}><b>{f.name}</b> — {f.reason}</li>)}</ul>
+        </div>
+      </div>
+    ),
+  });
+
+  const clamp = (n: number) => Math.max(0, Math.min(sections.length - 1, n));
+  const active = sections[idx] ?? sections[0];
+
+  return (
+    <div className="bguide">
+      <Stepper step={1} />
+
+      <div className="bguide-hero">
+        <span className="bguide-badge"><Icon name="shield" size={13} /> 공식 자료 기반 일반 가이드</span>
+        <h2 className="bguide-name">{guide.breedKo}</h2>
+        <p className="bguide-en">{guide.breedEn}{ageLabel ? ` · ${name} ${ageLabel}` : ''}</p>
+      </div>
+
+      <div className="bstat-row">
+        <div className="bstat"><span className="bstat-l">크기</span><span className="bstat-v">{guide.size ?? '-'}</span></div>
+        <span className="bstat-div" />
+        <div className="bstat"><span className="bstat-l">체중</span><span className="bstat-v">{guide.weightKg ? `${guide.weightKg}kg` : '-'}</span></div>
+        <span className="bstat-div" />
+        <div className="bstat"><span className="bstat-l">기대수명</span><span className="bstat-v">{guide.lifeYears ? `${guide.lifeYears}년` : '-'}</span></div>
+      </div>
+      <div className="bstat-meta">
+        <span>※ 품종 평균 기준</span>
+        <button className="linklike" onClick={onEdit}>정보 수정</button>
+      </div>
+
+      {/* 섹션 탭 (옆으로 넘기기) */}
+      <div className="pager-tabs">
+        {sections.map((s, i) => (
+          <button key={i} type="button" className={`pager-tab ${i === idx ? 'on' : ''}`} onClick={() => setIdx(i)}>
+            <Icon name={s.icon} size={14} /> {s.short}{s.count ? <span className="cnt">{s.count}</span> : null}
+          </button>
+        ))}
+      </div>
+
+      <div
+        className="pager-view"
+        onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
+        onTouchEnd={(e) => {
+          if (touchX.current == null) return;
+          const dx = e.changedTouches[0].clientX - touchX.current;
+          if (dx < -45) setIdx(clamp(idx + 1));
+          else if (dx > 45) setIdx(clamp(idx - 1));
+          touchX.current = null;
+        }}
+      >
+        <section className={`section ${active.variant ?? ''}`}>
+          <div className="section-head">
+            <span className="section-ico"><Icon name={active.icon} size={18} /></span>
+            <h3 className="section-title">{active.title}</h3>
+            {active.count ? <span className="section-count">{active.count}</span> : null}
+          </div>
+          {active.body}
+        </section>
+      </div>
+
+      <div className="pager-dots">
+        {sections.map((_, i) => (
+          <button key={i} type="button" aria-label={`${i + 1}번째`} className={`pager-dot ${i === idx ? 'on' : ''}`} onClick={() => setIdx(i)} />
+        ))}
+      </div>
+
+      {guide.sourceOrg && (
+        <SourceBadges sources={[{ org: guide.sourceOrg, title: guide.sourceTitle ?? null, url: guide.sourceUrl ?? null }]} />
+      )}
+      <p className="disclaimer"><Icon name="info" size={13} /> 일반 가이드이며 수의사의 진단을 대체하지 않습니다.</p>
+
+      <div className="sticky-cta"><div className="sticky-cta-inner">
+        <button className="btn btn--primary btn--lg btn--block" onClick={onNext}>2단계 · 맞춤 진단 받기 ({SITE.pricePerPet.toLocaleString()}원) →</button>
+      </div></div>
     </div>
   );
 }
@@ -217,6 +356,11 @@ export default function DiagnoseForm() {
   if (stage === 'form1') {
     return (
       <>
+      <section className="hero">
+        <span className="eyebrow"><Icon name="sparkle" size={14} filled /> AI 맞춤 진단</span>
+        <h1>우리 아이 정보를 알려주세요</h1>
+        <p className="hero-sub">품종·나이만 입력하면, 그 품종의 일반 가이드를 무료로 보여드려요.</p>
+      </section>
       <Stepper step={1} />
       <form className="card" onSubmit={showGuide}>
         <div className="card-head">
@@ -291,99 +435,15 @@ export default function DiagnoseForm() {
 
   // ═══════════ 1.5단계: 무료 품종 가이드 ═══════════
   if (stage === 'guide' && result) {
-    const { guide, ageLabel, foods } = result;
     return (
-      <div className="bguide">
-        <Stepper step={1} />
-        {guide.matched ? (
-          <>
-            <div className="bguide-hero">
-              <span className="bguide-badge"><Icon name="shield" size={13} /> 공식 자료 기반 일반 가이드</span>
-              <h2 className="bguide-name">{guide.breedKo}</h2>
-              <p className="bguide-en">{guide.breedEn}{ageLabel ? ` · ${name} ${ageLabel}` : ''}</p>
-            </div>
-
-            <div className="bstat-row">
-              <div className="bstat"><span className="bstat-l">크기</span><span className="bstat-v">{guide.size ?? '-'}</span></div>
-              <span className="bstat-div" />
-              <div className="bstat"><span className="bstat-l">체중</span><span className="bstat-v">{guide.weightKg ? `${guide.weightKg}kg` : '-'}</span></div>
-              <span className="bstat-div" />
-              <div className="bstat"><span className="bstat-l">기대수명</span><span className="bstat-v">{guide.lifeYears ? `${guide.lifeYears}년` : '-'}</span></div>
-            </div>
-            <p className="bstat-note">※ 품종 평균 기준이에요 · 우리 아이 실제 값과 다를 수 있어요</p>
-
-            <GuideCard icon="paw" title="이런 아이예요" collapsible defaultOpen>
-              {guide.summary && <p>{guide.summary}</p>}
-              {guide.traits && guide.traits.length > 0 && <Bullets items={guide.traits} />}
-            </GuideCard>
-
-            {guide.grooming && guide.grooming.length > 0 && (
-              <GuideCard icon="scissors" title="털·그루밍" variant="section--mint" collapsible><Bullets items={guide.grooming} /></GuideCard>
-            )}
-
-            <GuideCard icon="activity" title="산책·운동" variant="section--sky" collapsible>
-              <Bullets items={guide.exercise && guide.exercise.length > 0 ? guide.exercise : ['적절한 산책과 놀이로 활동량을 채워주세요. 정확한 운동량은 2단계 맞춤 진단에서 알려드려요.']} />
-            </GuideCard>
-
-            {guide.hereditary && guide.hereditary.length > 0 && (
-              <GuideCard icon="cross" title="주의할 질환" variant="flags" collapsible count={guide.hereditary.length}>
-                <div className="dz-grid">
-                  {guide.hereditary.map((h, i) => (
-                    <div className="dz-item" key={i}>
-                      <b>{h.name}</b>
-                      {h.note && <span>{h.note}</span>}
-                    </div>
-                  ))}
-                </div>
-              </GuideCard>
-            )}
-
-            {guide.cautions && guide.cautions.length > 0 && (
-              <GuideCard icon="shield" title="키울 때 이건 꼭" collapsible><Bullets items={guide.cautions} /></GuideCard>
-            )}
-
-            <GuideCard icon="bowl" title={`${speciesKo}가 먹는 음식`} collapsible count={foods.toxic.length}>
-              <div className="food">
-                <div className="food-col good">
-                  <div className="food-col-head"><Icon name="check" size={15} strokeWidth={2.2} /> 먹어도 좋아요</div>
-                  <ul className="food-list">{foods.good.map((x, i) => <li key={i}>{x}</li>)}</ul>
-                </div>
-                <div className="food-col bad">
-                  <div className="food-col-head"><Icon name="alert" size={15} /> 절대 주면 안돼요</div>
-                  <ul className="food-list">{foods.toxic.map((f) => <li key={f.name}><b>{f.name}</b> — {f.reason}</li>)}</ul>
-                </div>
-              </div>
-            </GuideCard>
-
-            {guide.sourceOrg && (
-              <SourceBadges sources={[{ org: guide.sourceOrg, title: guide.sourceTitle ?? null, url: guide.sourceUrl ?? null }]} />
-            )}
-            <p className="disclaimer"><Icon name="info" size={13} /> 본 정보는 일반 가이드이며 수의사의 진단을 대체하지 않습니다.</p>
-          </>
-        ) : (
-          <div className="card" style={{ textAlign: 'center' }}>
-            <div className="gate-ico" style={{ margin: '0 auto 10px' }}><Icon name="paw" size={22} filled /></div>
-            <h2 className="card-title">{breed ? `'${breed}'` : speciesKo} 일반 가이드를 못 찾았어요</h2>
-            <p className="card-desc" style={{ marginTop: 6 }}>
-              믹스견이거나 등록 전 품종일 수 있어요(예: 폼피츠 = 포메라니안×스피츠 믹스).
-              순종이면 <b>정확한 품종명</b>으로 다시 입력하거나, 2단계에서 <b>사진으로 분석</b>해 드립니다.
-            </p>
-          </div>
-        )}
-
-        <div className="bguide-next">
-          <p>여기까지는 <b>무료 일반 가이드</b>예요.<br /><b>{name}</b>의 <b>사진·증상</b>을 더하면 <b>우리 아이 맞춤 진단</b>을 받을 수 있어요.</p>
-          <button className="btn btn--ghost btn--block" onClick={() => setStage('form1')}>← 정보 수정</button>
-        </div>
-
-        <div className="sticky-cta">
-          <div className="sticky-cta-inner">
-            <button className="btn btn--primary btn--lg btn--block" onClick={() => { setStage('form2'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-              2단계 · 맞춤 진단 받기 ({SITE.pricePerPet.toLocaleString()}원) →
-            </button>
-          </div>
-        </div>
-      </div>
+      <GuideView
+        result={result}
+        name={name}
+        speciesKo={speciesKo}
+        breed={breed}
+        onNext={() => { setStage('form2'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+        onEdit={() => setStage('form1')}
+      />
     );
   }
 
