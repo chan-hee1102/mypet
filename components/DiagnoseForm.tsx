@@ -143,22 +143,19 @@ function GuideView({
     <div className="bguide">
       <Stepper step={1} />
 
-      <div className="bguide-hero">
-        <span className="bguide-badge"><Icon name="shield" size={13} /> 공식 자료 기반 일반 가이드</span>
-        <h2 className="bguide-name">{guide.breedKo}</h2>
-        <p className="bguide-en">{guide.breedEn}{ageLabel ? ` · ${name} ${ageLabel}` : ''}</p>
-      </div>
-
-      <div className="bstat-row">
-        <div className="bstat"><span className="bstat-l">크기</span><span className="bstat-v">{guide.size ?? '-'}</span></div>
-        <span className="bstat-div" />
-        <div className="bstat"><span className="bstat-l">체중</span><span className="bstat-v">{guide.weightKg ? `${guide.weightKg}kg` : '-'}</span></div>
-        <span className="bstat-div" />
-        <div className="bstat"><span className="bstat-l">기대수명</span><span className="bstat-v">{guide.lifeYears ? `${guide.lifeYears}년` : '-'}</span></div>
-      </div>
-      <div className="bstat-meta">
-        <span>※ 품종 평균 기준</span>
-        <button className="linklike" onClick={onEdit}>정보 수정</button>
+      <div className="gcard">
+        <div className="gcard-top">
+          <span className="gcard-badge"><Icon name="shield" size={12} /> 공식 자료 기반</span>
+          <button type="button" className="gcard-edit" onClick={onEdit}>정보 수정</button>
+        </div>
+        <h2 className="gcard-name">{guide.breedKo}</h2>
+        <p className="gcard-sub">{guide.breedEn}{ageLabel ? ` · ${name} ${ageLabel}` : ''}</p>
+        <div className="gcard-stats">
+          <div className="gcard-stat"><span>크기</span><b>{guide.size ?? '-'}</b></div>
+          <div className="gcard-stat"><span>체중</span><b>{guide.weightKg ? `${guide.weightKg}kg` : '-'}</b></div>
+          <div className="gcard-stat"><span>기대수명</span><b>{guide.lifeYears ? `${guide.lifeYears}년` : '-'}</b></div>
+        </div>
+        <p className="gcard-note">※ 품종 평균 기준이에요</p>
       </div>
 
       {/* 섹션 탭 (옆으로 넘기기) */}

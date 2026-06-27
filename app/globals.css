@@ -342,6 +342,21 @@ textarea.input{resize:vertical;min-height:46px}
 .bstat-meta{display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:7px;padding:0 2px}
 .bstat-meta .linklike{font-size:12px}
 
+/* 품종 통합 헤더 카드 (차분한 흰색 — 큰 초록 블록 대체) */
+.gcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:var(--shadow-sm)}
+.gcard-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.gcard-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--brand-600);background:var(--brand-50);border:1px solid #cde7df;border-radius:999px;padding:4px 10px}
+.gcard-edit{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;font-weight:600}
+.gcard-edit:hover{color:var(--brand-600)}
+.gcard-name{font-size:23px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.gcard-sub{font-size:13px;color:var(--muted);margin-top:3px}
+.gcard-stats{display:flex;margin-top:15px;border-top:1px solid var(--line);padding-top:14px}
+.gcard-stat{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
+.gcard-stat span{font-size:11.5px;color:var(--muted)}
+.gcard-stat b{font-size:15px;font-weight:800;color:var(--ink)}
+.gcard-stat + .gcard-stat{border-left:1px solid var(--line)}
+.gcard-note{font-size:11px;color:var(--muted);text-align:center;margin-top:11px}
+
 /* 섹션 페이저(탭으로 선택 / 옆으로 스와이프) */
 .pager-tabs{display:flex;gap:7px;overflow-x:auto;padding:4px 0 6px;margin-top:4px;scrollbar-width:none}
 .pager-tabs::-webkit-scrollbar{display:none}
