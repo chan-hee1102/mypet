@@ -308,6 +308,17 @@ textarea.input{resize:vertical;min-height:46px}
 .teaser-list li svg{color:var(--brand);flex:none}
 .teaser-terms{font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.6}
 
+/* ── 1단계 품종 일반 가이드 ── */
+.bguide{display:flex;flex-direction:column;gap:13px}
+.bguide-hero{background:linear-gradient(135deg,#11a07a,#0a6e53);color:#fff;border-radius:20px;padding:22px 24px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.bguide-hero::after{content:'';position:absolute;right:-30px;top:-44px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.08)}
+.bguide-badge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 11px;position:relative}
+.bguide-name{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:9px 0 2px;position:relative}
+.bguide-en{font-size:13px;opacity:.92;position:relative}
+.bguide-stats{margin-top:2px}
+.bguide-next{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow-sm);text-align:center}
+.bguide-next>p{font-size:14px;color:var(--ink-2);line-height:1.65;margin-bottom:12px}
+
 /* ── 진단 결과: 저장 안내 배너 ── */
 .save-banner{display:flex;align-items:center;gap:9px;flex-wrap:wrap;background:var(--brand-50);border:1px solid #cde7df;border-radius:14px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:var(--brand-600)}
 .save-banner>svg{flex:none}
