@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, type ChangeEvent, type FormEvent, type ReactNode } from 'react';
+import { useState, useEffect, type ChangeEvent, type FormEvent, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { PetInput, Species, Sex } from '@/lib/types';
@@ -70,17 +70,13 @@ function Stepper({ step }: { step: 1 | 2 }) {
   );
 }
 
-type Sec = { icon: string; title: string; short: string; variant?: string; count?: number; body: ReactNode };
-
-/** 1단계 품종 가이드 — 섹션을 탭/스와이프로 한 개씩(스크롤 최소). */
+/** 1단계 무료 가이드 — 슬림 스냅샷 + 결제 유도 잠금 카드. */
 function GuideView({
   result, name, speciesKo, breed, onNext, onEdit,
 }: {
   result: GuideResult; name: string; speciesKo: string; breed: string; onNext: () => void; onEdit: () => void;
 }) {
-  const { guide, ageLabel, foods } = result;
-  const [idx, setIdx] = useState(0);
-  const touchX = useRef<number | null>(null);
+  const { guide, ageLabel } = result;
 
   if (!guide.matched) {
     return (
@@ -102,42 +98,9 @@ function GuideView({
     );
   }
 
-  const sections: Sec[] = [];
-  sections.push({
-    icon: 'paw', title: '이런 아이예요', short: '소개',
-    body: (<>{guide.summary && <p>{guide.summary}</p>}{guide.traits && guide.traits.length > 0 && <Bullets items={guide.traits} />}</>),
-  });
-  if (guide.grooming && guide.grooming.length > 0)
-    sections.push({ icon: 'scissors', title: '털·그루밍', short: '그루밍', variant: 'section--mint', body: <Bullets items={guide.grooming} /> });
-  sections.push({
-    icon: 'activity', title: '산책·운동', short: '산책', variant: 'section--sky',
-    body: <Bullets items={guide.exercise && guide.exercise.length > 0 ? guide.exercise : ['적절한 산책과 놀이로 활동량을 채워주세요. 정확한 운동량은 2단계 맞춤 진단에서 알려드려요.']} />,
-  });
-  if (guide.hereditary && guide.hereditary.length > 0)
-    sections.push({
-      icon: 'cross', title: '주의할 질환', short: '질환', variant: 'flags', count: guide.hereditary.length,
-      body: (<div className="dz-grid">{guide.hereditary.map((h, i) => (<div className="dz-item" key={i}><b>{h.name}</b>{h.note && <span>{h.note}</span>}</div>))}</div>),
-    });
-  if (guide.cautions && guide.cautions.length > 0)
-    sections.push({ icon: 'shield', title: '키울 때 이건 꼭', short: '주의', body: <Bullets items={guide.cautions} /> });
-  sections.push({
-    icon: 'bowl', title: `${speciesKo}가 먹는 음식`, short: '음식', count: foods.toxic.length,
-    body: (
-      <div className="food">
-        <div className="food-col good">
-          <div className="food-col-head"><Icon name="check" size={15} strokeWidth={2.2} /> 먹어도 좋아요</div>
-          <ul className="food-list">{foods.good.map((x, i) => <li key={i}>{x}</li>)}</ul>
-        </div>
-        <div className="food-col bad">
-          <div className="food-col-head"><Icon name="alert" size={15} /> 절대 주면 안돼요</div>
-          <ul className="food-list">{foods.toxic.map((f) => <li key={f.name}><b>{f.name}</b> — {f.reason}</li>)}</ul>
-        </div>
-      </div>
-    ),
-  });
-
-  const clamp = (n: number) => Math.max(0, Math.min(sections.length - 1, n));
-  const active = sections[idx] ?? sections[0];
+  const diseases = guide.hereditary ?? [];
+  const shown = diseases.slice(0, 2);
+  const more = Math.max(0, diseases.length - shown.length);
 
   return (
     <div className="bguide">
@@ -158,41 +121,33 @@ function GuideView({
         <p className="gcard-note">※ 품종 평균 기준이에요</p>
       </div>
 
-      {/* 섹션 탭 (옆으로 넘기기) */}
-      <div className="pager-tabs">
-        {sections.map((s, i) => (
-          <button key={i} type="button" className={`pager-tab ${i === idx ? 'on' : ''}`} onClick={() => setIdx(i)}>
-            <Icon name={s.icon} size={14} /> {s.short}{s.count ? <span className="cnt">{s.count}</span> : null}
-          </button>
-        ))}
-      </div>
+      <section className="section">
+        <div className="section-head"><span className="section-ico"><Icon name="paw" size={18} /></span><h3 className="section-title">이런 아이예요</h3></div>
+        {guide.summary && <p>{guide.summary}</p>}
+        {guide.traits && guide.traits.length > 0 && <Bullets items={guide.traits.slice(0, 3)} />}
+      </section>
 
-      <div
-        className="pager-view"
-        onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
-        onTouchEnd={(e) => {
-          if (touchX.current == null) return;
-          const dx = e.changedTouches[0].clientX - touchX.current;
-          if (dx < -45) setIdx(clamp(idx + 1));
-          else if (dx > 45) setIdx(clamp(idx - 1));
-          touchX.current = null;
-        }}
-      >
-        <section className={`section ${active.variant ?? ''}`}>
-          <div className="section-head">
-            <span className="section-ico"><Icon name={active.icon} size={18} /></span>
-            <h3 className="section-title">{active.title}</h3>
-            {active.count ? <span className="section-count">{active.count}</span> : null}
+      {shown.length > 0 && (
+        <section className="section flags">
+          <div className="section-head"><span className="section-ico"><Icon name="cross" size={18} /></span><h3 className="section-title">이 품종, 이런 걸 조심해요</h3></div>
+          <div className="dz-grid">
+            {shown.map((h, i) => (<div className="dz-item" key={i}><b>{h.name}</b>{h.note && <span>{h.note}</span>}</div>))}
           </div>
-          {active.body}
+          {more > 0 && <p className="dz-more">+ 호발·유전질환 {more}가지 더는 맞춤 진단에서 전체 공개</p>}
+          <p className="dz-safety"><Icon name="alert" size={13} /> 초콜릿·포도·양파·자일리톨은 어떤 {speciesKo}든 절대 금지예요</p>
         </section>
-      </div>
+      )}
 
-      <div className="pager-dots">
-        {sections.map((_, i) => (
-          <button key={i} type="button" aria-label={`${i + 1}번째`} className={`pager-dot ${i === idx ? 'on' : ''}`} onClick={() => setIdx(i)} />
-        ))}
-      </div>
+      <section className="lockcard">
+        <div className="lockcard-head"><Icon name="lock" size={15} /> {name} 맞춤 진단에서 받는 것</div>
+        <ul className="lockcard-list">
+          <li><Icon name="camera" size={15} /> 사진으로 체형·피부·품종 분석</li>
+          <li><Icon name="cross" size={15} /> 입력한 증상의 가능 원인과 조치</li>
+          <li><Icon name="shield" size={15} /> 이 품종 전체 호발질환 + 예방 케어</li>
+          <li><Icon name="bowl" size={15} /> 먹어도 되는 · 절대 금지 음식 (특이사항 반영)</li>
+          <li><Icon name="activity" size={15} /> 병원에 가야 하는 신호</li>
+        </ul>
+      </section>
 
       {guide.sourceOrg && (
         <SourceBadges sources={[{ org: guide.sourceOrg, title: guide.sourceTitle ?? null, url: guide.sourceUrl ?? null }]} />
@@ -200,7 +155,7 @@ function GuideView({
       <p className="disclaimer"><Icon name="info" size={13} /> 일반 가이드이며 수의사의 진단을 대체하지 않습니다.</p>
 
       <div className="sticky-cta"><div className="sticky-cta-inner">
-        <button className="btn btn--primary btn--lg btn--block" onClick={onNext}>2단계 · 맞춤 진단 받기 ({SITE.pricePerPet.toLocaleString()}원) →</button>
+        <button className="btn btn--primary btn--lg btn--block" onClick={onNext}>2단계 · {name} 맞춤 진단 받기 ({SITE.pricePerPet.toLocaleString()}원) →</button>
       </div></div>
     </div>
   );
