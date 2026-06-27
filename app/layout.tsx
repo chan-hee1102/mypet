@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/server';
 import { SITE } from '@/lib/site';
 import UserMenu from '@/components/UserMenu';
 import BottomNav from '@/components/BottomNav';
+import ContactWidget from '@/components/ContactWidget';
 
 const DESCRIPTION =
   '사진과 간단한 정보만으로 AI가 만들어주는 반려동물 맞춤 케어 리포트. 품종·나이에 맞는 음식·운동·그루밍 가이드와 증상 체크까지. 강아지·고양이 모두 지원.';
@@ -73,7 +74,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             <Link href="/terms">이용약관</Link>
             <Link href="/privacy"><strong>개인정보처리방침</strong></Link>
             <Link href="/refund">환불정책</Link>
-            <Link href="/contact">문의하기</Link>
+            <ContactWidget />
           </nav>
           <p className="footer-biz">
             {SITE.company} · 대표 {SITE.ceo} · 사업자등록번호 {SITE.bizNo}

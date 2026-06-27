@@ -2,7 +2,8 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 
 /** 로그인이 필요한 경로 (엣지에서 중앙 가드). */
-const PROTECTED = ['/create', '/pets', '/symptom', '/account', '/dashboard', '/admin'];
+// /admin 은 비밀번호 쿠키로 페이지에서 자체 게이트한다(여기 포함하지 않음).
+const PROTECTED = ['/create', '/pets', '/symptom', '/account', '/dashboard'];
 
 /**
  * 매 요청마다 Supabase 세션을 갱신(쿠키 재설정)하고,
