@@ -319,6 +319,17 @@ textarea.input{resize:vertical;min-height:46px}
 .bguide-next{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow-sm);text-align:center}
 .bguide-next>p{font-size:14px;color:var(--ink-2);line-height:1.65;margin-bottom:12px}
 
+/* 가이드 카드 색감(살짝) */
+.section--mint{background:var(--brand-50);border-color:#cde7df}
+.section--mint .section-ico{background:#fff}
+.section--sky{background:#eff5fb;border-color:#d6e6f5}
+.section--sky .section-ico{background:#fff;color:#2f6fb3}
+
+/* 입력 단위(살) */
+.input-suffix{position:relative}
+.input-suffix .input{padding-right:40px}
+.input-suffix-unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;font-weight:600;pointer-events:none}
+
 /* ── 진단 결과: 저장 안내 배너 ── */
 .save-banner{display:flex;align-items:center;gap:9px;flex-wrap:wrap;background:var(--brand-50);border:1px solid #cde7df;border-radius:14px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:var(--brand-600)}
 .save-banner>svg{flex:none}

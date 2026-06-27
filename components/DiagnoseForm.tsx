@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { useState, useEffect, type ChangeEvent, type FormEvent, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { PetInput, Species, Sex } from '@/lib/types';
@@ -11,30 +11,86 @@ import { fileToImage } from '@/lib/imageClient';
 import { SITE } from '@/lib/site';
 
 const PAYMENTS_LIVE = !!process.env.NEXT_PUBLIC_PORTONE_STORE_ID;
+const LS_KEY = 'mypet_diagnose_v1';
+
+type Foods = { good: string[]; toxic: { name: string; reason: string; severity: string }[] };
+type GuideResult = { guide: BreedGuide; ageLabel: string | null; foods: Foods };
+
+/** "몇 살" → 내부 birth("YYYY-MM") 근사값. */
+function ageToBirth(age: string): string | undefined {
+  const n = Number(age);
+  if (!age || isNaN(n) || n < 0 || n > 40) return undefined;
+  const now = new Date();
+  return `${now.getFullYear() - Math.floor(n)}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+}
+
+function GuideCard({ icon, title, variant, children }: { icon: string; title: string; variant?: string; children: ReactNode }) {
+  return (
+    <section className={`section ${variant ?? ''}`}>
+      <div className="section-head">
+        <span className="section-ico"><Icon name={icon} size={18} /></span>
+        <h3 className="section-title">{title}</h3>
+      </div>
+      {children}
+    </section>
+  );
+}
+function Bullets({ items }: { items: string[] }) {
+  return (
+    <ul className="list">
+      {items.map((x, i) => (<li key={i}><Icon name="check" size={14} strokeWidth={2} />{x}</li>))}
+    </ul>
+  );
+}
 
 export default function DiagnoseForm() {
   const router = useRouter();
-  // 1단계 정보
   const [species, setSpecies] = useState<Species>('dog');
   const [name, setName] = useState('');
   const [breed, setBreed] = useState('');
-  const [birth, setBirth] = useState('');
+  const [age, setAge] = useState('');
   const [sex, setSex] = useState<Sex | ''>('');
   const [neutered, setNeutered] = useState<'' | 'yes' | 'no'>('');
   const [weight, setWeight] = useState('');
-  // 2단계 정보
   const [symptoms, setSymptoms] = useState('');
   const [image, setImage] = useState<{ data: string; mediaType: string } | null>(null);
   const [preview, setPreview] = useState('');
 
   const [stage, setStage] = useState<'form1' | 'guide' | 'form2'>('form1');
-  const [guide, setGuide] = useState<BreedGuide | null>(null);
-  const [ageLabel, setAgeLabel] = useState<string | null>(null);
+  const [result, setResult] = useState<GuideResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [paying, setPaying] = useState(false);
   const [error, setError] = useState('');
+  const [restored, setRestored] = useState(false);
 
   const speciesKo = species === 'dog' ? '강아지' : '고양이';
+
+  // 입력값 복원 (끄기 전까지 유지 — 사진 제외)
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (raw) {
+        const d = JSON.parse(raw);
+        if (d.species) setSpecies(d.species);
+        if (d.name) setName(d.name);
+        if (d.breed) setBreed(d.breed);
+        if (d.age) setAge(d.age);
+        if (d.sex) setSex(d.sex);
+        if (d.neutered) setNeutered(d.neutered);
+        if (d.weight) setWeight(d.weight);
+        if (d.symptoms) setSymptoms(d.symptoms);
+      }
+    } catch { /* ignore */ }
+    setRestored(true);
+  }, []);
+
+  // 입력값 저장
+  useEffect(() => {
+    if (!restored) return;
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify({ species, name, breed, age, sex, neutered, weight, symptoms }));
+    } catch { /* ignore */ }
+  }, [restored, species, name, breed, age, sex, neutered, weight, symptoms]);
 
   async function onFile(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -49,25 +105,33 @@ export default function DiagnoseForm() {
     }
   }
 
-  // ── 1단계 → 무료 가이드 조회 ──
+  function buildInput(): PetInput {
+    return {
+      name: name.trim(),
+      species,
+      breed: breed.trim() || undefined,
+      birth: ageToBirth(age),
+      sex: sex || undefined,
+      neutered: neutered === '' ? undefined : neutered === 'yes',
+      weightKg: weight ? Number(weight) : undefined,
+      notes: symptoms.trim() || undefined,
+    };
+  }
+
   async function showGuide(e: FormEvent) {
     e.preventDefault();
     setError('');
-    if (!name.trim()) {
-      setError('아이 이름을 입력해 주세요.');
-      return;
-    }
+    if (!name.trim()) { setError('아이 이름을 입력해 주세요.'); return; }
     setLoading(true);
     try {
       const res = await fetch('/api/breed-guide', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ species, breed: breed.trim(), birth: birth || undefined }),
+        body: JSON.stringify({ species, breed: breed.trim(), birth: ageToBirth(age) }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || '오류가 발생했습니다.');
-      setGuide(json.guide as BreedGuide);
-      setAgeLabel(json.ageLabel ?? null);
+      setResult(json as GuideResult);
       setStage('guide');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err: any) {
@@ -77,31 +141,19 @@ export default function DiagnoseForm() {
     }
   }
 
-  // ── 2단계 결제 → 생성 ──
   async function pay() {
     setPaying(true);
     setError('');
     try {
-      const input: PetInput = {
-        name: name.trim(),
-        species,
-        breed: breed.trim() || undefined,
-        birth: birth || undefined,
-        sex: sex || undefined,
-        neutered: neutered === '' ? undefined : neutered === 'yes',
-        weightKg: weight ? Number(weight) : undefined,
-        notes: symptoms.trim() || undefined,
-      };
       const startRes = await fetch('/api/diagnose/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ input, image }),
+        body: JSON.stringify({ input: buildInput(), image }),
       });
       const started = await startRes.json();
       if (!startRes.ok) throw new Error(started.error || '오류가 발생했습니다.');
       const token = started.token as string;
 
-      // 결제: PortOne 키가 설정돼 있으면 실제 결제창 호출(KG이니시스 등), 없으면 샌드박스(테스트) 통과.
       let paymentId: string | null = null;
       if (PAYMENTS_LIVE) {
         const PortOne = await import('@portone/browser-sdk/v2');
@@ -115,9 +167,7 @@ export default function DiagnoseForm() {
           currency: 'CURRENCY_KRW' as any,
           payMethod: 'CARD' as any,
         });
-        if (!resp || resp.code != null) {
-          throw new Error(resp?.message || '결제가 취소되었어요.');
-        }
+        if (!resp || resp.code != null) throw new Error(resp?.message || '결제가 취소되었어요.');
         paymentId = resp.paymentId ?? pid;
       }
 
@@ -128,6 +178,7 @@ export default function DiagnoseForm() {
       });
       const fin = await finRes.json();
       if (!finRes.ok) throw new Error(fin.error || '결제 처리 중 오류가 발생했습니다.');
+      try { localStorage.removeItem(LS_KEY); } catch { /* ignore */ }
       router.push(`/r/${token}`);
     } catch (err: any) {
       setError(err?.message || '결제 처리 중 오류가 발생했습니다.');
@@ -141,7 +192,7 @@ export default function DiagnoseForm() {
       <form className="card" onSubmit={showGuide}>
         <div className="card-head">
           <h2 className="card-title">1단계 · 우리 아이 정보</h2>
-          <p className="card-desc">품종·나이 등을 입력하면 그 품종의 일반 가이드를 무료로 보여드려요.</p>
+          <p className="card-desc">품종·나이만 입력하면 그 품종의 일반 가이드를 무료로 보여드려요.</p>
         </div>
 
         <div className="field">
@@ -164,13 +215,17 @@ export default function DiagnoseForm() {
         <div className="field">
           <label className="label">품종</label>
           <input className="input" value={breed} onChange={(e) => setBreed(e.target.value)} placeholder={species === 'dog' ? '예: 포메라니안' : '예: 코리안숏헤어'} />
-          <p className="hint">정확히 입력할수록 좋은 가이드를 보여드려요. 모르면 2단계에서 사진으로 추정합니다.</p>
+          <p className="hint">정확한 품종명을 적어주세요. 믹스견이거나 모르면 2단계에서 사진으로 분석해 드려요.</p>
         </div>
 
         <div className="row2">
           <div className="field">
-            <label className="label">태어난 시기</label>
-            <input className="input" type="month" value={birth} onChange={(e) => setBirth(e.target.value)} />
+            <label className="label">나이</label>
+            <div className="input-suffix">
+              <input className="input" type="number" inputMode="numeric" min="0" max="40" value={age} onChange={(e) => setAge(e.target.value)} placeholder="예: 3" />
+              <span className="input-suffix-unit">살</span>
+            </div>
+            <p className="hint">만 나이(숫자만). 1살 미만은 0.</p>
           </div>
           <div className="field">
             <label className="label">성별</label>
@@ -205,7 +260,8 @@ export default function DiagnoseForm() {
   }
 
   // ═══════════ 1.5단계: 무료 품종 가이드 ═══════════
-  if (stage === 'guide' && guide) {
+  if (stage === 'guide' && result) {
+    const { guide, ageLabel, foods } = result;
     return (
       <div className="bguide">
         {guide.matched ? (
@@ -222,17 +278,35 @@ export default function DiagnoseForm() {
               <div className="stat"><div className="stat-ico"><Icon name="calendar" size={18} /></div><div className="stat-label">기대수명</div><div className="stat-value">{guide.lifeYears ? `${guide.lifeYears}년` : '-'}</div></div>
             </div>
 
-            <section className="section">
-              <div className="section-head">
-                <span className="section-ico"><Icon name="paw" size={18} filled /></span>
-                <h3 className="section-title">이 품종은 이런 아이예요</h3>
+            <GuideCard icon="paw" title="이런 강아지예요">
+              {guide.intro && <p>{guide.intro}</p>}
+              {guide.traits && guide.traits.length > 0 && <Bullets items={guide.traits} />}
+            </GuideCard>
+
+            {guide.grooming && guide.grooming.length > 0 && (
+              <GuideCard icon="scissors" title="털·그루밍" variant="section--mint"><Bullets items={guide.grooming} /></GuideCard>
+            )}
+
+            <GuideCard icon="activity" title="산책·운동 주의" variant="section--sky">
+              <Bullets items={guide.exercise && guide.exercise.length > 0 ? guide.exercise : ['적절한 산책과 놀이로 활동량을 채워주세요. 우리 아이에게 맞는 정확한 운동량은 2단계 맞춤 진단에서 알려드려요.']} />
+            </GuideCard>
+
+            {guide.diseases && guide.diseases.length > 0 && (
+              <GuideCard icon="cross" title="주의할 질환" variant="flags"><Bullets items={guide.diseases} /></GuideCard>
+            )}
+
+            <GuideCard icon="bowl" title={`${speciesKo}가 먹는 음식`}>
+              <div className="food">
+                <div className="food-col good">
+                  <div className="food-col-head"><Icon name="check" size={15} strokeWidth={2.2} /> 먹어도 좋아요</div>
+                  <ul className="food-list">{foods.good.map((x, i) => <li key={i}>{x}</li>)}</ul>
+                </div>
+                <div className="food-col bad">
+                  <div className="food-col-head"><Icon name="alert" size={15} /> 절대 주면 안돼요</div>
+                  <ul className="food-list">{foods.toxic.map((f) => <li key={f.name}><b>{f.name}</b> — {f.reason}</li>)}</ul>
+                </div>
               </div>
-              <ul className="list">
-                {(guide.points ?? []).map((p, i) => (
-                  <li key={i}><Icon name="check" size={14} strokeWidth={2} />{p}</li>
-                ))}
-              </ul>
-            </section>
+            </GuideCard>
 
             {guide.sourceOrg && (
               <SourceBadges sources={[{ org: guide.sourceOrg, title: guide.sourceTitle ?? null, url: guide.sourceUrl ?? null }]} />
@@ -243,7 +317,8 @@ export default function DiagnoseForm() {
             <div className="gate-ico" style={{ margin: '0 auto 10px' }}><Icon name="paw" size={22} filled /></div>
             <h2 className="card-title">{breed ? `'${breed}'` : speciesKo} 일반 가이드를 못 찾았어요</h2>
             <p className="card-desc" style={{ marginTop: 6 }}>
-              품종명을 다르게 적었거나 등록 전 품종일 수 있어요. 2단계에서 <b>사진으로 품종을 추정</b>해 맞춤 진단해 드립니다.
+              믹스견이거나 등록 전 품종일 수 있어요(예: 폼피츠 = 포메라니안×스피츠 믹스).
+              순종이면 <b>정확한 품종명</b>으로 다시 입력하거나, 2단계에서 <b>사진으로 분석</b>해 드립니다.
             </p>
           </div>
         )}
@@ -251,7 +326,7 @@ export default function DiagnoseForm() {
         <div className="bguide-next">
           <p>여기까지는 <b>일반 가이드</b>예요.<br /><b>{name}</b>의 사진·증상을 더하면 <b>우리 아이 맞춤 진단</b>을 받을 수 있어요.</p>
           <button className="btn btn--primary btn--lg btn--block" onClick={() => { setStage('form2'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-            2단계 · 우리 아이 맞춤 진단받기 →
+            증상 진단 · 맞춤 가이드 받기 (2단계) →
           </button>
           <button className="btn btn--ghost btn--block" style={{ marginTop: 6 }} onClick={() => setStage('form1')}>← 정보 수정</button>
         </div>
@@ -264,7 +339,7 @@ export default function DiagnoseForm() {
     <div className="card">
       <div className="card-head">
         <h2 className="card-title">2단계 · {name} 맞춤 진단</h2>
-        <p className="card-desc">사진과 증상을 더하면 AI가 {guide?.breedKo ?? speciesKo}에 맞춰 분석해 드려요.</p>
+        <p className="card-desc">사진과 증상을 더하면 AI가 {result?.guide.breedKo ?? speciesKo}에 맞춰 분석해 드려요.</p>
       </div>
 
       <div className="field">
@@ -291,8 +366,8 @@ export default function DiagnoseForm() {
         <div className="teaser-locked-head"><Icon name="sparkle" size={15} filled /> 결제하면 받는 맞춤 진단</div>
         <ul className="teaser-list">
           <li><Icon name="info" size={15} /> 사진·증상 기반 우리 아이 상태 분석</li>
-          <li><Icon name="bowl" size={15} /> 음식 가이드 · 절대 금지 독성식품</li>
-          <li><Icon name="cross" size={15} /> 병원 방문이 필요한 신호 · 앞으로의 케어</li>
+          <li><Icon name="cross" size={15} /> 증상별 조치 · 병원 방문이 필요한 신호</li>
+          <li><Icon name="calendar" size={15} /> 앞으로의 맞춤 케어 가이드</li>
         </ul>
       </div>
 
