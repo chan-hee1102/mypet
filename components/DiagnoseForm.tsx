@@ -64,9 +64,9 @@ function Bullets({ items }: { items: string[] }) {
 function Stepper({ step }: { step: 1 | 2 }) {
   return (
     <div className="stepbar">
-      <span className={`stepbar-item ${step >= 1 ? 'on' : ''}`}><span className="stepbar-n">1</span>품종 가이드 <b>무료</b></span>
+      <span className={`stepbar-item ${step >= 1 ? 'on' : ''}`}><span className="stepbar-n">1</span>무료 정보</span>
       <span className="stepbar-line" />
-      <span className={`stepbar-item ${step >= 2 ? 'on' : ''}`}><span className="stepbar-n">2</span>맞춤 진단</span>
+      <span className={`stepbar-item ${step >= 2 ? 'on' : ''}`}><span className="stepbar-n">2</span>AI 맞춤 진단</span>
     </div>
   );
 }
@@ -121,7 +121,7 @@ function GuideView({
           <button className="btn btn--ghost btn--block" style={{ marginTop: 12 }} onClick={onEdit}>← 정보 수정</button>
         </div>
         <div className="sticky-cta"><div className="sticky-cta-inner">
-          <button className="btn btn--primary btn--lg btn--block" onClick={onNext}>2단계 · 맞춤 진단 받기 ({SITE.pricePerPet.toLocaleString()}원) →</button>
+          <button className="btn btn--primary btn--lg btn--block" onClick={onNext}>2단계 · AI 맞춤 진단 ({SITE.pricePerPet.toLocaleString()}원) →</button>
         </div></div>
       </div>
     );
@@ -169,7 +169,7 @@ function GuideView({
       )}
 
       <section className="lockcard">
-        <div className="lockcard-head"><Icon name="lock" size={15} /> {name} 맞춤 진단에서 받는 것</div>
+        <div className="lockcard-head"><Icon name="lock" size={15} /> {name} AI 맞춤 진단에서 받는 것</div>
         <ul className="lockcard-list">
           <li><Icon name="camera" size={15} /> 사진으로 체형·피부·품종 분석</li>
           <li><Icon name="cross" size={15} /> 입력한 증상의 가능 원인과 조치</li>
@@ -185,7 +185,7 @@ function GuideView({
       <p className="disclaimer"><Icon name="info" size={13} /> 일반 가이드이며 수의사의 진단을 대체하지 않습니다.</p>
 
       <div className="sticky-cta"><div className="sticky-cta-inner">
-        <button className="btn btn--primary btn--lg btn--block" onClick={onNext}>2단계 · {name} 맞춤 진단 받기 ({SITE.pricePerPet.toLocaleString()}원) →</button>
+        <button className="btn btn--primary btn--lg btn--block" onClick={onNext}>2단계 · {name} AI 맞춤 진단 ({SITE.pricePerPet.toLocaleString()}원) →</button>
       </div></div>
     </div>
   );
@@ -355,7 +355,7 @@ export default function DiagnoseForm() {
       <section className="hero">
         <span className="eyebrow"><Icon name="shield" size={14} /> 수의 가이드라인 기반 AI</span>
         <h1>우리 아이 정보를 알려주세요</h1>
-        <p className="hero-sub">품종·나이와 걱정되는 증상을 입력하면, <b>무료 일반 안내</b>부터 바로 보여드려요.</p>
+        <p className="hero-sub">어떻게 키울지 궁금해도, 어디가 아파 보여도 — 입력하면 <b>무료 정보</b>부터 바로 보여드려요.</p>
       </section>
       <Stepper step={1} />
       <form className="card" onSubmit={showGuide}>
@@ -420,7 +420,7 @@ export default function DiagnoseForm() {
         </div>
 
         <div className="field">
-          <label className="label">어디가 걱정되세요? <span className="opt">선택 · 여러 개 가능</span></label>
+          <label className="label">어디가 걱정되세요? <span className="opt">선택 · 없으면 건너뛰어요</span></label>
           <div className="sym-select">
             {SYMPTOMS.map((s) => (
               <button type="button" key={s.id} className={`sym-opt ${symptomIds.includes(s.id) ? 'on' : ''}`} onClick={() => toggleSymptom(s.id)}>
@@ -434,7 +434,7 @@ export default function DiagnoseForm() {
         {error && <div className="alert"><Icon name="alert" size={16} /> {error}</div>}
 
         <button className="btn btn--primary btn--lg btn--block" type="submit" disabled={loading}>
-          {loading ? <><span className="spinner" /> 분석 중…</> : <><Icon name="sparkle" size={18} filled /> 무료 진단 보기</>}
+          {loading ? <><span className="spinner" /> 불러오는 중…</> : <><Icon name="shield" size={18} /> 무료로 알아보기</>}
         </button>
       </form>
       </>
@@ -462,7 +462,7 @@ export default function DiagnoseForm() {
     <Stepper step={2} />
     <div className="card">
       <div className="card-head">
-        <h2 className="card-title">2단계 · {name} 맞춤 진단</h2>
+        <h2 className="card-title">2단계 · {name} AI 맞춤 진단</h2>
         <p className="card-desc">사진을 더하면 입력하신 증상까지 종합해, {result?.guide.breedKo ?? speciesKo}에 맞춰 정밀 분석해 드려요.</p>
       </div>
 

@@ -16,7 +16,7 @@ const SYMPTOMS = [
 const STEPS = [
   { icon: 'paw', title: '우리 아이 정보 입력', desc: '품종·나이·걱정되는 증상을 30초면 입력해요.' },
   { icon: 'shield', title: '무료 일반 안내', desc: '이 품종·증상에 대한 일반 정보를 바로 보여드려요.' },
-  { icon: 'sparkle', title: '2,900원 맞춤 리포트', desc: '정밀 원인 + 케어(사료·간식·산책·미용·영양제)까지. PDF 저장.' },
+  { icon: 'sparkle', title: 'AI 맞춤 리포트 (2,900원)', desc: '정밀 원인 + 케어(사료·간식·산책·미용·영양제)까지. PDF 저장.' },
 ];
 
 const FAQ = [
@@ -31,24 +31,25 @@ export default function Home() {
     <main className="container">
       {/* 히어로 — 신뢰 + 증상 의도 */}
       <section className="lhero">
-        <span className="eyebrow"><Icon name="shield" size={14} /> 수의 가이드라인 기반 AI</span>
-        <h1>우리 아이가 아파 보일 때,<br /><em>믿을 수 있는 답</em>을 먼저</h1>
+        <span className="eyebrow"><Icon name="shield" size={14} /> 수의 가이드라인 기반</span>
+        <h1>우리 아이 케어,<br /><em>믿을 수 있게</em></h1>
         <p className="lhero-sub">
-          공식 수의 가이드라인과 검증 데이터를 학습한 AI가, <b>우리 아이 품종·나이·증상</b>에 맞춰
-          가능한 원인과 케어를 알려드려요. 병원 가기 전, 먼저 확인하세요.
+          어떻게 키울지 궁금하거나, 어디가 아파 보이거나 — 공식 수의 가이드라인·검증 데이터 기반으로
+          <b> 우리 아이 품종·나이·증상</b>에 맞는 정보를 알려드려요.
         </p>
 
         <div className="sym-hook">
-          <span className="sym-hook-label">이런 게 걱정되세요?</span>
+          <span className="sym-hook-label">혹시 이런 게 걱정되세요?</span>
           <div className="sym-chips">
             {SYMPTOMS.map((s) => (
               <Link key={s.id} href={`/diagnose?s=${s.id}`} className="sym-chip">{s.label}</Link>
             ))}
           </div>
+          <p className="sym-hook-care">증상이 없어도 괜찮아요 — <b>품종 맞춤 케어</b>를 무료로 알려드려요.</p>
         </div>
 
         <div className="lhero-cta">
-          <Link href="/diagnose" className="btn btn--primary btn--lg"><Icon name="sparkle" size={17} filled /> 무료로 진단 시작</Link>
+          <Link href="/diagnose" className="btn btn--primary btn--lg"><Icon name="sparkle" size={17} filled /> 무료로 시작하기</Link>
         </div>
         <div className="trust">
           <span className="trust-item"><Icon name="shield" size={15} /> 수의 가이드라인 기반</span>
@@ -134,7 +135,7 @@ export default function Home() {
         </div>
         <div className="price-grid">
           <div className="price-card">
-            <div className="price-name">무료 진단</div>
+            <div className="price-name">무료 정보</div>
             <div className="price-amt">₩0</div>
             <div className="price-note">로그인 없이 바로</div>
             <ul className="price-list">
@@ -179,7 +180,7 @@ export default function Home() {
       <section className="cta-band">
         <h2>우리 아이, 지금 무료로 확인해보세요</h2>
         <p>로그인 없이 30초. 걱정되는 증상부터 가볍게 시작하세요.</p>
-        <Link href="/diagnose" className="btn btn--white btn--lg"><Icon name="sparkle" size={17} filled /> 무료로 진단 시작</Link>
+        <Link href="/diagnose" className="btn btn--white btn--lg"><Icon name="sparkle" size={17} filled /> 무료로 시작하기</Link>
       </section>
     </main>
   );
