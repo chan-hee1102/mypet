@@ -9,6 +9,7 @@ import { Icon } from './icons';
 import SourceBadges from './SourceBadges';
 import { fileToImage } from '@/lib/imageClient';
 import { SITE } from '@/lib/site';
+import { SYMPTOMS, SYMPTOM_INFO, symptomLabels, detectEmergency } from '@/lib/symptomData';
 
 const PAYMENTS_LIVE = !!process.env.NEXT_PUBLIC_PORTONE_STORE_ID;
 const LS_KEY = 'mypet_diagnose_v1';
@@ -72,16 +73,44 @@ function Stepper({ step }: { step: 1 | 2 }) {
 
 /** 1단계 무료 가이드 — 슬림 스냅샷 + 결제 유도 잠금 카드. */
 function GuideView({
-  result, name, speciesKo, breed, onNext, onEdit,
+  result, name, speciesKo, breed, symptomIds, onNext, onEdit,
 }: {
-  result: GuideResult; name: string; speciesKo: string; breed: string; onNext: () => void; onEdit: () => void;
+  result: GuideResult; name: string; speciesKo: string; breed: string; symptomIds: string[]; onNext: () => void; onEdit: () => void;
 }) {
   const { guide, ageLabel } = result;
+
+  const emergency = detectEmergency(symptomIds, '');
+  const symCards = symptomIds
+    .map((id) => ({ label: SYMPTOMS.find((s) => s.id === id)?.label || id, info: SYMPTOM_INFO[id] }))
+    .filter((x) => x.info);
+  const symptomBlock =
+    symptomIds.length > 0 ? (
+      <>
+        {emergency && (
+          <div className="emerg-banner">
+            <Icon name="alert" size={18} />
+            <div><b>지금 바로 병원에 가세요</b><span>응급일 수 있는 증상이에요. 아래는 참고용 일반 안내입니다.</span></div>
+          </div>
+        )}
+        <section className="section flags">
+          <div className="section-head"><span className="section-ico"><Icon name="cross" size={18} /></span><h3 className="section-title">걱정되는 증상, 일반 안내</h3></div>
+          {symCards.map((c, i) => (
+            <div className="sym-card" key={i}>
+              <b>{c.label}</b>
+              <p>{c.info!.causes}</p>
+              <p className="sym-vet"><Icon name="alert" size={13} /> {c.info!.vet}</p>
+            </div>
+          ))}
+          <p className="sym-note">※ 일반 정보예요. <b>{name}</b>의 정확한 원인·조치는 사진·증상을 분석하는 맞춤 진단에서 알려드려요.</p>
+        </section>
+      </>
+    ) : null;
 
   if (!guide.matched) {
     return (
       <div className="bguide">
         <Stepper step={1} />
+        {symptomBlock}
         <div className="card" style={{ textAlign: 'center' }}>
           <div className="gate-ico" style={{ margin: '0 auto 10px' }}><Icon name="paw" size={22} filled /></div>
           <h2 className="card-title">{breed ? `'${breed}'` : speciesKo} 일반 가이드를 못 찾았어요</h2>
@@ -105,6 +134,7 @@ function GuideView({
   return (
     <div className="bguide">
       <Stepper step={1} />
+      {symptomBlock}
 
       <div className="gcard">
         <div className="gcard-top">
@@ -171,6 +201,7 @@ export default function DiagnoseForm() {
   const [neutered, setNeutered] = useState<'' | 'yes' | 'no'>('');
   const [weight, setWeight] = useState('');
   const [symptoms, setSymptoms] = useState('');
+  const [symptomIds, setSymptomIds] = useState<string[]>([]);
   const [image, setImage] = useState<{ data: string; mediaType: string } | null>(null);
   const [preview, setPreview] = useState('');
 
@@ -197,6 +228,7 @@ export default function DiagnoseForm() {
         if (d.neutered) setNeutered(d.neutered);
         if (d.weight) setWeight(d.weight);
         if (d.symptoms) setSymptoms(d.symptoms);
+        if (Array.isArray(d.symptomIds)) setSymptomIds(d.symptomIds);
       }
     } catch { /* ignore */ }
     setRestored(true);
@@ -206,9 +238,17 @@ export default function DiagnoseForm() {
   useEffect(() => {
     if (!restored) return;
     try {
-      localStorage.setItem(LS_KEY, JSON.stringify({ species, name, breed, age, sex, neutered, weight, symptoms }));
+      localStorage.setItem(LS_KEY, JSON.stringify({ species, name, breed, age, sex, neutered, weight, symptoms, symptomIds }));
     } catch { /* ignore */ }
-  }, [restored, species, name, breed, age, sex, neutered, weight, symptoms]);
+  }, [restored, species, name, breed, age, sex, neutered, weight, symptoms, symptomIds]);
+
+  // 랜딩 증상 칩(?s=)에서 들어오면 미리 선택
+  useEffect(() => {
+    try {
+      const sp = new URLSearchParams(window.location.search).get('s');
+      if (sp && SYMPTOMS.some((s) => s.id === sp)) setSymptomIds((prev) => (prev.includes(sp) ? prev : [...prev, sp]));
+    } catch { /* ignore */ }
+  }, []);
 
   async function onFile(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -223,7 +263,11 @@ export default function DiagnoseForm() {
     }
   }
 
+  const toggleSymptom = (id: string) =>
+    setSymptomIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+
   function buildInput(): PetInput {
+    const notes = [symptomLabels(symptomIds), symptoms.trim()].filter(Boolean).join(' / ');
     return {
       name: name.trim(),
       species,
@@ -232,7 +276,7 @@ export default function DiagnoseForm() {
       sex: sex || undefined,
       neutered: neutered === '' ? undefined : neutered === 'yes',
       weightKg: weight ? Number(weight) : undefined,
-      notes: symptoms.trim() || undefined,
+      notes: notes || undefined,
     };
   }
 
@@ -309,15 +353,15 @@ export default function DiagnoseForm() {
     return (
       <>
       <section className="hero">
-        <span className="eyebrow"><Icon name="sparkle" size={14} filled /> AI 맞춤 진단</span>
+        <span className="eyebrow"><Icon name="shield" size={14} /> 수의 가이드라인 기반 AI</span>
         <h1>우리 아이 정보를 알려주세요</h1>
-        <p className="hero-sub">품종·나이만 입력하면, 그 품종의 일반 가이드를 무료로 보여드려요.</p>
+        <p className="hero-sub">품종·나이와 걱정되는 증상을 입력하면, <b>무료 일반 안내</b>부터 바로 보여드려요.</p>
       </section>
       <Stepper step={1} />
       <form className="card" onSubmit={showGuide}>
         <div className="card-head">
-          <h2 className="card-title">1단계 · 우리 아이 정보</h2>
-          <p className="card-desc">품종·나이만 입력하면 그 품종의 일반 가이드를 무료로 보여드려요.</p>
+          <h2 className="card-title">1단계 · 우리 아이 정보 (무료)</h2>
+          <p className="card-desc">품종·나이·걱정되는 증상을 입력하세요. 30초면 됩니다.</p>
         </div>
 
         <div className="field">
@@ -375,10 +419,22 @@ export default function DiagnoseForm() {
           </div>
         </div>
 
+        <div className="field">
+          <label className="label">어디가 걱정되세요? <span className="opt">선택 · 여러 개 가능</span></label>
+          <div className="sym-select">
+            {SYMPTOMS.map((s) => (
+              <button type="button" key={s.id} className={`sym-opt ${symptomIds.includes(s.id) ? 'on' : ''}`} onClick={() => toggleSymptom(s.id)}>
+                {s.label}
+              </button>
+            ))}
+          </div>
+          <textarea className="input" rows={2} style={{ marginTop: 8 }} value={symptoms} onChange={(e) => setSymptoms(e.target.value)} placeholder="자세히 적어주시면 더 정확해요 (예: 어제부터 사료를 안 먹어요, 닭고기 알레르기)" />
+        </div>
+
         {error && <div className="alert"><Icon name="alert" size={16} /> {error}</div>}
 
         <button className="btn btn--primary btn--lg btn--block" type="submit" disabled={loading}>
-          {loading ? <><span className="spinner" /> 불러오는 중…</> : <><Icon name="tag" size={18} /> 이 품종 가이드 보기 (무료)</>}
+          {loading ? <><span className="spinner" /> 분석 중…</> : <><Icon name="sparkle" size={18} filled /> 무료 진단 보기</>}
         </button>
       </form>
       </>
@@ -393,6 +449,7 @@ export default function DiagnoseForm() {
         name={name}
         speciesKo={speciesKo}
         breed={breed}
+        symptomIds={symptomIds}
         onNext={() => { setStage('form2'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
         onEdit={() => setStage('form1')}
       />
@@ -406,7 +463,7 @@ export default function DiagnoseForm() {
     <div className="card">
       <div className="card-head">
         <h2 className="card-title">2단계 · {name} 맞춤 진단</h2>
-        <p className="card-desc">사진과 증상을 더하면 AI가 {result?.guide.breedKo ?? speciesKo}에 맞춰 분석해 드려요.</p>
+        <p className="card-desc">사진을 더하면 입력하신 증상까지 종합해, {result?.guide.breedKo ?? speciesKo}에 맞춰 정밀 분석해 드려요.</p>
       </div>
 
       <div className="field">
@@ -424,10 +481,14 @@ export default function DiagnoseForm() {
         <p className="hint">사진이 있으면 체형·털 상태·품종까지 더 정확하게 분석해요.</p>
       </div>
 
-      <div className="field">
-        <label className="label">증상·특이사항 <span className="opt">선택</span></label>
-        <textarea className="input" rows={4} value={symptoms} onChange={(e) => setSymptoms(e.target.value)} placeholder="요즘 신경 쓰이는 증상이나 지병·알레르기를 적어주세요 (예: 다리를 절뚝거림, 기침, 닭고기 알레르기)" />
-      </div>
+      {(symptomIds.length > 0 || symptoms.trim()) && (
+        <div className="field">
+          <label className="label">입력한 증상 <button type="button" className="linklike" style={{ fontSize: 12, marginLeft: 6 }} onClick={() => setStage('form1')}>수정</button></label>
+          <div className="sym-summary">
+            {symptomLabels(symptomIds)}{symptomIds.length > 0 && symptoms.trim() ? ' · ' : ''}{symptoms.trim()}
+          </div>
+        </div>
+      )}
 
       <div className="teaser-locked">
         <div className="teaser-locked-head"><Icon name="sparkle" size={15} filled /> 결제하면 받는 맞춤 진단</div>
