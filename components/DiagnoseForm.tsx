@@ -420,15 +420,23 @@ export default function DiagnoseForm() {
         </div>
 
         <div className="field">
-          <label className="label">어디가 걱정되세요? <span className="opt">선택 · 없으면 건너뛰어요</span></label>
+          <label className="label">무엇이 궁금하세요?</label>
           <div className="sym-select">
+            <button
+              type="button"
+              className={`sym-opt sym-opt--none ${symptomIds.length === 0 ? 'on' : ''}`}
+              onClick={() => setSymptomIds([])}
+            >
+              <Icon name="paw" size={14} filled /> 증상 없어요 · 그냥 케어가 궁금해요
+            </button>
+            <div className="sym-sub-label">또는, 이런 증상이 걱정되면 선택하세요</div>
             {SYMPTOMS.map((s) => (
               <button type="button" key={s.id} className={`sym-opt ${symptomIds.includes(s.id) ? 'on' : ''}`} onClick={() => toggleSymptom(s.id)}>
                 {s.label}
               </button>
             ))}
           </div>
-          <p className="hint">자세한 상황(예: 어제부터 다리를 절뚝거려요)은 <b>2단계 AI 맞춤 진단</b>에서 직접 적을 수 있어요.</p>
+          <p className="hint">자세한 상황(예: 어제부터 다리를 절뚝거려요)은 <b>2단계 AI 맞춤 진단</b>에서 적을 수 있어요.</p>
         </div>
 
         {error && <div className="alert"><Icon name="alert" size={16} /> {error}</div>}

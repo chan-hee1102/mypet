@@ -423,6 +423,8 @@ textarea.input{resize:vertical;min-height:46px}
 .sym-opt{font-size:13.5px;font-weight:600;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:9px 14px;cursor:pointer;transition:.15s}
 .sym-opt:hover{border-color:#bcd6ce}
 .sym-opt.on{background:var(--brand);border-color:transparent;color:#fff;font-weight:700}
+.sym-opt--none{display:flex;align-items:center;justify-content:center;gap:6px;width:100%}
+.sym-sub-label{width:100%;font-size:12px;color:var(--muted);margin:6px 0 1px}
 .sym-summary{font-size:13.5px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:11px;padding:10px 13px;line-height:1.5}
 
 /* 무료 증상 일반 안내 카드 */
