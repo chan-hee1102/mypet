@@ -428,7 +428,7 @@ export default function DiagnoseForm() {
               </button>
             ))}
           </div>
-          <textarea className="input" rows={2} style={{ marginTop: 8 }} value={symptoms} onChange={(e) => setSymptoms(e.target.value)} placeholder="자세히 적어주시면 더 정확해요 (예: 어제부터 사료를 안 먹어요, 닭고기 알레르기)" />
+          <p className="hint">자세한 상황(예: 어제부터 다리를 절뚝거려요)은 <b>2단계 AI 맞춤 진단</b>에서 직접 적을 수 있어요.</p>
         </div>
 
         {error && <div className="alert"><Icon name="alert" size={16} /> {error}</div>}
@@ -481,14 +481,17 @@ export default function DiagnoseForm() {
         <p className="hint">사진이 있으면 체형·털 상태·품종까지 더 정확하게 분석해요.</p>
       </div>
 
-      {(symptomIds.length > 0 || symptoms.trim()) && (
+      {symptomIds.length > 0 && (
         <div className="field">
-          <label className="label">입력한 증상 <button type="button" className="linklike" style={{ fontSize: 12, marginLeft: 6 }} onClick={() => setStage('form1')}>수정</button></label>
-          <div className="sym-summary">
-            {symptomLabels(symptomIds)}{symptomIds.length > 0 && symptoms.trim() ? ' · ' : ''}{symptoms.trim()}
-          </div>
+          <label className="label">선택한 증상 <button type="button" className="linklike" style={{ fontSize: 12, marginLeft: 6 }} onClick={() => setStage('form1')}>수정</button></label>
+          <div className="sym-summary">{symptomLabels(symptomIds)}</div>
         </div>
       )}
+
+      <div className="field">
+        <label className="label">증상·상황 자세히 <span className="opt">선택 · AI가 함께 분석</span></label>
+        <textarea className="input" rows={4} value={symptoms} onChange={(e) => setSymptoms(e.target.value)} placeholder="어떤 상황인지 자유롭게 적어주세요 (예: 어제부터 다리를 절뚝거려요, 닭고기 알레르기, 사료를 안 먹어요). 적어주실수록 더 정확해요." />
+      </div>
 
       <div className="teaser-locked">
         <div className="teaser-locked-head"><Icon name="sparkle" size={15} filled /> 결제하면 받는 맞춤 진단</div>
