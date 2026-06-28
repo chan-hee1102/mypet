@@ -6,7 +6,7 @@ import CareCardView from './CareCard';
 import { Icon } from './icons';
 import type { CareCard, PreviewCard, Species } from '@/lib/types';
 
-/** 일회성 진단 결과 렌더(전부 잠금해제 상태) + 비밀 링크 복사. */
+/** 일회성 진단 결과 렌더(전부 잠금해제 상태) + PDF 저장 + 비밀 링크 복사. */
 export default function ReportClient({ species, petName, card }: { species: Species; petName: string; card: CareCard }) {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
@@ -22,15 +22,23 @@ export default function ReportClient({ species, petName, card }: { species: Spec
     }
   }
 
+  function savePdf() {
+    // 인쇄 전 모든 접힌 섹션을 펼쳐 전체가 PDF에 담기게 한다.
+    document.querySelectorAll('details.section').forEach((d) => d.setAttribute('open', ''));
+    window.print();
+  }
+
   return (
     <>
-      <div className="save-banner">
-        <Icon name="info" size={16} />
-        <span>이 페이지 주소를 저장해두면 나중에 다시 볼 수 있어요.</span>
-        <button className="btn btn--sm btn--primary" onClick={copyLink}>
-          <Icon name={copied ? 'check' : 'tag'} size={14} /> {copied ? '복사됨' : '링크 복사'}
+      <div className="result-actions">
+        <button className="btn btn--primary btn--block" onClick={savePdf}>
+          <Icon name="check" size={16} /> 진단서 PDF로 저장 · 인쇄
+        </button>
+        <button className="btn btn--secondary btn--block" onClick={copyLink}>
+          <Icon name={copied ? 'check' : 'tag'} size={16} /> {copied ? '링크가 복사됐어요' : '링크 복사 (나중에 다시 보기)'}
         </button>
       </div>
+
       <CareCardView
         species={species}
         petName={petName}

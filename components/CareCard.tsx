@@ -205,8 +205,8 @@ export default function CareCardView({
 
       <SourceBadges sources={preview.sources} />
 
-      {/* ── 미리보기 (무료) ── */}
-      <Section icon="info" title="사진·기본 분석">
+      {/* ── 사진·기본 분석 (맞춤 핵심 — 펼친 상태) ── */}
+      <Section icon="info" title="사진·기본 분석" collapsible defaultOpen>
         <p>{stripRefs(preview.photoAnalysis.coatSkinNotes)}</p>
         <div className="meta-grid">
           <span className="meta-pill">체형<b>{preview.photoAnalysis.bodyCondition}</b></span>
@@ -214,7 +214,7 @@ export default function CareCardView({
         </div>
       </Section>
 
-      <Section icon="tag" title="품종 특성">
+      <Section icon="tag" title="품종 특성" collapsible>
         <p>{stripRefs(preview.breedTraits.summary)}</p>
         {preview.breedTraits.healthRisks.length > 0 && (
           <>

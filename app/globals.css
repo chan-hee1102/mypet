@@ -406,6 +406,21 @@ textarea.input{resize:vertical;min-height:46px}
 .save-banner>svg{flex:none}
 .save-banner .btn{margin-left:auto}
 
+/* 결과 상단 액션(PDF 저장 / 링크 복사) */
+.result-actions{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+
+/* 인쇄·PDF 저장 — 화면 요소 숨기고 전체 펼쳐 깔끔하게 */
+@media print {
+  *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .appbar, .site-footer, .result-actions, .sticky-cta, .save-banner, .btn, .section-chev{ display:none !important; }
+  body{ background:#fff !important; }
+  .container{ max-width:100% !important; padding:8px 0 !important; }
+  .report{ gap:10px !important; }
+  .section, .food-col, .gcard, .dz-item{ box-shadow:none !important; break-inside:avoid; }
+  details.section>.section-body{ display:block !important; }
+  .report-hero::after{ display:none; }
+}
+
 /* ── 어르신 친화: 결과 페이지 큰 글씨·넉넉한 간격 ── */
 .report--large .section p{font-size:16px;line-height:1.75}
 .report--large .section-title{font-size:18px}
