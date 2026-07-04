@@ -65,7 +65,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <p className="footer-biz">
             {SITE.company} · 대표 {SITE.ceo} · 사업자등록번호 {SITE.bizNo}
             {SITE.mailOrderNo && <> · 통신판매업신고 {SITE.mailOrderNo}</>}<br />
-            {SITE.address} · {SITE.email}
+            {SITE.address} · {SITE.email}{SITE.phone && <> · {SITE.phone}</>}
           </p>
           <p className="footer-note">
             <b>mypet</b> · AI 반려동물 케어 · 본 서비스는 일반 정보를 제공하며 수의사의 진단·진료를 대체하지 않습니다.

@@ -9,15 +9,40 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const metadata = { title: '진단 결과 — mypet', robots: { index: false, follow: false } };
 
+const LINK_VALID_DAYS = 60; // KG이니시스 입점 요건: 결과 링크 유효기간 60일
+
 export default async function ResultPage({ params }: { params: { token: string } }) {
   const admin = createAdminClient();
   const { data: dx } = await admin
     .from('diagnoses')
-    .select('species, input, card, status')
+    .select('species, input, card, status, created_at, paid_at')
     .eq('token', params.token)
     .maybeSingle();
 
   if (!dx) notFound();
+
+  // 링크 유효기간(60일) 만료 확인
+  const baseTs = (dx.paid_at as string | null) || (dx.created_at as string | null);
+  if (baseTs) {
+    const ageDays = (Date.now() - new Date(baseTs).getTime()) / 86400000;
+    if (ageDays > LINK_VALID_DAYS) {
+      return (
+        <main className="container container--narrow">
+          <div className="card gate">
+            <div className="gate-ico"><Icon name="lock" size={24} /></div>
+            <h2 className="gate-title">열람 기간이 지났어요</h2>
+            <p className="gate-desc">
+              진단 결과는 발급일로부터 <b>{LINK_VALID_DAYS}일</b>간 볼 수 있어요.
+              다시 필요하시면 새로 진단받아 주세요.
+            </p>
+            <Link href="/diagnose" className="btn btn--primary btn--lg btn--block">
+              <Icon name="sparkle" size={17} filled /> 새 진단 시작하기
+            </Link>
+          </div>
+        </main>
+      );
+    }
+  }
 
   if (dx.status !== 'done' || !dx.card) {
     const failed = dx.status === 'failed';

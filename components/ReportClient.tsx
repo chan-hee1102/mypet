@@ -37,6 +37,7 @@ export default function ReportClient({ species, petName, card }: { species: Spec
         <button className="btn btn--secondary btn--block" onClick={copyLink}>
           <Icon name={copied ? 'check' : 'tag'} size={16} /> {copied ? '링크가 복사됐어요' : '링크 복사 (나중에 다시 보기)'}
         </button>
+        <p className="hint center" style={{ marginTop: 2 }}>※ 이 링크는 발급일로부터 60일간 볼 수 있어요.</p>
       </div>
 
       <CareCardView
