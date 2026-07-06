@@ -15,11 +15,16 @@ export const maxDuration = 60;
  *  - 없으면 "샌드박스(테스트)" 모드로 통과 — 키 발급 전 전체 흐름 확인용.
  *    ⚠️ 실서비스 전 반드시 PortOne 키를 설정해 실제 결제 검증을 켜야 함.
  */
-async function verifyPayment(paymentId: string | null): Promise<{ ok: boolean; provider: string; error?: string }> {
+async function verifyPayment(paymentId: string | null, token: string): Promise<{ ok: boolean; provider: string; error?: string }> {
   const secret = process.env.PORTONE_API_SECRET;
   if (!secret) return { ok: true, provider: 'sandbox' }; // 키 없음 → 테스트 통과
 
   if (!paymentId) return { ok: false, provider: 'portone', error: 'paymentId 누락' };
+  // 결제ID는 클라이언트가 `mypet-${token앞24자}` 규칙으로 생성 — 동일 규칙으로 재계산해
+  // 다른 진단의 결제를 재사용하는 공격을 차단한다.
+  if (paymentId !== `mypet-${token.slice(0, 24)}`) {
+    return { ok: false, provider: 'portone', error: '결제 정보가 이 진단과 일치하지 않습니다.' };
+  }
   try {
     const res = await fetch(`https://api.portone.io/payments/${encodeURIComponent(paymentId)}`, {
       headers: { Authorization: `PortOne ${secret}` },
@@ -51,7 +56,7 @@ export async function POST(req: Request) {
     if (dx.status === 'done' && dx.card) return NextResponse.json({ ok: true, token });
 
     // 결제 검증
-    const v = await verifyPayment(paymentId ?? null);
+    const v = await verifyPayment(paymentId ?? null, String(token));
     if (!v.ok) return NextResponse.json({ error: v.error || '결제 검증 실패' }, { status: 402 });
 
     // 결제 확인 기록

@@ -442,7 +442,8 @@ export default function DiagnoseForm() {
       let paymentId: string | null = null;
       if (PAYMENTS_LIVE) {
         const PortOne = await import('@portone/browser-sdk/v2');
-        const pid = `mypet-${token}`;
+        // 이니시스 oid 길이 제한(40자) — 토큰 앞 24자만 사용 (서버가 동일 규칙으로 재계산해 검증)
+        const pid = `mypet-${token.slice(0, 24)}`;
         const resp = await PortOne.requestPayment({
           storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID as string,
           channelKey: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY as string,
