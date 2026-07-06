@@ -14,15 +14,23 @@ const SYMPTOMS = [
 ];
 
 const STEPS = [
-  { icon: 'paw', title: '우리 아이 정보 입력', desc: '품종·나이·걱정되는 증상을 30초면 입력해요.' },
-  { icon: 'shield', title: '무료 일반 안내', desc: '이 품종·증상에 대한 일반 정보를 바로 보여드려요.' },
-  { icon: 'sparkle', title: 'AI 맞춤 리포트 (2,900원)', desc: '정밀 원인 + 케어(사료·간식·산책·미용·영양제)까지. PDF 저장.' },
+  { icon: 'paw', title: '우리 아이 정보 입력', desc: '품종·나이·몸무게·걱정되는 증상. 30초면 돼요.' },
+  { icon: 'shield', title: '무료 맞춤 체크', desc: '몸무게가 적당한지, 지금 나이에 뭐가 중요한지 품종 기준으로 바로 판정해 드려요.' },
+  { icon: 'sparkle', title: 'AI 맞춤 리포트 (2,900원)', desc: '결론부터: 병원에 가야 할지, 오늘 할 일 3가지, 증상의 가능 원인 순위까지. PDF 저장.' },
+];
+
+// 랜딩 꿀팁 맛보기 — lib/breedTips.ts의 검증된 내용 중 임팩트 큰 3개
+const TIP_SAMPLES = [
+  { emoji: '🐶', breed: '포메라니안·폼피츠', title: '바리깡으로 밀면 털이 다시 안 날 수 있어요', body: '이중모 품종은 짧게 민 뒤 털이 듬성듬성 나는 "클리핑 후 탈모"가 올 수 있어요.' },
+  { emoji: '🦮', breed: '리트리버 등 대형견', title: '밥 먹고 바로 뛰면 위가 꼬일 수 있어요', body: '위확장염전은 응급 수술이 필요한 병이에요. 식후 1시간은 쉬게 해 주세요.' },
+  { emoji: '🐱', breed: '수컷 고양이', title: '소변을 못 보면 그날 밤 응급실이에요', body: '화장실을 들락거리는데 소변이 안 나오면 요도가 막힌 것일 수 있어요.' },
 ];
 
 const FAQ = [
   { q: '수의사를 대체하나요?', a: '아니요. 병원에 가기 전 참고할 수 있는 일반 정보를 드리는 서비스예요. 이상 증상이 보이면 반드시 수의사 진료를 받으세요.' },
   { q: '정보가 정확한가요?', a: '공식 수의 가이드라인(AKC·WSAVA·ASPCA 등)과 188개 품종의 검증 데이터를 기반으로 합니다. 독성 음식 같은 핵심 안전 정보는 AI가 아니라 검증 데이터로 고정해 신뢰도를 높였어요.' },
-  { q: '로그인해야 하나요?', a: '아니요. 로그인·회원가입 없이 바로 이용하고, 결제 후 결과는 비밀 링크로 다시 볼 수 있어요.' },
+  { q: '로그인해야 하나요?', a: '아니요. 로그인·회원가입 없이 바로 이용해요. 결제 후 결과는 비밀 링크로 받아서 60일 동안 다시 볼 수 있고, PDF로도 저장할 수 있어요.' },
+  { q: '환불이 되나요?', a: '리포트가 만들어지기 전에는 전액 환불돼요. 디지털 콘텐츠 특성상 생성·열람 후에는 환불이 제한될 수 있어요. 문제가 있으면 하단 "환불 문의"로 알려주세요 — 성심껏 처리해 드려요.' },
   { q: '강아지·고양이 둘 다 되나요?', a: '네, 강아지와 고양이 모두 지원합니다.' },
 ];
 
@@ -66,27 +74,26 @@ export default function Home() {
               <span className="mock-avatar"><Icon name="paw" size={20} filled /></span>
               <div>
                 <div className="mock-name">콩이</div>
-                <div className="mock-meta">포메라니안 · 2살 · 암컷</div>
+                <div className="mock-meta">포메라니안 · 8살 · 암컷</div>
               </div>
               <span className="mock-badge">맞춤 리포트</span>
             </div>
-            <div className="mock-traits">
-              <span>활발함</span>
-              <span>애교 많음</span>
-              <span className="risk">슬개골 주의</span>
-            </div>
-            <div className="mock-row">
-              <span className="ic tint-sky"><Icon name="cross" size={15} /></span>
-              <div><div className="tx">구토 가능 원인</div><div className="sub">식이 변화·이물·위장염 등</div></div>
+            <div className="mock-verdict"><Icon name="cross" size={13} /> 2~3일 내 진료를 권해요</div>
+            <div className="mock-headline">절뚝거림은 무릎(슬개골) 문제일 수 있어요</div>
+            <div className="mock-todo">
+              <b>오늘 할 일</b>
+              <span>① 소파·계단 점프 막기</span>
+              <span>② 다리 만질 때 통증 반응 보기</span>
+              <span>③ 무리한 산책 쉬기</span>
             </div>
             <div className="mock-foods">
               <span className="mock-pill good"><Icon name="check" size={13} strokeWidth={2.4} /> 닭가슴살·당근</span>
               <span className="mock-pill bad"><Icon name="alert" size={13} /> 초콜릿·포도</span>
             </div>
             <div className="mock-schedule">
-              <div><span>산책</span><b>하루 20분</b></div>
-              <div><span>목욕</span><b>2주마다</b></div>
-              <div><span>병원</span><b>이럴 때</b></div>
+              <div><span>산책</span><b>매일 20분</b></div>
+              <div><span>목욕</span><b>한 달 1회</b></div>
+              <div><span>빗질</span><b>매일~격일</b></div>
             </div>
           </div>
         </div>
@@ -108,6 +115,27 @@ export default function Home() {
               <div className="step-desc">{s.desc}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* 꿀팁 맛보기 — "이런 걸 알려주는구나" */}
+      <section className="lsec">
+        <div className="lsec-head">
+          <div className="lsec-eyebrow">모르면 손해</div>
+          <h2 className="lsec-title">이런 걸 알려드려요</h2>
+          <p className="lsec-sub">품종마다 &lsquo;아는 사람만 아는&rsquo; 관리 포인트가 달라요. 우리 아이 것도 확인해 보세요.</p>
+        </div>
+        <div className="tipband">
+          {TIP_SAMPLES.map((t) => (
+            <div className="tipband-card" key={t.title}>
+              <div className="tipband-breed">{t.emoji} {t.breed}</div>
+              <b>{t.title}</b>
+              <p>{t.body}</p>
+            </div>
+          ))}
+        </div>
+        <div className="tipband-cta">
+          <Link href="/diagnose" className="btn btn--secondary">우리 아이 꿀팁 무료로 보기 →</Link>
         </div>
       </section>
 
@@ -139,21 +167,22 @@ export default function Home() {
             <div className="price-amt">₩0</div>
             <div className="price-note">로그인 없이 바로</div>
             <ul className="price-list">
-              <li><Icon name="check" size={15} strokeWidth={2.2} /> 품종 일반 정보·주의할 점</li>
+              <li><Icon name="check" size={15} strokeWidth={2.2} /> 몸무게·나이 맞춤 체크 (품종 기준 판정)</li>
+              <li><Icon name="check" size={15} strokeWidth={2.2} /> 품종 꿀팁 1개 + 조심할 질환 미리보기</li>
               <li><Icon name="check" size={15} strokeWidth={2.2} /> 걱정되는 증상의 일반 안내</li>
-              <li><Icon name="check" size={15} strokeWidth={2.2} /> 강아지·고양이 모두 지원</li>
             </ul>
             <Link href="/diagnose" className="btn btn--secondary btn--block">무료로 시작</Link>
           </div>
           <div className="price-card featured">
             <span className="price-badge">맞춤</span>
-            <div className="price-name">맞춤 케어 리포트</div>
+            <div className="price-name">AI 맞춤 리포트</div>
             <div className="price-amt">₩2,900<small> / 1회</small></div>
-            <div className="price-note">결제 즉시 · PDF 저장</div>
+            <div className="price-note">병원 초진 전, 커피 한 잔 값</div>
             <ul className="price-list">
-              <li><Icon name="check" size={15} strokeWidth={2.2} /> 사진·증상 기반 정밀 분석</li>
-              <li><Icon name="check" size={15} strokeWidth={2.2} /> 사료·간식·산책·미용·영양제 케어</li>
-              <li><Icon name="check" size={15} strokeWidth={2.2} /> 병원 가야 할 신호 + 비밀 링크 보관</li>
+              <li><Icon name="check" size={15} strokeWidth={2.2} /> 결론부터: 병원 가야 할지 + 오늘 할 일 3가지</li>
+              <li><Icon name="check" size={15} strokeWidth={2.2} /> 증상의 가능 원인 순위 + 사진 상태 분석</li>
+              <li><Icon name="check" size={15} strokeWidth={2.2} /> 품종 꿀팁 전체·음식·산책·미용 가이드</li>
+              <li><Icon name="check" size={15} strokeWidth={2.2} /> PDF 저장 + 60일 비밀 링크 보관</li>
             </ul>
             <Link href="/diagnose" className="btn btn--primary btn--block">진단 시작하기</Link>
           </div>

@@ -96,6 +96,20 @@ svg{display:block;flex:none}
 .mock-row .tx{font-size:12.5px;font-weight:700}
 .mock-row .sub{font-size:11px;color:var(--muted)}
 .mock-foods{display:flex;gap:8px;margin-top:2px}
+/* 목업: 종합 소견 스타일 */
+.mock-verdict{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;color:#fff;background:var(--warn);border-radius:999px;padding:5px 11px;margin-bottom:8px}
+.mock-headline{font-size:14px;font-weight:800;color:var(--ink);line-height:1.4;margin-bottom:9px}
+.mock-todo{display:flex;flex-direction:column;gap:4px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:12px;padding:10px 12px;margin-bottom:9px}
+.mock-todo b{font-size:11px;color:var(--brand-600)}
+.mock-todo span{font-size:12px;color:var(--ink-2)}
+/* 랜딩 꿀팁 맛보기 */
+.tipband{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.tipband-card{background:linear-gradient(180deg,#fffbeb,#fffdf6);border:1px solid #f3e3b3;border-radius:16px;padding:16px 17px}
+.tipband-breed{font-size:12px;font-weight:800;color:#a07617;margin-bottom:7px}
+.tipband-card b{display:block;font-size:14.5px;font-weight:800;color:var(--ink);line-height:1.4}
+.tipband-card p{font-size:13px;color:var(--ink-2);line-height:1.6;margin-top:5px}
+.tipband-cta{text-align:center;margin-top:16px}
+@media(max-width:560px){.tipband{grid-template-columns:1fr}}
 .mock-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;border-radius:11px;padding:9px 8px;font-size:11px;font-weight:700}
 .mock-pill.good{background:var(--good-50);color:var(--good)}
 .mock-pill.bad{background:var(--danger-50);color:var(--danger)}
@@ -400,7 +414,7 @@ textarea.input{resize:vertical;min-height:46px}
 .food-tag--no{color:#c0392b;background:#fdeeec}
 .food-chips{display:flex;flex-wrap:wrap;gap:6px}
 .food-chip{font-size:13px;font-weight:600;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:5px 11px;line-height:1.35}
-.food-chip--no{color:#c0392b;background:#fdf3f2;border-color:#f3d3ce;text-decoration:line-through;text-decoration-thickness:1.5px}
+.food-chip--no{color:#b03528;background:#fdf3f2;border-color:#f0c9c2;font-weight:700}
 
 /* ── 품종 꿀팁 카드 (아는 사람만 아는) ── */
 .tipcard{background:linear-gradient(180deg,#fffbeb,#fffdf6);border:1px solid #f3e3b3;border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm)}
@@ -665,10 +679,18 @@ textarea.input{resize:vertical;min-height:46px}
 }
 @media(max-width:480px){
   .row2,.food{grid-template-columns:1fr}
-  .stats{grid-template-columns:1fr}
+  /* 권장주기: 값이 짧아 모바일에서도 3열 유지 — 세로 나열보다 한눈에 */
+  .stats{grid-template-columns:repeat(3,1fr);gap:7px}
+  .stat{padding:12px 6px}
+  .stat-value{font-size:12.5px}
+  .report--large .stat-value{font-size:13px}
   .hero h1{font-size:24px}
   .report-title{font-size:22px}
   .report-hero{flex-direction:column}
+  .container{padding:0 14px}
+  .section{padding:15px 15px}
+  .vd{padding:15px 16px}
+  .tipcard,.rlock{padding:14px 15px}
 }
 
 /* ── 인증(로그인/회원가입) ── */
@@ -831,12 +853,10 @@ textarea.input{resize:vertical;min-height:46px}
 .source-badge{font-size:11.5px;font-weight:700;color:var(--brand-600);background:#fff;border:1px solid #bfe4cf;padding:4px 10px;border-radius:999px;text-decoration:none}
 .source-badge:hover{background:var(--brand);color:#fff;border-color:transparent}
 
-/* ── 모바일: 하단탭바 노출 + 데스크톱 항목 숨김 ── */
+/* ── 모바일: 데스크톱 항목 숨김 (하단탭바는 로그인 제거와 함께 미사용) ── */
 @media(max-width:600px){
   .nav-desktop{display:none}
   .appbar-inner{padding:11px 16px}
-  .bottomnav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;background:rgba(255,255,255,.93);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
-  body{padding-bottom:76px}
 }
 
 /* ── 내 아이 목록 ── */
