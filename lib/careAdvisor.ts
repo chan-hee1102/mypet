@@ -18,6 +18,24 @@ function getClient(): GoogleGenAI {
 const careCardSchema = {
   type: Type.OBJECT,
   properties: {
+    verdict: {
+      type: Type.OBJECT,
+      properties: {
+        urgency: { type: Type.STRING, enum: ['now', 'soon', 'routine'] },
+        headline: { type: Type.STRING },
+        summary: { type: Type.STRING },
+        todo: { type: Type.ARRAY, items: { type: Type.STRING } },
+      },
+      required: ['urgency', 'headline', 'summary', 'todo'],
+    },
+    symptomAnswer: {
+      type: Type.OBJECT,
+      properties: {
+        causes: { type: Type.ARRAY, items: { type: Type.STRING } },
+        careNow: { type: Type.ARRAY, items: { type: Type.STRING } },
+      },
+      required: ['causes', 'careNow'],
+    },
     photoAnalysis: {
       type: Type.OBJECT,
       properties: {
@@ -80,7 +98,7 @@ const careCardSchema = {
     },
     redFlags: { type: Type.ARRAY, items: { type: Type.STRING } },
   },
-  required: ['photoAnalysis', 'breedTraits', 'grooming', 'exercise', 'food', 'ageCare', 'routine', 'redFlags'],
+  required: ['verdict', 'symptomAnswer', 'photoAnalysis', 'breedTraits', 'grooming', 'exercise', 'food', 'ageCare', 'routine', 'redFlags'],
 };
 
 export async function generateCareCard(
@@ -122,7 +140,23 @@ export async function generateCareCard(
   ${toxicList}
 - 사진으로 품종·체형·털 상태를 추정하되, 확신이 없으면 confidence를 medium 또는 low로.
 - 사진이 없으면 입력된 품종 정보를 바탕으로 작성하고 confidence는 low.
-- 모든 조언은 일반 정보이며 수의사 상담을 대체하지 않는다.${evidenceBlock}`;
+- 모든 조언은 일반 정보이며 수의사 상담을 대체하지 않는다.
+
+[문체 규칙 — 매우 중요. 40~60대 보호자용 건강검진 결과지 스타일]
+- 쉬운 말, 짧은 문장. 전문용어는 괄호로 짧게 풀기. 예: "기관허탈(숨길이 좁아지는 병)".
+- 모든 배열 항목(불릿)은 한 문장, 공백 포함 50자 이내.
+- summary류 문단은 최대 2문장.
+- routine.bath/walk/grooming 값은 12자 이내 요약값만. 예: "한 달에 1회", "매일 20~30분", "매일~격일 빗질". 부가 설명 금지(설명은 각 섹션 본문에).
+
+[verdict — 종합 소견. 리포트 맨 위에 표시되는 가장 중요한 부분]
+- headline: 보호자가 가장 궁금해하는 것에 대한 한 줄 결론(45자 이내). 특이사항에 증상이 있으면 그 증상에 대한 답이어야 한다.
+- summary: 이 아이 상태 종합 2문장.
+- todo: 오늘 바로 할 수 있는 행동 정확히 3개, 각 30자 이내.
+- urgency: 증상이 응급 신호(호흡곤란·경련·혈변·의식저하 등)면 'now', 며칠 내 진료가 필요해 보이면 'soon', 증상이 없거나 예방 관리 수준이면 'routine'.
+
+[symptomAnswer — 입력 증상에 대한 직접 답변]
+- 특이사항에 증상이 있으면: causes에 가능성 높은 순서로 원인 2~4개(각 50자 이내), careNow에 지금 집에서 할 조치 2~3개.
+- 증상이 없으면 causes와 careNow 모두 빈 배열.${evidenceBlock}`;
 
   const userText = `다음 반려동물에 맞춘 케어 카드를 만들어줘.
 
@@ -135,6 +169,7 @@ export async function generateCareCard(
 - 몸무게: ${input.weightKg ? input.weightKg + 'kg' : '미상'}
 - 특이사항(알레르기/지병 등): ${input.notes || '없음'}
 
+가장 먼저 종합 소견(verdict)과 특이사항 증상에 대한 답(symptomAnswer)을 정하고,
 품종 특성, 그루밍 주의(예: 폼피츠 같은 더블코트는 바짝 밀면 털이 잘 안 자랄 수 있음), 운동/산책, 음식, 나이별 케어, 목욕·산책·빗질 주기, 병원 방문 권장 신호를 포함해줘.`;
 
   const parts: Array<{ text: string } | { inlineData: { mimeType: string; data: string } }> = [];

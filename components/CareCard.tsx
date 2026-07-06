@@ -20,39 +20,24 @@ function stripRefs(s: string): string {
     .trim();
 }
 
+/** 검진결과지 스타일 — 접기 없이 전부 펼침, 대신 각 섹션을 짧고 스캔 가능하게. */
 function Section({
   icon,
   title,
   variant,
-  collapsible,
-  defaultOpen = true,
   children,
 }: {
   icon: string;
   title: string;
   variant?: string;
-  collapsible?: boolean;
-  defaultOpen?: boolean;
   children: ReactNode;
 }) {
-  const head = (
-    <>
-      <span className="section-ico"><Icon name={icon} size={18} /></span>
-      <h3 className="section-title">{title}</h3>
-      {collapsible && <span className="section-chev"><Icon name="chevron" size={18} /></span>}
-    </>
-  );
-  if (collapsible) {
-    return (
-      <details className={`section section--collapsible ${variant ?? ''}`} open={defaultOpen}>
-        <summary className="section-head">{head}</summary>
-        <div className="section-body">{children}</div>
-      </details>
-    );
-  }
   return (
     <section className={`section ${variant ?? ''}`}>
-      <div className="section-head">{head}</div>
+      <div className="section-head">
+        <span className="section-ico"><Icon name={icon} size={18} /></span>
+        <h3 className="section-title">{title}</h3>
+      </div>
       {children}
     </section>
   );
@@ -71,35 +56,92 @@ function Bullets({ items, warn }: { items: string[]; warn?: boolean }) {
   );
 }
 
+const URGENCY = {
+  now: { label: '지금 병원 진료를 권해요', cls: 'vd--now', icon: 'alert' },
+  soon: { label: '2~3일 내 진료를 권해요', cls: 'vd--soon', icon: 'cross' },
+  routine: { label: '예방 관리면 충분해요', cls: 'vd--ok', icon: 'check' },
+} as const;
+
+/** 종합 소견 — 리포트 맨 위. 결론·오늘 할 일부터. */
+function VerdictCard({ petName, card }: { petName: string; card: CareCardType }) {
+  const v = card.verdict;
+  if (!v) return null;
+  const u = URGENCY[v.urgency] ?? URGENCY.routine;
+  return (
+    <section className={`vd ${u.cls}`}>
+      <span className="vd-badge"><Icon name={u.icon} size={13} /> {u.label}</span>
+      <h3 className="vd-headline">{stripRefs(v.headline)}</h3>
+      <p className="vd-summary">{stripRefs(v.summary)}</p>
+      {v.todo.length > 0 && (
+        <div className="vd-todo">
+          <div className="vd-todo-head">오늘 할 일</div>
+          <ul>
+            {v.todo.map((t, i) => (
+              <li key={i}><span className="vd-todo-n">{i + 1}</span>{stripRefs(t)}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <p className="vd-note">※ {petName} 입력 정보 기준 참고 소견이에요. 진단은 수의사만 할 수 있어요.</p>
+    </section>
+  );
+}
+
+/** 입력한 증상에 대한 직접 답변. */
+function SymptomCard({ card }: { card: CareCardType }) {
+  const s = card.symptomAnswer;
+  if (!s || s.causes.length === 0) return null;
+  return (
+    <Section icon="cross" title="말씀하신 증상, 왜 그럴까요?" variant="flags">
+      <div className="sa-block">
+        <div className="sa-tag">가능성 높은 원인</div>
+        <ol className="sa-causes">
+          {s.causes.map((c, i) => <li key={i}>{stripRefs(c)}</li>)}
+        </ol>
+      </div>
+      {s.careNow.length > 0 && (
+        <div className="sa-block">
+          <div className="sa-tag sa-tag--do">지금 집에서 할 것</div>
+          <Bullets items={s.careNow} />
+        </div>
+      )}
+    </Section>
+  );
+}
+
 /** 잠금 해제된 프리미엄 섹션 (전체 리포트). */
 function PremiumSections({ species, petName, card }: { species: Species; petName: string; card: CareCardType }) {
   const toxic = TOXIC_FOODS[species];
   const goodFoods = Array.from(new Set([...GOOD_FOODS[species], ...card.food.goodFoods]));
   return (
     <>
-      <Section icon="scissors" title="그루밍" collapsible defaultOpen={false}>
+      <Section icon="scissors" title="그루밍">
         <p>{stripRefs(card.grooming.summary)}</p>
         {card.grooming.cautions.length > 0 && <Bullets items={card.grooming.cautions} warn />}
       </Section>
 
-      <Section icon="activity" title="운동·산책" collapsible defaultOpen={false}>
-        <p>{stripRefs(card.exercise.summary)}</p>
-        <div className="meta-grid">
+      <Section icon="activity" title="운동·산책">
+        <div className="meta-grid" style={{ marginTop: 0 }}>
           <span className="meta-pill accent">하루 권장<b>{card.exercise.walkMinutesPerDay}</b></span>
         </div>
+        <p>{stripRefs(card.exercise.summary)}</p>
         {card.exercise.cautions.length > 0 && <Bullets items={card.exercise.cautions} warn />}
       </Section>
 
-      <Section icon="bowl" title="음식 가이드" collapsible defaultOpen={false}>
-        <div className="food">
-          <div className="food-col good">
-            <div className="food-col-head"><Icon name="check" size={15} strokeWidth={2.2} /> 먹어도 좋아요</div>
-            <ul className="food-list">{goodFoods.map((x, i) => <li key={i}>{x}</li>)}</ul>
-          </div>
-          <div className="food-col bad">
-            <div className="food-col-head"><Icon name="alert" size={15} /> 절대 금지</div>
-            <ul className="food-list">{toxic.map((f) => <li key={f.name}><b>{f.name}</b> — {f.reason}</li>)}</ul>
-          </div>
+      <Section icon="bowl" title="음식 가이드">
+        <div className="food-row">
+          <span className="food-tag food-tag--ok">좋아요</span>
+          <div className="food-chips">{goodFoods.map((x, i) => <span className="food-chip" key={i}>{x}</span>)}</div>
+        </div>
+        <div className="food-row">
+          <span className="food-tag food-tag--no">절대 금지</span>
+          <div className="food-chips">{toxic.map((f) => <span className="food-chip food-chip--no" key={f.name} title={f.reason}>{f.name}</span>)}</div>
+        </div>
+        <p className="food-reason-note">금지 이유는 항목을 길게 누르면 보여요. 인쇄(PDF)에는 전부 담겨요.</p>
+        <div className="food-print-only">
+          <ul className="note-list">
+            {toxic.map((f) => <li key={f.name}><b>{f.name}</b> — {f.reason}</li>)}
+          </ul>
         </div>
         {card.food.cautionFoods.length > 0 && (
           <div className="note">
@@ -114,11 +156,11 @@ function PremiumSections({ species, petName, card }: { species: Species; petName
         )}
       </Section>
 
-      <Section icon="calendar" title={`나이별 케어 · ${card.ageCare.stage}`} collapsible defaultOpen={false}>
+      <Section icon="calendar" title={`나이별 케어 · ${card.ageCare.stage}`}>
         <Bullets items={card.ageCare.tips} />
       </Section>
 
-      <Section icon="repeat" title="권장 주기" collapsible defaultOpen={false}>
+      <Section icon="repeat" title="권장 주기">
         <div className="stats">
           <div className="stat">
             <div className="stat-ico"><Icon name="repeat" size={18} /></div>
@@ -138,7 +180,7 @@ function PremiumSections({ species, petName, card }: { species: Species; petName
         </div>
       </Section>
 
-      <Section icon="cross" title="병원 방문이 필요한 신호" variant="flags" collapsible defaultOpen>
+      <Section icon="cross" title="이런 신호가 보이면 병원으로" variant="flags">
         <Bullets items={card.redFlags} warn />
       </Section>
 
@@ -203,10 +245,12 @@ export default function CareCardView({
         </button>
       </div>
 
-      <SourceBadges sources={preview.sources} />
+      {/* ── 종합 소견 + 증상 답변 (결론 먼저 — 검진결과지 스타일) ── */}
+      {unlocked && premium && <VerdictCard petName={petName} card={premium} />}
+      {unlocked && premium && <SymptomCard card={premium} />}
 
-      {/* ── 사진·기본 분석 (맞춤 핵심 — 펼친 상태) ── */}
-      <Section icon="info" title="사진·기본 분석" collapsible defaultOpen>
+      {/* ── 사진·기본 분석 ── */}
+      <Section icon="info" title="사진·기본 분석">
         <p>{stripRefs(preview.photoAnalysis.coatSkinNotes)}</p>
         <div className="meta-grid">
           <span className="meta-pill">체형<b>{preview.photoAnalysis.bodyCondition}</b></span>
@@ -214,12 +258,14 @@ export default function CareCardView({
         </div>
       </Section>
 
-      <Section icon="tag" title="품종 특성" collapsible>
+      <Section icon="tag" title="품종 특성">
         <p>{stripRefs(preview.breedTraits.summary)}</p>
         {preview.breedTraits.healthRisks.length > 0 && (
           <>
-            <div className="sub">주의할 질환</div>
-            <Bullets items={preview.breedTraits.healthRisks} />
+            <div className="sub">조심할 질환</div>
+            <div className="food-chips" style={{ marginTop: 6 }}>
+              {preview.breedTraits.healthRisks.map((r, i) => <span className="food-chip" key={i}>{stripRefs(r)}</span>)}
+            </div>
           </>
         )}
       </Section>
@@ -240,6 +286,8 @@ export default function CareCardView({
       )}
 
       <button className="btn btn--secondary btn--block" onClick={onReset}>다른 아이 등록하기</button>
+
+      <SourceBadges sources={preview.sources} />
     </div>
   );
 }
