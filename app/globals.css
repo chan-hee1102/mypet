@@ -417,6 +417,18 @@ textarea.input{resize:vertical;min-height:46px}
 /* ── 가격 앵커 ── */
 .price-anchor{font-size:12.5px;color:var(--muted);text-align:center;margin-top:12px;padding-top:11px;border-top:1px dashed var(--line)}
 
+/* ── 전체 리포트 잠금 목차 (티저+블러) ── */
+.rlock{background:linear-gradient(180deg,var(--brand-50),var(--surface));border:1px solid #cde7df;border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm)}
+.rlock-head{display:flex;align-items:center;gap:7px;margin-bottom:12px;color:var(--brand-600)}
+.rlock-head h3{font-size:15.5px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+.rlock-list{display:flex;flex-direction:column;gap:8px}
+.rlock-row{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 13px}
+.rlock-row>svg{color:var(--muted);flex:none}
+.rlock-ico{width:28px;height:28px;border-radius:9px;background:var(--brand-50);color:var(--brand-600);display:flex;align-items:center;justify-content:center;flex:none;font-size:14px}
+.rlock-txt{flex:1;min-width:0}
+.rlock-txt b{font-size:13.8px;font-weight:800;color:var(--ink);display:block;line-height:1.35}
+.rlock-tease{font-size:12.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;max-width:100%;-webkit-mask-image:linear-gradient(90deg,#000 55%,transparent 96%);mask-image:linear-gradient(90deg,#000 55%,transparent 96%)}
+
 /* 섹션 페이저(탭으로 선택 / 옆으로 스와이프) */
 .pager-tabs{display:flex;gap:7px;overflow-x:auto;padding:4px 0 6px;margin-top:4px;scrollbar-width:none}
 .pager-tabs::-webkit-scrollbar{display:none}

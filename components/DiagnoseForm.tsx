@@ -97,16 +97,10 @@ function GuideView({
     neuterTip({ species, sex: sex || undefined, neutered: neutered === '' ? undefined : neutered === 'yes' }),
   ].filter(Boolean) as PersonalCheck[];
 
-  const goodFoods = (foods?.good ?? []).slice(0, 3);
-  const toxicFoods = (foods?.toxic ?? []).filter((f) => f.severity === 'danger').slice(0, 3);
-  const toxicMore = Math.max(0, (foods?.toxic ?? []).length - toxicFoods.length);
-
-  // 품종 꿀팁 — 2개 공개, 나머지는 유료 리포트에서(careAdvisor에 주입되므로 정직한 업셀)
+  // 품종 꿀팁 — 최고 임팩트 1개만 공개, 나머지는 유료 리포트에서(careAdvisor에 주입되므로 정직한 업셀)
   const tips = getBreedTips(species, guide.breedKo ?? breed);
-  const shownTips = tips.slice(0, 2);
+  const shownTips = tips.slice(0, 1);
   const lockedTips = tips.length - shownTips.length;
-  // 탭 페이저 — 증상 걱정으로 왔으면 '건강'부터, 케어 궁금이면 '성격'부터
-  const [tab, setTab] = useState<'traits' | 'care' | 'food' | 'health'>(symptomIds.length > 0 ? 'health' : 'traits');
 
   const emergency = detectEmergency(symptomIds, '');
   const symCards = symptomIds
@@ -228,78 +222,76 @@ function GuideView({
               <div><b>{t.title}</b><p>{t.body}</p></div>
             </div>
           ))}
-          {lockedTips > 0 && (
-            <p className="tipcard-more"><Icon name="lock" size={12} /> 꿀팁 {lockedTips}개 더 — AI 맞춤 진단 리포트에 담아드려요</p>
-          )}
           <p className="tipcard-src">AKC·AVMA 등 공식 수의 자료에서 확인된 내용만 담았어요</p>
         </section>
       )}
 
-      <div className="pager-tabs" role="tablist">
-        <button type="button" role="tab" className={`pager-tab ${tab === 'traits' ? 'on' : ''}`} onClick={() => setTab('traits')}><Icon name="paw" size={14} /> 성격</button>
-        <button type="button" role="tab" className={`pager-tab ${tab === 'care' ? 'on' : ''}`} onClick={() => setTab('care')}><Icon name="activity" size={14} /> 산책·미용</button>
-        <button type="button" role="tab" className={`pager-tab ${tab === 'food' ? 'on' : ''}`} onClick={() => setTab('food')}><Icon name="bowl" size={14} /> 음식</button>
-        <button type="button" role="tab" className={`pager-tab ${tab === 'health' ? 'on' : ''}`} onClick={() => setTab('health')}><Icon name="cross" size={14} /> 조심할 것{diseases.length > 0 && <span className="cnt">{diseases.length}</span>}</button>
-      </div>
-      <div className="pager-view">
-        {tab === 'traits' && (
-          <section className="section">
-            <div className="section-head"><span className="section-ico"><Icon name="paw" size={18} /></span><h3 className="section-title">이런 아이예요</h3></div>
-            {guide.summary && <p>{guide.summary}</p>}
-            {guide.traits && guide.traits.length > 0 && <Bullets items={guide.traits.slice(0, 3)} />}
-          </section>
-        )}
-        {tab === 'care' && (
-          <section className="section">
-            <div className="section-head"><span className="section-ico"><Icon name="activity" size={18} /></span><h3 className="section-title">산책·운동 & 미용</h3></div>
-            {(guide.exercise?.length ?? 0) > 0 && (
-              <div className="care-block"><div className="care-block-tag"><Icon name="activity" size={13} /> 산책·운동</div><p>{guide.exercise!.slice(0, 2).join(' ')}</p></div>
-            )}
-            {(guide.grooming?.length ?? 0) > 0 && (
-              <div className="care-block"><div className="care-block-tag"><Icon name="scissors" size={13} /> 미용·털관리</div><p>{guide.grooming!.slice(0, 2).join(' ')}</p></div>
-            )}
-            <p className="dz-more">+ {name} 나이·체중에 맞춘 운동량·미용 주기는 맞춤 진단에서</p>
-          </section>
-        )}
-        {tab === 'food' && (
-          <section className="section">
-            <div className="section-head"><span className="section-ico"><Icon name="bowl" size={18} /></span><h3 className="section-title">간식·음식, 이것만 기억하세요</h3></div>
-            {goodFoods.length > 0 && (
-              <div className="food-row">
-                <span className="food-tag food-tag--ok">좋아요</span>
-                <div className="food-chips">{goodFoods.map((f, i) => <span className="food-chip" key={i}>{f}</span>)}</div>
+      {/* 전체 리포트 잠금 목차 — 실제 내용 첫 부분만 보여주고 잠금(궁금증 유발) */}
+      <section className="rlock">
+        <div className="rlock-head">
+          <Icon name="sparkle" size={15} filled />
+          <h3>{name} 전체 리포트에 준비된 것</h3>
+        </div>
+        <div className="rlock-list">
+          {diseases.length > 0 && (
+            <div className="rlock-row">
+              <span className="rlock-ico"><Icon name="cross" size={15} /></span>
+              <div className="rlock-txt">
+                <b>조심할 질환 {diseases.length}가지 전체</b>
+                <p className="rlock-tease">{diseases[0].name}{diseases.length > 1 ? ` 외 ${diseases.length - 1}가지 — ${diseases[1]?.name.slice(0, 4)}` : ''}</p>
               </div>
-            )}
-            {toxicFoods.length > 0 && (
-              <div className="food-row">
-                <span className="food-tag food-tag--no">절대 금지</span>
-                <div className="food-chips">{toxicFoods.map((f, i) => <span className="food-chip food-chip--no" key={i}>{f.name}</span>)}</div>
-              </div>
-            )}
-            {toxicMore > 0 && <p className="dz-more">+ 주의 음식 {toxicMore}가지와 급여량은 맞춤 진단에서</p>}
-          </section>
-        )}
-        {tab === 'health' && (
-          <section className="section flags">
-            <div className="section-head"><span className="section-ico"><Icon name="cross" size={18} /></span><h3 className="section-title">이 품종, 이런 걸 조심해요</h3></div>
-            <div className="dz-grid">
-              {shown.map((h, i) => (<div className="dz-item" key={i}><b>{h.name}</b>{h.note && <span>{h.note}</span>}</div>))}
+              <Icon name="lock" size={14} />
             </div>
-            {more > 0 && <p className="dz-more">+ 호발·유전질환 {more}가지 더는 맞춤 진단에서 전체 공개</p>}
-          </section>
-        )}
-      </div>
-
-      <section className="lockcard">
-        <div className="lockcard-head"><Icon name="lock" size={15} /> {name} AI 맞춤 진단에서 받는 것</div>
-        <ul className="lockcard-list">
-          <li><Icon name="camera" size={15} /> 사진으로 체형·피부·털 상태 분석</li>
-          <li><Icon name="shield" size={15} /> {guide.breedKo} 호발질환 {diseases.length > 0 ? `${diseases.length}가지 ` : ''}전체 + 남은 꿀팁 {lockedTips > 0 ? `${lockedTips}개` : ''}</li>
-          <li><Icon name="cross" size={15} /> 증상의 가능 원인 · 병원 가야 하는 신호</li>
-          <li><Icon name="bowl" size={15} /> 전체 음식 목록 + {name} 맞춤 급여량</li>
-        </ul>
+          )}
+          {lockedTips > 0 && (
+            <div className="rlock-row">
+              <span className="rlock-ico">💡</span>
+              <div className="rlock-txt">
+                <b>남은 꿀팁 {lockedTips}개</b>
+                <p className="rlock-tease">{tips[1]?.title}</p>
+              </div>
+              <Icon name="lock" size={14} />
+            </div>
+          )}
+          {(guide.traits?.length ?? 0) > 0 && (
+            <div className="rlock-row">
+              <span className="rlock-ico"><Icon name="paw" size={15} /></span>
+              <div className="rlock-txt">
+                <b>성격·성향과 훈련 포인트</b>
+                <p className="rlock-tease">{guide.traits![0]}</p>
+              </div>
+              <Icon name="lock" size={14} />
+            </div>
+          )}
+          <div className="rlock-row">
+            <span className="rlock-ico"><Icon name="activity" size={15} /></span>
+            <div className="rlock-txt">
+              <b>산책·운동량 & 미용 주기</b>
+              <p className="rlock-tease">{guide.exercise?.[0] ?? guide.grooming?.[0] ?? `${name} 나이·체중 기준 맞춤 가이드`}</p>
+            </div>
+            <Icon name="lock" size={14} />
+          </div>
+          <div className="rlock-row">
+            <span className="rlock-ico"><Icon name="bowl" size={15} /></span>
+            <div className="rlock-txt">
+              <b>음식 가이드 전체 + 맞춤 급여량</b>
+              <p className="rlock-tease">절대 금지 {(foods?.toxic ?? []).length}가지 · 좋은 음식 {(foods?.good ?? []).length}가지 · {name} 급여량</p>
+            </div>
+            <Icon name="lock" size={14} />
+          </div>
+          <div className="rlock-row">
+            <span className="rlock-ico"><Icon name="camera" size={15} /></span>
+            <div className="rlock-txt">
+              <b>사진으로 체형·피부·털 상태 분석</b>
+              <p className="rlock-tease">사진 올리면 AI가 {name} 상태를 직접 봐드려요</p>
+            </div>
+            <Icon name="lock" size={14} />
+          </div>
+        </div>
         <p className="price-anchor">동물병원 초진 전에, 커피 한 잔 값으로 먼저 확인해 보세요</p>
       </section>
+
+      <p className="dz-safety"><Icon name="alert" size={13} /> 초콜릿·포도·양파·자일리톨은 어떤 {speciesKo}든 절대 금지예요</p>
 
       {guide.sourceOrg && (
         <SourceBadges sources={[{ org: guide.sourceOrg, title: guide.sourceTitle ?? null, url: guide.sourceUrl ?? null }]} />
@@ -326,6 +318,9 @@ export default function DiagnoseForm() {
   const [symptomIds, setSymptomIds] = useState<string[]>([]);
   const [image, setImage] = useState<{ data: string; mediaType: string } | null>(null);
   const [preview, setPreview] = useState('');
+  // 결제 필수 정보 (이니시스 V2 요건: 구매자 이메일 등) — 결과 링크 안내 겸용
+  const [buyerEmail, setBuyerEmail] = useState('');
+  const [buyerPhone, setBuyerPhone] = useState('');
 
   const [stage, setStage] = useState<'form1' | 'guide' | 'form2'>('form1');
   const [result, setResult] = useState<GuideResult | null>(null);
@@ -351,6 +346,8 @@ export default function DiagnoseForm() {
         if (d.weight) setWeight(d.weight);
         if (d.symptoms) setSymptoms(d.symptoms);
         if (Array.isArray(d.symptomIds)) setSymptomIds(d.symptomIds);
+        if (d.buyerEmail) setBuyerEmail(d.buyerEmail);
+        if (d.buyerPhone) setBuyerPhone(d.buyerPhone);
       }
     } catch { /* ignore */ }
     setRestored(true);
@@ -360,9 +357,9 @@ export default function DiagnoseForm() {
   useEffect(() => {
     if (!restored) return;
     try {
-      localStorage.setItem(LS_KEY, JSON.stringify({ species, name, breed, age, sex, neutered, weight, symptoms, symptomIds }));
+      localStorage.setItem(LS_KEY, JSON.stringify({ species, name, breed, age, sex, neutered, weight, symptoms, symptomIds, buyerEmail, buyerPhone }));
     } catch { /* ignore */ }
-  }, [restored, species, name, breed, age, sex, neutered, weight, symptoms, symptomIds]);
+  }, [restored, species, name, breed, age, sex, neutered, weight, symptoms, symptomIds, buyerEmail, buyerPhone]);
 
   // 랜딩 증상 칩(?s=)에서 들어오면 미리 선택
   useEffect(() => {
@@ -426,8 +423,13 @@ export default function DiagnoseForm() {
   }
 
   async function pay() {
-    setPaying(true);
     setError('');
+    // 이니시스 V2 결제창 필수: 구매자 이메일·연락처 (결과 링크 안내 겸용)
+    if (PAYMENTS_LIVE) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail.trim())) { setError('결제 확인을 위해 이메일을 입력해 주세요.'); return; }
+      if (buyerPhone.replace(/\D/g, '').length < 10) { setError('휴대폰 번호를 입력해 주세요. (숫자만)'); return; }
+    }
+    setPaying(true);
     try {
       const startRes = await fetch('/api/diagnose/start', {
         method: 'POST',
@@ -450,6 +452,11 @@ export default function DiagnoseForm() {
           totalAmount: SITE.pricePerPet,
           currency: 'CURRENCY_KRW' as any,
           payMethod: 'CARD' as any,
+          customer: {
+            fullName: `${name} 보호자`,
+            email: buyerEmail.trim(),
+            phoneNumber: buyerPhone.replace(/\D/g, ''),
+          },
         });
         if (!resp || resp.code != null) throw new Error(resp?.message || '결제가 취소되었어요.');
         paymentId = resp.paymentId ?? pid;
@@ -627,6 +634,18 @@ export default function DiagnoseForm() {
         <label className="label">증상·상황 자세히 <span className="opt">선택 · AI가 함께 분석</span></label>
         <textarea className="input" rows={4} value={symptoms} onChange={(e) => setSymptoms(e.target.value)} placeholder="어떤 상황인지 자유롭게 적어주세요 (예: 어제부터 다리를 절뚝거려요, 닭고기 알레르기, 사료를 안 먹어요). 적어주실수록 더 정확해요." />
       </div>
+
+      <div className="row2">
+        <div className="field">
+          <label className="label">이메일 <span className="req">필수</span></label>
+          <input className="input" type="email" inputMode="email" value={buyerEmail} onChange={(e) => setBuyerEmail(e.target.value)} placeholder="예: mypet@naver.com" />
+        </div>
+        <div className="field">
+          <label className="label">휴대폰 <span className="req">필수</span></label>
+          <input className="input" type="tel" inputMode="tel" value={buyerPhone} onChange={(e) => setBuyerPhone(e.target.value)} placeholder="010-0000-0000" />
+        </div>
+      </div>
+      <p className="hint" style={{ marginTop: -6, marginBottom: 12 }}>결제 확인과 결과 링크 안내에만 사용해요. 별도 저장하지 않아요.</p>
 
       <div className="teaser-locked">
         <div className="teaser-locked-head"><Icon name="sparkle" size={15} filled /> 결제하면 받는 {name} 맞춤 진단</div>
