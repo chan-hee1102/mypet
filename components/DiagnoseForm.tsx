@@ -85,7 +85,7 @@ function GuideView({
 
   // ── 입력값 × 품종 DB 맞춤 체크 (AI 불필요 — 즉시 판정) ──
   const months = age !== '' && !isNaN(Number(age)) ? Math.max(0, Number(age)) * 12 : null;
-  const personAge = months != null && guide.matched ? humanAge(species, months, guide.size) : null;
+  const personAge = months != null ? humanAge(species, months, guide.size) : null;
   const jointRisk = (guide.hereditary ?? []).some((h) => /슬개골|고관절|관절/.test(h.name));
   const checks = [
     weightCheck({
@@ -93,7 +93,7 @@ function GuideView({
       weight: weight ? Number(weight) : undefined,
       range: parseWeightRange(guide.weightKg), jointRisk,
     }),
-    months != null ? stagePoint({ species, months, breedKo: guide.breedKo ?? speciesKo, topDisease: (guide.hereditary ?? [])[0]?.name }) : null,
+    months != null ? stagePoint({ species, months, breedKo: guide.breedKo ?? speciesKo, topDisease: (guide.hereditary ?? [])[0]?.name, personAge }) : null,
     neuterTip({ species, sex: sex || undefined, neutered: neutered === '' ? undefined : neutered === 'yes' }),
   ].filter(Boolean) as PersonalCheck[];
 
@@ -138,8 +138,7 @@ function GuideView({
           <section className="section pcheck">
             <div className="section-head">
               <span className="section-ico"><Icon name="check" size={18} /></span>
-              <h3 className="section-title">{name} 맞춤 체크</h3>
-              <span className="pcheck-badge">입력값 기준</span>
+              <h3 className="section-title">{name}, 지금 어떤가요?</h3>
             </div>
             <div className="pcheck-list">
               {checks.map((c, i) => (
@@ -176,28 +175,19 @@ function GuideView({
       <Stepper step={1} />
       {symptomBlock}
 
-      <div className="gcard">
-        <div className="gcard-top">
-          <span className="gcard-badge"><Icon name="shield" size={12} /> 공식 자료 기반</span>
-          <button type="button" className="gcard-edit" onClick={onEdit}>정보 수정</button>
+      <div className="gslim">
+        <div className="gslim-main">
+          <b>{name}</b>
+          <span>{guide.breedKo}{ageLabel ? ` · ${ageLabel}` : ''}</span>
         </div>
-        <h2 className="gcard-name">{guide.breedKo}</h2>
-        <p className="gcard-sub">{guide.breedEn}{ageLabel ? ` · ${name} ${ageLabel}` : ''}</p>
-        <div className="gcard-stats">
-          <div className="gcard-stat"><span>크기</span><b>{guide.size ?? '-'}</b></div>
-          <div className="gcard-stat"><span>표준체중</span><b>{guide.weightKg ? `${guide.weightKg}kg` : '-'}</b></div>
-          <div className="gcard-stat"><span>기대수명</span><b>{guide.lifeYears ? `${guide.lifeYears}년` : '-'}</b></div>
-          {personAge != null && <div className="gcard-stat"><span>사람 나이로</span><b>약 {personAge}살</b></div>}
-        </div>
-        <p className="gcard-note">※ 품종 평균 기준이에요</p>
+        <button type="button" className="gcard-edit" onClick={onEdit}>정보 수정</button>
       </div>
 
       {checks.length > 0 && (
         <section className="section pcheck">
           <div className="section-head">
             <span className="section-ico"><Icon name="check" size={18} /></span>
-            <h3 className="section-title">{name} 맞춤 체크</h3>
-            <span className="pcheck-badge">입력값 기준</span>
+            <h3 className="section-title">{name}, 지금 어떤가요?</h3>
           </div>
           <div className="pcheck-list">
             {checks.map((c, i) => (
@@ -230,7 +220,7 @@ function GuideView({
       <section className="rlock">
         <div className="rlock-head">
           <Icon name="sparkle" size={15} filled />
-          <h3>{name} 전체 리포트에 준비된 것</h3>
+          <h3>결제하면 받는 {name} 전체 리포트</h3>
         </div>
         <div className="rlock-list">
           {diseases.length > 0 && (
@@ -257,7 +247,7 @@ function GuideView({
             <div className="rlock-row">
               <span className="rlock-ico"><Icon name="paw" size={15} /></span>
               <div className="rlock-txt">
-                <b>성격·성향과 훈련 포인트</b>
+                <b>성격과 훈련 포인트</b>
                 <p className="rlock-tease">{guide.traits![0]}</p>
               </div>
               <Icon name="lock" size={14} />
@@ -266,24 +256,24 @@ function GuideView({
           <div className="rlock-row">
             <span className="rlock-ico"><Icon name="activity" size={15} /></span>
             <div className="rlock-txt">
-              <b>산책·운동량 & 미용 주기</b>
-              <p className="rlock-tease">{guide.exercise?.[0] ?? guide.grooming?.[0] ?? `${name} 나이·체중 기준 맞춤 가이드`}</p>
+              <b>산책·미용, 얼마나 자주 해야 할까?</b>
+              <p className="rlock-tease">{guide.exercise?.[0] ?? guide.grooming?.[0] ?? `${name}에게 맞는 기준을 알려드려요`}</p>
             </div>
             <Icon name="lock" size={14} />
           </div>
           <div className="rlock-row">
             <span className="rlock-ico"><Icon name="bowl" size={15} /></span>
             <div className="rlock-txt">
-              <b>음식 가이드 전체 + 맞춤 급여량</b>
-              <p className="rlock-tease">절대 금지 {(foods?.toxic ?? []).length}가지 · 좋은 음식 {(foods?.good ?? []).length}가지 · {name} 급여량</p>
+              <b>되는 음식 · 안 되는 음식 전부</b>
+              <p className="rlock-tease">절대 금지 {(foods?.toxic ?? []).length}가지 · 좋은 음식 {(foods?.good ?? []).length}가지 · 하루 얼마나</p>
             </div>
             <Icon name="lock" size={14} />
           </div>
           <div className="rlock-row">
             <span className="rlock-ico"><Icon name="camera" size={15} /></span>
             <div className="rlock-txt">
-              <b>사진으로 체형·피부·털 상태 분석</b>
-              <p className="rlock-tease">사진 올리면 AI가 {name} 상태를 직접 봐드려요</p>
+              <b>사진 보고 AI가 직접 봐드려요</b>
+              <p className="rlock-tease">살이 쪘는지, 피부·털은 괜찮은지</p>
             </div>
             <Icon name="lock" size={14} />
           </div>

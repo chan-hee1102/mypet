@@ -366,6 +366,12 @@ textarea.input{resize:vertical;min-height:46px}
 .gcard-stat + .gcard-stat{border-left:1px solid var(--line)}
 .gcard-note{font-size:11px;color:var(--muted);text-align:center;margin-top:11px}
 
+/* ── 슬림 헤더 (이름·품종·나이 한 줄) ── */
+.gslim{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 16px;box-shadow:var(--shadow-sm)}
+.gslim-main{display:flex;align-items:baseline;gap:8px;min-width:0}
+.gslim-main b{font-size:17px;font-weight:800;color:var(--ink);flex:none}
+.gslim-main span{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
 /* ── 맞춤 체크 (입력값 × 품종 DB 즉시 판정) ── */
 .pcheck-badge{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px 9px;flex:none}
 .pcheck-list{display:flex;flex-direction:column;gap:8px}
