@@ -8,12 +8,34 @@ import { PetInput, Species } from '@/lib/types';
 
 export const runtime = 'nodejs';
 
+// 간단 IP 속도 제한 — 사진(최대 5MB) 스팸으로 DB를 부풀리는 어뷰징 방지.
+// 인스턴스별 메모리라 완벽하진 않지만 대량 자동화 공격의 비용을 크게 올린다.
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const RATE_MAX = 12; // 10분에 12회면 정상 사용엔 충분
+const MAX_KEYS = 5000;
+const hits = new Map<string, { n: number; ts: number }>();
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  if (hits.size > MAX_KEYS) hits.clear();
+  const h = hits.get(ip);
+  if (!h || now - h.ts > RATE_WINDOW_MS) {
+    hits.set(ip, { n: 1, ts: now });
+    return false;
+  }
+  h.n += 1;
+  return h.n > RATE_MAX;
+}
+
 /**
  * 일회성 진단 시작(로그인 불필요). 입력+사진을 pending으로 저장하고 무료 티저를 반환.
  * ⚠️ 여기서는 AI를 호출하지 않는다(비용 어뷰징 방지). 생성은 결제 확인 후 finalize에서.
  */
 export async function POST(req: Request) {
   try {
+    const ip = req.headers.get('x-real-ip') || 'unknown';
+    if (rateLimited(ip)) {
+      return NextResponse.json({ error: '요청이 너무 많아요. 잠시 후 다시 시도해 주세요.' }, { status: 429 });
+    }
     const body = await req.json();
     const raw = body?.input as PetInput | undefined;
     const image = (body?.image as { data: string; mediaType: string } | null) ?? null;
