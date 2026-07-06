@@ -346,8 +346,6 @@ export default function DiagnoseForm() {
         if (d.weight) setWeight(d.weight);
         if (d.symptoms) setSymptoms(d.symptoms);
         if (Array.isArray(d.symptomIds)) setSymptomIds(d.symptomIds);
-        if (d.buyerEmail) setBuyerEmail(d.buyerEmail);
-        if (d.buyerPhone) setBuyerPhone(d.buyerPhone);
       }
     } catch { /* ignore */ }
     setRestored(true);
@@ -357,9 +355,10 @@ export default function DiagnoseForm() {
   useEffect(() => {
     if (!restored) return;
     try {
-      localStorage.setItem(LS_KEY, JSON.stringify({ species, name, breed, age, sex, neutered, weight, symptoms, symptomIds, buyerEmail, buyerPhone }));
+      // ⚠️ buyerEmail/buyerPhone(개인정보)은 의도적으로 저장하지 않는다 — 화면 안내 문구와 일치해야 함.
+      localStorage.setItem(LS_KEY, JSON.stringify({ species, name, breed, age, sex, neutered, weight, symptoms, symptomIds }));
     } catch { /* ignore */ }
-  }, [restored, species, name, breed, age, sex, neutered, weight, symptoms, symptomIds, buyerEmail, buyerPhone]);
+  }, [restored, species, name, breed, age, sex, neutered, weight, symptoms, symptomIds]);
 
   // 랜딩 증상 칩(?s=)에서 들어오면 미리 선택
   useEffect(() => {
@@ -645,7 +644,7 @@ export default function DiagnoseForm() {
           <input className="input" type="tel" inputMode="tel" value={buyerPhone} onChange={(e) => setBuyerPhone(e.target.value)} placeholder="010-0000-0000" />
         </div>
       </div>
-      <p className="hint" style={{ marginTop: -6, marginBottom: 12 }}>결제 확인과 결과 링크 안내에만 사용해요. 별도 저장하지 않아요.</p>
+      <p className="hint" style={{ marginTop: -6, marginBottom: 12 }}>결제 확인용으로 결제사(KG이니시스)에 전달돼요. 저희 서버에는 저장하지 않아요.</p>
 
       <div className="teaser-locked">
         <div className="teaser-locked-head"><Icon name="sparkle" size={15} filled /> 결제하면 받는 {name} 맞춤 진단</div>
