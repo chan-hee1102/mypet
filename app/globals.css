@@ -368,8 +368,8 @@ textarea.input{resize:vertical;min-height:46px}
 
 /* ── 맞춤 체크 (입력값 × 품종 DB 즉시 판정) ── */
 .pcheck-badge{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px 9px;flex:none}
-.pcheck-list{display:flex;flex-direction:column;gap:9px}
-.pcheck-item{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:13px;padding:12px 14px;background:var(--surface)}
+.pcheck-list{display:flex;flex-direction:column;gap:8px}
+.pcheck-item{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:13px;padding:10px 13px;background:var(--surface)}
 .pcheck-item b{font-size:14.5px;font-weight:800;color:var(--ink);display:block;line-height:1.4}
 .pcheck-item p{font-size:13.5px;color:var(--ink-2);line-height:1.6;margin-top:3px}
 .pcheck-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px}
@@ -395,6 +395,27 @@ textarea.input{resize:vertical;min-height:46px}
 .food-chips{display:flex;flex-wrap:wrap;gap:6px}
 .food-chip{font-size:13px;font-weight:600;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:5px 11px;line-height:1.35}
 .food-chip--no{color:#c0392b;background:#fdf3f2;border-color:#f3d3ce;text-decoration:line-through;text-decoration-thickness:1.5px}
+
+/* ── 품종 꿀팁 카드 (아는 사람만 아는) ── */
+.tipcard{background:linear-gradient(180deg,#fffbeb,#fffdf6);border:1px solid #f3e3b3;border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm)}
+.tipcard-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.tipcard-head h3{font-size:15.5px;font-weight:800;letter-spacing:-.01em}
+.tipcard-bulb{font-size:18px;line-height:1}
+.tipcard-item{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid #f0e6c8;border-radius:12px;padding:11px 13px}
+.tipcard-item + .tipcard-item{margin-top:8px}
+.tipcard-item b{font-size:14.5px;font-weight:800;color:var(--ink);display:block;line-height:1.4}
+.tipcard-item p{font-size:13.5px;color:var(--ink-2);line-height:1.6;margin-top:3px}
+.tipcard-ico{width:26px;height:26px;border-radius:9px;background:#fdf3d8;color:#a07617;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px}
+.tipcard-more{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#a07617;margin-top:11px}
+.tipcard-src{font-size:11px;color:var(--muted);margin-top:7px}
+
+/* ── 탭 내부 케어 블록 ── */
+.care-block + .care-block{margin-top:12px}
+.care-block-tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;color:var(--brand-600);background:var(--brand-50);border-radius:8px;padding:4px 9px;margin-bottom:6px}
+.care-block p{font-size:14px;color:var(--ink-2);line-height:1.65}
+
+/* ── 가격 앵커 ── */
+.price-anchor{font-size:12.5px;color:var(--muted);text-align:center;margin-top:12px;padding-top:11px;border-top:1px dashed var(--line)}
 
 /* 섹션 페이저(탭으로 선택 / 옆으로 스와이프) */
 .pager-tabs{display:flex;gap:7px;overflow-x:auto;padding:4px 0 6px;margin-top:4px;scrollbar-width:none}

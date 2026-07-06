@@ -11,6 +11,7 @@ import { fileToImage } from '@/lib/imageClient';
 import { SITE } from '@/lib/site';
 import { SYMPTOMS, SYMPTOM_INFO, symptomLabels, detectEmergency } from '@/lib/symptomData';
 import { parseWeightRange, humanAge, weightCheck, stagePoint, neuterTip, type PersonalCheck } from '@/lib/guidePersonal';
+import { getBreedTips } from '@/lib/breedTips';
 
 const PAYMENTS_LIVE = !!process.env.NEXT_PUBLIC_PORTONE_STORE_ID;
 const LS_KEY = 'mypet_diagnose_v1';
@@ -99,6 +100,13 @@ function GuideView({
   const goodFoods = (foods?.good ?? []).slice(0, 3);
   const toxicFoods = (foods?.toxic ?? []).filter((f) => f.severity === 'danger').slice(0, 3);
   const toxicMore = Math.max(0, (foods?.toxic ?? []).length - toxicFoods.length);
+
+  // 품종 꿀팁 — 2개 공개, 나머지는 유료 리포트에서(careAdvisor에 주입되므로 정직한 업셀)
+  const tips = getBreedTips(species, guide.breedKo ?? breed);
+  const shownTips = tips.slice(0, 2);
+  const lockedTips = tips.length - shownTips.length;
+  // 탭 페이저 — 증상 걱정으로 왔으면 '건강'부터, 케어 궁금이면 '성격'부터
+  const [tab, setTab] = useState<'traits' | 'care' | 'food' | 'health'>(symptomIds.length > 0 ? 'health' : 'traits');
 
   const emergency = detectEmergency(symptomIds, '');
   const symCards = symptomIds
@@ -208,67 +216,89 @@ function GuideView({
         </section>
       )}
 
-      <section className="section">
-        <div className="section-head"><span className="section-ico"><Icon name="paw" size={18} /></span><h3 className="section-title">이런 아이예요</h3></div>
-        {guide.summary && <p>{guide.summary}</p>}
-        {guide.traits && guide.traits.length > 0 && <Bullets items={guide.traits.slice(0, 3)} />}
-      </section>
-
-      {((guide.exercise?.length ?? 0) > 0 || (guide.grooming?.length ?? 0) > 0) && (
-        <div className="mini2">
-          {(guide.exercise?.length ?? 0) > 0 && (
-            <div className="mini-card">
-              <div className="mini-head"><Icon name="activity" size={15} /> 산책·운동</div>
-              <p>{guide.exercise![0]}</p>
-            </div>
-          )}
-          {(guide.grooming?.length ?? 0) > 0 && (
-            <div className="mini-card">
-              <div className="mini-head"><Icon name="scissors" size={15} /> 미용·털관리</div>
-              <p>{guide.grooming![0]}</p>
-            </div>
-          )}
-        </div>
-      )}
-
-      {(goodFoods.length > 0 || toxicFoods.length > 0) && (
-        <section className="section">
-          <div className="section-head"><span className="section-ico"><Icon name="bowl" size={18} /></span><h3 className="section-title">간식·음식, 이것만 기억하세요</h3></div>
-          {goodFoods.length > 0 && (
-            <div className="food-row">
-              <span className="food-tag food-tag--ok">좋아요</span>
-              <div className="food-chips">{goodFoods.map((f, i) => <span className="food-chip" key={i}>{f}</span>)}</div>
-            </div>
-          )}
-          {toxicFoods.length > 0 && (
-            <div className="food-row">
-              <span className="food-tag food-tag--no">절대 금지</span>
-              <div className="food-chips">{toxicFoods.map((f, i) => <span className="food-chip food-chip--no" key={i}>{f.name}</span>)}</div>
-            </div>
-          )}
-          {toxicMore > 0 && <p className="dz-more">+ 주의 음식 {toxicMore}가지와 급여량은 맞춤 진단에서 알려드려요</p>}
-        </section>
-      )}
-
-      {shown.length > 0 && (
-        <section className="section flags">
-          <div className="section-head"><span className="section-ico"><Icon name="cross" size={18} /></span><h3 className="section-title">이 품종, 이런 걸 조심해요</h3></div>
-          <div className="dz-grid">
-            {shown.map((h, i) => (<div className="dz-item" key={i}><b>{h.name}</b>{h.note && <span>{h.note}</span>}</div>))}
+      {shownTips.length > 0 && (
+        <section className="tipcard">
+          <div className="tipcard-head">
+            <span className="tipcard-bulb">💡</span>
+            <h3>아는 사람만 아는 {guide.breedKo} 꿀팁</h3>
           </div>
-          {more > 0 && <p className="dz-more">+ 호발·유전질환 {more}가지 더는 맞춤 진단에서 전체 공개</p>}
+          {shownTips.map((t, i) => (
+            <div className="tipcard-item" key={i}>
+              <span className="tipcard-ico"><Icon name={t.icon} size={15} /></span>
+              <div><b>{t.title}</b><p>{t.body}</p></div>
+            </div>
+          ))}
+          {lockedTips > 0 && (
+            <p className="tipcard-more"><Icon name="lock" size={12} /> 꿀팁 {lockedTips}개 더 — AI 맞춤 진단 리포트에 담아드려요</p>
+          )}
+          <p className="tipcard-src">AKC·AVMA 등 공식 수의 자료에서 확인된 내용만 담았어요</p>
         </section>
       )}
+
+      <div className="pager-tabs" role="tablist">
+        <button type="button" role="tab" className={`pager-tab ${tab === 'traits' ? 'on' : ''}`} onClick={() => setTab('traits')}><Icon name="paw" size={14} /> 성격</button>
+        <button type="button" role="tab" className={`pager-tab ${tab === 'care' ? 'on' : ''}`} onClick={() => setTab('care')}><Icon name="activity" size={14} /> 산책·미용</button>
+        <button type="button" role="tab" className={`pager-tab ${tab === 'food' ? 'on' : ''}`} onClick={() => setTab('food')}><Icon name="bowl" size={14} /> 음식</button>
+        <button type="button" role="tab" className={`pager-tab ${tab === 'health' ? 'on' : ''}`} onClick={() => setTab('health')}><Icon name="cross" size={14} /> 조심할 것{diseases.length > 0 && <span className="cnt">{diseases.length}</span>}</button>
+      </div>
+      <div className="pager-view">
+        {tab === 'traits' && (
+          <section className="section">
+            <div className="section-head"><span className="section-ico"><Icon name="paw" size={18} /></span><h3 className="section-title">이런 아이예요</h3></div>
+            {guide.summary && <p>{guide.summary}</p>}
+            {guide.traits && guide.traits.length > 0 && <Bullets items={guide.traits.slice(0, 3)} />}
+          </section>
+        )}
+        {tab === 'care' && (
+          <section className="section">
+            <div className="section-head"><span className="section-ico"><Icon name="activity" size={18} /></span><h3 className="section-title">산책·운동 & 미용</h3></div>
+            {(guide.exercise?.length ?? 0) > 0 && (
+              <div className="care-block"><div className="care-block-tag"><Icon name="activity" size={13} /> 산책·운동</div><p>{guide.exercise!.slice(0, 2).join(' ')}</p></div>
+            )}
+            {(guide.grooming?.length ?? 0) > 0 && (
+              <div className="care-block"><div className="care-block-tag"><Icon name="scissors" size={13} /> 미용·털관리</div><p>{guide.grooming!.slice(0, 2).join(' ')}</p></div>
+            )}
+            <p className="dz-more">+ {name} 나이·체중에 맞춘 운동량·미용 주기는 맞춤 진단에서</p>
+          </section>
+        )}
+        {tab === 'food' && (
+          <section className="section">
+            <div className="section-head"><span className="section-ico"><Icon name="bowl" size={18} /></span><h3 className="section-title">간식·음식, 이것만 기억하세요</h3></div>
+            {goodFoods.length > 0 && (
+              <div className="food-row">
+                <span className="food-tag food-tag--ok">좋아요</span>
+                <div className="food-chips">{goodFoods.map((f, i) => <span className="food-chip" key={i}>{f}</span>)}</div>
+              </div>
+            )}
+            {toxicFoods.length > 0 && (
+              <div className="food-row">
+                <span className="food-tag food-tag--no">절대 금지</span>
+                <div className="food-chips">{toxicFoods.map((f, i) => <span className="food-chip food-chip--no" key={i}>{f.name}</span>)}</div>
+              </div>
+            )}
+            {toxicMore > 0 && <p className="dz-more">+ 주의 음식 {toxicMore}가지와 급여량은 맞춤 진단에서</p>}
+          </section>
+        )}
+        {tab === 'health' && (
+          <section className="section flags">
+            <div className="section-head"><span className="section-ico"><Icon name="cross" size={18} /></span><h3 className="section-title">이 품종, 이런 걸 조심해요</h3></div>
+            <div className="dz-grid">
+              {shown.map((h, i) => (<div className="dz-item" key={i}><b>{h.name}</b>{h.note && <span>{h.note}</span>}</div>))}
+            </div>
+            {more > 0 && <p className="dz-more">+ 호발·유전질환 {more}가지 더는 맞춤 진단에서 전체 공개</p>}
+          </section>
+        )}
+      </div>
 
       <section className="lockcard">
         <div className="lockcard-head"><Icon name="lock" size={15} /> {name} AI 맞춤 진단에서 받는 것</div>
         <ul className="lockcard-list">
           <li><Icon name="camera" size={15} /> 사진으로 체형·피부·털 상태 분석</li>
-          <li><Icon name="cross" size={15} /> 입력한 증상의 가능 원인과 지금 할 조치</li>
-          <li><Icon name="shield" size={15} /> {guide.breedKo} 호발질환 {diseases.length > 0 ? `${diseases.length}가지 ` : ''}전체 + 예방법</li>
-          <li><Icon name="bowl" size={15} /> 전체 음식 목록 + {name}에게 맞는 급여량</li>
-          <li><Icon name="activity" size={15} /> 병원에 꼭 가야 하는 위험 신호</li>
+          <li><Icon name="shield" size={15} /> {guide.breedKo} 호발질환 {diseases.length > 0 ? `${diseases.length}가지 ` : ''}전체 + 남은 꿀팁 {lockedTips > 0 ? `${lockedTips}개` : ''}</li>
+          <li><Icon name="cross" size={15} /> 증상의 가능 원인 · 병원 가야 하는 신호</li>
+          <li><Icon name="bowl" size={15} /> 전체 음식 목록 + {name} 맞춤 급여량</li>
         </ul>
+        <p className="price-anchor">동물병원 초진 전에, 커피 한 잔 값으로 먼저 확인해 보세요</p>
       </section>
 
       {guide.sourceOrg && (

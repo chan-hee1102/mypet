@@ -2,6 +2,7 @@ import { GoogleGenAI, Type } from '@google/genai';
 import { PetInput, CareCard } from './types';
 import { TOXIC_FOODS, computeAge, lifeStage } from './petData';
 import { retrieveKnowledge, knowledgeToPrompt, knowledgeSources, getBreedProfile } from './rag';
+import { tipsToPrompt } from './breedTips';
 
 // 안정·저비용·넉넉한 무료 할당량. 더 빠르게는 'gemini-3.1-flash-lite' 가능.
 const MODEL = 'gemini-2.5-flash';
@@ -109,6 +110,8 @@ export async function generateCareCard(
   if (chunks.length) {
     evidenceBlock += `\n\n[검증된 수의 근거 — 반드시 우선 반영]\n아래는 신뢰할 수 있는 수의 가이드라인에서 검색된 근거다. 케어 카드 내용이 이 근거와 충돌하지 않게 하고, 관련 항목은 이 근거를 우선 반영하라:\n${knowledgeToPrompt(chunks)}`;
   }
+  // 무료 가이드에서 예고한 품종 꿀팁 — 유료 리포트에 실제로 포함되도록 주입
+  evidenceBlock += tipsToPrompt(input.species, input.breed);
 
   const system = `당신은 한국 반려동물 보호자를 돕는 따뜻하고 신뢰할 수 있는 케어 어시스턴트입니다.
 
