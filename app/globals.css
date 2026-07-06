@@ -366,6 +366,36 @@ textarea.input{resize:vertical;min-height:46px}
 .gcard-stat + .gcard-stat{border-left:1px solid var(--line)}
 .gcard-note{font-size:11px;color:var(--muted);text-align:center;margin-top:11px}
 
+/* ── 맞춤 체크 (입력값 × 품종 DB 즉시 판정) ── */
+.pcheck-badge{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px 9px;flex:none}
+.pcheck-list{display:flex;flex-direction:column;gap:9px}
+.pcheck-item{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:13px;padding:12px 14px;background:var(--surface)}
+.pcheck-item b{font-size:14.5px;font-weight:800;color:var(--ink);display:block;line-height:1.4}
+.pcheck-item p{font-size:13.5px;color:var(--ink-2);line-height:1.6;margin-top:3px}
+.pcheck-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px}
+.pcheck--ok{background:var(--brand-50);border-color:#cde7df}
+.pcheck--ok .pcheck-dot{background:var(--brand);color:#fff}
+.pcheck--warn{background:var(--warn-50);border-color:#f0dcae}
+.pcheck--warn .pcheck-dot{background:var(--warn);color:#fff}
+.pcheck--info .pcheck-dot{background:var(--surface-2);color:var(--brand-600);border:1px solid var(--line)}
+
+/* ── 산책·미용 미니 카드 (2열) ── */
+.mini2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;box-shadow:var(--shadow-sm)}
+.mini-head{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:var(--brand-600);margin-bottom:7px}
+.mini-card p{font-size:13.5px;color:var(--ink-2);line-height:1.6}
+@media (max-width:430px){.mini2{grid-template-columns:1fr}}
+
+/* ── 음식 칩 ── */
+.food-row{display:flex;gap:10px;align-items:flex-start}
+.food-row + .food-row{margin-top:10px}
+.food-tag{flex:none;font-size:11.5px;font-weight:800;border-radius:8px;padding:5px 9px;margin-top:2px}
+.food-tag--ok{color:var(--brand-600);background:var(--brand-50)}
+.food-tag--no{color:#c0392b;background:#fdeeec}
+.food-chips{display:flex;flex-wrap:wrap;gap:6px}
+.food-chip{font-size:13px;font-weight:600;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:5px 11px;line-height:1.35}
+.food-chip--no{color:#c0392b;background:#fdf3f2;border-color:#f3d3ce;text-decoration:line-through;text-decoration-thickness:1.5px}
+
 /* 섹션 페이저(탭으로 선택 / 옆으로 스와이프) */
 .pager-tabs{display:flex;gap:7px;overflow-x:auto;padding:4px 0 6px;margin-top:4px;scrollbar-width:none}
 .pager-tabs::-webkit-scrollbar{display:none}

@@ -10,6 +10,7 @@ import SourceBadges from './SourceBadges';
 import { fileToImage } from '@/lib/imageClient';
 import { SITE } from '@/lib/site';
 import { SYMPTOMS, SYMPTOM_INFO, symptomLabels, detectEmergency } from '@/lib/symptomData';
+import { parseWeightRange, humanAge, weightCheck, stagePoint, neuterTip, type PersonalCheck } from '@/lib/guidePersonal';
 
 const PAYMENTS_LIVE = !!process.env.NEXT_PUBLIC_PORTONE_STORE_ID;
 const LS_KEY = 'mypet_diagnose_v1';
@@ -71,13 +72,33 @@ function Stepper({ step }: { step: 1 | 2 }) {
   );
 }
 
-/** 1단계 무료 가이드 — 슬림 스냅샷 + 결제 유도 잠금 카드. */
+/** 1단계 무료 가이드 — 입력값 기반 맞춤 체크 + 슬림 스냅샷 + 결제 유도 잠금 카드. */
 function GuideView({
-  result, name, speciesKo, breed, symptomIds, onNext, onEdit,
+  result, name, speciesKo, species, breed, symptomIds, age, weight, sex, neutered, onNext, onEdit,
 }: {
-  result: GuideResult; name: string; speciesKo: string; breed: string; symptomIds: string[]; onNext: () => void; onEdit: () => void;
+  result: GuideResult; name: string; speciesKo: string; species: Species; breed: string; symptomIds: string[];
+  age: string; weight: string; sex: Sex | ''; neutered: '' | 'yes' | 'no';
+  onNext: () => void; onEdit: () => void;
 }) {
-  const { guide, ageLabel } = result;
+  const { guide, ageLabel, foods } = result;
+
+  // ── 입력값 × 품종 DB 맞춤 체크 (AI 불필요 — 즉시 판정) ──
+  const months = age !== '' && !isNaN(Number(age)) ? Math.max(0, Number(age)) * 12 : null;
+  const personAge = months != null && guide.matched ? humanAge(species, months, guide.size) : null;
+  const jointRisk = (guide.hereditary ?? []).some((h) => /슬개골|고관절|관절/.test(h.name));
+  const checks = [
+    weightCheck({
+      name, breedKo: guide.breedKo ?? speciesKo,
+      weight: weight ? Number(weight) : undefined,
+      range: parseWeightRange(guide.weightKg), jointRisk,
+    }),
+    months != null ? stagePoint({ species, months, breedKo: guide.breedKo ?? speciesKo, topDisease: (guide.hereditary ?? [])[0]?.name }) : null,
+    neuterTip({ species, sex: sex || undefined, neutered: neutered === '' ? undefined : neutered === 'yes' }),
+  ].filter(Boolean) as PersonalCheck[];
+
+  const goodFoods = (foods?.good ?? []).slice(0, 3);
+  const toxicFoods = (foods?.toxic ?? []).filter((f) => f.severity === 'danger').slice(0, 3);
+  const toxicMore = Math.max(0, (foods?.toxic ?? []).length - toxicFoods.length);
 
   const emergency = detectEmergency(symptomIds, '');
   const symCards = symptomIds
@@ -111,6 +132,23 @@ function GuideView({
       <div className="bguide">
         <Stepper step={1} />
         {symptomBlock}
+        {checks.length > 0 && (
+          <section className="section pcheck">
+            <div className="section-head">
+              <span className="section-ico"><Icon name="check" size={18} /></span>
+              <h3 className="section-title">{name} 맞춤 체크</h3>
+              <span className="pcheck-badge">입력값 기준</span>
+            </div>
+            <div className="pcheck-list">
+              {checks.map((c, i) => (
+                <div className={`pcheck-item pcheck--${c.tone}`} key={i}>
+                  <span className="pcheck-dot"><Icon name={c.tone === 'ok' ? 'check' : c.tone === 'warn' ? 'alert' : 'info'} size={14} /></span>
+                  <div><b>{c.title}</b><p>{c.body}</p></div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
         <div className="card" style={{ textAlign: 'center' }}>
           <div className="gate-ico" style={{ margin: '0 auto 10px' }}><Icon name="paw" size={22} filled /></div>
           <h2 className="card-title">{breed ? `'${breed}'` : speciesKo} 일반 가이드를 못 찾았어요</h2>
@@ -145,17 +183,72 @@ function GuideView({
         <p className="gcard-sub">{guide.breedEn}{ageLabel ? ` · ${name} ${ageLabel}` : ''}</p>
         <div className="gcard-stats">
           <div className="gcard-stat"><span>크기</span><b>{guide.size ?? '-'}</b></div>
-          <div className="gcard-stat"><span>체중</span><b>{guide.weightKg ? `${guide.weightKg}kg` : '-'}</b></div>
+          <div className="gcard-stat"><span>표준체중</span><b>{guide.weightKg ? `${guide.weightKg}kg` : '-'}</b></div>
           <div className="gcard-stat"><span>기대수명</span><b>{guide.lifeYears ? `${guide.lifeYears}년` : '-'}</b></div>
+          {personAge != null && <div className="gcard-stat"><span>사람 나이로</span><b>약 {personAge}살</b></div>}
         </div>
         <p className="gcard-note">※ 품종 평균 기준이에요</p>
       </div>
+
+      {checks.length > 0 && (
+        <section className="section pcheck">
+          <div className="section-head">
+            <span className="section-ico"><Icon name="check" size={18} /></span>
+            <h3 className="section-title">{name} 맞춤 체크</h3>
+            <span className="pcheck-badge">입력값 기준</span>
+          </div>
+          <div className="pcheck-list">
+            {checks.map((c, i) => (
+              <div className={`pcheck-item pcheck--${c.tone}`} key={i}>
+                <span className="pcheck-dot"><Icon name={c.tone === 'ok' ? 'check' : c.tone === 'warn' ? 'alert' : 'info'} size={14} /></span>
+                <div><b>{c.title}</b><p>{c.body}</p></div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="section">
         <div className="section-head"><span className="section-ico"><Icon name="paw" size={18} /></span><h3 className="section-title">이런 아이예요</h3></div>
         {guide.summary && <p>{guide.summary}</p>}
         {guide.traits && guide.traits.length > 0 && <Bullets items={guide.traits.slice(0, 3)} />}
       </section>
+
+      {((guide.exercise?.length ?? 0) > 0 || (guide.grooming?.length ?? 0) > 0) && (
+        <div className="mini2">
+          {(guide.exercise?.length ?? 0) > 0 && (
+            <div className="mini-card">
+              <div className="mini-head"><Icon name="activity" size={15} /> 산책·운동</div>
+              <p>{guide.exercise![0]}</p>
+            </div>
+          )}
+          {(guide.grooming?.length ?? 0) > 0 && (
+            <div className="mini-card">
+              <div className="mini-head"><Icon name="scissors" size={15} /> 미용·털관리</div>
+              <p>{guide.grooming![0]}</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {(goodFoods.length > 0 || toxicFoods.length > 0) && (
+        <section className="section">
+          <div className="section-head"><span className="section-ico"><Icon name="bowl" size={18} /></span><h3 className="section-title">간식·음식, 이것만 기억하세요</h3></div>
+          {goodFoods.length > 0 && (
+            <div className="food-row">
+              <span className="food-tag food-tag--ok">좋아요</span>
+              <div className="food-chips">{goodFoods.map((f, i) => <span className="food-chip" key={i}>{f}</span>)}</div>
+            </div>
+          )}
+          {toxicFoods.length > 0 && (
+            <div className="food-row">
+              <span className="food-tag food-tag--no">절대 금지</span>
+              <div className="food-chips">{toxicFoods.map((f, i) => <span className="food-chip food-chip--no" key={i}>{f.name}</span>)}</div>
+            </div>
+          )}
+          {toxicMore > 0 && <p className="dz-more">+ 주의 음식 {toxicMore}가지와 급여량은 맞춤 진단에서 알려드려요</p>}
+        </section>
+      )}
 
       {shown.length > 0 && (
         <section className="section flags">
@@ -164,18 +257,17 @@ function GuideView({
             {shown.map((h, i) => (<div className="dz-item" key={i}><b>{h.name}</b>{h.note && <span>{h.note}</span>}</div>))}
           </div>
           {more > 0 && <p className="dz-more">+ 호발·유전질환 {more}가지 더는 맞춤 진단에서 전체 공개</p>}
-          <p className="dz-safety"><Icon name="alert" size={13} /> 초콜릿·포도·양파·자일리톨은 어떤 {speciesKo}든 절대 금지예요</p>
         </section>
       )}
 
       <section className="lockcard">
         <div className="lockcard-head"><Icon name="lock" size={15} /> {name} AI 맞춤 진단에서 받는 것</div>
         <ul className="lockcard-list">
-          <li><Icon name="camera" size={15} /> 사진으로 체형·피부·품종 분석</li>
-          <li><Icon name="cross" size={15} /> 입력한 증상의 가능 원인과 조치</li>
-          <li><Icon name="shield" size={15} /> 이 품종 전체 호발질환 + 예방 케어</li>
-          <li><Icon name="bowl" size={15} /> 먹어도 되는 · 절대 금지 음식 (특이사항 반영)</li>
-          <li><Icon name="activity" size={15} /> 병원에 가야 하는 신호</li>
+          <li><Icon name="camera" size={15} /> 사진으로 체형·피부·털 상태 분석</li>
+          <li><Icon name="cross" size={15} /> 입력한 증상의 가능 원인과 지금 할 조치</li>
+          <li><Icon name="shield" size={15} /> {guide.breedKo} 호발질환 {diseases.length > 0 ? `${diseases.length}가지 ` : ''}전체 + 예방법</li>
+          <li><Icon name="bowl" size={15} /> 전체 음식 목록 + {name}에게 맞는 급여량</li>
+          <li><Icon name="activity" size={15} /> 병원에 꼭 가야 하는 위험 신호</li>
         </ul>
       </section>
 
@@ -456,8 +548,13 @@ export default function DiagnoseForm() {
         result={result}
         name={name}
         speciesKo={speciesKo}
+        species={species}
         breed={breed}
         symptomIds={symptomIds}
+        age={age}
+        weight={weight}
+        sex={sex}
+        neutered={neutered}
         onNext={() => { setStage('form2'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
         onEdit={() => setStage('form1')}
       />
@@ -502,10 +599,11 @@ export default function DiagnoseForm() {
       </div>
 
       <div className="teaser-locked">
-        <div className="teaser-locked-head"><Icon name="sparkle" size={15} filled /> 결제하면 받는 맞춤 진단</div>
+        <div className="teaser-locked-head"><Icon name="sparkle" size={15} filled /> 결제하면 받는 {name} 맞춤 진단</div>
         <ul className="teaser-list">
-          <li><Icon name="info" size={15} /> 사진·증상 기반 우리 아이 상태 분석</li>
-          <li><Icon name="cross" size={15} /> 증상별 조치 · 병원 방문이 필요한 신호</li>
+          <li><Icon name="info" size={15} /> 사진·증상 기반 {name} 상태 분석</li>
+          <li><Icon name="cross" size={15} /> 증상의 가능 원인과 지금 할 조치</li>
+          <li><Icon name="shield" size={15} /> {result?.guide.breedKo ?? speciesKo} 호발질환 전체 + 병원 가야 할 신호</li>
           <li><Icon name="calendar" size={15} /> 앞으로의 맞춤 케어 가이드</li>
         </ul>
       </div>
