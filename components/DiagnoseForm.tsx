@@ -452,6 +452,8 @@ export default function DiagnoseForm() {
             email: buyerEmail.trim(),
             phoneNumber: buyerPhone.replace(/\D/g, ''),
           },
+          // 모바일: 결제창이 페이지 이동(리디렉션)으로 동작 — 완료 후 돌아올 주소 (필수)
+          redirectUrl: `${window.location.origin}/pay/return?token=${token}`,
         });
         if (!resp || resp.code != null) throw new Error(resp?.message || '결제가 취소되었어요.');
         paymentId = resp.paymentId ?? pid;
