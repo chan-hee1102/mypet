@@ -92,7 +92,7 @@ function SymptomCard({ card }: { card: CareCardType }) {
   const s = card.symptomAnswer;
   if (!s || s.causes.length === 0) return null;
   return (
-    <Section icon="cross" title="말씀하신 증상, 왜 그럴까요?" variant="flags">
+    <Section icon="cross" title="말씀하신 증상, 왜 그럴까요?">
       <div className="sa-block">
         <div className="sa-tag">가능성 높은 원인</div>
         <ol className="sa-causes">
