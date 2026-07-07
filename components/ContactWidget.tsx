@@ -3,6 +3,7 @@
 import { useState, useEffect, type FormEvent } from 'react';
 import { Icon } from './icons';
 import { SITE } from '@/lib/site';
+import { friendlyError } from '@/lib/friendlyError';
 
 const CATEGORIES = ['환불', '결제', '오류', '제휴', '기타'] as const;
 type Cat = (typeof CATEGORIES)[number];
@@ -59,7 +60,7 @@ export default function ContactWidget() {
       setDone(true);
       setName(''); setMessage('');
     } catch (err: any) {
-      setError(err?.message || '접수에 실패했어요.');
+      setError(friendlyError(err, '접수에 실패했어요. 잠시 후 다시 시도해 주세요.'));
     } finally {
       setLoading(false);
     }

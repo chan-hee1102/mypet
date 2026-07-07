@@ -12,6 +12,7 @@ import { SITE } from '@/lib/site';
 import { SYMPTOMS, SYMPTOM_INFO, symptomLabels, detectEmergency } from '@/lib/symptomData';
 import { parseWeightRange, humanAge, weightCheck, stagePoint, neuterTip, type PersonalCheck } from '@/lib/guidePersonal';
 import { getBreedTips } from '@/lib/breedTips';
+import { friendlyError } from '@/lib/friendlyError';
 
 const PAYMENTS_LIVE = !!process.env.NEXT_PUBLIC_PORTONE_STORE_ID;
 const LS_KEY = 'mypet_diagnose_v1';
@@ -410,7 +411,7 @@ export default function DiagnoseForm() {
       setStage('guide');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err: any) {
-      setError(err?.message || '오류가 발생했습니다.');
+      setError(friendlyError(err, '오류가 발생했어요. 잠시 후 다시 시도해 주세요.'));
     } finally {
       setLoading(false);
     }
@@ -469,7 +470,7 @@ export default function DiagnoseForm() {
       try { localStorage.removeItem(LS_KEY); } catch { /* ignore */ }
       router.push(`/r/${token}`);
     } catch (err: any) {
-      setError(err?.message || '결제 처리 중 오류가 발생했습니다.');
+      setError(friendlyError(err, '결제 처리 중 오류가 발생했어요. 카드가 결제됐다면 하단 환불 문의로 알려주세요.'));
       setPaying(false);
     }
   }

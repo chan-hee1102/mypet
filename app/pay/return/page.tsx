@@ -4,6 +4,7 @@ import { Suspense, useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Icon } from '@/components/icons';
+import { friendlyError } from '@/lib/friendlyError';
 
 export const dynamic = 'force-dynamic';
 
@@ -42,7 +43,7 @@ function PayReturnInner() {
         try { localStorage.removeItem('mypet_diagnose_v1'); } catch { /* ignore */ }
         router.replace(`/r/${token}`);
       } catch (e: any) {
-        setError(e?.message || '결제 처리 중 오류가 발생했습니다.');
+        setError(friendlyError(e, '확인이 늦어지고 있어요. 카드가 결제됐다면 자동으로 진단이 만들어지니, 1분 후 새로고침해 주세요.'));
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
