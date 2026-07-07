@@ -69,11 +69,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Link href="/refund">환불정책</Link>
             <ContactWidget />
           </nav>
-          <p className="footer-biz">
-            {SITE.company} · 대표 {SITE.ceo} · 사업자등록번호 {SITE.bizNo}
-            {SITE.mailOrderNo && <> · 통신판매업신고 {SITE.mailOrderNo}</>}<br />
-            {SITE.address} · {SITE.email}{SITE.phone && <> · {SITE.phone}</>}
-          </p>
+          {/* 전자상거래법상 신원정보 — 공정위 지침에 따라 '연결 화면(토글)' 제공 방식 사용 */}
+          <details className="biz-fold">
+            <summary>{SITE.company} 사업자 정보</summary>
+            <p className="footer-biz">
+              상호 {SITE.company} · 대표 {SITE.ceo} · 사업자등록번호 {SITE.bizNo}
+              {SITE.mailOrderNo && <> · 통신판매업신고 {SITE.mailOrderNo}</>}<br />
+              {SITE.address}<br />
+              {SITE.email}{SITE.phone && <> · {SITE.phone}</>}
+            </p>
+          </details>
           <p className="footer-note">
             <b>mypet</b> · AI 반려동물 케어 · 본 서비스는 일반 정보를 제공하며 수의사의 진단·진료를 대체하지 않습니다.
           </p>
