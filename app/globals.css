@@ -434,6 +434,21 @@ textarea.input{resize:vertical;min-height:46px}
 .care-block-tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;color:var(--brand-600);background:var(--brand-50);border-radius:8px;padding:4px 9px;margin-bottom:6px}
 .care-block p{font-size:14px;color:var(--ink-2);line-height:1.65}
 
+/* 헤더 텍스트 링크 */
+.nav-plain{font-size:13.5px;font-weight:700;color:var(--ink-2);text-decoration:none;margin-right:12px}
+.nav-plain:hover{color:var(--brand-600)}
+
+/* ── 품종 가이드 페이지 ── */
+.bpage{padding-bottom:40px}
+.bcrumb{font-size:12.5px;color:var(--muted);padding:14px 0 0}
+.bcrumb a{color:var(--muted);text-decoration:none}
+.bcrumb a:hover{color:var(--brand-600)}
+.bcrumb span{margin:0 5px}
+.bcrumb b{color:var(--ink)}
+.breed-links{display:flex;flex-wrap:wrap;gap:7px}
+.breed-link{font-size:13px;font-weight:600;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;text-decoration:none;transition:.15s}
+.breed-link:hover{background:var(--brand);border-color:transparent;color:#fff}
+
 /* ── 가격 앵커 ── */
 .price-anchor{font-size:12.5px;color:var(--muted);text-align:center;margin-top:12px;padding-top:11px;border-top:1px dashed var(--line)}
 

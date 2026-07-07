@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Icon } from '@/components/icons';
 import { SITE } from '@/lib/site';
 import ContactWidget from '@/components/ContactWidget';
+import { Analytics } from '@vercel/analytics/react';
 
 const DESCRIPTION =
   '사진과 간단한 정보만 입력하면 AI가 품종·나이에 맞춘 케어 진단을 만들어 드립니다. 강아지·고양이 모두 지원, 로그인 없이 바로.';
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </span>
             </Link>
             <nav className="appbar-nav">
+              <Link href="/breed" className="nav-plain">품종 가이드</Link>
               <Link href="/diagnose" className="btn btn--primary btn--sm">진단하기</Link>
             </nav>
           </div>
@@ -57,6 +59,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {children}
         <footer className="site-footer">
           <nav className="footer-links">
+            <Link href="/breed">품종 가이드</Link>
             <Link href="/terms">이용약관</Link>
             <Link href="/privacy"><strong>개인정보처리방침</strong></Link>
             <Link href="/refund">환불정책</Link>
@@ -71,6 +74,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <b>mypet</b> · AI 반려동물 케어 · 본 서비스는 일반 정보를 제공하며 수의사의 진단·진료를 대체하지 않습니다.
           </p>
         </footer>
+        <Analytics />
       </body>
     </html>
   );

@@ -350,11 +350,16 @@ export default function DiagnoseForm() {
     } catch { /* ignore */ }
   }, [restored, species, name, breed, age, sex, neutered, weight, symptoms, symptomIds]);
 
-  // 랜딩 증상 칩(?s=)에서 들어오면 미리 선택
+  // URL 프리필: 랜딩 증상 칩(?s=), 품종 페이지(?breed=&sp=)
   useEffect(() => {
     try {
-      const sp = new URLSearchParams(window.location.search).get('s');
+      const q = new URLSearchParams(window.location.search);
+      const sp = q.get('s');
       if (sp && SYMPTOMS.some((s) => s.id === sp)) setSymptomIds((prev) => (prev.includes(sp) ? prev : [...prev, sp]));
+      const b = q.get('breed');
+      if (b && b.trim()) setBreed(b.trim().slice(0, 60));
+      const spc = q.get('sp');
+      if (spc === 'dog' || spc === 'cat') setSpecies(spc);
     } catch { /* ignore */ }
   }, []);
 
