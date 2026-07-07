@@ -109,8 +109,8 @@ function SymptomCard({ card }: { card: CareCardType }) {
   );
 }
 
-/** 잠금 해제된 프리미엄 섹션 (전체 리포트). */
-function PremiumSections({ species, petName, card }: { species: Species; petName: string; card: CareCardType }) {
+/** 평소 케어 챕터 (그루밍·운동·음식·나이별·주기). */
+function CareSections({ species, petName, card }: { species: Species; petName: string; card: CareCardType }) {
   const toxic = TOXIC_FOODS[species];
   const goodFoods = Array.from(new Set([...GOOD_FOODS[species], ...card.food.goodFoods]));
   return (
@@ -180,10 +180,17 @@ function PremiumSections({ species, petName, card }: { species: Species; petName
         </div>
       </Section>
 
+    </>
+  );
+}
+
+/** 병원 신호 챕터. */
+function VetSection({ card }: { card: CareCardType }) {
+  return (
+    <>
       <Section icon="cross" title="이런 신호가 보이면 병원으로" variant="flags">
         <Bullets items={card.redFlags} warn />
       </Section>
-
       <p className="disclaimer"><Icon name="info" size={14} /> 본 리포트는 일반 정보이며, 수의사의 진단·진료를 대체하지 않습니다.</p>
     </>
   );
@@ -215,6 +222,8 @@ export default function CareCardView({
   // 프리미엄(전체 리포트)은 잠금 해제된 경우에만 서버 보호 라우트에서 가져온다.
   const [premium, setPremium] = useState<CareCardType | null>(fullCard ?? null);
   const [premiumErr, setPremiumErr] = useState(false);
+  // 챕터 탭 — 10개 섹션 나열 대신 3개 묶음으로 (인쇄 시엔 전체 출력)
+  const [rtab, setRtab] = useState<'now' | 'care' | 'vet'>('now');
 
   useEffect(() => {
     if (!unlocked || premium || !petId) return;
@@ -245,45 +254,80 @@ export default function CareCardView({
         </button>
       </div>
 
-      {/* ── 종합 소견 + 증상 답변 (결론 먼저 — 검진결과지 스타일) ── */}
-      {unlocked && premium && <VerdictCard petName={petName} card={premium} />}
-      {unlocked && premium && <SymptomCard card={premium} />}
-
-      {/* ── 사진·기본 분석 ── */}
-      <Section icon="info" title="사진·기본 분석">
-        <p>{stripRefs(preview.photoAnalysis.coatSkinNotes)}</p>
-        <div className="meta-grid">
-          <span className="meta-pill">체형<b>{preview.photoAnalysis.bodyCondition}</b></span>
-          <span className="meta-pill">품종 추정<b>{preview.photoAnalysis.breedGuess}</b></span>
-        </div>
-      </Section>
-
-      <Section icon="tag" title="품종 특성">
-        <p>{stripRefs(preview.breedTraits.summary)}</p>
-        {preview.breedTraits.healthRisks.length > 0 && (
-          <>
-            <div className="sub">조심할 질환</div>
-            <div className="food-chips" style={{ marginTop: 6 }}>
-              {preview.breedTraits.healthRisks.map((r, i) => <span className="food-chip" key={i}>{stripRefs(r)}</span>)}
+      {(() => {
+        const photoSection = (
+          <Section icon="info" title="사진·기본 분석">
+            <p>{stripRefs(preview.photoAnalysis.coatSkinNotes)}</p>
+            <div className="meta-grid">
+              <span className="meta-pill">체형<b>{preview.photoAnalysis.bodyCondition}</b></span>
+              <span className="meta-pill">품종 추정<b>{preview.photoAnalysis.breedGuess}</b></span>
             </div>
-          </>
-        )}
-      </Section>
+          </Section>
+        );
+        const breedSection = (
+          <Section icon="tag" title="품종 특성">
+            <p>{stripRefs(preview.breedTraits.summary)}</p>
+            {preview.breedTraits.healthRisks.length > 0 && (
+              <>
+                <div className="sub">조심할 질환</div>
+                <div className="food-chips" style={{ marginTop: 6 }}>
+                  {preview.breedTraits.healthRisks.map((r, i) => <span className="food-chip" key={i}>{stripRefs(r)}</span>)}
+                </div>
+              </>
+            )}
+          </Section>
+        );
 
-      {/* ── 전체 리포트 (결제 후, 서버에서 가져옴) ── */}
-      {unlocked ? (
-        premium ? (
-          <PremiumSections species={species} petName={petName} card={premium} />
-        ) : premiumErr ? (
-          <div className="alert"><Icon name="alert" size={16} /> 리포트를 불러오지 못했어요. 새로고침해 주세요.</div>
-        ) : (
-          <div className="card" style={{ textAlign: 'center', padding: '28px', color: 'var(--muted)' }}>
-            <span className="spinner" style={{ borderColor: 'rgba(17,160,122,.25)', borderTopColor: 'var(--brand)' }} /> 전체 리포트를 불러오는 중…
-          </div>
-        )
-      ) : (
-        <Paywall petName={petName} onUnlock={onUnlock} />
-      )}
+        // 결제 완료 + 카드 로드됨 → 3챕터 탭 (인쇄 시 전체 펼침)
+        if (unlocked && premium) {
+          return (
+            <>
+              <div className="report-tabs" role="tablist">
+                <button type="button" role="tab" className={rtab === 'now' ? 'on' : ''} onClick={() => setRtab('now')}>
+                  <Icon name="info" size={15} /> 지금 상태
+                </button>
+                <button type="button" role="tab" className={rtab === 'care' ? 'on' : ''} onClick={() => setRtab('care')}>
+                  <Icon name="calendar" size={15} /> 케어 방법
+                </button>
+                <button type="button" role="tab" className={rtab === 'vet' ? 'on' : ''} onClick={() => setRtab('vet')}>
+                  <Icon name="cross" size={15} /> 병원 신호
+                </button>
+              </div>
+              <div className={`rtab-panel ${rtab === 'now' ? 'on' : ''}`}>
+                <VerdictCard petName={petName} card={premium} />
+                <SymptomCard card={premium} />
+                {photoSection}
+                {breedSection}
+              </div>
+              <div className={`rtab-panel ${rtab === 'care' ? 'on' : ''}`}>
+                <CareSections species={species} petName={petName} card={premium} />
+              </div>
+              <div className={`rtab-panel ${rtab === 'vet' ? 'on' : ''}`}>
+                <VetSection card={premium} />
+              </div>
+            </>
+          );
+        }
+
+        // 미결제(미리보기+페이월) 또는 로딩/오류
+        return (
+          <>
+            {photoSection}
+            {breedSection}
+            {unlocked ? (
+              premiumErr ? (
+                <div className="alert"><Icon name="alert" size={16} /> 리포트를 불러오지 못했어요. 새로고침해 주세요.</div>
+              ) : (
+                <div className="card" style={{ textAlign: 'center', padding: '28px', color: 'var(--muted)' }}>
+                  <span className="spinner" style={{ borderColor: 'rgba(17,160,122,.25)', borderTopColor: 'var(--brand)' }} /> 전체 리포트를 불러오는 중…
+                </div>
+              )
+            ) : (
+              <Paywall petName={petName} onUnlock={onUnlock} />
+            )}
+          </>
+        );
+      })()}
 
       <button className="btn btn--secondary btn--block" onClick={onReset}>다른 아이 등록하기</button>
 

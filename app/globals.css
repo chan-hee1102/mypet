@@ -452,6 +452,30 @@ textarea.input{resize:vertical;min-height:46px}
 /* ── 가격 앵커 ── */
 .price-anchor{font-size:12.5px;color:var(--muted);text-align:center;margin-top:12px;padding-top:11px;border-top:1px dashed var(--line)}
 
+/* ── 리포트 챕터 탭 (지금 상태 / 케어 방법 / 병원 신호) ── */
+.report-tabs{position:sticky;top:58px;z-index:40;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--bg);padding:7px 0 8px}
+.report-tabs button{font-family:inherit;font-size:14px;font-weight:800;padding:12px 4px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s}
+.report-tabs button.on{background:var(--brand);border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(17,160,122,.28)}
+.rtab-panel{display:none}
+.rtab-panel.on{display:flex;flex-direction:column;gap:13px}
+@media print{
+  .report-tabs{display:none}
+  .rtab-panel{display:flex !important;flex-direction:column;gap:13px}
+}
+
+/* ── 리포트 가독성 (40~60대 기준 큰 글씨·넉넉한 행간) ── */
+.report .section p{font-size:15px;line-height:1.75}
+.report .list{gap:11px}
+.report .list li{font-size:14.5px;line-height:1.7;padding-left:26px}
+.report .list li svg{top:4px}
+.report .section-title{font-size:16.5px}
+.report .vd-headline{font-size:18px;line-height:1.5}
+.report .vd-summary{font-size:14.5px;line-height:1.75}
+.report .vd-todo li{font-size:14.5px;line-height:1.6}
+.report .sa-causes li{font-size:14.5px;line-height:1.7}
+.report .food-chip{font-size:13.5px;padding:6px 12px}
+.report .stat-value{font-size:14px}
+
 /* ── 종합 소견 (검진결과지 스타일 — 결론 먼저) ── */
 .vd{border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm);border:1px solid var(--line);background:var(--surface)}
 .vd-badge{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;border-radius:999px;padding:5px 12px;margin-bottom:10px}
