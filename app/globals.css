@@ -462,6 +462,9 @@ textarea.input{resize:vertical;min-height:46px}
   .report-tabs{display:none}
   .rtab-panel{display:flex !important;flex-direction:column;gap:13px}
 }
+/* 화면에선 숨기고 PDF에만 넣는 보조 문단 */
+.print-only-p{display:none}
+@media print{.print-only-p{display:block;font-size:12px;color:#444;margin-top:8px;line-height:1.6}}
 
 /* ── 리포트 가독성 (40~60대 기준 큰 글씨·넉넉한 행간) ── */
 .report .section p{font-size:15px;line-height:1.75}

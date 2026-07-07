@@ -30,16 +30,6 @@ export default function ReportClient({ species, petName, card }: { species: Spec
 
   return (
     <>
-      <div className="result-actions">
-        <button className="btn btn--primary btn--block" onClick={savePdf}>
-          <Icon name="check" size={16} /> 진단서 PDF로 저장 · 인쇄
-        </button>
-        <button className="btn btn--secondary btn--block" onClick={copyLink}>
-          <Icon name={copied ? 'check' : 'tag'} size={16} /> {copied ? '링크가 복사됐어요' : '링크 복사 (나중에 다시 보기)'}
-        </button>
-        <p className="hint center" style={{ marginTop: 2 }}>※ 이 링크는 발급일로부터 60일간 볼 수 있어요.</p>
-      </div>
-
       <CareCardView
         species={species}
         petName={petName}
@@ -50,6 +40,17 @@ export default function ReportClient({ species, petName, card }: { species: Spec
         onUnlock={() => {}}
         onReset={() => router.push('/diagnose')}
       />
+
+      {/* 저장·공유는 내용 아래에 — 첫 화면은 결론부터 */}
+      <div className="result-actions" style={{ marginTop: 14 }}>
+        <button className="btn btn--primary btn--block" onClick={savePdf}>
+          <Icon name="check" size={16} /> 진단서 PDF로 저장 · 인쇄
+        </button>
+        <button className="btn btn--secondary btn--block" onClick={copyLink}>
+          <Icon name={copied ? 'check' : 'tag'} size={16} /> {copied ? '링크가 복사됐어요' : '링크 복사 (나중에 다시 보기)'}
+        </button>
+        <p className="hint center" style={{ marginTop: 2 }}>※ 이 링크는 발급일로부터 60일간 볼 수 있어요.</p>
+      </div>
     </>
   );
 }

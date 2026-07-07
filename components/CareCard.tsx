@@ -43,13 +43,18 @@ function Section({
   );
 }
 
+/** 목록·칩용: 근거 마커 제거 + 문장 끝 마침표 제거(목록은 마침표 없는 게 깔끔). */
+function tidy(s: string): string {
+  return stripRefs(s).replace(/[.。]\s*$/, '');
+}
+
 function Bullets({ items, warn }: { items: string[]; warn?: boolean }) {
   return (
     <ul className={`list ${warn ? 'warn' : ''}`}>
       {items.map((x, i) => (
         <li key={i}>
           <Icon name={warn ? 'alert' : 'check'} size={14} strokeWidth={2} />
-          {stripRefs(x)}
+          {tidy(x)}
         </li>
       ))}
     </ul>
@@ -77,7 +82,7 @@ function VerdictCard({ petName, card }: { petName: string; card: CareCardType })
           <div className="vd-todo-head">오늘 할 일</div>
           <ul>
             {v.todo.map((t, i) => (
-              <li key={i}><span className="vd-todo-n">{i + 1}</span>{stripRefs(t)}</li>
+              <li key={i}><span className="vd-todo-n">{i + 1}</span>{tidy(t)}</li>
             ))}
           </ul>
         </div>
@@ -96,7 +101,7 @@ function SymptomCard({ card }: { card: CareCardType }) {
       <div className="sa-block">
         <div className="sa-tag">가능성 높은 원인</div>
         <ol className="sa-causes">
-          {s.causes.map((c, i) => <li key={i}>{stripRefs(c)}</li>)}
+          {s.causes.map((c, i) => <li key={i}>{tidy(c)}</li>)}
         </ol>
       </div>
       {s.careNow.length > 0 && (
@@ -246,7 +251,10 @@ export default function CareCardView({
           <div className="report-chips">
             <span className="chip chip--solid">{speciesKo}</span>
             <span className="chip">{preview.photoAnalysis.breedGuess}</span>
-            <span className={`chip conf-${conf}`}>신뢰도 {CONF_KO[conf] ?? conf}</span>
+            {/* 사진 없으면 신뢰도가 low로 나옴 — 첫 화면에 '낮음'을 띄우는 대신 중립 표기 */}
+            {conf === 'low'
+              ? <span className="chip">입력 정보 기준</span>
+              : <span className={`chip conf-${conf}`}>신뢰도 {CONF_KO[conf] ?? conf}</span>}
           </div>
         </div>
         <button className="btn btn--ghost" onClick={onReset}>
@@ -280,6 +288,24 @@ export default function CareCardView({
 
         // 결제 완료 + 카드 로드됨 → 3챕터 탭 (인쇄 시 전체 펼침)
         if (unlocked && premium) {
+          // 사진분석+품종특성 → 컴팩트 1장 (문단은 PDF에만 — 화면은 알약·칩만)
+          const basicSection = (
+            <Section icon="paw" title={`${petName} 기본 정보`}>
+              <div className="meta-grid" style={{ marginTop: 0 }}>
+                <span className="meta-pill">체형<b>{preview.photoAnalysis.bodyCondition}</b></span>
+                <span className="meta-pill">품종<b>{preview.photoAnalysis.breedGuess}</b></span>
+              </div>
+              {preview.breedTraits.healthRisks.length > 0 && (
+                <>
+                  <div className="sub">이 품종이 조심할 질환</div>
+                  <div className="food-chips" style={{ marginTop: 6 }}>
+                    {preview.breedTraits.healthRisks.map((r, i) => <span className="food-chip" key={i}>{tidy(r)}</span>)}
+                  </div>
+                </>
+              )}
+              <p className="print-only-p">{stripRefs(preview.photoAnalysis.coatSkinNotes)} {stripRefs(preview.breedTraits.summary)}</p>
+            </Section>
+          );
           return (
             <>
               <div className="report-tabs" role="tablist">
@@ -296,8 +322,7 @@ export default function CareCardView({
               <div className={`rtab-panel ${rtab === 'now' ? 'on' : ''}`}>
                 <VerdictCard petName={petName} card={premium} />
                 <SymptomCard card={premium} />
-                {photoSection}
-                {breedSection}
+                {basicSection}
               </div>
               <div className={`rtab-panel ${rtab === 'care' ? 'on' : ''}`}>
                 <CareSections species={species} petName={petName} card={premium} />
