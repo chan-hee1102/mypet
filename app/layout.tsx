@@ -28,6 +28,10 @@ export const metadata: Metadata = {
     title: 'mypet — 반려동물 맞춤 AI 케어 진단',
     description: DESCRIPTION,
   },
+  verification: {
+    // 네이버 서치어드바이저 소유확인
+    other: { 'naver-site-verification': 'ce285daa384d1170d4dd8146059fe75ddb5d57a9' },
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
