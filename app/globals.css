@@ -693,6 +693,8 @@ textarea.input{resize:vertical;min-height:46px}
   .symptom-band .btn{width:100%}
 }
 @media(max-width:480px){
+  /* iOS는 입력칸 폰트가 16px 미만이면 포커스 시 화면을 강제 확대함 */
+  .input{font-size:16px}
   .row2,.food{grid-template-columns:1fr}
   /* 권장주기: 값이 짧아 모바일에서도 3열 유지 — 세로 나열보다 한눈에 */
   .stats{grid-template-columns:repeat(3,1fr);gap:7px}

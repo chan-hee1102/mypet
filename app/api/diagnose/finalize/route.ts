@@ -43,6 +43,8 @@ async function verifyPayment(paymentId: string | null, token: string): Promise<{
   }
 }
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 export async function POST(req: Request) {
   try {
     const { token, paymentId } = await req.json();
@@ -54,16 +56,39 @@ export async function POST(req: Request) {
 
     // 이미 생성됨 → 멱등 반환
     if (dx.status === 'done' && dx.card) return NextResponse.json({ ok: true, token });
+    if (dx.status === 'failed') {
+      return NextResponse.json(
+        { error: '진단 생성에 실패했습니다. 결제는 완료됐으니 고객센터로 문의해 주세요.', code: 'gen_failed' },
+        { status: 500 },
+      );
+    }
 
     // 결제 검증
     const v = await verifyPayment(paymentId ?? null, String(token));
     if (!v.ok) return NextResponse.json({ error: v.error || '결제 검증 실패' }, { status: 402 });
 
-    // 결제 확인 기록
-    await admin
+    // 생성 선점 (원자적 상태 전이) — 리디렉션 복귀와 웹훅이 동시에 도착해도 AI 생성은 1번만.
+    const { data: claimed } = await admin
       .from('diagnoses')
-      .update({ status: 'paid', provider: v.provider, payment_id: paymentId ?? null, paid_at: new Date().toISOString() })
-      .eq('token', token);
+      .update({ status: 'generating', provider: v.provider, payment_id: paymentId ?? null, paid_at: new Date().toISOString() })
+      .eq('token', token)
+      .in('status', ['pending', 'paid'])
+      .select('token');
+    if (!claimed || claimed.length === 0) {
+      // 다른 요청이 생성 중 → 완료를 기다렸다가 같은 결과 반환
+      for (let i = 0; i < 25; i++) {
+        await sleep(2000);
+        const { data: cur } = await admin.from('diagnoses').select('status, card').eq('token', token).maybeSingle();
+        if (cur?.status === 'done' && cur.card) return NextResponse.json({ ok: true, token });
+        if (cur?.status === 'failed') {
+          return NextResponse.json(
+            { error: '진단 생성에 실패했습니다. 결제는 완료됐으니 고객센터로 문의해 주세요.', code: 'gen_failed' },
+            { status: 500 },
+          );
+        }
+      }
+      return NextResponse.json({ error: '생성이 오래 걸리고 있어요. 잠시 후 결과 링크를 새로고침해 주세요.' }, { status: 504 });
+    }
 
     // AI 진단 생성 (RAG 품종 프로필 + 수의 근거 주입)
     const input = dx.input as PetInput;
