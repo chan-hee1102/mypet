@@ -5,7 +5,7 @@ export const metadata = { title: '환불·청약철회 정책 — mypet' };
 
 export default function RefundPage() {
   return (
-    <LegalLayout title="환불 및 청약철회 정책" updated={SITE.lastUpdated}>
+    <LegalLayout title="환불 및 청약철회 정책" updated="2026-07-08">
       <p>
         본 정책은 「전자상거래 등에서의 소비자보호에 관한 법률」에 근거하여 {SITE.serviceName}의 유료 콘텐츠(케어 리포트) 결제에 적용됩니다.
       </p>
@@ -26,8 +26,9 @@ export default function RefundPage() {
 
       <h2>3. 환불 절차</h2>
       <p>
-        ① 환불 요청은 이메일({SITE.email})로 접수합니다.<br />
-        ② 환불이 승인되면 결제수단과 동일한 방법으로 환불하며, 결제대행사(PG)·카드사 사정에 따라 영업일 기준 3~7일이 소요될 수 있습니다.
+        ① 환불 요청은 사이트 하단 <strong>&ldquo;환불 문의&rdquo;</strong> 또는 이메일({SITE.email}), 전화({SITE.phone})로 접수합니다.
+        결제하신 이메일과 결과 링크(또는 결제 일시)를 알려주시면 빠르게 처리됩니다.<br />
+        ② 환불이 승인되면 결제수단과 동일한 방법으로 환불하며, 결제대행사(포트원·KG이니시스)·카드사 사정에 따라 영업일 기준 3~7일이 소요될 수 있습니다.
       </p>
 
       <h2>4. 환불이 제한되는 경우</h2>

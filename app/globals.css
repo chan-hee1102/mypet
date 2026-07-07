@@ -1,15 +1,17 @@
+/* 디자인 토큰 — 토스 문법: 쿨 뉴트럴 배경 + 순백 무테 카드 + 절제된 단일 액센트(그린).
+   컬러는 '긴급도 판정'(brand/warn/danger)에만 힘을 쓴다. */
 :root{
-  --bg:#fbfaf7; --surface:#ffffff; --surface-2:#faf9f5;
-  --ink:#191c22; --ink-2:#3d434d; --muted:#7b818b; --line:#ecebe4; --line-2:#f3f1ec;
-  --brand:#11a07a; --brand-600:#0b7d5f; --brand-50:#e6f6f0;
+  --bg:#f5f6f8; --surface:#ffffff; --surface-2:#f2f4f6;
+  --ink:#191f28; --ink-2:#4e5968; --muted:#8b95a1; --line:#e9ebee; --line-2:#f2f4f6;
+  --brand:#10a37c; --brand-600:#0a8163; --brand-50:#e9f7f2;
   --coral:#f9744f; --coral-50:#fdeae3;
   --good:#0f8a5f; --good-50:#e8f6ee;
-  --warn:#bd7a12; --warn-50:#fbf2df;
-  --danger:#d24b3e; --danger-50:#fbece9;
-  --shadow-sm:0 1px 2px rgba(30,35,45,.05),0 2px 7px rgba(30,35,45,.045);
-  --shadow:0 4px 14px rgba(30,40,55,.06),0 20px 44px rgba(30,40,55,.10);
-  --shadow-lg:0 12px 30px rgba(17,160,122,.10),0 34px 64px rgba(30,40,55,.13);
-  --radius:18px;
+  --warn:#bd7a12; --warn-50:#fdf4e3;
+  --danger:#d9483b; --danger-50:#fceceb;
+  --shadow-sm:0 1px 3px rgba(25,31,40,.04),0 3px 10px rgba(25,31,40,.05);
+  --shadow:0 2px 8px rgba(25,31,40,.04),0 12px 28px rgba(25,31,40,.07);
+  --shadow-lg:0 10px 26px rgba(16,163,124,.08),0 28px 56px rgba(25,31,40,.11);
+  --radius:20px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -20,13 +22,7 @@ body{
   /* 한국어 줄바꿈: 어절(띄어쓰기) 단위로만 끊고, 음절 중간에서 깨지지 않게 (토스·네이버·당근 방식) */
   word-break:keep-all;overflow-wrap:break-word;
 }
-/* 상단 은은한 2색 글로우 — 단색감 제거 */
-body::before{
-  content:'';position:fixed;left:0;right:0;top:0;height:560px;z-index:-1;pointer-events:none;
-  background:
-    radial-gradient(820px 360px at 16% -10%, rgba(17,160,122,.15), transparent 62%),
-    radial-gradient(720px 320px at 94% 2%, rgba(249,116,79,.13), transparent 60%);
-}
+/* 배경은 무늬 없이 평평하게 — 컬러는 판정 배지에만 (토스식 절제) */
 svg{display:block;flex:none}
 .container{max-width:660px;margin:0 auto;padding:0 20px}
 
@@ -39,7 +35,7 @@ svg{display:block;flex:none}
 .tint-rose{background:#fce8ef;color:#c23c75}
 
 /* ── 앱바 ── */
-.appbar{position:sticky;top:0;z-index:50;background:rgba(251,250,247,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.appbar{position:sticky;top:0;z-index:50;background:rgba(245,246,248,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .appbar-inner{max-width:660px;margin:0 auto;padding:13px 20px;display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:inherit}
 .brand-mark{width:31px;height:31px;border-radius:10px;background:linear-gradient(145deg,#15ad85,#0b7d5f);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 12px rgba(17,160,122,.34)}
@@ -50,24 +46,25 @@ svg{display:block;flex:none}
 .nav-link:hover{color:var(--brand-600)}
 
 /* ── 버튼 ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;font-family:inherit;font-weight:700;cursor:pointer;border-radius:12px;transition:transform .15s,box-shadow .15s,background .15s,border-color .15s;font-size:14.5px;padding:12px 18px;text-decoration:none}
-.btn--primary{background:linear-gradient(145deg,#14ab83,#0b7d5f);color:#fff;box-shadow:0 6px 16px rgba(17,160,122,.32)}
-.btn--primary:hover{background:linear-gradient(145deg,#11a07a,#0a6e53);box-shadow:0 9px 22px rgba(17,160,122,.38);transform:translateY(-1px)}
-.btn--primary:disabled{opacity:.6;cursor:not-allowed;box-shadow:none;transform:none}
-.btn--secondary{background:#fff;border:1px solid var(--line);color:var(--ink);box-shadow:var(--shadow-sm)}
-.btn--secondary:hover{border-color:var(--brand);color:var(--brand-600);transform:translateY(-1px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;font-family:inherit;font-weight:700;cursor:pointer;border-radius:14px;transition:transform .12s,box-shadow .15s,background .15s,border-color .15s,opacity .15s;font-size:15px;padding:13px 20px;text-decoration:none}
+.btn:active{transform:scale(.985)}
+.btn--primary{background:var(--brand);color:#fff;box-shadow:0 4px 14px rgba(16,163,124,.24)}
+.btn--primary:hover{background:var(--brand-600);box-shadow:0 6px 18px rgba(16,163,124,.3)}
+.btn--primary:disabled{opacity:.5;cursor:not-allowed;box-shadow:none;transform:none}
+.btn--secondary{background:var(--surface-2);border:none;color:var(--ink);box-shadow:none}
+.btn--secondary:hover{background:#e8ebee;color:var(--brand-600)}
 .btn--white{background:#fff;color:var(--brand-600);box-shadow:0 8px 20px rgba(0,0,0,.16)}
 .btn--white:hover{transform:translateY(-1px)}
 .btn--ghost{background:#fff;border:1px solid var(--line);color:var(--ink-2);font-size:13px;padding:9px 14px;box-shadow:var(--shadow-sm)}
 .btn--ghost:hover{border-color:var(--brand);color:var(--brand-600)}
 .btn--sm{padding:9px 15px;font-size:13.5px;border-radius:10px}
-.btn--lg{font-size:15.5px;font-weight:800;padding:15px 20px}
+.btn--lg{font-size:16.5px;font-weight:800;padding:17px 22px;border-radius:16px}
 .btn--block{width:100%}
 
 /* ── 작은 히어로 (/create) ── */
 .hero{text-align:center;padding:44px 0 28px}
 .eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--brand-600);background:var(--brand-50);padding:6px 13px;border-radius:999px;margin-bottom:16px;box-shadow:inset 0 0 0 1px rgba(17,160,122,.1)}
-.hero h1{font-size:28px;font-weight:800;line-height:1.28;letter-spacing:-.03em;margin-bottom:11px}
+.hero h1{font-size:29px;font-weight:800;line-height:1.26;letter-spacing:-.03em;margin-bottom:12px}
 .hero-sub{font-size:15px;color:var(--muted);max-width:440px;margin:0 auto}
 
 /* ── 랜딩 히어로 ── */
@@ -187,19 +184,20 @@ svg{display:block;flex:none}
 .cta-band .btn{position:relative}
 
 /* ── 입력 폼 ── */
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
+.card{background:var(--surface);border:none;border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:24px 22px}
 .card-head{margin-bottom:20px}
 .card-title{font-size:18px;font-weight:800;letter-spacing:-.02em}
 .card-desc{font-size:13.5px;color:var(--muted);margin-top:5px}
-.field{margin-bottom:18px}
-.label{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;margin-bottom:8px;color:var(--ink)}
+.field{margin-bottom:20px}
+.label{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:700;margin-bottom:9px;color:var(--ink)}
 .req{font-size:11px;font-weight:700;color:var(--danger);background:var(--danger-50);padding:2px 7px;border-radius:6px}
 .opt{font-size:11px;font-weight:600;color:var(--muted);background:var(--line-2);padding:2px 7px;border-radius:6px}
 .hint{font-size:12px;color:var(--muted);margin-top:7px}
 .hint.center{text-align:center}
-.input{width:100%;border:1px solid var(--line);background:var(--surface-2);border-radius:11px;padding:12px 14px;font-family:inherit;font-size:14.5px;color:var(--ink);transition:.15s}
-.input::placeholder{color:#a7afa9}
-.input:focus{outline:none;border-color:var(--brand);background:#fff;box-shadow:0 0 0 3.5px var(--brand-50)}
+/* 입력칸 — 토스식 '채워진 필드': 테두리 대신 면, 포커스 때만 브랜드 링 */
+.input{width:100%;border:1.5px solid transparent;background:var(--surface-2);border-radius:14px;padding:14px 16px;font-family:inherit;font-size:15px;color:var(--ink);transition:.15s}
+.input::placeholder{color:#adb5bd}
+.input:focus{outline:none;border-color:var(--brand);background:#fff;box-shadow:0 0 0 4px var(--brand-50)}
 textarea.input{resize:vertical;min-height:46px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 
@@ -216,9 +214,9 @@ textarea.input{resize:vertical;min-height:46px}
 
 /* 종류 카드 */
 .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.choice{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--surface-2);border-radius:14px;padding:18px 12px;cursor:pointer;font-family:inherit;color:var(--muted);transition:.16s}
-.choice:hover{border-color:#bcd6ce;transform:translateY(-1px)}
-.choice.on{border-color:var(--brand);background:var(--brand-50);color:var(--brand-600);box-shadow:0 0 0 3.5px var(--brand-50)}
+.choice{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;border:1.5px solid transparent;background:var(--surface-2);border-radius:16px;padding:19px 12px;cursor:pointer;font-family:inherit;color:var(--muted);transition:.15s}
+.choice:hover{background:#eceff2}
+.choice.on{border-color:var(--brand);background:var(--brand-50);color:var(--brand-600)}
 .choice-label{font-size:14.5px;font-weight:700}
 .choice-check{position:absolute;top:9px;right:9px;width:19px;height:19px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center}
 
@@ -248,7 +246,7 @@ textarea.input{resize:vertical;min-height:46px}
 .chip.conf-medium{background:rgba(255,255,255,.82);color:#8a5a06}
 .chip.conf-low{background:rgba(255,255,255,.7);color:#3f4f4b}
 
-.section{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm)}
+.section{background:var(--surface);border:none;border-radius:var(--radius);padding:20px 20px;box-shadow:var(--shadow-sm)}
 .section-head{display:flex;align-items:center;gap:11px;margin-bottom:12px}
 .section-ico{width:36px;height:36px;border-radius:11px;background:var(--brand-50);color:var(--brand);display:flex;align-items:center;justify-content:center;flex:none}
 .section-title{font-size:15.5px;font-weight:800;letter-spacing:-.01em}
@@ -366,7 +364,7 @@ textarea.input{resize:vertical;min-height:46px}
 .lockcard-list li svg{color:var(--brand);flex:none}
 
 /* 품종 통합 헤더 카드 (차분한 흰색 — 큰 초록 블록 대체) */
-.gcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:var(--shadow-sm)}
+.gcard{background:var(--surface);border:none;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm)}
 .gcard-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
 .gcard-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--brand-600);background:var(--brand-50);border:1px solid #cde7df;border-radius:999px;padding:4px 10px}
 .gcard-edit{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;font-weight:600}
@@ -381,7 +379,7 @@ textarea.input{resize:vertical;min-height:46px}
 .gcard-note{font-size:11px;color:var(--muted);text-align:center;margin-top:11px}
 
 /* ── 슬림 헤더 (이름·품종·나이 한 줄) ── */
-.gslim{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 16px;box-shadow:var(--shadow-sm)}
+.gslim{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--surface);border:none;border-radius:16px;padding:15px 18px;box-shadow:var(--shadow-sm)}
 .gslim-main{display:flex;align-items:baseline;gap:8px;min-width:0}
 .gslim-main b{font-size:17px;font-weight:800;color:var(--ink);flex:none}
 .gslim-main span{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -389,7 +387,7 @@ textarea.input{resize:vertical;min-height:46px}
 /* ── 맞춤 체크 (입력값 × 품종 DB 즉시 판정) ── */
 .pcheck-badge{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px 9px;flex:none}
 .pcheck-list{display:flex;flex-direction:column;gap:8px}
-.pcheck-item{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:13px;padding:10px 13px;background:var(--surface)}
+.pcheck-item{display:flex;gap:10px;align-items:flex-start;border:none;border-radius:14px;padding:12px 14px;background:var(--surface-2)}
 .pcheck-item b{font-size:14.5px;font-weight:800;color:var(--ink);display:block;line-height:1.4}
 .pcheck-item p{font-size:13.5px;color:var(--ink-2);line-height:1.6;margin-top:3px}
 .pcheck-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px}
@@ -481,7 +479,7 @@ textarea.input{resize:vertical;min-height:46px}
 
 /* ── 종합 소견 (검진결과지 스타일 — 결론 먼저) ──
    색 원칙: 카드 배경은 흰색, 긴급도는 배지+왼쪽 라인으로만 표시(색 홍수 방지) */
-.vd{border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm);border:1px solid var(--line);border-left-width:4px;background:var(--surface)}
+.vd{border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm);border:none;border-left:4px solid var(--line);background:var(--surface)}
 .vd-badge{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;border-radius:999px;padding:5px 12px;margin-bottom:10px}
 .vd--now{border-left-color:#e74c3c}
 .vd--now .vd-badge{background:#e74c3c;color:#fff}
@@ -521,7 +519,7 @@ textarea.input{resize:vertical;min-height:46px}
 .rlock-head{display:flex;align-items:center;gap:7px;margin-bottom:12px;color:var(--brand-600)}
 .rlock-head h3{font-size:15.5px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
 .rlock-list{display:flex;flex-direction:column;gap:8px}
-.rlock-row{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 13px}
+.rlock-row{display:flex;align-items:center;gap:10px;background:#fff;border:none;border-radius:13px;padding:12px 14px;box-shadow:0 1px 3px rgba(25,31,40,.05)}
 .rlock-row>svg{color:var(--muted);flex:none}
 .rlock-ico{width:28px;height:28px;border-radius:9px;background:var(--brand-50);color:var(--brand-600);display:flex;align-items:center;justify-content:center;flex:none;font-size:14px}
 .rlock-txt{flex:1;min-width:0}
