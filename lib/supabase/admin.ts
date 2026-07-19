@@ -21,6 +21,13 @@ export function createAdminClient() {
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { auth: { persistSession: false, autoRefreshToken: false } }
+    {
+      auth: { persistSession: false, autoRefreshToken: false },
+      global: {
+        // ⚠️ Next.js 14는 서버의 전역 fetch GET 응답을 기본 캐싱한다.
+        // DB 조회가 캐싱되면 결제 후에도 옛 상태(pending/구버전 카드)가 서빙되므로 항상 no-store.
+        fetch: (url, init) => fetch(url, { ...init, cache: 'no-store' }),
+      },
+    }
   );
 }
