@@ -28,6 +28,7 @@ async function verifyPayment(paymentId: string | null, token: string): Promise<{
   try {
     const res = await fetch(`https://api.portone.io/payments/${encodeURIComponent(paymentId)}`, {
       headers: { Authorization: `PortOne ${secret}` },
+      signal: AbortSignal.timeout(8000), // PG 조회가 행 걸려 함수 전체가 타임아웃되는 것 방지
     });
     const pay: any = await res.json();
     if (!res.ok) return { ok: false, provider: 'portone', error: 'PG 조회 실패' };
@@ -59,6 +60,11 @@ export async function POST(req: Request) {
 
     // 이미 생성됨 → 멱등 반환
     if (dx.status === 'done' && dx.card) return NextResponse.json({ ok: true, token });
+    // 좌초 복구: 생성 중 함수가 죽어 'generating'으로 3분 이상 방치된 건은 재시도 허용
+    if (dx.status === 'generating' && dx.paid_at && Date.now() - new Date(dx.paid_at as string).getTime() > 3 * 60 * 1000) {
+      await admin.from('diagnoses').update({ status: 'paid' }).eq('token', token).eq('status', 'generating');
+      dx.status = 'paid';
+    }
     if (dx.status === 'failed') {
       return NextResponse.json(
         { error: '진단 생성에 실패했습니다. 결제는 완료됐으니 고객센터로 문의해 주세요.', code: 'gen_failed' },
@@ -78,8 +84,8 @@ export async function POST(req: Request) {
       .in('status', ['pending', 'paid'])
       .select('token');
     if (!claimed || claimed.length === 0) {
-      // 다른 요청이 생성 중 → 완료를 기다렸다가 같은 결과 반환
-      for (let i = 0; i < 25; i++) {
+      // 다른 요청이 생성 중 → 완료를 기다렸다가 같은 결과 반환 (60초 함수 한도 내에서만)
+      for (let i = 0; i < 17; i++) {
         await sleep(2000);
         const { data: cur } = await admin.from('diagnoses').select('status, card').eq('token', token).maybeSingle();
         if (cur?.status === 'done' && cur.card) return NextResponse.json({ ok: true, token });
