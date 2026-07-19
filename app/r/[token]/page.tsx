@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createAdminClient } from '@/lib/supabase/admin';
 import ReportClient from '@/components/ReportClient';
+import ResultPending from '@/components/ResultPending';
 import { Icon } from '@/components/icons';
 import type { CareCard, Species } from '@/lib/types';
 
@@ -45,28 +46,22 @@ export default async function ResultPage({ params }: { params: { token: string }
   }
 
   if (dx.status !== 'done' || !dx.card) {
-    const failed = dx.status === 'failed';
-    const generating = dx.status === 'generating' || dx.status === 'paid';
-    return (
-      <main className="container container--narrow">
-        <div className="card gate">
-          <div className="gate-ico"><Icon name={failed ? 'alert' : generating ? 'sparkle' : 'lock'} size={24} filled={generating} /></div>
-          <h2 className="gate-title">
-            {failed ? '진단 생성에 문제가 있었어요' : generating ? '진단을 만들고 있어요' : '아직 결제 전이에요'}
-          </h2>
-          <p className="gate-desc">
-            {failed
-              ? '결제가 되었는데 결과가 안 보이면 고객센터로 문의해 주세요.'
-              : generating
-                ? '결제가 확인됐어요. 1분 정도 후에 이 페이지를 새로고침해 주세요.'
-                : '결제가 완료되면 이 페이지에서 전체 진단을 볼 수 있어요.'}
-          </p>
-          <Link href="/diagnose" className="btn btn--primary btn--lg btn--block">
-            <Icon name="sparkle" size={17} filled /> 새 진단 시작하기
-          </Link>
-        </div>
-      </main>
-    );
+    if (dx.status === 'failed') {
+      return (
+        <main className="container container--narrow">
+          <div className="card gate">
+            <div className="gate-ico"><Icon name="alert" size={24} /></div>
+            <h2 className="gate-title">진단 생성에 문제가 있었어요</h2>
+            <p className="gate-desc">결제가 되었는데 결과가 안 보이면 하단 &ldquo;환불 문의&rdquo;로 알려주세요. 바로 처리해 드려요.</p>
+            <Link href="/diagnose" className="btn btn--primary btn--lg btn--block">
+              <Icon name="sparkle" size={17} filled /> 새 진단 시작하기
+            </Link>
+          </div>
+        </main>
+      );
+    }
+    // pending·paid·generating → 자동 복구(유실 결제 finalize) + 완성 시 자동 새로고침
+    return <ResultPending token={params.token} />;
   }
 
   const card = dx.card as CareCard;

@@ -64,6 +64,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <footer className="site-footer">
           <nav className="footer-links">
             <Link href="/breed">품종 가이드</Link>
+            <Link href="/find">리포트 찾기</Link>
             <Link href="/terms">이용약관</Link>
             <Link href="/privacy"><strong>개인정보처리방침</strong></Link>
             <Link href="/refund">환불정책</Link>

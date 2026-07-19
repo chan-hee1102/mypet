@@ -47,8 +47,11 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export async function POST(req: Request) {
   try {
-    const { token, paymentId } = await req.json();
+    const { token, paymentId: rawPaymentId } = await req.json();
     if (!token) return NextResponse.json({ error: '토큰이 필요합니다.' }, { status: 400 });
+    // 결제ID가 안 넘어와도(리디렉션 유실 등) 규칙으로 유도해 복구 가능하게.
+    // 검증의 진실은 어차피 포트원 결제조회 API — 유도해도 보안 동일.
+    const paymentId: string = rawPaymentId ?? `mypet-${String(token).slice(0, 24)}`;
 
     const admin = createAdminClient();
     const { data: dx } = await admin.from('diagnoses').select('*').eq('token', token).maybeSingle();
@@ -64,13 +67,13 @@ export async function POST(req: Request) {
     }
 
     // 결제 검증
-    const v = await verifyPayment(paymentId ?? null, String(token));
+    const v = await verifyPayment(paymentId, String(token));
     if (!v.ok) return NextResponse.json({ error: v.error || '결제 검증 실패' }, { status: 402 });
 
     // 생성 선점 (원자적 상태 전이) — 리디렉션 복귀와 웹훅이 동시에 도착해도 AI 생성은 1번만.
     const { data: claimed } = await admin
       .from('diagnoses')
-      .update({ status: 'generating', provider: v.provider, payment_id: paymentId ?? null, paid_at: new Date().toISOString() })
+      .update({ status: 'generating', provider: v.provider, payment_id: paymentId, paid_at: new Date().toISOString() })
       .eq('token', token)
       .in('status', ['pending', 'paid'])
       .select('token');

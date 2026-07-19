@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { buildTeaser } from '@/lib/diagnose';
 import { validateImage, clampText } from '@/lib/validation';
+import { finderHash } from '@/lib/finder';
 import { SITE } from '@/lib/site';
 import { PetInput, Species } from '@/lib/types';
 
@@ -65,6 +66,8 @@ export async function POST(req: Request) {
 
     const teaser = buildTeaser(input.species, input.breed);
     const token = randomUUID().replace(/-/g, '') + randomUUID().replace(/-/g, '').slice(0, 8);
+    // 다시보기(휴대폰+PIN) — 일방향 해시만 저장, 원문은 즉시 폐기
+    const fhash = finderHash(body?.finderPhone, body?.finderPin);
 
     const admin = createAdminClient();
     const { error } = await admin.from('diagnoses').insert({
@@ -76,6 +79,7 @@ export async function POST(req: Request) {
       teaser,
       amount: SITE.pricePerPet,
       status: 'pending',
+      finder_hash: fhash,
     });
     if (error) {
       console.error('[diagnose/start] insert error:', error.message);

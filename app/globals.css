@@ -447,6 +447,18 @@ textarea.input{resize:vertical;min-height:46px}
 .breed-link{font-size:13px;font-weight:600;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;text-decoration:none;transition:.15s}
 .breed-link:hover{background:var(--brand);border-color:transparent;color:#fff}
 
+/* ── 복귀 배너 + 리포트 찾기 ── */
+.lastdx{display:flex;align-items:center;gap:8px;background:var(--brand-50);border-radius:14px;padding:13px 16px;margin-bottom:14px;font-size:14px;color:var(--brand-600);text-decoration:none;font-weight:600}
+.lastdx b{font-weight:800}
+.lastdx-arrow{margin-left:auto;font-weight:800}
+.find-list{display:flex;flex-direction:column;gap:8px}
+.find-item{display:flex;align-items:center;gap:10px;background:var(--surface-2);border-radius:13px;padding:13px 15px;text-decoration:none;color:var(--ink);transition:.15s}
+.find-item:hover{background:#e8ebee}
+.find-ico{width:30px;height:30px;border-radius:10px;background:var(--brand-50);color:var(--brand-600);display:flex;align-items:center;justify-content:center;flex:none}
+.find-name{font-weight:800;font-size:15px}
+.find-date{font-size:12.5px;color:var(--muted)}
+.find-go{margin-left:auto;font-size:13px;font-weight:700;color:var(--brand-600)}
+
 /* ── 가격 앵커 ── */
 .price-anchor{font-size:12.5px;color:var(--muted);text-align:center;margin-top:12px;padding-top:11px;border-top:1px dashed var(--line)}
 

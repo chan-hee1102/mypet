@@ -312,6 +312,10 @@ export default function DiagnoseForm() {
   // 결제 필수 정보 (이니시스 V2 요건: 구매자 이메일 등) — 결과 링크 안내 겸용
   const [buyerEmail, setBuyerEmail] = useState('');
   const [buyerPhone, setBuyerPhone] = useState('');
+  // 다시보기 PIN(6자리) — 휴대폰번호와 함께 해시로만 저장, /find에서 재조회용
+  const [pin, setPin] = useState('');
+  // 이 기기에서 최근 결제 진행한 진단 (복귀 배너용)
+  const [lastDx, setLastDx] = useState<string | null>(null);
 
   const [stage, setStage] = useState<'form1' | 'guide' | 'form2'>('form1');
   const [result, setResult] = useState<GuideResult | null>(null);
@@ -338,6 +342,11 @@ export default function DiagnoseForm() {
         if (d.symptoms) setSymptoms(d.symptoms);
         if (Array.isArray(d.symptomIds)) setSymptomIds(d.symptomIds);
       }
+    } catch { /* ignore */ }
+    // 최근 결제 진행 건 (90일 이내) — 새로고침·이탈 후 복귀 배너
+    try {
+      const l = JSON.parse(localStorage.getItem('mypet_last') || 'null');
+      if (l?.token && Date.now() - (l.at || 0) < 90 * 86400000) setLastDx(l.token);
     } catch { /* ignore */ }
     setRestored(true);
   }, []);
@@ -419,21 +428,22 @@ export default function DiagnoseForm() {
 
   async function pay() {
     setError('');
-    // 이니시스 V2 결제창 필수: 구매자 이메일·연락처 (결과 링크 안내 겸용)
-    if (PAYMENTS_LIVE) {
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail.trim())) { setError('결제 확인을 위해 이메일을 입력해 주세요.'); return; }
-      if (buyerPhone.replace(/\D/g, '').length < 10) { setError('휴대폰 번호를 입력해 주세요. (숫자만)'); return; }
-    }
+    // 결제 필수 정보: 이메일·휴대폰(이니시스 V2 요건) + 다시보기 PIN(재조회용)
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail.trim())) { setError('결제 확인을 위해 이메일을 입력해 주세요.'); return; }
+    if (buyerPhone.replace(/\D/g, '').length < 10) { setError('휴대폰 번호를 입력해 주세요. (숫자만)'); return; }
+    if (pin.replace(/\D/g, '').length !== 6) { setError('다시보기 PIN 숫자 6자리를 정해 주세요.'); return; }
     setPaying(true);
     try {
       const startRes = await fetch('/api/diagnose/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ input: buildInput(), image }),
+        body: JSON.stringify({ input: buildInput(), image, finderPhone: buyerPhone, finderPin: pin }),
       });
       const started = await startRes.json();
       if (!startRes.ok) throw new Error(started.error || '오류가 발생했습니다.');
       const token = started.token as string;
+      // 이 기기 복귀용 — 결제창이 끊겨도 배너로 결과 페이지 재진입 가능
+      try { localStorage.setItem('mypet_last', JSON.stringify({ token, at: Date.now() })); } catch { /* ignore */ }
 
       let paymentId: string | null = null;
       if (PAYMENTS_LIVE) {
@@ -485,6 +495,11 @@ export default function DiagnoseForm() {
         <p className="hero-sub">어떻게 키울지 궁금해도, 어디가 아파 보여도 — 입력하면 <b>무료 정보</b>부터 바로 보여드려요.</p>
       </section>
       <Stepper step={1} />
+      {lastDx && (
+        <Link href={`/r/${lastDx}`} className="lastdx">
+          <Icon name="tag" size={15} /> 최근 진행한 진단이 있어요 — <b>결과 확인하기</b> <span className="lastdx-arrow">→</span>
+        </Link>
+      )}
       <form className="card" onSubmit={showGuide}>
         <div className="card-head">
           <h2 className="card-title">1단계 · 우리 아이 정보 (무료)</h2>
@@ -643,7 +658,16 @@ export default function DiagnoseForm() {
           <input className="input" type="tel" inputMode="tel" value={buyerPhone} onChange={(e) => setBuyerPhone(e.target.value)} placeholder="010-0000-0000" />
         </div>
       </div>
-      <p className="hint" style={{ marginTop: -6, marginBottom: 12 }}>결제 확인용으로 결제사(KG이니시스)에 전달돼요. 저희 서버에는 저장하지 않아요.</p>
+      <div className="field">
+        <label className="label">다시보기 PIN <span className="req">필수</span></label>
+        <input
+          className="input" type="tel" inputMode="numeric" maxLength={6} value={pin}
+          onChange={(e) => setPin(e.target.value.replace(/\D/g, '').slice(0, 6))}
+          placeholder="숫자 6자리를 정해 주세요 (예: 240815)"
+        />
+        <p className="hint" style={{ marginTop: 6 }}>결과 링크를 잃어버려도 <b>휴대폰번호 + PIN</b>으로 언제든 다시 찾을 수 있어요.</p>
+      </div>
+      <p className="hint" style={{ marginTop: -6, marginBottom: 12 }}>이메일·휴대폰은 결제 확인용으로 결제사(KG이니시스)에 전달돼요. 저희 서버에는 다시보기용 암호화 값만 남고 원문은 저장하지 않아요.</p>
 
       <div className="teaser-locked">
         <div className="teaser-locked-head"><Icon name="sparkle" size={15} filled /> 결제하면 받는 {name} 맞춤 진단</div>
