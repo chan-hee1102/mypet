@@ -463,9 +463,15 @@ textarea.input{resize:vertical;min-height:46px}
 .price-anchor{font-size:12.5px;color:var(--muted);text-align:center;margin-top:12px;padding-top:11px;border-top:1px dashed var(--line)}
 
 /* ── 리포트 챕터 탭 (지금 상태 / 케어 방법 / 병원 신호) ── */
-.report-tabs{position:sticky;top:58px;z-index:40;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--bg);padding:7px 0 8px}
-.report-tabs button{font-family:inherit;font-size:14px;font-weight:800;padding:12px 4px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s}
-.report-tabs button.on{background:var(--brand);border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(17,160,122,.28)}
+.report-tabs{position:sticky;top:58px;z-index:40;display:grid;grid-template-columns:repeat(3,1fr);gap:7px;background:var(--bg);padding:8px 0 10px}
+.report-tabs button{font-family:inherit;font-size:14.5px;font-weight:800;padding:14px 4px;border-radius:14px;border:none;background:var(--surface);color:var(--ink);box-shadow:var(--shadow-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s}
+.report-tabs button:not(.on) svg{color:var(--brand-600)}
+.report-tabs button:not(.on):hover{color:var(--brand-600);transform:translateY(-1px)}
+.report-tabs button:active{transform:scale(.97)}
+.report-tabs button.on{background:var(--brand);color:#fff;box-shadow:0 4px 14px rgba(16,163,124,.3)}
+/* 챕터 끝 '다음 보기' 버튼 — 탭을 못 봐도 순서대로 안내 */
+.chapter-next{margin-top:2px}
+@media print{.chapter-next{display:none}}
 .rtab-panel{display:none}
 .rtab-panel.on{display:flex;flex-direction:column;gap:13px}
 @media print{

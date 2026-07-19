@@ -229,6 +229,10 @@ export default function CareCardView({
   const [premiumErr, setPremiumErr] = useState(false);
   // 챕터 탭 — 10개 섹션 나열 대신 3개 묶음으로 (인쇄 시엔 전체 출력)
   const [rtab, setRtab] = useState<'now' | 'care' | 'vet'>('now');
+  const goTab = (t: 'now' | 'care' | 'vet') => {
+    setRtab(t);
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch { /* ignore */ }
+  };
 
   useEffect(() => {
     if (!unlocked || premium || !petId) return;
@@ -323,12 +327,21 @@ export default function CareCardView({
                 <VerdictCard petName={petName} card={premium} />
                 <SymptomCard card={premium} />
                 {basicSection}
+                <button type="button" className="btn btn--primary btn--lg btn--block chapter-next" onClick={() => goTab('care')}>
+                  다음 · {petName} 케어 방법 보기 →
+                </button>
               </div>
               <div className={`rtab-panel ${rtab === 'care' ? 'on' : ''}`}>
                 <CareSections species={species} petName={petName} card={premium} />
+                <button type="button" className="btn btn--primary btn--lg btn--block chapter-next" onClick={() => goTab('vet')}>
+                  다음 · 병원 가야 하는 신호 보기 →
+                </button>
               </div>
               <div className={`rtab-panel ${rtab === 'vet' ? 'on' : ''}`}>
                 <VetSection card={premium} />
+                <button type="button" className="btn btn--secondary btn--block chapter-next" onClick={() => goTab('now')}>
+                  ← 처음(지금 상태)으로 돌아가기
+                </button>
               </div>
             </>
           );
