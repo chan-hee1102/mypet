@@ -524,6 +524,28 @@ textarea.input{resize:vertical;min-height:46px}
 .sa-causes li{position:relative;padding-left:26px;font-size:14px;color:var(--ink-2);line-height:1.6;counter-increment:sac}
 .sa-causes li::before{content:counter(sac);position:absolute;left:0;top:2px;width:19px;height:19px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
 
+/* ── 증상 판별 (지켜봐도 OK vs 바로 병원) — 리포트의 핵심 가치 ── */
+.sa-judge{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:14px 0}
+.sa-judge-col{border-radius:14px;padding:13px 14px}
+.sa-judge--ok{background:var(--brand-50)}
+.sa-judge--now{background:var(--danger-50)}
+.sa-judge-head{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;margin-bottom:8px}
+.sa-judge--ok .sa-judge-head{color:var(--brand-600)}
+.sa-judge--now .sa-judge-head{color:#c0392b}
+.sa-judge-col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.sa-judge-col li{font-size:13.5px;line-height:1.6;color:var(--ink-2);padding-left:12px;position:relative}
+.sa-judge-col li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%}
+.sa-judge--ok li::before{background:var(--brand)}
+.sa-judge--now li::before{background:#e0503f}
+@media(max-width:480px){.sa-judge{grid-template-columns:1fr}}
+.sa-vetprep{background:var(--surface-2);border-radius:14px;padding:14px 15px;margin-top:14px}
+.sa-vetprep-head{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.sa-vetprep p{font-size:14px;line-height:1.7;color:var(--ink-2)}
+.sa-vetprep p + p{margin-top:8px}
+.sa-script{display:inline-block;margin-top:4px;background:#fff;border-radius:10px;padding:9px 12px;font-size:13.5px;color:var(--ink);line-height:1.6}
+.sa-caution{display:flex;gap:6px;align-items:flex-start;font-size:11.5px;color:var(--muted);margin-top:13px;line-height:1.6}
+.sa-caution svg{flex:none;margin-top:2px}
+
 /* ── 음식 금지 이유 (화면은 칩, 인쇄엔 전체) ── */
 .food-reason-note{font-size:11.5px;color:var(--muted);margin-top:8px}
 .food-print-only{display:none}

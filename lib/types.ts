@@ -30,8 +30,21 @@ export interface CareCard {
     summary: string;
     todo: string[];
   };
-  /** 입력한 증상에 대한 직접 답변. 증상 입력이 없으면 빈 배열. (구버전 카드에는 없음) */
-  symptomAnswer?: { causes: string[]; careNow: string[] };
+  /** 입력한 증상에 대한 직접 답변 — '판별 기준' 중심. 증상 입력이 없으면 빈 배열. (구버전 카드에는 없음) */
+  symptomAnswer?: {
+    /** 가능성 높은 순서의 원인 후보 */
+    causes: string[];
+    /** 지금 집에서 할 조치 (구버전 호환 필드) */
+    careNow: string[];
+    /** 이런 경우라면 지켜봐도 되는 조건 (시간 기준 포함) — 신규 */
+    watchOk?: string[];
+    /** 이런 신호가 있으면 바로/빨리 병원 — 신규 */
+    goNow?: string[];
+    /** 오늘 집에서 확인·관찰할 것 (방법 구체적으로) — 신규 */
+    homeCheck?: string[];
+    /** 병원 준비: 예상 검사·수의사에게 전달할 요약 문장 — 신규 */
+    vetPrep?: { tests: string; script: string };
+  };
   photoAnalysis: {
     breedGuess: string;
     bodyCondition: string;

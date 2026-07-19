@@ -92,10 +92,11 @@ function VerdictCard({ petName, card }: { petName: string; card: CareCardType })
   );
 }
 
-/** 입력한 증상에 대한 직접 답변. */
+/** 입력한 증상에 대한 직접 답변 — '판별 기준' 중심 (지켜봐도 되는 경우 vs 바로 병원). */
 function SymptomCard({ card }: { card: CareCardType }) {
   const s = card.symptomAnswer;
   if (!s || s.causes.length === 0) return null;
+  const hasNew = (s.watchOk?.length ?? 0) > 0 || (s.goNow?.length ?? 0) > 0;
   return (
     <Section icon="cross" title="말씀하신 증상, 왜 그럴까요?">
       <div className="sa-block">
@@ -104,12 +105,52 @@ function SymptomCard({ card }: { card: CareCardType }) {
           {s.causes.map((c, i) => <li key={i}>{tidy(c)}</li>)}
         </ol>
       </div>
+
+      {hasNew && (
+        <div className="sa-judge">
+          {(s.watchOk?.length ?? 0) > 0 && (
+            <div className="sa-judge-col sa-judge--ok">
+              <div className="sa-judge-head"><Icon name="check" size={14} strokeWidth={2.2} /> 이러면 지켜봐도 돼요</div>
+              <ul>{s.watchOk!.map((x, i) => <li key={i}>{tidy(x)}</li>)}</ul>
+            </div>
+          )}
+          {(s.goNow?.length ?? 0) > 0 && (
+            <div className="sa-judge-col sa-judge--now">
+              <div className="sa-judge-head"><Icon name="alert" size={14} /> 이러면 바로 병원</div>
+              <ul>{s.goNow!.map((x, i) => <li key={i}>{tidy(x)}</li>)}</ul>
+            </div>
+          )}
+        </div>
+      )}
+
+      {(s.homeCheck?.length ?? 0) > 0 && (
+        <div className="sa-block">
+          <div className="sa-tag">오늘 확인해 보세요</div>
+          <Bullets items={s.homeCheck!} />
+        </div>
+      )}
+
       {s.careNow.length > 0 && (
         <div className="sa-block">
           <div className="sa-tag sa-tag--do">지금 집에서 할 것</div>
           <Bullets items={s.careNow} />
         </div>
       )}
+
+      {s.vetPrep && (s.vetPrep.tests || s.vetPrep.script) && (
+        <div className="sa-vetprep">
+          <div className="sa-vetprep-head"><Icon name="cross" size={14} /> 병원 가시면</div>
+          {s.vetPrep.tests && <p><b>예상 검사</b> — {stripRefs(s.vetPrep.tests)}</p>}
+          {s.vetPrep.script && (
+            <p><b>수의사에게 이렇게 말하세요</b><br /><span className="sa-script">&ldquo;{stripRefs(s.vetPrep.script)}&rdquo;</span></p>
+          )}
+        </div>
+      )}
+
+      <p className="sa-caution">
+        <Icon name="info" size={13} /> 위 기준은 AI가 정리한 참고 정보예요. &lsquo;괜찮다&rsquo;고 판단하는 근거로 삼지 마시고,
+        조금이라도 이상하면 병원 진료가 항상 우선이에요.
+      </p>
     </Section>
   );
 }
@@ -327,6 +368,7 @@ export default function CareCardView({
                 <VerdictCard petName={petName} card={premium} />
                 <SymptomCard card={premium} />
                 {basicSection}
+                <SourceBadges sources={preview.sources} />
                 <button type="button" className="btn btn--primary btn--lg btn--block chapter-next" onClick={() => goTab('care')}>
                   다음 · {petName} 케어 방법 보기 →
                 </button>
@@ -368,8 +410,7 @@ export default function CareCardView({
       })()}
 
       <button className="btn btn--secondary btn--block" onClick={onReset}>다른 아이 등록하기</button>
-
-      <SourceBadges sources={preview.sources} />
+      {!(unlocked && premium) && <SourceBadges sources={preview.sources} />}
     </div>
   );
 }

@@ -33,8 +33,19 @@ const careCardSchema = {
       properties: {
         causes: { type: Type.ARRAY, items: { type: Type.STRING } },
         careNow: { type: Type.ARRAY, items: { type: Type.STRING } },
+        watchOk: { type: Type.ARRAY, items: { type: Type.STRING } },
+        goNow: { type: Type.ARRAY, items: { type: Type.STRING } },
+        homeCheck: { type: Type.ARRAY, items: { type: Type.STRING } },
+        vetPrep: {
+          type: Type.OBJECT,
+          properties: {
+            tests: { type: Type.STRING },
+            script: { type: Type.STRING },
+          },
+          required: ['tests', 'script'],
+        },
       },
-      required: ['causes', 'careNow'],
+      required: ['causes', 'careNow', 'watchOk', 'goNow', 'homeCheck', 'vetPrep'],
     },
     photoAnalysis: {
       type: Type.OBJECT,
@@ -115,7 +126,7 @@ export async function generateCareCard(
   const ragQuery = [input.breed, speciesKo, stage, '예방접종 영양 호발질환 케어', input.notes]
     .filter(Boolean)
     .join(' ');
-  const chunks = await retrieveKnowledge(ragQuery, input.species, 6);
+  const chunks = await retrieveKnowledge(ragQuery, input.species, 8);
   // 품종 프로필을 맨 앞에 두고 중복 제거 (출처 배지/근거 통합용)
   const evidenceChunks = breedProfile
     ? [breedProfile, ...chunks.filter((c) => c.content !== breedProfile.content)]
@@ -154,9 +165,18 @@ export async function generateCareCard(
 - todo: 오늘 바로 할 수 있는 행동 정확히 3개, 각 30자 이내.
 - urgency: 증상이 응급 신호(호흡곤란·경련·혈변·의식저하 등)면 'now', 며칠 내 진료가 필요해 보이면 'soon', 증상이 없거나 예방 관리 수준이면 'routine'.
 
-[symptomAnswer — 입력 증상에 대한 직접 답변]
-- 특이사항에 증상이 있으면: causes에 가능성 높은 순서로 원인 2~4개(각 50자 이내), careNow에 지금 집에서 할 조치 2~3개.
-- 증상이 없으면 causes와 careNow 모두 빈 배열.${evidenceBlock}`;
+[symptomAnswer — 입력 증상에 대한 직접 답변. 이 리포트의 핵심 가치]
+⚠️ 절대 금지: "병원에 가야 정확히 알 수 있다"는 식으로 끝내는 것. 보호자는 '판별 기준'을 사려고 결제했다.
+반드시 조건부 판별 기준을 제시하라: "~라면 ~일 가능성이 높다", "~시간 내 호전되면 ~", "~하면 즉시".
+- causes: 가능성 높은 순서로 원인 2~4개. 각 항목에 "어떤 경우 이 원인일 가능성이 높은지" 단서를 붙여라.
+  예: "단순 염좌 — 걷긴 걷고 만져도 크게 안 아파하며 24~48시간 내 호전되는 경우"
+- watchOk: 지켜봐도 되는 조건 2~3개. 반드시 시간 기준 포함(예: "48시간 내 눈에 띄게 호전되면").
+- goNow: 바로/빨리 병원에 가야 하는 신호 2~4개. 구체적 행동·증상 기준으로.
+- homeCheck: 오늘 집에서 확인할 것 2~3개. 관찰 '방법'까지 구체적으로(예: "계단 오를 때 vs 내려갈 때 언제 더 심한지").
+- careNow: 지금 바로 할 조치 2~3개.
+- vetPrep.tests: 병원에서 예상되는 검사·평가를 한 문장으로(예: "슬개골 촉진 등급(1~4기) 평가와 무릎·고관절 방사선").
+- vetPrep.script: 보호자가 수의사에게 그대로 읽어줄 브리핑 한 문장(이력·부위·기간·양상 포함).
+- 증상이 없으면 causes·careNow·watchOk·goNow·homeCheck는 빈 배열, vetPrep은 tests·script 모두 빈 문자열.${evidenceBlock}`;
 
   const userText = `다음 반려동물에 맞춘 케어 카드를 만들어줘.
 
