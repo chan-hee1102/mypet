@@ -22,6 +22,22 @@ import { usePathname, useSearchParams } from 'next/navigation';
 const KEY_NAME = 'mypet_visit';
 const ENDPOINT = '/api/track';
 
+/**
+ * 집계에서 빼는 경로 — **운영자 자신**이다.
+ *
+ * ⚠️ 2026-08-27 배포 직후 실측에서 `/admin` 방문이 「내부 이동」 채널로 잡혀 있었다.
+ *    관리자가 통계를 보는 행위가 그 통계에 들어가면, 화면을 열어둘수록 숫자가 부풀고
+ *    이탈 화면 1위가 영원히 /admin이 된다. 무엇보다 **그건 고객이 아니다.**
+ *
+ * 경로로 거르는 이유: mypet은 로그인이 없어 '관리자 계정'이라는 것이 없다.
+ * 관리자 여부를 알 수 있는 유일한 신호가 이 경로다.
+ */
+const SKIP_PREFIXES = ['/admin'];
+
+function isSkipped(path: string): boolean {
+  return SKIP_PREFIXES.some((p) => path === p || path.startsWith(p + '/'));
+}
+
 /** 눌린 것의 이름 — 사람이 읽을 수 있게. 없으면 경로로 대신한다. */
 function labelOf(el: Element): string {
   const a = el as HTMLElement;
@@ -51,6 +67,7 @@ export default function VisitTracker() {
   const flush = (path: string, useBeacon: boolean) => {
     const key = keyRef.current;
     if (!key) return;
+    if (isSkipped(path)) return;   // 관리자 화면에서의 클릭·체류는 고객 기록이 아니다
     const body = JSON.stringify({
       key,
       path,
@@ -77,6 +94,9 @@ export default function VisitTracker() {
   useEffect(() => {
     if (initedRef.current) return;
     initedRef.current = true;
+
+    // 관리자 화면에서 시작한 방문은 아예 만들지 않는다(운영자 자신이다).
+    if (isSkipped(window.location.pathname)) return;
 
     let key: string | null = null;
     try {
@@ -113,6 +133,9 @@ export default function VisitTracker() {
   // ── ② 화면 이동: 지금 어디 있나 ──────────────────────────────────────
   useEffect(() => {
     if (!keyRef.current) return;
+    // 관리자 화면으로 이동한 것은 이탈 화면으로 기록하지 않는다 — 그 방문의 마지막 고객 행동은
+    // 그 직전 화면이다. /admin을 exit_path로 적으면 이탈 목록 1위가 영원히 /admin이 된다.
+    if (isSkipped(pathname)) return;
     // 첫 진입은 ①이 이미 보냈다 — 여기서 또 보내면 pageviews가 2부터 시작한다.
     if (viewsRef.current === 0) { viewsRef.current = 1; return; }
     viewsRef.current += 1;
