@@ -69,9 +69,19 @@ export async function POST(req: Request) {
     // 다시보기(휴대폰+PIN) — 일방향 해시만 저장, 원문은 즉시 폐기
     const fhash = finderHash(body?.finderPhone, body?.finderPin);
 
+    /*
+      결과를 보낼 이메일. 결제창(포트원)에도 같은 값이 가지만 **거기서는 우리가 돌려받지 못한다** —
+      그래서 접수 시점에 우리 쪽에도 남긴다. 이게 없던 동안 결과를 볼 수 있는 유일한 길이
+      그 순간의 브라우저 링크였다(창을 닫으면 끝).
+      형식이 아니면 저장하지 않고 넘어간다 — 메일이 진단 접수를 막을 이유는 없다.
+    */
+    const emailRaw = clampText(body?.buyerEmail, 254) ?? '';
+    const buyerEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailRaw) ? emailRaw : null;
+
     const admin = createAdminClient();
     const { error } = await admin.from('diagnoses').insert({
       token,
+      buyer_email: buyerEmail,
       species: input.species,
       input,
       photo_b64: image?.data ?? null,

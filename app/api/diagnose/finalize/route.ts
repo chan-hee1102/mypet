@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { sendResultMail } from '@/lib/sendResultMail';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { generateCareCard } from '@/lib/careAdvisor';
 import { SITE } from '@/lib/site';
@@ -121,6 +122,25 @@ export async function POST(req: Request) {
       .update({ card, status: 'done', photo_b64: null })
       .eq('token', token);
     if (upErr) return NextResponse.json({ error: '저장 중 오류가 발생했습니다.' }, { status: 500 });
+
+    /*
+      결과 링크를 메일로 보낸다 — 브라우저를 닫았거나 리디렉션이 끊겨도 결과에 닿을 수 있게.
+      ⚠️ await하되 실패는 삼킨다. 메일이 안 갔다고 결제 완료 응답을 되돌리면
+         이용자는 돈을 냈는데 화면에서도 실패를 보게 된다. 리포트는 이미 저장돼 있고
+         화면 링크는 그대로 동작한다 — 메일은 부가 전달 수단이지 전달의 조건이 아니다.
+      ⚠️ result_mailed_at으로 중복 발송을 막는다. finalize는 결제 복구 경로에서
+         여러 번 불릴 수 있다(ResultPending이 마운트마다 1회 호출한다).
+    */
+    if (dx.buyer_email && !dx.result_mailed_at) {
+      const sent = await sendResultMail({
+        to: dx.buyer_email as string,
+        token,
+        petName: (dx.input as { name?: string } | null)?.name ?? null,
+      });
+      if (sent) {
+        await admin.from('diagnoses').update({ result_mailed_at: new Date().toISOString() }).eq('token', token);
+      }
+    }
 
     return NextResponse.json({ ok: true, token });
   } catch (e: any) {

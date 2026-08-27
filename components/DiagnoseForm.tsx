@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, type ChangeEvent, type FormEvent, type ReactNode } from 'react';
+import { useState, useEffect, useRef, type ChangeEvent, type FormEvent, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { PetInput, Species, Sex } from '@/lib/types';
@@ -341,6 +341,18 @@ export default function DiagnoseForm() {
         if (d.weight) setWeight(d.weight);
         if (d.symptoms) setSymptoms(d.symptoms);
         if (Array.isArray(d.symptomIds)) setSymptomIds(d.symptomIds);
+        /*
+          단계와 가이드 결과를 되살린다 — 새로고침·복귀해도 하던 자리에서 이어서.
+          24시간이 지난 것은 되살리지 않는다: 그쯤이면 이용자에게도 남의 화면이고,
+          그 사이 가이드 내용이나 화면 구조가 바뀌었을 수 있다.
+          가이드 결과가 없으면 stage도 form1로 되돌린다 — 'guide' 화면인데 보여줄 것이
+          없으면 빈 화면에 갇힌다.
+        */
+        const fresh = typeof d.at === 'number' && Date.now() - d.at < 24 * 3600_000;
+        if (fresh && d.result && (d.stage === 'guide' || d.stage === 'form2')) {
+          setResult(d.result);
+          setStage(d.stage);
+        }
       }
     } catch { /* ignore */ }
     // 최근 결제 진행 건 (90일 이내) — 새로고침·이탈 후 복귀 배너
@@ -356,9 +368,54 @@ export default function DiagnoseForm() {
     if (!restored) return;
     try {
       // ⚠️ buyerEmail/buyerPhone(개인정보)은 의도적으로 저장하지 않는다 — 화면 안내 문구와 일치해야 함.
-      localStorage.setItem(LS_KEY, JSON.stringify({ species, name, breed, age, sex, neutered, weight, symptoms, symptomIds }));
+      /*
+        ⚠️ stage와 result(무료 가이드)까지 저장한다. 예전엔 입력값만 저장해서,
+           가이드를 받은 뒤 새로고침하면 **1단계로 돌아가고 가이드가 사라졌다** —
+           입력값은 남아 있어서 「분명 뭔가 나왔었는데」가 되는, 더 헷갈리는 상태였다.
+           (AI 호출을 한 번 더 태우는 낭비이기도 하다)
+        ⚠️ 사진은 저장하지 않는다 — base64라 localStorage 한도(약 5MB)를 혼자 넘길 수 있고,
+           개인정보를 기기에 오래 두지 않는다는 원칙과도 맞지 않는다.
+      */
+      localStorage.setItem(LS_KEY, JSON.stringify({
+        species, name, breed, age, sex, neutered, weight, symptoms, symptomIds,
+        stage, result, at: Date.now(),
+      }));
     } catch { /* ignore */ }
-  }, [restored, species, name, breed, age, sex, neutered, weight, symptoms, symptomIds]);
+  }, [restored, species, name, breed, age, sex, neutered, weight, symptoms, symptomIds, stage, result]);
+
+  /*
+    ── 뒤로가기를 단계에 연결한다 (2026-08-28) ──────────────────────────────
+    이 폼은 한 페이지 안에서 stage state로만 화면을 바꾼다. 그래서 예전에는
+    **브라우저 뒤로가기가 단계가 아니라 사이트를 떠났다** — 2단계에서 앞으로 돌아갈
+    방법이 화면 안의 버튼뿐이었고, 모바일에서 습관적으로 뒤로 스와이프하면 그대로 이탈했다.
+    (미결제 이탈이 절반이었던 이유 중 하나로 보인다)
+
+    history 항목을 단계마다 쌓고 popstate에서 되돌린다. pushState라 새 URL을 만들지 않으므로
+    주소는 그대로 /diagnose다 — 단계를 URL에 노출하면 그 주소를 공유했을 때
+    남의 입력이 없는 빈 2단계가 열린다.
+
+    ⚠️ popstate로 되돌릴 때는 pushState를 하지 않는다. 그러면 히스토리가 무한히 쌓여
+       뒤로가기를 아무리 눌러도 페이지를 못 떠난다(사용자를 가두는 것과 같다).
+  */
+  const skipPushRef = useRef(false);
+  useEffect(() => {
+    if (!restored) return;
+    if (skipPushRef.current) { skipPushRef.current = false; return; }
+    if (stage === 'form1') return;   // 첫 화면은 이미 히스토리에 있다
+    try { window.history.pushState({ mypetStage: stage }, ''); } catch { /* ignore */ }
+  }, [stage, restored]);
+
+  useEffect(() => {
+    const onPop = (e: PopStateEvent) => {
+      const st = (e.state as { mypetStage?: string } | null)?.mypetStage;
+      skipPushRef.current = true;
+      // 되돌아갈 단계가 없으면 첫 화면으로. 거기서 한 번 더 누르면 정상적으로 사이트를 떠난다.
+      setStage(st === 'form2' ? 'form2' : st === 'guide' ? 'guide' : 'form1');
+      window.scrollTo({ top: 0 });
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
 
   // URL 프리필: 랜딩 증상 칩(?s=), 품종 페이지(?breed=&sp=)
   useEffect(() => {
@@ -437,7 +494,7 @@ export default function DiagnoseForm() {
       const startRes = await fetch('/api/diagnose/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ input: buildInput(), image, finderPhone: buyerPhone, finderPin: pin }),
+        body: JSON.stringify({ input: buildInput(), image, finderPhone: buyerPhone, finderPin: pin, buyerEmail: buyerEmail.trim() }),
       });
       const started = await startRes.json();
       if (!startRes.ok) throw new Error(started.error || '오류가 발생했습니다.');

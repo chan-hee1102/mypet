@@ -15,6 +15,7 @@ export default function PrivacyPage() {
       <p>
         ① 진단 이용 시: 반려동물 정보(이름·종·품종·나이·성별·중성화 여부·체중·증상 등 특이사항), 업로드 사진(선택).<br />
         ② 유료 결제 시: 구매자 이메일·휴대폰번호(결제 확인을 위해 결제창(포트원·KG이니시스)에 전달), 다시보기 PIN(이용자가 설정).
+        <strong>이메일 주소는 완성된 리포트 링크를 보내드리기 위해 저장</strong>하며, 링크 열람기간(60일)이 지나면 리포트와 함께 파기합니다.
         휴대폰번호·PIN의 <strong>원문은 회사 서버에 저장하지 않으며</strong>, &lsquo;내 리포트 찾기&rsquo; 기능을 위한 <strong>일방향 해시값만</strong> 저장됩니다(원문 복원 불가).<br />
         ③ 고객 문의 시: 이름(선택), 이메일, 문의 내용.<br />
         ④ 자동 수집: 접속 로그, 기기·브라우저 정보, 방문 통계(Vercel Analytics — 쿠키를 사용하지 않는 익명 통계).<br />
@@ -32,7 +33,7 @@ export default function PrivacyPage() {
       <h2>3. 보유 및 이용 기간</h2>
       <p>
         ① 업로드 사진: 리포트 생성에 사용된 직후 <strong>지체 없이 파기</strong>합니다(서버에 원본을 보관하지 않습니다).<br />
-        ② 진단 결과: 결과 링크는 발급일로부터 <strong>60일간</strong> 열람할 수 있으며, 이후 열람이 차단됩니다.<br />
+        ② 진단 결과 및 결과 발송용 이메일: 결과 링크는 발급일로부터 <strong>60일간</strong> 열람할 수 있으며, 이후 열람이 차단되고 발송에 사용한 이메일 주소도 함께 파기합니다.<br />
         ③ 방문 기록(1-⑤): 수집일로부터 <strong>30일</strong> 후 자동 삭제합니다.<br />
         ④ 전자상거래법에 따른 보존: 계약·청약철회 기록 5년, 대금결제·재화공급 기록 5년, 소비자 불만·분쟁처리 기록 3년. 보존 기간 경과 후 지체 없이 파기합니다.
       </p>
@@ -42,6 +43,7 @@ export default function PrivacyPage() {
       <ul>
         <li><strong>Supabase</strong> — 데이터베이스 호스팅</li>
         <li><strong>Vercel</strong> — 애플리케이션 호스팅·익명 방문 통계</li>
+        <li><strong>Resend</strong> — 리포트 링크 및 문의 알림 이메일 발송</li>
         <li><strong>포트원(PortOne)·KG이니시스</strong> — 결제 처리(구매자 이메일·휴대폰번호·결제 정보)</li>
         <li><strong>Google LLC (Gemini API)</strong> — AI 리포트 생성(반려동물 정보·사진·증상 텍스트)</li>
       </ul>
