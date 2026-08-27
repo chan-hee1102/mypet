@@ -102,11 +102,10 @@ export async function POST(req: Request) {
 
     // AI 진단 생성 (RAG 품종 프로필 + 수의 근거 주입)
     const input = dx.input as PetInput;
-    const image = dx.photo_b64 ? { data: dx.photo_b64 as string, mediaType: (dx.photo_mime as string) || 'image/jpeg' } : null;
 
     let card;
     try {
-      card = await generateCareCard(input, image);
+      card = await generateCareCard(input);
     } catch (genErr: any) {
       console.error('[diagnose/finalize] generation error:', genErr?.message);
       await admin.from('diagnoses').update({ status: 'failed' }).eq('token', token);

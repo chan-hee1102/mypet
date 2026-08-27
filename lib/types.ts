@@ -14,6 +14,9 @@ export interface PetInput {
   neutered?: boolean;
   weightKg?: number;
   notes?: string;
+  /** 선택한 증상 칩의 id — 검증된 표(SYMPTOM_INFO)로 답하기 위해 구조를 살려 넘긴다.
+      예전엔 라벨로 뭉개 notes에 넣어서, 표로 답할 수 있는 것까지 AI에 물어야 했다. */
+  symptomIds?: string[];
   // ── 최근 접종 기록(알면 입력). 케어 일정 계산용. 모르면 비움 → "병원 확인"으로 처리. ──
   lastVaccineCombo?: string; // 종합백신(DHPPL/FVRCP) 마지막 접종 "YYYY-MM"
   lastVaccineRabies?: string; // 광견병 마지막 접종 "YYYY-MM"
@@ -45,7 +48,13 @@ export interface CareCard {
     /** 병원 준비: 예상 검사·수의사에게 전달할 요약 문장 — 신규 */
     vetPrep?: { tests: string; script: string };
   };
-  photoAnalysis: {
+  /**
+   * @deprecated 2026-08-28 폐지 — 사진 분석을 더 이상 하지 않는다.
+   * 이미지 토큰은 비싼데 돌아오는 건 "체형이 양호해 보입니다" 수준의 추측이었고,
+   * 수의사도 사진만으로 판단하지 않는 것을 우리가 단정할 수는 없다.
+   * 옛 리포트에는 이 값이 남아 있어 필드를 지우지 않고 선택으로만 바꾼다(화면은 있으면 그린다).
+   */
+  photoAnalysis?: {
     breedGuess: string;
     bodyCondition: string;
     coatSkinNotes: string;
@@ -64,7 +73,7 @@ export interface CareCard {
 }
 
 /** 무료로 보여주는 미리보기 필드만. 프리미엄 필드는 결제 전 클라이언트로 전송하지 않는다. */
-export type PreviewCard = Pick<CareCard, 'photoAnalysis' | 'breedTraits' | 'sources'>;
+export type PreviewCard = Pick<CareCard, 'breedTraits' | 'sources'>;
 
 /** 증상 체커 입력 */
 export interface SymptomInput {

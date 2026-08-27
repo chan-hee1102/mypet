@@ -1,224 +1,183 @@
 import { GoogleGenAI, Type } from '@google/genai';
-import { PetInput, CareCard } from './types';
-import { TOXIC_FOODS, computeAge, lifeStage } from './petData';
 import { retrieveKnowledge, knowledgeToPrompt, knowledgeSources, getBreedProfile } from './rag';
-import { tipsToPrompt } from './breedTips';
+import { buildCardFromData } from './careCardFromData';
+import { getBreedTips } from './breedTips';
+import { computeAge, lifeStage } from './petData';
+import { SYMPTOMS } from './symptomData';
+import type { CareCard, PetInput } from './types';
 
-// 안정·저비용·넉넉한 무료 할당량. 더 빠르게는 'gemini-3.1-flash-lite' 가능.
+/**
+ * 케어 카드 생성 — **데이터 우선, AI는 예외.**
+ *
+ * ⚠️ 2026-08-28 전면 개편. 그전에는 카드 10개 섹션을 **전부** 제미나이가 썼고,
+ *    사진까지 함께 올려 읽혔다. 두 가지가 문제였다:
+ *
+ *    ① **같은 답을 매번 돈 내고 다시 만들었다.** 품종 특성·미용·운동·식단·연령 관리·루틴은
+ *       188개 품종 데이터와 코드 안의 검증된 표에 이미 있다. 게다가 생성할 때마다 답이
+ *       조금씩 달라졌다 — 같은 말티즈인데 어제와 오늘이 다르면 그건 지식이 아니라 인상이다.
+ *    ② **사진 분석은 값이 비싸고 근거가 약했다.** 이미지 토큰은 텍스트보다 훨씬 비싼데,
+ *       돌아오는 것은 "체형이 양호해 보입니다" 수준의 추측이었다. 수의사도 사진만으로는
+ *       판단하지 않는 것을 우리가 단정하면 안 된다.
+ *
+ *    이제 흐름은 이렇다:
+ *      1) buildCardFromData(input) — 데이터만으로 카드를 만든다. **API 0회**
+ *      2) 보호자가 **직접 적은 증상**이 있을 때만 제미나이를 부른다.
+ *         그것도 카드 전체가 아니라 `symptomAnswer` 한 조각만 (스키마가 1/10 크기다)
+ *
+ *    즉 「기침해요」처럼 우리 표에 없는 상황에만 돈이 든다. 그게 원래 AI가 필요한 자리다.
+ */
+
 const MODEL = 'gemini-2.5-flash';
 
-// 요청 시점에 1회만 생성 (모듈 로드/빌드 때 키 없이 만들어지는 경고 방지)
 let _ai: GoogleGenAI | null = null;
 function getClient(): GoogleGenAI {
   if (!_ai) _ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   return _ai;
 }
 
-/** Gemini가 반드시 이 형식(JSON)으로만 답하도록 강제하는 구조화 출력 스키마 */
-const careCardSchema = {
+/**
+ * 직접 적은 증상에만 쓰는 작은 스키마.
+ * ⚠️ 예전 스키마는 10개 섹션 전체(최대 6000 토큰)였다. 지금은 이 조각 하나뿐이라
+ *    응답이 짧고 빠르고 싸다. 필드를 늘리고 싶어지면, 그 값이 데이터로 답할 수 있는
+ *    것인지부터 확인할 것 — 데이터로 되는 건 careCardFromData로 간다.
+ */
+const symptomAnswerSchema = {
   type: Type.OBJECT,
   properties: {
-    verdict: {
+    causes: { type: Type.ARRAY, items: { type: Type.STRING }, description: '가능성 높은 순서의 원인 후보 2~4개. 단정하지 말고 "~일 수 있어요"로.' },
+    careNow: { type: Type.ARRAY, items: { type: Type.STRING }, description: '지금 집에서 할 수 있는 조치 2~4개' },
+    watchOk: { type: Type.ARRAY, items: { type: Type.STRING }, description: '이런 경우라면 지켜봐도 되는 조건. 반드시 시간 기준을 넣을 것(예: 24시간 내 1~2회)' },
+    goNow: { type: Type.ARRAY, items: { type: Type.STRING }, description: '이런 신호가 있으면 바로 병원. 관찰 가능한 형태로 구체적으로' },
+    homeCheck: { type: Type.ARRAY, items: { type: Type.STRING }, description: '집에서 확인할 것. 방법까지(예: 잇몸을 눌렀다 떼고 2초 안에 분홍색이 돌아오는지)' },
+    vetPrep: {
       type: Type.OBJECT,
       properties: {
-        urgency: { type: Type.STRING, enum: ['now', 'soon', 'routine'] },
-        headline: { type: Type.STRING },
-        summary: { type: Type.STRING },
-        todo: { type: Type.ARRAY, items: { type: Type.STRING } },
+        tests: { type: Type.STRING, description: '병원에서 예상되는 검사' },
+        script: { type: Type.STRING, description: '수의사에게 그대로 읽어줄 한 문장 요약' },
       },
-      required: ['urgency', 'headline', 'summary', 'todo'],
+      required: ['tests', 'script'],
     },
-    symptomAnswer: {
-      type: Type.OBJECT,
-      properties: {
-        causes: { type: Type.ARRAY, items: { type: Type.STRING } },
-        careNow: { type: Type.ARRAY, items: { type: Type.STRING } },
-        watchOk: { type: Type.ARRAY, items: { type: Type.STRING } },
-        goNow: { type: Type.ARRAY, items: { type: Type.STRING } },
-        homeCheck: { type: Type.ARRAY, items: { type: Type.STRING } },
-        vetPrep: {
-          type: Type.OBJECT,
-          properties: {
-            tests: { type: Type.STRING },
-            script: { type: Type.STRING },
-          },
-          required: ['tests', 'script'],
-        },
-      },
-      required: ['causes', 'careNow', 'watchOk', 'goNow', 'homeCheck', 'vetPrep'],
-    },
-    photoAnalysis: {
-      type: Type.OBJECT,
-      properties: {
-        breedGuess: { type: Type.STRING },
-        bodyCondition: { type: Type.STRING },
-        coatSkinNotes: { type: Type.STRING },
-        confidence: { type: Type.STRING, enum: ['high', 'medium', 'low'] },
-      },
-      required: ['breedGuess', 'bodyCondition', 'coatSkinNotes', 'confidence'],
-    },
-    breedTraits: {
-      type: Type.OBJECT,
-      properties: {
-        summary: { type: Type.STRING },
-        healthRisks: { type: Type.ARRAY, items: { type: Type.STRING } },
-      },
-      required: ['summary', 'healthRisks'],
-    },
-    grooming: {
-      type: Type.OBJECT,
-      properties: {
-        summary: { type: Type.STRING },
-        cautions: { type: Type.ARRAY, items: { type: Type.STRING } },
-      },
-      required: ['summary', 'cautions'],
-    },
-    exercise: {
-      type: Type.OBJECT,
-      properties: {
-        summary: { type: Type.STRING },
-        walkMinutesPerDay: { type: Type.STRING },
-        cautions: { type: Type.ARRAY, items: { type: Type.STRING } },
-      },
-      required: ['summary', 'walkMinutesPerDay', 'cautions'],
-    },
-    food: {
-      type: Type.OBJECT,
-      properties: {
-        goodFoods: { type: Type.ARRAY, items: { type: Type.STRING } },
-        cautionFoods: { type: Type.ARRAY, items: { type: Type.STRING } },
-      },
-      required: ['goodFoods', 'cautionFoods'],
-    },
-    ageCare: {
-      type: Type.OBJECT,
-      properties: {
-        stage: { type: Type.STRING },
-        tips: { type: Type.ARRAY, items: { type: Type.STRING } },
-      },
-      required: ['stage', 'tips'],
-    },
-    routine: {
-      type: Type.OBJECT,
-      properties: {
-        bath: { type: Type.STRING },
-        walk: { type: Type.STRING },
-        grooming: { type: Type.STRING },
-      },
-      required: ['bath', 'walk', 'grooming'],
-    },
-    redFlags: { type: Type.ARRAY, items: { type: Type.STRING } },
   },
-  required: ['verdict', 'symptomAnswer', 'photoAnalysis', 'breedTraits', 'grooming', 'exercise', 'food', 'ageCare', 'routine', 'redFlags'],
-};
+  required: ['causes', 'careNow', 'watchOk', 'goNow', 'homeCheck', 'vetPrep'],
+} as const;
 
-export async function generateCareCard(
-  input: PetInput,
-  image: { data: string; mediaType: string } | null,
-): Promise<CareCard> {
+/** 직접 적은 증상이 있는가 — 이게 유일한 유료 분기다. */
+function hasCustomSymptom(input: PetInput): boolean {
+  const t = (input.notes ?? '').trim();
+  if (t.length < 2) return false;
+  /*
+    선택 칩의 라벨만 들어온 경우는 '직접 적은 것'이 아니다.
+    예전 폼이 symptomLabels(ids)와 자유 입력을 ' / '로 이어 붙여 notes에 넣었기 때문에,
+    라벨만 남은 문자열이 그대로 올 수 있다 — 그건 표로 답할 수 있으므로 AI를 부르지 않는다.
+  */
+  const labels = SYMPTOMS.map((s) => s.label);
+  const stripped = t
+    .split('/')
+    .map((p) => p.trim())
+    .filter((p) => p && !labels.includes(p))
+    .join(' ');
+  return stripped.length >= 2;
+}
+
+/**
+ * 케어 카드. 대부분의 경우 **API를 한 번도 부르지 않는다.**
+ * @param input 사진은 받지 않는다 — 이미지 분석은 2026-08-28에 폐지했다(상단 주석 ②).
+ */
+export async function generateCareCard(input: PetInput): Promise<CareCard> {
+  const symptomIds = input.symptomIds ?? [];
+  const card = buildCardFromData(input, symptomIds);
+
+  if (!hasCustomSymptom(input)) return card;   // ← 여기서 끝나는 경우가 대부분이다
+
+  try {
+    const answer = await askCustomSymptom(input);
+    if (answer) {
+      /*
+        표에서 나온 답(선택 칩)과 AI 답을 합친다. 표를 먼저 두는 이유는 그쪽이 검증된
+        내용이라서다 — AI가 같은 말을 다르게 하더라도 검증된 문장이 위에 온다.
+      */
+      const prev = card.symptomAnswer;
+      card.symptomAnswer = {
+        causes: [...(prev?.causes ?? []), ...answer.causes],
+        careNow: answer.careNow?.length ? answer.careNow : (prev?.careNow ?? []),
+        watchOk: answer.watchOk,
+        goNow: [...(prev?.goNow ?? []), ...(answer.goNow ?? [])],
+        homeCheck: answer.homeCheck,
+        vetPrep: answer.vetPrep,
+      };
+    }
+  } catch (e) {
+    /*
+      ⚠️ AI 실패가 리포트 전체를 죽이지 않는다. 데이터 카드는 이미 완성돼 있고,
+         빠지는 것은 '직접 적은 증상에 대한 답' 한 조각뿐이다.
+         예전에는 생성 전체가 하나의 호출이라 실패하면 결제만 되고 결과가 없었다.
+    */
+    console.error('[careAdvisor] 커스텀 증상 답변 실패(카드는 그대로 반환):', e instanceof Error ? e.message : e);
+  }
+  return card;
+}
+
+/** 우리 데이터에 없는 상황에만 부르는, 하나짜리 질문. */
+async function askCustomSymptom(input: PetInput): Promise<CareCard['symptomAnswer'] | null> {
+  if (!process.env.GEMINI_API_KEY) return null;
+
+  const speciesKo = input.species === 'dog' ? '강아지' : '고양이';
   const age = computeAge(input.birth);
   const stage = age ? lifeStage(input.species, age.months) : '나이 미상';
-  const speciesKo = input.species === 'dog' ? '강아지' : '고양이';
-  const toxicList = TOXIC_FOODS[input.species].map((f) => `${f.name}(${f.reason})`).join('; ');
 
-  // RAG: ① 등록 품종의 공식 프로필을 정확 매칭으로 우선 확보 + ② 의미검색으로 일반 근거 보강
+  // 근거 보강 — 이 경로에서만 임베딩 검색을 쓴다(임베딩도 유료 호출이다).
   const breedProfile = await getBreedProfile(input.breed, input.species);
-  const ragQuery = [input.breed, speciesKo, stage, '예방접종 영양 호발질환 케어', input.notes]
-    .filter(Boolean)
-    .join(' ');
-  const chunks = await retrieveKnowledge(ragQuery, input.species, 8);
-  // 품종 프로필을 맨 앞에 두고 중복 제거 (출처 배지/근거 통합용)
-  const evidenceChunks = breedProfile
-    ? [breedProfile, ...chunks.filter((c) => c.content !== breedProfile.content)]
-    : chunks;
+  const chunks = await retrieveKnowledge(
+    [input.notes, speciesKo, input.breed, stage].filter(Boolean).join(' '),
+    input.species,
+    5,
+  );
+  const evidence = [
+    breedProfile ? `[품종 프로필 — ${input.breed} · 출처:${breedProfile.source_org}]\n${breedProfile.content}` : '',
+    chunks.length ? `[검증된 수의 근거 — 반드시 우선 반영]\n${knowledgeToPrompt(chunks)}` : '',
+    getBreedTips(input.species, input.breed).slice(0, 3).map((t) => `- ${t.title}: ${t.body}`).join('\n'),
+  ].filter(Boolean).join('\n\n');
 
-  let evidenceBlock = '';
-  if (breedProfile) {
-    evidenceBlock += `\n\n[품종 프로필 — ${input.breed} · 출처:${breedProfile.source_org}]\n이 아이의 품종 공식 정보다. 품종 특성·호발질환·그루밍·운동은 반드시 이 내용을 우선 반영하라:\n${breedProfile.content}`;
-  }
-  if (chunks.length) {
-    evidenceBlock += `\n\n[검증된 수의 근거 — 반드시 우선 반영]\n아래는 신뢰할 수 있는 수의 가이드라인에서 검색된 근거다. 케어 카드 내용이 이 근거와 충돌하지 않게 하고, 관련 항목은 이 근거를 우선 반영하라:\n${knowledgeToPrompt(chunks)}`;
-  }
-  // 무료 가이드에서 예고한 품종 꿀팁 — 유료 리포트에 실제로 포함되도록 주입
-  evidenceBlock += tipsToPrompt(input.species, input.breed);
+  const system = `당신은 한국 반려동물 보호자를 돕는 케어 어시스턴트입니다.
+보호자가 직접 적은 증상에 대해 **판별 기준**을 알려주는 것이 당신의 일입니다.
 
-  const system = `당신은 한국 반려동물 보호자를 돕는 따뜻하고 신뢰할 수 있는 케어 어시스턴트입니다.
+반드시 지킬 것:
+- 진단하지 마세요. "~입니다"가 아니라 "~일 수 있어요"로 씁니다.
+- 수의사의 진료를 대체하지 않는다는 전제로 씁니다.
+- "지켜봐도 되는 조건"에는 **반드시 시간·횟수 기준**을 넣으세요(예: 24시간 내 1~2회이고 밥을 먹는다면).
+- "바로 병원"은 보호자가 눈으로 확인할 수 있는 형태로 쓰세요(예: 잇몸이 창백하다).
+- 약 이름과 용량은 절대 쓰지 마세요.
+- 근거가 주어졌다면 그것과 충돌하지 않게 쓰세요.
+- 존댓말, 따뜻하고 담백한 한국어로.`;
 
-[규칙]
-- 모든 답변은 한국어로, 보호자가 바로 실천할 수 있게 구체적으로.
-- 질병을 단정적으로 진단하지 말 것. 위험해 보이면 "병원 방문 권장"으로 안내(redFlags).
-- 아래 '독성 음식'은 검증된 사실이다. 절대 안전하다고 바꾸지 말 것:
-  ${toxicList}
-- 사진으로 품종·체형·털 상태를 추정하되, 확신이 없으면 confidence를 medium 또는 low로.
-- 사진이 없으면 입력된 품종 정보를 바탕으로 작성하고 confidence는 low.
-- 모든 조언은 일반 정보이며 수의사 상담을 대체하지 않는다.
+  const user = `${speciesKo} · ${input.breed || '품종 미상'} · ${stage}${input.weightKg ? ` · ${input.weightKg}kg` : ''}
+이름: ${input.name}
 
-[문체 규칙 — 매우 중요. 40~60대 보호자용 건강검진 결과지 스타일]
-- 쉬운 말, 짧은 문장. 전문용어는 괄호로 짧게 풀기. 예: "기관허탈(숨길이 좁아지는 병)".
-- 모든 배열 항목(불릿)은 한 문장, 공백 포함 50자 이내.
-- summary류 문단은 최대 2문장.
-- routine.bath/walk/grooming 값은 12자 이내 요약값만. 예: "한 달에 1회", "매일 20~30분", "매일~격일 빗질". 부가 설명 금지(설명은 각 섹션 본문에).
+보호자가 적은 증상:
+"""${(input.notes ?? '').trim().slice(0, 500)}"""
 
-[verdict — 종합 소견. 리포트 맨 위에 표시되는 가장 중요한 부분]
-- headline: 보호자가 가장 궁금해하는 것에 대한 한 줄 결론(45자 이내). 특이사항에 증상이 있으면 그 증상에 대한 답이어야 한다.
-- summary: 이 아이 상태 종합 2문장.
-- todo: 오늘 바로 할 수 있는 행동 정확히 3개, 각 30자 이내.
-- urgency: 증상이 응급 신호(호흡곤란·경련·혈변·의식저하 등)면 'now', 며칠 내 진료가 필요해 보이면 'soon', 증상이 없거나 예방 관리 수준이면 'routine'.
-
-[symptomAnswer — 입력 증상에 대한 직접 답변. 이 리포트의 핵심 가치]
-⚠️ 절대 금지: "병원에 가야 정확히 알 수 있다"는 식으로 끝내는 것. 보호자는 '판별 기준'을 사려고 결제했다.
-반드시 조건부 판별 기준을 제시하라: "~라면 ~일 가능성이 높다", "~시간 내 호전되면 ~", "~하면 즉시".
-- causes: 가능성 높은 순서로 원인 2~4개. 각 항목에 "어떤 경우 이 원인일 가능성이 높은지" 단서를 붙여라.
-  예: "단순 염좌 — 걷긴 걷고 만져도 크게 안 아파하며 24~48시간 내 호전되는 경우"
-- watchOk: 지켜봐도 되는 조건 2~3개. 반드시 시간 기준 포함(예: "48시간 내 눈에 띄게 호전되면").
-- goNow: 바로/빨리 병원에 가야 하는 신호 2~4개. 구체적 행동·증상 기준으로.
-- homeCheck: 오늘 집에서 확인할 것 2~3개. 관찰 '방법'까지 구체적으로(예: "계단 오를 때 vs 내려갈 때 언제 더 심한지").
-- careNow: 지금 바로 할 조치 2~3개.
-- vetPrep.tests: 병원에서 예상되는 검사·평가를 한 문장으로(예: "슬개골 촉진 등급(1~4기) 평가와 무릎·고관절 방사선").
-- vetPrep.script: 보호자가 수의사에게 그대로 읽어줄 브리핑 한 문장(이력·부위·기간·양상 포함).
-- 증상이 없으면 causes·careNow·watchOk·goNow·homeCheck는 빈 배열, vetPrep은 tests·script 모두 빈 문자열.${evidenceBlock}`;
-
-  const userText = `다음 반려동물에 맞춘 케어 카드를 만들어줘.
-
-- 이름: ${input.name}
-- 종: ${speciesKo}
-- 품종: ${input.breed || '(미입력 — 사진으로 추정)'}
-- 나이: ${age ? age.label : '미상'} (생애단계: ${stage})
-- 성별: ${input.sex === 'female' ? '암컷' : input.sex === 'male' ? '수컷' : '미상'}
-- 중성화: ${input.neutered == null ? '미상' : input.neutered ? '예' : '아니오'}
-- 몸무게: ${input.weightKg ? input.weightKg + 'kg' : '미상'}
-- 특이사항(알레르기/지병 등): ${input.notes || '없음'}
-
-가장 먼저 종합 소견(verdict)과 특이사항 증상에 대한 답(symptomAnswer)을 정하고,
-품종 특성, 그루밍 주의(예: 폼피츠 같은 더블코트는 바짝 밀면 털이 잘 안 자랄 수 있음), 운동/산책, 음식, 나이별 케어, 목욕·산책·빗질 주기, 병원 방문 권장 신호를 포함해줘.`;
-
-  const parts: Array<{ text: string } | { inlineData: { mimeType: string; data: string } }> = [];
-  if (image) {
-    parts.push({ inlineData: { mimeType: image.mediaType, data: image.data } });
-  }
-  parts.push({ text: userText });
+${evidence}`;
 
   const res = await getClient().models.generateContent({
     model: MODEL,
-    contents: [{ role: 'user', parts }],
+    contents: [{ role: 'user', parts: [{ text: user }] }],
     config: {
       systemInstruction: system,
       responseMimeType: 'application/json',
-      responseSchema: careCardSchema,
-      temperature: 0.7,
-      maxOutputTokens: 6000,
+      responseSchema: symptomAnswerSchema,
+      temperature: 0.6,
+      maxOutputTokens: 1600,   // 예전 6000 → 조각 하나만 받으므로 크게 줄였다
     },
   });
 
   const text = res.text;
-  if (!text) {
-    throw new Error('AI 응답이 비어 있습니다. 다시 시도해 주세요.');
-  }
+  if (!text) return null;
   try {
-    const card = JSON.parse(text) as CareCard;
-    if (evidenceChunks.length) card.sources = knowledgeSources(evidenceChunks);
-    return card;
+    return JSON.parse(text) as CareCard['symptomAnswer'];
   } catch {
-    throw new Error('AI 응답 형식 오류. 다시 시도해 주세요.');
+    return null;
   }
 }
+
+/** 근거 출처 — 화면 배지에 쓰인다. 데이터 카드가 이미 품종 출처를 담고 있어 보조용이다. */
+export { knowledgeSources };

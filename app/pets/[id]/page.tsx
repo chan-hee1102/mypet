@@ -38,7 +38,7 @@ export default async function PetDetailPage({ params }: { params: { id: string }
   const unlocked = !!unlock;
 
   const full = cc.card as CareCardType;
-  const preview: PreviewCard = { photoAnalysis: full.photoAnalysis, breedTraits: full.breedTraits };
+  const preview: PreviewCard = { breedTraits: full.breedTraits };
 
   // 케어 일정 + 기록 (연속성 허브)
   const [schedRes, recRes] = await Promise.all([

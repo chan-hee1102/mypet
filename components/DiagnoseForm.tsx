@@ -7,7 +7,6 @@ import { PetInput, Species, Sex } from '@/lib/types';
 import type { BreedGuide } from '@/lib/diagnose';
 import { Icon } from './icons';
 import SourceBadges from './SourceBadges';
-import { fileToImage } from '@/lib/imageClient';
 import { SITE } from '@/lib/site';
 import { SYMPTOMS, SYMPTOM_INFO, symptomLabels, detectEmergency } from '@/lib/symptomData';
 import { parseWeightRange, humanAge, weightCheck, stagePoint, neuterTip, type PersonalCheck } from '@/lib/guidePersonal';
@@ -125,7 +124,7 @@ function GuideView({
               <p className="sym-vet"><Icon name="alert" size={13} /> {c.info!.vet}</p>
             </div>
           ))}
-          <p className="sym-note">※ 일반 정보예요. <b>{name}</b>의 정확한 원인·조치는 사진·증상을 분석하는 맞춤 진단에서 알려드려요.</p>
+          <p className="sym-note">※ 일반 정보예요. <b>{name}</b>에 맞춘 원인·조치는 맞춤 진단에서 알려드려요.</p>
         </section>
       </>
     ) : null;
@@ -156,7 +155,7 @@ function GuideView({
           <h2 className="card-title">{breed ? `'${breed}'` : speciesKo} 일반 가이드를 못 찾았어요</h2>
           <p className="card-desc" style={{ marginTop: 6 }}>
             믹스견이거나 등록 전 품종일 수 있어요(예: 폼피츠 = 포메라니안×스피츠 믹스).
-            순종이면 <b>정확한 품종명</b>으로 다시 입력하거나, 2단계에서 <b>사진으로 분석</b>해 드립니다.
+            순종이면 <b>정확한 품종명</b>으로 다시 입력해 주세요. 믹스견은 일반 기준으로 안내해 드려요.
           </p>
           <button className="btn btn--ghost btn--block" style={{ marginTop: 12 }} onClick={onEdit}>← 정보 수정</button>
         </div>
@@ -270,11 +269,13 @@ function GuideView({
             </div>
             <Icon name="lock" size={14} />
           </div>
+          {/* ⚠️ 사진 분석은 2026-08-28에 폐지했다. 안 하는 것을 약속하면 그건 거짓말이다.
+                 대신 실제로 주는 것(접종 일정·주간 체크리스트)으로 바꿨다. */}
           <div className="rlock-row">
-            <span className="rlock-ico"><Icon name="camera" size={15} /></span>
+            <span className="rlock-ico"><Icon name="calendar" size={15} /></span>
             <div className="rlock-txt">
-              <b>사진 보고 AI가 직접 봐드려요</b>
-              <p className="rlock-tease">살이 쪘는지, 피부·털은 괜찮은지</p>
+              <b>예방접종·검진 일정</b>
+              <p className="rlock-tease">다음 접종일과 정기 검진 시점을 날짜로</p>
             </div>
             <Icon name="lock" size={14} />
           </div>
@@ -307,8 +308,6 @@ export default function DiagnoseForm() {
   const [weight, setWeight] = useState('');
   const [symptoms, setSymptoms] = useState('');
   const [symptomIds, setSymptomIds] = useState<string[]>([]);
-  const [image, setImage] = useState<{ data: string; mediaType: string } | null>(null);
-  const [preview, setPreview] = useState('');
   // 결제 필수 정보 (이니시스 V2 요건: 구매자 이메일 등) — 결과 링크 안내 겸용
   const [buyerEmail, setBuyerEmail] = useState('');
   const [buyerPhone, setBuyerPhone] = useState('');
@@ -430,25 +429,18 @@ export default function DiagnoseForm() {
     } catch { /* ignore */ }
   }, []);
 
-  async function onFile(e: ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setError('');
-    try {
-      const r = await fileToImage(file);
-      setPreview(r.preview);
-      setImage({ data: r.data, mediaType: r.mediaType });
-    } catch {
-      setError('사진을 처리하지 못했어요. 다른 사진을 시도해 주세요.');
-    }
-  }
-
   const toggleSymptom = (id: string) =>
     setSymptomIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
 
   function buildInput(): PetInput {
-    const notes = [symptomLabels(symptomIds), symptoms.trim()].filter(Boolean).join(' / ');
+    /*
+      ⚠️ notes에는 **보호자가 직접 적은 것만** 담는다.
+         예전엔 선택 칩 라벨까지 붙여 넣어서, 검증된 표(SYMPTOM_INFO)로 답할 수 있는 증상까지
+         전부 AI에 물어야 했다. id를 구조대로 넘기면 표로 답하고 AI를 안 부른다.
+    */
+    const notes = symptoms.trim();
     return {
+      symptomIds,
       name: name.trim(),
       species,
       breed: breed.trim() || undefined,
@@ -494,7 +486,7 @@ export default function DiagnoseForm() {
       const startRes = await fetch('/api/diagnose/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ input: buildInput(), image, finderPhone: buyerPhone, finderPin: pin, buyerEmail: buyerEmail.trim() }),
+        body: JSON.stringify({ input: buildInput(), finderPhone: buyerPhone, finderPin: pin, buyerEmail: buyerEmail.trim() }),
       });
       const started = await startRes.json();
       if (!startRes.ok) throw new Error(started.error || '오류가 발생했습니다.');
@@ -583,7 +575,7 @@ export default function DiagnoseForm() {
         <div className="field">
           <label className="label">품종</label>
           <input className="input" value={breed} onChange={(e) => setBreed(e.target.value)} placeholder={species === 'dog' ? '예: 포메라니안' : '예: 코리안숏헤어'} />
-          <p className="hint">정확한 품종명을 적어주세요. 믹스견이거나 모르면 2단계에서 사진으로 분석해 드려요.</p>
+          <p className="hint">정확한 품종명을 적어주세요. 믹스견이거나 모르면 비워두셔도 일반 기준으로 안내해 드려요.</p>
         </div>
 
         <div className="row2">
@@ -675,22 +667,7 @@ export default function DiagnoseForm() {
     <div className="card">
       <div className="card-head">
         <h2 className="card-title">2단계 · {name} AI 맞춤 진단</h2>
-        <p className="card-desc">사진을 더하면 입력하신 증상까지 종합해, {result?.guide.breedKo ?? speciesKo}에 맞춰 정밀 분석해 드려요.</p>
-      </div>
-
-      <div className="field">
-        <label className="label">사진 <span className="opt">선택</span></label>
-        {preview && (
-          <div className="upload-preview-wrap">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={preview} alt="미리보기" className="upload-preview-img" />
-          </div>
-        )}
-        <div className="upload-actions">
-          <label className="upload-btn"><Icon name="camera" size={18} /> 카메라<input type="file" accept="image/*" capture="environment" onChange={onFile} hidden /></label>
-          <label className="upload-btn"><Icon name="image" size={18} /> 갤러리<input type="file" accept="image/*" onChange={onFile} hidden /></label>
-        </div>
-        <p className="hint">사진이 있으면 체형·털 상태·품종까지 더 정확하게 분석해요.</p>
+        <p className="card-desc">입력하신 정보와 증상을 {result?.guide.breedKo ?? speciesKo} 기준으로 종합해 맞춤 리포트를 만들어 드려요.</p>
       </div>
 
       {symptomIds.length > 0 && (
@@ -729,7 +706,7 @@ export default function DiagnoseForm() {
       <div className="teaser-locked">
         <div className="teaser-locked-head"><Icon name="sparkle" size={15} filled /> 결제하면 받는 {name} 맞춤 진단</div>
         <ul className="teaser-list">
-          <li><Icon name="info" size={15} /> 사진·증상 기반 {name} 상태 분석</li>
+          <li><Icon name="info" size={15} /> 품종·나이·증상 기반 {name} 상태 분석</li>
           <li><Icon name="cross" size={15} /> 증상의 가능 원인과 지금 할 조치</li>
           <li><Icon name="shield" size={15} /> {result?.guide.breedKo ?? speciesKo} 호발질환 전체 + 병원 가야 할 신호</li>
           <li><Icon name="calendar" size={15} /> 앞으로의 맞춤 케어 가이드</li>

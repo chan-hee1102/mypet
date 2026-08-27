@@ -263,7 +263,13 @@ export default function CareCardView({
   onReset: () => void;
 }) {
   const speciesKo = species === 'dog' ? '강아지' : '고양이';
-  const conf = preview.photoAnalysis.confidence;
+  /*
+    ⚠️ 2026-08-28 사진 분석 폐지. 옛 리포트에는 photoAnalysis가 남아 있어 있으면 그대로 쓰고,
+       없으면 '입력 정보 기준'으로 표기한다. 없는 값을 그럴듯하게 채우지 않는다.
+  */
+  // PreviewCard 타입에서는 이미 빠졌지만, 옛 리포트 데이터에는 값이 남아 있다.
+  const pa = (preview as { photoAnalysis?: CareCardType['photoAnalysis'] }).photoAnalysis;
+  const conf = pa?.confidence;
 
   // 프리미엄(전체 리포트)은 잠금 해제된 경우에만 서버 보호 라우트에서 가져온다.
   const [premium, setPremium] = useState<CareCardType | null>(fullCard ?? null);
@@ -295,11 +301,10 @@ export default function CareCardView({
           <h2 className="report-title">{petName}</h2>
           <div className="report-chips">
             <span className="chip chip--solid">{speciesKo}</span>
-            <span className="chip">{preview.photoAnalysis.breedGuess}</span>
-            {/* 사진 없으면 신뢰도가 low로 나옴 — 첫 화면에 '낮음'을 띄우는 대신 중립 표기 */}
-            {conf === 'low'
-              ? <span className="chip">입력 정보 기준</span>
-              : <span className={`chip conf-${conf}`}>신뢰도 {CONF_KO[conf] ?? conf}</span>}
+            {pa?.breedGuess && <span className="chip">{pa.breedGuess}</span>}
+            {conf && conf !== 'low'
+              ? <span className={`chip conf-${conf}`}>신뢰도 {CONF_KO[conf] ?? conf}</span>
+              : <span className="chip">입력 정보 기준</span>}
           </div>
         </div>
         <button className="btn btn--ghost" onClick={onReset}>
@@ -308,15 +313,16 @@ export default function CareCardView({
       </div>
 
       {(() => {
-        const photoSection = (
+        // 옛 리포트에만 있는 블록. 새 리포트는 사진을 읽지 않으므로 그리지 않는다.
+        const photoSection = pa ? (
           <Section icon="info" title="사진·기본 분석">
-            <p>{stripRefs(preview.photoAnalysis.coatSkinNotes)}</p>
+            <p>{stripRefs(pa.coatSkinNotes)}</p>
             <div className="meta-grid">
-              <span className="meta-pill">체형<b>{preview.photoAnalysis.bodyCondition}</b></span>
-              <span className="meta-pill">품종 추정<b>{preview.photoAnalysis.breedGuess}</b></span>
+              <span className="meta-pill">체형<b>{pa.bodyCondition}</b></span>
+              <span className="meta-pill">품종 추정<b>{pa.breedGuess}</b></span>
             </div>
           </Section>
-        );
+        ) : null;
         const breedSection = (
           <Section icon="tag" title="품종 특성">
             <p>{stripRefs(preview.breedTraits.summary)}</p>
@@ -336,10 +342,12 @@ export default function CareCardView({
           // 사진분석+품종특성 → 컴팩트 1장 (문단은 PDF에만 — 화면은 알약·칩만)
           const basicSection = (
             <Section icon="paw" title={`${petName} 기본 정보`}>
-              <div className="meta-grid" style={{ marginTop: 0 }}>
-                <span className="meta-pill">체형<b>{preview.photoAnalysis.bodyCondition}</b></span>
-                <span className="meta-pill">품종<b>{preview.photoAnalysis.breedGuess}</b></span>
-              </div>
+              {pa && (
+                <div className="meta-grid" style={{ marginTop: 0 }}>
+                  <span className="meta-pill">체형<b>{pa.bodyCondition}</b></span>
+                  <span className="meta-pill">품종<b>{pa.breedGuess}</b></span>
+                </div>
+              )}
               {preview.breedTraits.healthRisks.length > 0 && (
                 <>
                   <div className="sub">이 품종이 조심할 질환</div>
@@ -348,7 +356,7 @@ export default function CareCardView({
                   </div>
                 </>
               )}
-              <p className="print-only-p">{stripRefs(preview.photoAnalysis.coatSkinNotes)} {stripRefs(preview.breedTraits.summary)}</p>
+              <p className="print-only-p">{pa ? stripRefs(pa.coatSkinNotes) + ' ' : ''}{stripRefs(preview.breedTraits.summary)}</p>
             </Section>
           );
           return (

@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const card = await generateCareCard(input, image);
+    const card = await generateCareCard(input);
 
     // 반려동물 + 사진 + 케어카드를 저장한다.
     let petId: string | null = null;

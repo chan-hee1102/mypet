@@ -10,7 +10,7 @@ import type { CareCard, PreviewCard, Species } from '@/lib/types';
 export default function ReportClient({ species, petName, card }: { species: Species; petName: string; card: CareCard }) {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
-  const preview: PreviewCard = { photoAnalysis: card.photoAnalysis, breedTraits: card.breedTraits, sources: card.sources };
+  const preview: PreviewCard = { breedTraits: card.breedTraits, sources: card.sources };
 
   async function copyLink() {
     try {
