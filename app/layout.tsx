@@ -8,6 +8,7 @@ import ContactWidget from '@/components/ContactWidget';
 import { Analytics } from '@vercel/analytics/react';
 import { Suspense } from 'react';
 import VisitTracker from '@/components/VisitTracker';
+import HideOnLanding from '@/components/HideOnLanding';
 
 const DESCRIPTION =
   '사진과 간단한 정보만 입력하면 AI가 품종·나이에 맞춘 케어 진단을 만들어 드립니다. 강아지·고양이 모두 지원, 로그인 없이 바로.';
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </head>
       <body>
+        <HideOnLanding>
         <header className="appbar">
           <div className="appbar-inner">
             <Link href="/" className="brand">
@@ -62,7 +64,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </nav>
           </div>
         </header>
+        </HideOnLanding>
         {children}
+        <HideOnLanding>
         <footer className="site-footer">
           <nav className="footer-links">
             <Link href="/breed">품종 가이드</Link>
@@ -86,6 +90,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <b>mypet</b> · AI 반려동물 케어 · 본 서비스는 일반 정보를 제공하며 수의사의 진단·진료를 대체하지 않습니다.
           </p>
         </footer>
+        </HideOnLanding>
         <Analytics />
         {/* 방문 기록(유입·클릭·이탈). 쿠키를 만들지 않는다 — components/VisitTracker.tsx 주석 참고.
             useSearchParams를 쓰므로 Suspense로 감싼다(없으면 전체 페이지가 CSR로 떨어진다). */}
