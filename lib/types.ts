@@ -60,6 +60,52 @@ export interface CareCard {
     coatSkinNotes: string;
     confidence: 'high' | 'medium' | 'low';
   };
+  /** 생성일 "YYYY-MM-DD". 저장된 리포트를 나중에 열어도 만든 날짜가 그대로 보이도록 카드에 박아둔다. */
+  generatedAt?: string;
+  /**
+   * 리포트 상단 프로필 — 이름·품종·나이·체중과 거기서 **계산된** 판정들.
+   *
+   * ⚠️ 왜 카드 안에 넣는가: 리포트를 그리는 3곳(PetForm·ReportClient·SavedReport)에 전부
+   *    PetInput을 흘려보내는 대신, 카드가 스스로를 설명하게 했다. 카드는 DB에 저장되는
+   *    단위라서, 여기 담아두면 **60일 뒤 다시 열어도 같은 값이 나온다.** 입력값을 따로
+   *    들고 다니면 저장·조회 경로마다 유실될 자리가 생긴다.
+   * ⚠️ 옛 리포트에는 없으므로 선택 필드다. 없으면 화면이 프로필 블록을 그리지 않는다.
+   */
+  profile?: {
+    breedKo: string;
+    breedEn?: string;
+    /** "8살 2개월" — 생일을 모르면 없음 */
+    ageLabel?: string;
+    /** 생애 단계 (성장기/성견기/노령기 등) */
+    stage: string;
+    /** "남아(중성화)" 같은 표기. 성별을 모르면 없음 */
+    sexKo?: string;
+    weightKg?: number;
+    /** 품종 표준 체중 "2.0–3.5" */
+    weightRange?: string;
+    /** 표준 범위와 대조한 판정. 체중이나 표준값을 모르면 없음 */
+    bodyLabel?: string;
+    bodyTone?: 'ok' | 'warn' | 'info';
+    /** 품종 체급 (초소형/소형/…) */
+    sizeLabel?: string;
+    /** 하루 권장 운동량 */
+    activityLabel: string;
+    /** 종합 소견의 긴급도를 한 단어로 */
+    healthLabel: string;
+    healthTone: 'now' | 'soon' | 'routine';
+    humanAgeYears?: number;
+    /** 품종 평균 수명 "12–15" */
+    lifeYears?: string;
+  };
+  /**
+   * 예방접종·검진 예정일. **생성 시점에 계산한 날짜만** 담고,
+   * D-day는 화면에서 매번 다시 센다(저장된 리포트를 나중에 열어도 맞게 보이도록).
+   */
+  schedule?: { type: string; title: string; dueDate: string }[];
+  /** 이번 주 실천 항목 — 루틴에서 뽑은 짧은 문장. 요일 체크용. */
+  weekly?: string[];
+  /** 하루 급여 기준 — 체중·나이·중성화로 계산한다. 체중을 모르면 g수 없이 원칙만 남는다. */
+  feeding?: { dailyKcal?: string; dailyGram?: string; meals: string; notes: string[] };
   breedTraits: { summary: string; healthRisks: string[] };
   grooming: { summary: string; cautions: string[] };
   exercise: { summary: string; walkMinutesPerDay: string; cautions: string[] };

@@ -3,6 +3,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { CareCard as CareCardType, PreviewCard, Species } from '@/lib/types';
 import { TOXIC_FOODS, GOOD_FOODS } from '@/lib/petData';
+import { daysUntil, dDayLabel } from '@/lib/careSchedule';
 import { Icon } from './icons';
 import Paywall from './Paywall';
 import SourceBadges from './SourceBadges';
@@ -58,37 +59,6 @@ function Bullets({ items, warn }: { items: string[]; warn?: boolean }) {
         </li>
       ))}
     </ul>
-  );
-}
-
-const URGENCY = {
-  now: { label: '지금 병원 진료를 권해요', cls: 'vd--now', icon: 'alert' },
-  soon: { label: '2~3일 내 진료를 권해요', cls: 'vd--soon', icon: 'cross' },
-  routine: { label: '예방 관리면 충분해요', cls: 'vd--ok', icon: 'check' },
-} as const;
-
-/** 종합 소견 — 리포트 맨 위. 결론·오늘 할 일부터. */
-function VerdictCard({ petName, card }: { petName: string; card: CareCardType }) {
-  const v = card.verdict;
-  if (!v) return null;
-  const u = URGENCY[v.urgency] ?? URGENCY.routine;
-  return (
-    <section className={`vd ${u.cls}`}>
-      <span className="vd-badge"><Icon name={u.icon} size={13} /> {u.label}</span>
-      <h3 className="vd-headline">{stripRefs(v.headline)}</h3>
-      <p className="vd-summary">{stripRefs(v.summary)}</p>
-      {v.todo.length > 0 && (
-        <div className="vd-todo">
-          <div className="vd-todo-head">오늘 할 일</div>
-          <ul>
-            {v.todo.map((t, i) => (
-              <li key={i}><span className="vd-todo-n">{i + 1}</span>{tidy(t)}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-      <p className="vd-note">※ {petName} 입력 정보 기준 참고 소견이에요. 진단은 수의사만 할 수 있어요.</p>
-    </section>
   );
 }
 
@@ -155,81 +125,6 @@ function SymptomCard({ card }: { card: CareCardType }) {
   );
 }
 
-/** 평소 케어 챕터 (그루밍·운동·음식·나이별·주기). */
-function CareSections({ species, petName, card }: { species: Species; petName: string; card: CareCardType }) {
-  const toxic = TOXIC_FOODS[species];
-  const goodFoods = Array.from(new Set([...GOOD_FOODS[species], ...card.food.goodFoods]));
-  return (
-    <>
-      <Section icon="scissors" title="그루밍">
-        <p>{stripRefs(card.grooming.summary)}</p>
-        {card.grooming.cautions.length > 0 && <Bullets items={card.grooming.cautions} warn />}
-      </Section>
-
-      <Section icon="activity" title="운동·산책">
-        <div className="meta-grid" style={{ marginTop: 0 }}>
-          <span className="meta-pill accent">하루 권장<b>{card.exercise.walkMinutesPerDay}</b></span>
-        </div>
-        <p>{stripRefs(card.exercise.summary)}</p>
-        {card.exercise.cautions.length > 0 && <Bullets items={card.exercise.cautions} warn />}
-      </Section>
-
-      <Section icon="bowl" title="음식 가이드">
-        <div className="food-row">
-          <span className="food-tag food-tag--ok">좋아요</span>
-          <div className="food-chips">{goodFoods.map((x, i) => <span className="food-chip" key={i}>{x}</span>)}</div>
-        </div>
-        <div className="food-row">
-          <span className="food-tag food-tag--no">절대 금지</span>
-          <div className="food-chips">{toxic.map((f) => <span className="food-chip food-chip--no" key={f.name} title={f.reason}>{f.name}</span>)}</div>
-        </div>
-        <p className="food-reason-note">금지 이유는 항목을 길게 누르면 보여요. 인쇄(PDF)에는 전부 담겨요.</p>
-        <div className="food-print-only">
-          <ul className="note-list">
-            {toxic.map((f) => <li key={f.name}><b>{f.name}</b> — {f.reason}</li>)}
-          </ul>
-        </div>
-        {card.food.cautionFoods.length > 0 && (
-          <div className="note">
-            <Icon name="info" size={15} />
-            <div>
-              <b>{petName} 특이사항 관련 주의</b>
-              <ul className="note-list">
-                {card.food.cautionFoods.map((x, i) => <li key={i}>{stripRefs(x)}</li>)}
-              </ul>
-            </div>
-          </div>
-        )}
-      </Section>
-
-      <Section icon="calendar" title={`나이별 케어 · ${card.ageCare.stage}`}>
-        <Bullets items={card.ageCare.tips} />
-      </Section>
-
-      <Section icon="repeat" title="권장 주기">
-        <div className="stats">
-          <div className="stat">
-            <div className="stat-ico"><Icon name="repeat" size={18} /></div>
-            <div className="stat-label">목욕</div>
-            <div className="stat-value">{card.routine.bath}</div>
-          </div>
-          <div className="stat">
-            <div className="stat-ico"><Icon name="activity" size={18} /></div>
-            <div className="stat-label">산책</div>
-            <div className="stat-value">{card.routine.walk}</div>
-          </div>
-          <div className="stat">
-            <div className="stat-ico"><Icon name="scissors" size={18} /></div>
-            <div className="stat-label">빗질·미용</div>
-            <div className="stat-value">{card.routine.grooming}</div>
-          </div>
-        </div>
-      </Section>
-
-    </>
-  );
-}
-
 /** 병원 신호 챕터. */
 function VetSection({ card }: { card: CareCardType }) {
   return (
@@ -239,6 +134,334 @@ function VetSection({ card }: { card: CareCardType }) {
       </Section>
       <p className="disclaimer"><Icon name="info" size={14} /> 본 리포트는 일반 정보이며, 수의사의 진단·진료를 대체하지 않습니다.</p>
     </>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   결제 후 전체 리포트 — **문서 한 장**으로 그린다 (2026-08-28).
+
+   그전에는 3개 탭(지금 상태 / 케어 방법 / 병원 신호)이었다. 스캔은 쉬웠지만
+   **보고서로 읽히지 않았다.** 2,900원을 내고 받는 것이 탭 UI면 "웹페이지"지만,
+   한 장으로 이어지면 "결과지"다. 인쇄·저장·공유가 이 제품의 실제 쓰임인데
+   탭은 그 셋 모두와 어긋났다(인쇄하면 어차피 전부 펼쳐야 했다).
+
+   ⚠️ 담지 않기로 한 것들 — 참고한 예시 시안에는 있었지만 근거가 없어 뺐다:
+      · **가상의 수의사 코멘트·사진** — 실재하지 않는 사람의 소견은 만들지 않는다.
+      · **"3개월 후 피모 +25%" 류의 예측 수치** — 측정한 적 없는 숫자다.
+      · **브랜드 사료·영양제 추천** — 우리는 제품 데이터를 갖고 있지 않다.
+        대신 체중에서 계산한 **급여량**과 품종 기준 식이 주의사항으로 대체했다.
+   ⚠️ '핵심 요약'에 AI를 붙이지 않는다. 이 블록은 전부 데이터에서 계산된 값이고,
+      제미나이가 쓰는 것은 보호자가 직접 적은 증상 답변 하나뿐이다(그 블록에만 표시한다).
+   ═══════════════════════════════════════════════════════════════════════ */
+
+const WEEKDAYS = ['월', '화', '수', '목', '금', '토', '일'];
+
+/** "2026-08-28" → "2026.08.28". 값이 없거나 형식이 다르면 그리지 않는다. */
+function dotDate(ymd?: string): string | null {
+  if (!ymd || !/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return null;
+  return ymd.replace(/-/g, '.');
+}
+
+function RpCard({ title, icon, tone, children, wide }: {
+  title: string; icon: string; tone?: string; children: ReactNode; wide?: boolean;
+}) {
+  return (
+    <section className={`rp-card ${wide ? 'rp-card--wide' : ''}`}>
+      <div className="rp-card-head">
+        <span className={`rp-ico ${tone ?? ''}`}><Icon name={icon} size={17} /></span>
+        <h3>{title}</h3>
+      </div>
+      {children}
+    </section>
+  );
+}
+
+/** 프로필 — 사진 대신 이름 첫 글자. 사진 분석을 폐지해서 올릴 사진 자체가 없다. */
+function ProfileCard({ petName, species, card }: { petName: string; species: Species; card: CareCardType }) {
+  const p = card.profile;
+  if (!p) return null;
+  const chips = [p.breedKo, p.ageLabel, p.sexKo].filter(Boolean);
+  return (
+    <div className="rp-profile">
+      <div className="rp-avatar" aria-hidden>{petName.trim().charAt(0) || (species === 'dog' ? '견' : '묘')}</div>
+      <div className="rp-profile-main">
+        <h2 className="rp-name">{petName}</h2>
+        <div className="rp-profile-chips">{chips.join(' · ')}</div>
+      </div>
+      <dl className="rp-stats">
+        <div>
+          <dt>체중</dt>
+          <dd>{p.weightKg ? `${p.weightKg} kg` : '미입력'}</dd>
+        </div>
+        <div>
+          <dt>체형</dt>
+          <dd className={p.bodyTone ? `rp-t-${p.bodyTone}` : ''}>{p.bodyLabel ?? p.sizeLabel ?? '—'}</dd>
+        </div>
+        <div>
+          <dt>활동량</dt>
+          <dd>{p.activityLabel}</dd>
+        </div>
+        <div>
+          <dt>건강 상태</dt>
+          <dd className={`rp-h-${p.healthTone}`}>{p.healthLabel}</dd>
+        </div>
+      </dl>
+    </div>
+  );
+}
+
+/** 핵심 요약 — 소견 + 지금 챙길 것 3가지. */
+function SummaryCard({ petName, card }: { petName: string; card: CareCardType }) {
+  const v = card.verdict;
+  const p = card.profile;
+  const risks = card.breedTraits.healthRisks.slice(0, 2).map((r) => tidy(r).split('—')[0].trim());
+  const nextCheck = card.schedule?.find((s) => s.type === 'checkup');
+  return (
+    <RpCard title="핵심 요약" icon="activity" tone="rp-ico--green">
+      <div className="rp-sum">
+        <div className={`rp-sum-state rp-h-${p?.healthTone ?? 'routine'}`}>
+          <span className="rp-sum-label">현재 건강 상태</span>
+          <strong>{p?.healthLabel ?? '—'}</strong>
+          {v && <p>{stripRefs(v.summary)}</p>}
+        </div>
+        <ul className="rp-sum-rows">
+          {risks.length > 0 && (
+            <li>
+              <span className="rp-row-ico"><Icon name="shield" size={15} /></span>
+              <div><b>주의가 필요한 부분</b>{risks.join(' · ')}</div>
+            </li>
+          )}
+          <li>
+            <span className="rp-row-ico"><Icon name="repeat" size={15} /></span>
+            <div><b>이번 주 집중 케어</b>{(card.weekly ?? [card.routine.grooming]).slice(0, 2).join(' · ')}</div>
+          </li>
+          {nextCheck && (
+            <li>
+              <span className="rp-row-ico"><Icon name="calendar" size={15} /></span>
+              <div><b>다음 검진</b>{nextCheck.title.replace(/^정기 /, '')} · {dotDate(nextCheck.dueDate)}</div>
+            </li>
+          )}
+        </ul>
+      </div>
+      {v && v.todo.length > 0 && (
+        <div className="rp-todo">
+          <div className="rp-todo-head">{petName}에게 오늘 할 일</div>
+          <ol>{v.todo.map((t, i) => <li key={i}>{tidy(t)}</li>)}</ol>
+        </div>
+      )}
+    </RpCard>
+  );
+}
+
+/** 관리 꿀팁 — 품종 데이터의 미용·운동·호발 질환에서 뽑는다. */
+function TipsCard({ card }: { card: CareCardType }) {
+  const tips = [
+    { icon: 'scissors', title: '털 · 피부 관리', body: stripRefs(card.grooming.summary) },
+    { icon: 'activity', title: '운동 · 산책', body: `하루 ${card.exercise.walkMinutesPerDay}. ${stripRefs(card.exercise.summary)}` },
+    ...card.breedTraits.healthRisks.slice(0, 1).map((r) => {
+      const [name, note] = tidy(r).split('—').map((x) => x.trim());
+      return { icon: 'shield', title: `${name} 관리`, body: note || '정기 검진으로 미리 확인하는 것이 좋아요.' };
+    }),
+  ];
+  // 품종 데이터의 미용·운동 주의사항 — 옛 리포트에서 '그루밍/운동' 섹션에만 있던 내용이다.
+  const cautions = [...card.grooming.cautions, ...card.exercise.cautions].map(tidy);
+  return (
+    <RpCard title="맞춤 관리 꿀팁" icon="sparkle" tone="rp-ico--sage">
+      <ul className="rp-tips">
+        {tips.map((t) => (
+          <li key={t.title}>
+            <span className="rp-tip-ico"><Icon name={t.icon} size={16} /></span>
+            <div><b>{t.title}</b><p>{t.body}</p></div>
+          </li>
+        ))}
+      </ul>
+      {cautions.length > 0 && (
+        <>
+          <div className="rp-sub">이 품종에서 특히 챙길 것</div>
+          <ul className="rp-notes">{cautions.map((c, i) => <li key={i}>{c}</li>)}</ul>
+        </>
+      )}
+    </RpCard>
+  );
+}
+
+/** 식단 — 브랜드 추천 대신 **체중에서 계산한 급여량**과 품종 기준 주의사항. */
+function FoodCard({ species, petName, card }: { species: Species; petName: string; card: CareCardType }) {
+  const f = card.feeding;
+  const goodFoods = Array.from(new Set([...GOOD_FOODS[species], ...card.food.goodFoods]));
+  return (
+    <RpCard title="맞춤 식단 · 영양" icon="bowl" tone="rp-ico--green">
+      {f && (
+        <div className="rp-feed">
+          <div className="rp-feed-num">
+            <span>하루 급여량</span>
+            <strong>{f.dailyGram ?? '체중을 넣으면 계산돼요'}</strong>
+            {/* kcal을 함께 보여주는 이유: 사료 포장지에는 kcal/kg이 찍혀 있어서,
+                열량을 알면 보호자가 자기 사료 기준으로 정확히 환산할 수 있다. */}
+            {f.dailyKcal && <i>{f.dailyKcal}</i>}
+            <em>{f.meals}</em>
+          </div>
+          <ul className="rp-feed-notes">
+            {f.notes.map((n, i) => <li key={i}>{n}</li>)}
+          </ul>
+        </div>
+      )}
+      <div className="rp-sub">이런 건 줘도 괜찮아요</div>
+      <div className="rp-chips">{goodFoods.map((x) => <span key={x}>{x}</span>)}</div>
+      {card.food.cautionFoods.length > 0 && (
+        <>
+          <div className="rp-sub">{petName} 품종에서 특히 주의</div>
+          <ul className="rp-notes">{card.food.cautionFoods.map((x, i) => <li key={i}>{stripRefs(x)}</li>)}</ul>
+        </>
+      )}
+    </RpCard>
+  );
+}
+
+/** 금지 음식 — 검증된 표를 격자로. 이유는 인쇄본에 전부 들어간다. */
+function ToxicCard({ species, petName }: { species: Species; petName: string }) {
+  const toxic = TOXIC_FOODS[species];
+  return (
+    <RpCard title="먹으면 안 되는 음식" icon="alert" tone="rp-ico--rose">
+      <div className="rp-toxic">
+        {toxic.map((f) => (
+          <div key={f.name} className={`rp-toxic-item ${f.severity === 'danger' ? 'is-danger' : ''}`} title={f.reason}>
+            <b>{f.name}</b>
+            <span>{f.reason}</span>
+          </div>
+        ))}
+      </div>
+      <p className="rp-foot-note">위 음식은 {petName}에게 중독 증상을 일으킬 수 있어요. 먹었다면 양과 시각을 확인해 병원에 먼저 연락하세요.</p>
+    </RpCard>
+  );
+}
+
+/** 접종·검진 일정 — 저장된 날짜에서 D-day를 **볼 때마다 다시** 센다. */
+function ScheduleCard({ card }: { card: CareCardType }) {
+  const rows = card.schedule ?? [];
+  if (rows.length === 0) return null;
+  return (
+    <RpCard title="예방접종 · 건강 관리 일정" icon="calendar" tone="rp-ico--green">
+      <ol className="rp-timeline">
+        {rows.map((s) => {
+          const left = daysUntil(s.dueDate);
+          return (
+            <li key={s.title + s.dueDate}>
+              <span className="rp-tl-dot" aria-hidden />
+              <div className="rp-tl-body">
+                <b>{s.title}</b>
+                <span className="rp-tl-date">{dotDate(s.dueDate)}</span>
+              </div>
+              <span className={`rp-dday ${left <= 7 ? 'is-soon' : ''}`}>{dDayLabel(s.dueDate)}</span>
+            </li>
+          );
+        })}
+      </ol>
+      <p className="rp-foot-note">
+        마지막 접종일을 입력하지 않은 항목은 <b>병원에서 이력 확인</b>으로 잡혀 있어요. 실제 접종은 수의사와 확인해 주세요.
+      </p>
+    </RpCard>
+  );
+}
+
+/** 주간 체크리스트 — 인쇄해서 쓰는 표라 화면에서도 채워지지 않는다(가짜 저장을 만들지 않는다). */
+function WeeklyCard({ card }: { card: CareCardType }) {
+  const items = card.weekly ?? [];
+  if (items.length === 0) return null;
+  return (
+    <RpCard title="주간 케어 체크리스트" icon="check" tone="rp-ico--amber">
+      <div className="rp-week">
+        {items.map((it) => (
+          <div className="rp-week-row" key={it}>
+            <span className="rp-week-label">{it}</span>
+            <span className="rp-week-days">
+              {WEEKDAYS.map((d) => <span key={d} className="rp-dot">{d}</span>)}
+            </span>
+          </div>
+        ))}
+      </div>
+      <p className="rp-foot-note">인쇄해서 눈에 띄는 곳에 붙여두고 하나씩 지워가면 좋아요.</p>
+    </RpCard>
+  );
+}
+
+/**
+ * 나이별 케어 + 권장 주기.
+ * ⚠️ 옛 3탭 리포트의 '나이별 케어'·'권장 주기' 섹션이 여기로 왔다. 체중 판정·생애 단계·중성화
+ *    안내는 **입력값으로만 만들어지는 개인화 내용**이라, 문서로 바꾸면서 빠뜨리면
+ *    유료 리포트에서 가장 개인적인 부분이 사라진다.
+ */
+function AgeRoutineCard({ card }: { card: CareCardType }) {
+  const tips = card.ageCare.tips;
+  return (
+    <RpCard title={`나이별 케어 · ${card.ageCare.stage}`} icon="calendar" tone="rp-ico--sage">
+      {tips.length > 0 && (
+        <ul className="rp-notes">
+          {tips.map((t, i) => {
+            const [head, ...rest] = tidy(t).split('—');
+            return <li key={i}><b>{head.trim()}</b>{rest.length > 0 && ` — ${rest.join('—').trim()}`}</li>;
+          })}
+        </ul>
+      )}
+      <div className="rp-sub">권장 주기</div>
+      <dl className="rp-routine">
+        <div><dt>목욕</dt><dd>{card.routine.bath}</dd></div>
+        <div><dt>산책·놀이</dt><dd>{card.routine.walk}</dd></div>
+        <div><dt>빗질·미용</dt><dd>{card.routine.grooming}</dd></div>
+      </dl>
+    </RpCard>
+  );
+}
+
+function ReportDocument({ species, petName, card, onReset }: {
+  species: Species; petName: string; card: CareCardType; onReset: () => void;
+}) {
+  const made = dotDate(card.generatedAt);
+  return (
+    <div className="rp">
+      <header className="rp-top">
+        <span className="rp-brand"><span className="rp-brand-mark"><Icon name="paw" size={15} filled /></span>mypet</span>
+        {made && <span className="rp-made">생성일 {made}</span>}
+      </header>
+
+      <div className="rp-hero">
+        <div>
+          <h1 className="rp-title">우리 아이를 위한<br /><em>맞춤 케어 보고서</em></h1>
+          <p className="rp-lede">
+            수의사 가이드라인과 188개 품종 데이터를 기반으로<br />{petName}에게 맞는 관리 방법을 정리했어요.
+          </p>
+        </div>
+        <ProfileCard petName={petName} species={species} card={card} />
+      </div>
+
+      <div className="rp-grid">
+        <SummaryCard petName={petName} card={card} />
+        <TipsCard card={card} />
+        <FoodCard species={species} petName={petName} card={card} />
+        <ToxicCard species={species} petName={petName} />
+        <ScheduleCard card={card} />
+        <WeeklyCard card={card} />
+        <AgeRoutineCard card={card} />
+      </div>
+
+      {card.symptomAnswer && card.symptomAnswer.causes.length > 0 && (
+        <div className="rp-wide"><SymptomCard card={card} /></div>
+      )}
+
+      <div className="rp-wide rp-vet">
+        <VetSection card={card} />
+      </div>
+
+      <div className="rp-close">
+        <b>{petName} 맞춤 케어를 꾸준히 실천하면</b>
+        <span>더 건강하고 행복한 반려 생활을 함께할 수 있어요</span>
+      </div>
+
+      <SourceBadges sources={card.sources} />
+      <button className="btn btn--secondary btn--block" onClick={onReset} style={{ marginTop: 14 }}>
+        다른 아이 등록하기
+      </button>
+    </div>
   );
 }
 
@@ -274,13 +497,6 @@ export default function CareCardView({
   // 프리미엄(전체 리포트)은 잠금 해제된 경우에만 서버 보호 라우트에서 가져온다.
   const [premium, setPremium] = useState<CareCardType | null>(fullCard ?? null);
   const [premiumErr, setPremiumErr] = useState(false);
-  // 챕터 탭 — 10개 섹션 나열 대신 3개 묶음으로 (인쇄 시엔 전체 출력)
-  const [rtab, setRtab] = useState<'now' | 'care' | 'vet'>('now');
-  const goTab = (t: 'now' | 'care' | 'vet') => {
-    setRtab(t);
-    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch { /* ignore */ }
-  };
-
   useEffect(() => {
     if (!unlocked || premium || !petId) return;
     let cancelled = false;
@@ -291,6 +507,12 @@ export default function CareCardView({
       .catch(() => { if (!cancelled) setPremiumErr(true); });
     return () => { cancelled = true; };
   }, [unlocked, premium, petId]);
+
+  // 결제 완료 + 카드 로드됨 → **문서형 전체 리포트**. 아래 미리보기 껍데기를 타지 않는다.
+  if (unlocked && premium) {
+    return <ReportDocument species={species} petName={petName} card={premium} onReset={onReset} />;
+  }
+
 
   return (
     <div className="report">
@@ -336,66 +558,6 @@ export default function CareCardView({
             )}
           </Section>
         );
-
-        // 결제 완료 + 카드 로드됨 → 3챕터 탭 (인쇄 시 전체 펼침)
-        if (unlocked && premium) {
-          // 사진분석+품종특성 → 컴팩트 1장 (문단은 PDF에만 — 화면은 알약·칩만)
-          const basicSection = (
-            <Section icon="paw" title={`${petName} 기본 정보`}>
-              {pa && (
-                <div className="meta-grid" style={{ marginTop: 0 }}>
-                  <span className="meta-pill">체형<b>{pa.bodyCondition}</b></span>
-                  <span className="meta-pill">품종<b>{pa.breedGuess}</b></span>
-                </div>
-              )}
-              {preview.breedTraits.healthRisks.length > 0 && (
-                <>
-                  <div className="sub">이 품종이 조심할 질환</div>
-                  <div className="food-chips" style={{ marginTop: 6 }}>
-                    {preview.breedTraits.healthRisks.map((r, i) => <span className="food-chip" key={i}>{tidy(r)}</span>)}
-                  </div>
-                </>
-              )}
-              <p className="print-only-p">{pa ? stripRefs(pa.coatSkinNotes) + ' ' : ''}{stripRefs(preview.breedTraits.summary)}</p>
-            </Section>
-          );
-          return (
-            <>
-              <div className="report-tabs" role="tablist">
-                <button type="button" role="tab" className={rtab === 'now' ? 'on' : ''} onClick={() => setRtab('now')}>
-                  <Icon name="info" size={15} /> 지금 상태
-                </button>
-                <button type="button" role="tab" className={rtab === 'care' ? 'on' : ''} onClick={() => setRtab('care')}>
-                  <Icon name="calendar" size={15} /> 케어 방법
-                </button>
-                <button type="button" role="tab" className={rtab === 'vet' ? 'on' : ''} onClick={() => setRtab('vet')}>
-                  <Icon name="cross" size={15} /> 병원 신호
-                </button>
-              </div>
-              <div className={`rtab-panel ${rtab === 'now' ? 'on' : ''}`}>
-                <VerdictCard petName={petName} card={premium} />
-                <SymptomCard card={premium} />
-                {basicSection}
-                <SourceBadges sources={preview.sources} />
-                <button type="button" className="btn btn--primary btn--lg btn--block chapter-next" onClick={() => goTab('care')}>
-                  다음 · {petName} 케어 방법 보기 →
-                </button>
-              </div>
-              <div className={`rtab-panel ${rtab === 'care' ? 'on' : ''}`}>
-                <CareSections species={species} petName={petName} card={premium} />
-                <button type="button" className="btn btn--primary btn--lg btn--block chapter-next" onClick={() => goTab('vet')}>
-                  다음 · 병원 가야 하는 신호 보기 →
-                </button>
-              </div>
-              <div className={`rtab-panel ${rtab === 'vet' ? 'on' : ''}`}>
-                <VetSection card={premium} />
-                <button type="button" className="btn btn--secondary btn--block chapter-next" onClick={() => goTab('now')}>
-                  ← 처음(지금 상태)으로 돌아가기
-                </button>
-              </div>
-            </>
-          );
-        }
 
         // 미결제(미리보기+페이월) 또는 로딩/오류
         return (

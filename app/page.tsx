@@ -66,6 +66,7 @@ export default function LandingPage() {
           <div className="lnav-links">
             <a href="#what">무엇을 받나요</a>
             <a href="#how">어떻게 되나요</a>
+            <Link href="/guide">정보 가이드</Link>
             <Link href="/breed">품종 가이드</Link>
           </div>
           <Link href="/diagnose" className="lbtn lbtn--primary lnav-cta">진단 시작</Link>
@@ -184,6 +185,8 @@ export default function LandingPage() {
 
       <footer className="lfoot">
         <div className="wrap" style={{ display: 'flex', gap: 18, flexWrap: 'wrap', alignItems: 'center' }}>
+          <Link href="/guide">정보 가이드</Link>
+          <Link href="/breed">품종 가이드</Link>
           <Link href="/terms">이용약관</Link>
           <Link href="/privacy"><strong>개인정보처리방침</strong></Link>
           <Link href="/refund">환불정책</Link>

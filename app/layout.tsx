@@ -59,6 +59,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </span>
             </Link>
             <nav className="appbar-nav">
+              <Link href="/guide" className="nav-plain">정보 가이드</Link>
               <Link href="/breed" className="nav-plain">품종 가이드</Link>
               <Link href="/diagnose" className="btn btn--primary btn--sm">진단하기</Link>
             </nav>
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <HideOnLanding>
         <footer className="site-footer">
           <nav className="footer-links">
+            <Link href="/guide">정보 가이드</Link>
             <Link href="/breed">품종 가이드</Link>
             <Link href="/find">리포트 찾기</Link>
             <Link href="/terms">이용약관</Link>

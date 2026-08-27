@@ -119,3 +119,42 @@ export function dDayLabel(dueDate: string): string {
   if (d > 0) return `D-${d}`;
   return `${-d}일 지남`;
 }
+
+/**
+ * 접종·예방 기준표 — 공개 가이드(/guide/dog-vaccine-schedule)가 그리는 표의 원본.
+ *
+ * ⚠️ defaultSchedules()가 날짜를 계산할 때 쓰는 주기와 **같은 근거**를 문장으로 옮긴 것이다.
+ *    가이드 페이지에서 따로 적지 않고 여기서 가져가는 이유는, 둘이 갈라지면 어느 쪽이 맞는지
+ *    알 수 없게 되기 때문이다. 주기를 바꾸면 위 함수와 이 표를 **함께** 고칠 것.
+ *
+ * 근거: WSAVA 백신 가이드라인, AAHA 개 백신 가이드라인, CAPC 심장사상충 가이드라인.
+ *       추가접종 12개월은 국내 통상 기준이다(WSAVA 국제 지침은 성견 코어 3년을 제시한다).
+ */
+export type VaccineRow = { name: string; first: string; interval: string; booster: string; note: string };
+
+export const VACCINE_REFERENCE: Record<Species, VaccineRow[]> = {
+  dog: [
+    { name: '종합백신 (DHPPL)', first: '생후 6~8주', interval: '2~4주 간격 3~4회',
+      booster: '마지막 접종 12개월 후', note: '마지막 회차는 반드시 생후 16주 이후에 맞춥니다.' },
+    { name: '광견병', first: '생후 12주 이후', interval: '1회',
+      booster: '12개월 후', note: '동물등록·반려견 관리에서 요구되는 경우가 많습니다.' },
+    { name: '켄넬코프 (기관지염)', first: '생후 8주 이후', interval: '2~4주 간격 2회',
+      booster: '12개월 후', note: '애견카페·호텔·미용 등 다른 개와 접촉이 잦으면 권장됩니다.' },
+    { name: '심장사상충 예방', first: '생후 6~8주', interval: '매월 1회',
+      booster: '연중 매월', note: '접종이 아니라 투약입니다. 거르면 예방 효과가 끊깁니다.' },
+    { name: '정기 건강검진', first: '1세', interval: '연 1회',
+      booster: '7세 이상은 6개월마다', note: '노령기에는 혈액·소변 검사를 함께 보는 것이 좋습니다.' },
+  ],
+  cat: [
+    { name: '종합백신 (FVRCP)', first: '생후 6~8주', interval: '2~4주 간격 3회',
+      booster: '마지막 접종 12개월 후', note: '완전 실내묘도 필요합니다 — 범백 바이러스는 신발·옷에 묻어 들어옵니다.' },
+    { name: '광견병', first: '생후 12주 이후', interval: '1회',
+      booster: '12개월 후', note: '국내에서 고양이는 법적 의무가 아니지만 외출묘라면 권장됩니다.' },
+    { name: '백혈병 (FeLV)', first: '생후 8주 이후', interval: '3~4주 간격 2회',
+      booster: '생활 환경에 따라', note: '접종 전 FeLV 검사를 먼저 합니다. 단독 실내묘는 병원과 상의해 결정합니다.' },
+    { name: '심장사상충·구충', first: '생후 8주 이후', interval: '매월 1회',
+      booster: '연중 매월', note: '고양이는 심장사상충 치료제가 없어 예방이 유일한 방법입니다.' },
+    { name: '정기 건강검진', first: '1세', interval: '연 1회',
+      booster: '11세 이상은 6개월마다', note: '노령묘는 신장 수치와 갑상선을 특히 확인합니다.' },
+  ],
+};

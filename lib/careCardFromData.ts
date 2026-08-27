@@ -2,6 +2,7 @@ import breedData from './breedKnowledge.json';
 import { TOXIC_FOODS, GOOD_FOODS, computeAge, lifeStage } from './petData';
 import { SYMPTOMS, SYMPTOM_INFO, detectEmergency } from './symptomData';
 import { weightCheck, stagePoint, neuterTip, parseWeightRange, humanAge } from './guidePersonal';
+import { defaultSchedules } from './careSchedule';
 import type { CareCard, PetInput, Species } from './types';
 
 /**
@@ -52,6 +53,111 @@ export function findBreed(species: Species, breed?: string | null): BreedRow | n
   return null;
 }
 
+/** 로컬 기준 YYYY-MM-DD. toISOString은 UTC라 한국에서 하루 밀릴 수 있어 쓰지 않는다. */
+function todayYmd(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+/** 프로필 배지 라벨 — 판정 로직은 guidePersonal/buildVerdict에 있고 여기선 한 단어로만 옮긴다. */
+const BODY_LABEL: Record<'ok' | 'warn' | 'info', string> = {
+  ok: '적정', warn: '과체중 주의', info: '가벼운 편',
+};
+const HEALTH_LABEL: Record<'now' | 'soon' | 'routine', string> = {
+  now: '진료 권장', soon: '관찰 필요', routine: '양호',
+};
+
+/** "남아 · 중성화" 표기. 모르는 항목은 적지 않는다. */
+function sexLabel(input: PetInput): string | undefined {
+  const sex = input.sex === 'male' ? '남아' : input.sex === 'female' ? '여아' : null;
+  const neuter = input.neutered === true ? '중성화' : input.neutered === false ? '중성화 전' : null;
+  if (!sex && !neuter) return undefined;
+  return [sex, neuter].filter(Boolean).join(' · ');
+}
+
+/**
+ * 하루 급여 기준 — **RER × 활동계수**로 계산한다. 체중을 모르면 g수 없이 원칙만 남긴다.
+ *
+ * ⚠️ 처음에는 "체중의 2~3%"로 계산했다가 갈아엎었다. 그 어림값은 **생식(생고기) 기준**이고
+ *    건사료에 그대로 쓰면 크게 빗나간다. 38kg 리트리버에게 하루 760~1140g이 나왔는데
+ *    실제 필요량은 500g 안팎이다 — 두 배를 먹이라고 적는 셈이었다.
+ *    게다가 에너지 요구량은 체중에 **비례하지 않는다.** 큰 동물일수록 kg당 필요 열량이 적어서
+ *    선형 비율은 소형견에선 맞는 듯 보여도 대형견에서 반드시 깨진다.
+ *
+ *    그래서 수의영양의 표준식을 쓴다:
+ *      RER(휴식기 에너지) = 70 × 체중^0.75 kcal/일
+ *      MER(하루 필요량)   = RER × 활동계수 (중성화·나이·성장기에 따라 다름)
+ *      급여량(g)          = MER ÷ 사료 1g당 kcal
+ *
+ *    사료 열량 밀도는 제품마다 3.5~4.0 kcal/g로 갈리므로 **g은 범위로** 낸다.
+ *    kcal을 함께 적는 이유도 같다 — 포장지에는 "kcal/kg"이 찍혀 있어서, 열량을 알면
+ *    보호자가 자기 사료 기준으로 정확히 환산할 수 있다.
+ */
+function feedingPlan(
+  species: Species, weightKg?: number, months?: number | null, neutered?: boolean,
+): CareCard['feeding'] {
+  const meals = species === 'cat'
+    ? '하루 2회 이상 나눠서 (자율급식이면 총량만 정해두기)'
+    : '하루 2회로 나눠서';
+  const notes = [
+    '사료 포장지에 적힌 kcal/kg으로 나누면 우리 사료 기준 정확한 g수가 나와요.',
+    '간식은 하루 전체 열량의 10%를 넘지 않게 해주세요.',
+    species === 'cat'
+      ? '고양이는 물을 잘 안 마셔요. 습식사료를 섞으면 수분 섭취에 도움이 돼요.'
+      : '깨끗한 물은 항상 마실 수 있게 두세요.',
+  ];
+  if (!weightKg || !Number.isFinite(weightKg) || weightKg <= 0) return { meals, notes };
+
+  const rer = 70 * Math.pow(weightKg, 0.75);
+  const factor = activityFactor(species, months, neutered);
+  const kcal = rer * factor;
+  // 건사료 열량 밀도의 통상 범위(3.5~4.0 kcal/g). 열량이 높은 사료일수록 g수는 적어진다.
+  const hi = Math.round(kcal / 3.5 / 5) * 5;
+  const lo = Math.round(kcal / 4.0 / 5) * 5;
+  return {
+    dailyKcal: `약 ${Math.round(kcal / 10) * 10} kcal`,
+    dailyGram: `${lo}~${hi}g`,
+    meals,
+    notes,
+  };
+}
+
+/**
+ * 활동계수 — 성장기가 가장 크고, 중성화하면 대사가 떨어져 작아진다.
+ * (AAHA·WSAVA 영양 가이드라인에서 통용되는 값. 실제 필요량은 개체차가 커서 체형을 보며 조절해야 한다)
+ */
+function activityFactor(species: Species, months?: number | null, neutered?: boolean): number {
+  const m = typeof months === 'number' ? months : null;
+  if (species === 'cat') {
+    if (m !== null && m < 12) return 2.5;         // 자묘
+    if (m !== null && m >= 132) return 1.1;       // 노령묘(11세~)
+    return neutered ? 1.2 : 1.4;
+  }
+  if (m !== null && m < 4) return 3.0;            // 어린 자견
+  if (m !== null && m < 12) return 2.0;           // 자견
+  if (m !== null && m >= 84) return 1.4;          // 노령견(7세~)
+  return neutered ? 1.6 : 1.8;
+}
+
+/**
+ * 이번 주 실천 항목 — 루틴·미용·운동에서 **짧은 동사구**로 뽑는다.
+ * 요일 체크박스로 그릴 것이라 문장이 길면 표가 무너진다. 그래서 원문을 그대로 쓰지 않고 요약한다.
+ */
+function weeklyItems(species: Species, routine: CareCard['routine'], grooming: string[], exercise: string[]): string[] {
+  const g = grooming.join(' ');
+  const items = [
+    routine.grooming,                                    // "매일 빗질" 등
+    species === 'cat' ? '놀이 시간 갖기' : `산책 ${routine.walk}`,
+    '치아 닦기 (또는 덴탈껌)',
+    '발톱·귀·발바닥 확인',
+  ];
+  if (/눈물|눈 주변/.test(g)) items.unshift('눈 주변 닦아주기');
+  if (/이중모|털 빠짐|털빠짐/.test(g)) items.push('빠진 털 정리 (털갈이철엔 매일)');
+  if (exercise.some((e) => /비만|체중/.test(e))) items.push('체중 재고 기록하기');
+  // 요일 표는 6줄을 넘으면 세로로 길어져 읽히지 않는다.
+  return items.slice(0, 6);
+}
+
 /**
  * 크기별 하루 산책 시간 — 품종 데이터에 분 단위가 없어 크기에서 유도한다.
  * ⚠️ 범위로 적는다. 「30분」처럼 딱 떨어지는 숫자는 그 자체가 없는 정밀도를 주장하는 것이다.
@@ -87,7 +193,8 @@ function routineOf(species: Species, size: string | undefined, grooming: string[
  * ⚠️ 증상이 있을 때 「괜찮다」고 말하지 않는다. 우리는 진료를 대체하지 않으므로,
  *    판단이 애매하면 항상 더 조심스러운 쪽(soon)으로 기운다.
  */
-function buildVerdict(input: PetInput, symptomIds: string[], hasSymptomText: boolean): CareCard['verdict'] {
+// 반환 타입에서 undefined를 뺀다 — 모든 분기가 소견을 만들고, 프로필의 건강 라벨이 이 값에 기댄다.
+function buildVerdict(input: PetInput, symptomIds: string[], hasSymptomText: boolean): NonNullable<CareCard['verdict']> {
   const name = input.name || '우리 아이';
   const emergency = detectEmergency(symptomIds, input.notes ?? '');
   const anySymptom = symptomIds.length > 0 || hasSymptomText;
@@ -186,10 +293,51 @@ export function buildCardFromData(input: PetInput, symptomIds: string[] = []): C
 
   const hereditary = g.hereditary ?? [];
   const grooming = g.grooming ?? [];
+  const verdict = buildVerdict(input, symptomIds, hasText);
+  const routine = routineOf(input.species, b?.size, grooming);
 
   return {
-    verdict: buildVerdict(input, symptomIds, hasText),
+    verdict,
     symptomAnswer: answerFromTable(symptomIds),
+    // 서버에서 만드는 값이라 사용자 시계에 영향받지 않는다(리포트는 서버에서 생성된다).
+    generatedAt: todayYmd(),
+
+    profile: {
+      // 문장 안에서는 '이 품종'이 자연스럽지만 프로필 칸에 이름처럼 놓이면 어색하다.
+      breedKo: b?.breed_ko ?? (input.breed?.trim() || '품종 미상'),
+      breedEn: b?.breed_en,
+      ageLabel: age?.label,
+      stage,
+      sexKo: sexLabel(input),
+      weightKg: input.weightKg,
+      weightRange: b?.weight_kg,
+      bodyLabel: wc ? BODY_LABEL[wc.tone] : undefined,
+      bodyTone: wc?.tone,
+      sizeLabel: b?.size,
+      activityLabel: walkMinutes(input.species, b?.size),
+      healthLabel: HEALTH_LABEL[verdict.urgency],
+      healthTone: verdict.urgency,
+      humanAgeYears: age ? humanAge(input.species, age.months, b?.size) ?? undefined : undefined,
+      lifeYears: b?.life_years,
+    },
+
+    /*
+      접종·검진 일정. 마지막 접종일을 모르면 defaultSchedules가 가짜 날짜 대신
+      "병원에서 이력 확인" 항목을 만들어 준다 — 그 처리는 careSchedule.ts에 있다.
+    */
+    schedule: defaultSchedules(input.species, {
+      birth: input.birth,
+      lastVaccineCombo: input.lastVaccineCombo,
+      lastVaccineRabies: input.lastVaccineRabies,
+      lastHeartworm: input.lastHeartworm,
+    })
+      .map((s) => ({ type: s.type, title: s.title, dueDate: s.due_date }))
+      // 날짜순으로 세운다 — defaultSchedules는 항목 종류 순서로 만들어서,
+      // 그대로 그리면 타임라인에서 2027년이 2026년보다 위에 오는 일이 생긴다.
+      .sort((x, y) => x.dueDate.localeCompare(y.dueDate)),
+
+    weekly: weeklyItems(input.species, routine, grooming, g.exercise ?? []),
+    feeding: feedingPlan(input.species, input.weightKg, age?.months ?? null, input.neutered),
 
     breedTraits: {
       summary: g.summary
@@ -216,7 +364,7 @@ export function buildCardFromData(input: PetInput, symptomIds: string[] = []): C
     },
 
     ageCare: { stage, tips: ageTips },
-    routine: routineOf(input.species, b?.size, grooming),
+    routine,
 
     // 병원에 가야 하는 신호 — 품종 호발 질환 + 종 공통 응급 신호
     redFlags: [

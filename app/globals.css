@@ -1064,7 +1064,7 @@ textarea.input{resize:vertical;min-height:46px}
 .lp .lico--rose {background:var(--rose-bg);color:var(--rose)}
 
 /* ── 히어로 ── */
-.lp .hero{display:grid;grid-template-columns:1fr;gap:38px;align-items:center}
+.lp .hero{display:grid;grid-template-columns:1fr;gap:38px;align-items:center;text-align:left}  /* text-align: 전역 .hero{text-align:center}를 덮는다 — 안 덮으면 글은 가운데, flex인 버튼만 왼쪽에 남는다 */
 @media(min-width:1000px){
   .lp .hero{grid-template-columns:minmax(0,1fr) minmax(0,.94fr);gap:56px}
   .lp .band{padding:84px 24px}
@@ -1148,3 +1148,334 @@ textarea.input{resize:vertical;min-height:46px}
 .lp .lfoot{background:var(--plate);border-top:1px solid var(--line);padding:32px 20px}
 .lp .lfoot a{color:var(--ink-2);font-size:13.5px;font-weight:600;text-decoration:none}
 .lp .lfoot a:hover{color:var(--forest);text-decoration:underline}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   정보 가이드 (/guide, /guide/[slug]) — 2026-08-28
+   앱 안쪽 화면이므로 랜딩(.lp)이 아니라 위쪽 '토스 문법' 토큰을 그대로 쓴다.
+   표가 주인공이라 읽는 밀도(행 높이·구분선)를 먼저 맞추고 나머지를 뺀다.
+   ═══════════════════════════════════════════════════════════════ */
+.guide{max-width:880px;padding-bottom:56px}
+.guide .gcrumb{font-size:13px;color:var(--muted);margin-bottom:14px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.guide .gcrumb a{color:var(--muted);text-decoration:none}
+.guide .gcrumb a:hover{color:var(--brand);text-decoration:underline}
+
+.guide .gtitle{font-size:27px;font-weight:800;letter-spacing:-.035em;line-height:1.26;color:var(--ink);margin:0 0 10px}
+.guide .gquestion{font-size:15px;color:var(--muted);line-height:1.6;margin:0 0 22px}
+
+/* 결론 상자 — 페이지에서 시각적으로 가장 먼저 잡혀야 하는 블록 */
+.guide .ganswer{background:var(--brand-50);border:1px solid #cfeade;border-radius:16px;padding:18px 20px;margin-bottom:34px}
+.guide .ganswer-head{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:var(--brand-600);letter-spacing:-.01em;margin-bottom:9px}
+.guide .ganswer p{margin:0;font-size:15.5px;line-height:1.72;color:var(--ink);font-weight:500}
+
+.guide .gbody h2,.guide .gfaq h2,.guide .gsources h2,.guide .grelated h2{
+  font-size:19px;font-weight:800;letter-spacing:-.03em;color:var(--ink);
+  margin:34px 0 13px;display:flex;align-items:baseline;gap:9px;
+}
+.guide .gcount{font-size:13px;font-weight:600;color:var(--muted);letter-spacing:0}
+
+/* 표 — 가로 스크롤은 표 안에서만 (페이지 본문이 밀리지 않게) */
+.guide .gtable-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.guide .gtable-wrap--tall{max-height:620px;overflow-y:auto}
+.guide .gtable{width:100%;border-collapse:collapse;font-size:14.5px;min-width:520px}
+.guide .gtable th{
+  text-align:left;font-size:12.5px;font-weight:700;color:var(--muted);letter-spacing:-.01em;
+  padding:11px 14px;background:var(--surface-2);border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:1;
+}
+.guide .gtable td{padding:13px 14px;border-bottom:1px solid var(--line-2);color:var(--ink-2);line-height:1.6;vertical-align:top}
+.guide .gtable tr:last-child td{border-bottom:none}
+.guide .gtable td b{color:var(--ink);font-weight:700}
+.guide .gtable td a{color:var(--brand-600);font-weight:700;text-decoration:none}
+.guide .gtable td a:hover{text-decoration:underline}
+.guide .gtable--num td{font-variant-numeric:tabular-nums}
+.guide .gcell-note{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.5}
+.guide .gtime{white-space:nowrap;font-weight:700;color:var(--ink)}
+
+.guide .gsev{
+  display:inline-block;font-size:11px;font-weight:800;padding:2px 7px;border-radius:6px;
+  margin-right:6px;letter-spacing:-.01em;vertical-align:1px;
+}
+.guide .gsev--danger{background:var(--danger-50);color:var(--danger)}
+.guide .gsev--caution{background:var(--warn-50);color:var(--warn)}
+
+.guide .gchips{display:flex;flex-wrap:wrap;gap:7px}
+.guide .gchip{font-size:13.5px;padding:7px 12px;border-radius:9px;background:var(--surface-2);color:var(--ink-2);font-weight:600}
+.guide .gchip--ok{background:var(--good-50);color:var(--good)}
+
+.guide .gnote{
+  display:flex;gap:9px;align-items:flex-start;margin-top:14px;padding:13px 15px;
+  background:var(--surface-2);border-radius:12px;font-size:13.5px;line-height:1.65;color:var(--ink-2);
+}
+.guide .gnote svg{flex:none;margin-top:2px;color:var(--muted)}
+
+.guide .gsteps{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:9px}
+.guide .gsteps li{font-size:14.5px;line-height:1.65;color:var(--ink-2)}
+.guide .gsteps li b{color:var(--ink)}
+
+.guide .glist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.guide .glist li{
+  position:relative;padding:11px 14px 11px 34px;border-radius:11px;
+  font-size:14.5px;line-height:1.6;color:var(--ink-2);background:var(--surface-2);
+}
+.guide .glist--warn li{background:var(--danger-50);color:#8f2f24}
+.guide .glist--warn li::before{
+  content:'!';position:absolute;left:13px;top:11px;width:15px;height:15px;border-radius:50%;
+  background:var(--danger);color:#fff;font-size:10.5px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* FAQ — 접어두면 스캔이 쉽고, details는 크롤러가 내용을 그대로 읽는다 */
+.guide .gfaq-item{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:var(--surface)}
+.guide .gfaq-item summary{
+  cursor:pointer;list-style:none;padding:14px 16px;font-size:14.5px;font-weight:700;color:var(--ink);
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+}
+.guide .gfaq-item summary::-webkit-details-marker{display:none}
+.guide .gfaq-item summary::after{content:'+';font-size:19px;font-weight:600;color:var(--muted);flex:none;line-height:1}
+.guide .gfaq-item[open] summary::after{content:'−'}
+.guide .gfaq-item p{margin:0;padding:0 16px 15px;font-size:14.5px;line-height:1.7;color:var(--ink-2)}
+
+.guide .gsources ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.guide .gsources li{display:flex;gap:10px;align-items:center;font-size:14px;flex-wrap:wrap}
+.guide .gsrc-org{
+  flex:none;font-size:11.5px;font-weight:800;padding:3px 8px;border-radius:6px;
+  background:var(--surface-2);color:var(--ink-2);letter-spacing:0;
+}
+.guide .gsources a{color:var(--brand-600);text-decoration:none}
+.guide .gsources a:hover{text-decoration:underline}
+.guide .gdisclaimer{
+  display:flex;gap:8px;align-items:flex-start;margin-top:16px;
+  font-size:13px;line-height:1.65;color:var(--muted);
+}
+.guide .gdisclaimer svg{flex:none;margin-top:2px}
+.guide .gdisclaimer b{color:var(--ink-2)}
+
+.guide .grelated-grid,.guide .ghub-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:700px){
+  .guide .grelated-grid{grid-template-columns:repeat(3,1fr)}
+  .guide .ghub-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+}
+.guide .grel-card,.guide .ghub-card{
+  display:flex;flex-direction:column;gap:5px;text-decoration:none;
+  border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--surface);
+  transition:border-color .15s,box-shadow .15s,transform .15s;
+}
+.guide .grel-card:hover,.guide .ghub-card:hover{border-color:#cfeade;box-shadow:var(--shadow-sm);transform:translateY(-1px)}
+.guide .grel-card b,.guide .ghub-card b{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1.35}
+.guide .grel-card span,.guide .ghub-q{font-size:13px;color:var(--muted);line-height:1.55}
+.guide .ghub-go{
+  display:flex;align-items:center;gap:4px;margin-top:7px;
+  font-size:13px;font-weight:700;color:var(--brand-600);
+}
+
+.guide .gcta{margin-top:44px;padding:26px 24px;border-radius:18px;background:var(--brand-50);border:1px solid #cfeade}
+.guide .gcta h2{margin:0 0 9px;font-size:19px;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.guide .gcta p{margin:0 0 18px;font-size:14.5px;line-height:1.7;color:var(--ink-2)}
+.guide .gcta p b{color:var(--ink)}
+.guide .gcta-btns{display:flex;gap:9px;flex-wrap:wrap}
+
+/* 모바일 — 표는 좁히지 말고 스크롤시키되, 그 밖의 여백·글자를 줄인다.
+   (열을 접으면 '비교'라는 표의 목적 자체가 사라진다) */
+@media(max-width:560px){
+  .guide .gtitle{font-size:22px}
+  .guide .ganswer{padding:15px 16px;border-radius:14px;margin-bottom:26px}
+  .guide .ganswer p{font-size:14.5px}
+  .guide .gbody h2,.guide .gfaq h2,.guide .gsources h2,.guide .grelated h2{font-size:17px;margin:28px 0 11px}
+  .guide .gtable{font-size:13.5px;min-width:460px}
+  .guide .gtable td{padding:11px 12px}
+  .guide .gcta{padding:20px 17px}
+  .guide .gcta-btns .btn{flex:1 1 100%}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   전체 리포트 문서 (.rp) — 2026-08-28
+   옛 3탭 화면을 대체한다. 바꾼 배경은 components/CareCard.tsx 주석 참고.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 리포트만 660px 컨테이너 밖으로 나온다.
+   2열 문서는 좁은 칼럼에서 성립하지 않는데, 그렇다고 컨테이너를 넓히면 사이트 전체
+   (폼·설정 화면)가 같이 넓어져 오히려 읽기 힘들어진다. 그래서 이 블록만 예외로 뺀다.
+   100vw에서 40px을 빼는 건 데스크탑 스크롤바 폭을 흡수해 가로 스크롤을 막기 위해서다. */
+.rp{
+  width:min(1060px, calc(100vw - 40px));
+  position:relative; left:50%;
+  margin-left:calc(-1 * min(530px, 50vw - 20px));
+  display:flex; flex-direction:column; gap:16px;
+}
+
+.rp-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.rp-brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:17px;letter-spacing:-.03em;color:var(--ink)}
+.rp-brand-mark{
+  width:27px;height:27px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#15ad85,#0b7d5f);color:#fff;
+}
+.rp-made{font-size:12.5px;color:var(--muted);font-weight:600}
+
+/* ── 표지: 제목 + 프로필 ── */
+.rp-hero{display:grid;grid-template-columns:1fr;gap:16px;align-items:center}
+@media(min-width:900px){.rp-hero{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:24px}}
+.rp-title{font-size:clamp(23px,3.4vw,31px);font-weight:800;letter-spacing:-.04em;line-height:1.24;color:var(--ink);margin:0}
+.rp-title em{font-style:normal;color:var(--brand-600)}
+.rp-lede{margin:11px 0 0;font-size:13.5px;line-height:1.7;color:var(--muted)}
+
+.rp-profile{
+  background:var(--surface);border:1px solid var(--line);border-radius:18px;
+  padding:20px;box-shadow:var(--shadow-sm);
+  display:grid;grid-template-columns:auto 1fr;gap:14px 15px;align-items:center;
+}
+.rp-avatar{
+  width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--brand-50);color:var(--brand-600);font-size:26px;font-weight:800;letter-spacing:-.03em;
+  border:1px solid #cfeade;
+}
+.rp-profile-main{min-width:0}
+.rp-name{margin:0;font-size:21px;font-weight:800;letter-spacing:-.035em;color:var(--ink)}
+.rp-profile-chips{
+  margin-top:6px;display:inline-block;font-size:12.5px;font-weight:600;color:var(--ink-2);
+  background:var(--surface-2);border-radius:999px;padding:5px 11px;
+}
+.rp-stats{
+  grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin:2px 0 0;
+  background:var(--line);border-radius:12px;overflow:hidden;
+}
+.rp-stats > div{background:var(--surface);padding:11px 8px;text-align:center;min-width:0}
+.rp-stats dt{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.rp-stats dd{margin:0;font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.35;word-break:keep-all}
+.rp-t-ok{color:var(--good)} .rp-t-warn{color:var(--warn)} .rp-t-info{color:var(--ink-2)}
+.rp-h-routine{color:var(--good)} .rp-h-soon{color:var(--warn)} .rp-h-now{color:var(--danger)}
+
+/* ── 카드 격자 ── */
+.rp-grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:900px){.rp-grid{grid-template-columns:repeat(2,1fr);gap:16px;align-items:start}}
+.rp-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:19px 20px;box-shadow:var(--shadow-sm)}
+.rp-card--wide{grid-column:1 / -1}
+.rp-card-head{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.rp-card-head h3{margin:0;font-size:16px;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.rp-ico{width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);color:var(--ink-2);flex:none}
+.rp-ico--green{background:var(--brand-50);color:var(--brand-600)}
+.rp-ico--sage{background:#eaf1ec;color:#2f6b53}
+.rp-ico--amber{background:var(--warn-50);color:var(--warn)}
+.rp-ico--rose{background:var(--danger-50);color:var(--danger)}
+
+.rp-sub{font-size:12px;font-weight:700;color:var(--muted);margin:15px 0 8px}
+.rp-notes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.rp-notes li{font-size:13.5px;line-height:1.65;color:var(--ink-2);padding-left:12px;position:relative}
+.rp-notes li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.45}
+.rp-notes li b{display:block;color:var(--ink);font-weight:700}
+.rp-chips{display:flex;flex-wrap:wrap;gap:6px}
+.rp-chips span{font-size:12.5px;font-weight:600;padding:6px 10px;border-radius:8px;background:var(--good-50);color:var(--good)}
+.rp-foot-note{margin:13px 0 0;font-size:12px;line-height:1.6;color:var(--muted)}
+.rp-foot-note b{color:var(--ink-2)}
+
+/* 핵심 요약 */
+.rp-sum{display:grid;grid-template-columns:1fr;gap:13px}
+@media(min-width:560px){.rp-sum{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px}}
+.rp-sum-state{background:var(--brand-50);border-radius:14px;padding:15px}
+.rp-sum-state.rp-h-soon{background:var(--warn-50)}
+.rp-sum-state.rp-h-now{background:var(--danger-50)}
+.rp-sum-label{font-size:11.5px;font-weight:700;color:var(--muted)}
+.rp-sum-state strong{display:block;margin-top:3px;font-size:20px;font-weight:800;letter-spacing:-.035em}
+.rp-sum-state p{margin:9px 0 0;font-size:12.5px;line-height:1.65;color:var(--ink-2)}
+.rp-sum-rows{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.rp-sum-rows li{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line-2)}
+.rp-sum-rows li:last-child{border-bottom:none}
+.rp-row-ico{width:26px;height:26px;border-radius:8px;background:var(--surface-2);color:var(--ink-2);display:flex;align-items:center;justify-content:center;flex:none}
+.rp-sum-rows div{font-size:13px;line-height:1.55;color:var(--ink-2);min-width:0}
+.rp-sum-rows b{display:block;font-size:11.5px;color:var(--muted);font-weight:700;margin-bottom:2px}
+.rp-todo{margin-top:14px;background:var(--surface-2);border-radius:13px;padding:14px 15px}
+.rp-todo-head{font-size:12px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.rp-todo ol{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:6px}
+.rp-todo li{font-size:13px;line-height:1.6;color:var(--ink-2)}
+
+/* 관리 꿀팁 */
+.rp-tips{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:13px}
+.rp-tips li{display:flex;gap:11px}
+.rp-tip-ico{width:32px;height:32px;border-radius:10px;background:var(--surface-2);color:var(--ink-2);display:flex;align-items:center;justify-content:center;flex:none}
+.rp-tips b{display:block;font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.rp-tips p{margin:0;font-size:13px;line-height:1.65;color:var(--ink-2)}
+
+/* 식단 */
+.rp-feed{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:4px}
+@media(min-width:480px){.rp-feed{grid-template-columns:auto 1fr;gap:15px;align-items:start}}
+.rp-feed-num{background:var(--brand-50);border-radius:13px;padding:13px 16px;text-align:center;min-width:132px}
+.rp-feed-num span{display:block;font-size:11.5px;font-weight:700;color:var(--muted)}
+.rp-feed-num strong{display:block;margin:3px 0 4px;font-size:21px;font-weight:800;letter-spacing:-.04em;color:var(--brand-600)}
+.rp-feed-num em{font-style:normal;font-size:11.5px;color:var(--ink-2);line-height:1.45;display:block}
+.rp-feed-notes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.rp-feed-notes li{font-size:12.5px;line-height:1.6;color:var(--ink-2);padding-left:13px;position:relative}
+.rp-feed-notes li::before{content:"·";position:absolute;left:3px;color:var(--muted);font-weight:800}
+
+/* 금지 음식 */
+.rp-toxic{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:480px){.rp-toxic{grid-template-columns:repeat(3,1fr)}}
+.rp-toxic-item{background:var(--surface-2);border-radius:11px;padding:11px 12px;min-width:0}
+.rp-toxic-item.is-danger{background:var(--danger-50)}
+.rp-toxic-item b{display:block;font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.35;word-break:keep-all}
+.rp-toxic-item span{display:block;margin-top:4px;font-size:11px;line-height:1.5;color:var(--ink-2)}
+.rp-toxic-item.is-danger span{color:#8f2f24}
+
+/* 접종 일정 */
+.rp-timeline{list-style:none;margin:0;padding:0}
+.rp-timeline li{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--line-2)}
+.rp-timeline li:last-child{border-bottom:none}
+.rp-tl-dot{width:9px;height:9px;border-radius:50%;background:var(--brand);flex:none;box-shadow:0 0 0 3px var(--brand-50)}
+.rp-tl-body{flex:1;min-width:0}
+.rp-tl-body b{display:block;font-size:13px;font-weight:700;color:var(--ink);line-height:1.4;word-break:keep-all}
+.rp-tl-date{display:block;margin-top:2px;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rp-dday{flex:none;font-size:11.5px;font-weight:800;padding:4px 9px;border-radius:7px;background:var(--surface-2);color:var(--ink-2);font-variant-numeric:tabular-nums}
+.rp-dday.is-soon{background:var(--danger-50);color:var(--danger)}
+
+/* 주간 체크리스트 */
+.rp-week{display:flex;flex-direction:column}
+.rp-week-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line-2)}
+.rp-week-row:last-child{border-bottom:none}
+.rp-week-label{flex:1;min-width:0;font-size:13px;color:var(--ink-2);line-height:1.45;word-break:keep-all}
+.rp-week-days{display:flex;gap:4px;flex:none}
+.rp-dot{
+  width:21px;height:21px;border-radius:50%;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:var(--muted);
+}
+
+/* 권장 주기 */
+.rp-routine{margin:0;display:flex;flex-direction:column;gap:9px}
+.rp-routine > div{display:flex;gap:10px;align-items:flex-start}
+.rp-routine dt{flex:none;width:64px;font-size:12px;font-weight:700;color:var(--muted);padding-top:1px}
+.rp-routine dd{margin:0;font-size:13px;line-height:1.6;color:var(--ink-2)}
+
+/* 전폭 블록 + 마무리 */
+.rp-wide{display:flex;flex-direction:column;gap:13px}
+.rp-close{
+  background:var(--brand-50);border-radius:18px;padding:22px 20px;text-align:center;
+  display:flex;flex-direction:column;gap:5px;
+}
+.rp-close b{font-size:15px;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.rp-close span{font-size:13.5px;color:var(--ink-2)}
+
+/* 모바일 — 2열을 1열로 내리고 통계 4칸은 2×2로 접는다.
+   4칸을 유지하면 375px에서 "실내 놀이 10~15분씩…" 같은 값이 잘린다. */
+@media(max-width:560px){
+  .rp{gap:13px}
+  .rp-profile{padding:16px;gap:12px}
+  .rp-avatar{width:52px;height:52px;font-size:22px}
+  .rp-name{font-size:19px}
+  .rp-stats{grid-template-columns:repeat(2,1fr)}
+  .rp-card{padding:16px 15px;border-radius:16px}
+  .rp-card-head h3{font-size:15px}
+  .rp-week-label{font-size:12.5px}
+  .rp-dot{width:19px;height:19px;font-size:9.5px}
+  .rp-week-days{gap:3px}
+}
+
+/* 인쇄 — 이 리포트는 결국 종이·PDF로 간다.
+   카드가 페이지 경계에서 잘리면 결과지로 보이지 않으므로 통째로 넘긴다. */
+@media print{
+  .rp{width:100%;left:auto;margin-left:0;position:static;gap:12px}
+  .rp-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .rp-card,.rp-profile,.rp-close{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
+  .rp .btn{display:none}
+}
+
+/* 급여 카드의 kcal 줄 — g수 바로 아래, 사료 포장지 환산용 */
+.rp-feed-num i{font-style:normal;display:block;margin:-2px 0 5px;font-size:11.5px;font-weight:700;color:var(--ink-2);font-variant-numeric:tabular-nums}
