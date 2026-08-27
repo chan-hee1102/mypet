@@ -191,3 +191,45 @@ create policy "pet_photos_own_delete" on storage.objects
   for delete using (
     bucket_id = 'pet-photos' and (storage.foldername(name))[1] = auth.uid()::text
   );
+
+-- ============================================================================
+-- visits — 방문 기록 (유입 경로 · 클릭 흐름 · 이탈 화면)
+--
+-- 무엇을 답하는 표인가: 「몇 명이 왔고, 어디서 왔고, 뭘 눌렀고, 어디서 나갔나」.
+--
+-- ⚠️ 개인정보 최소화가 이 표의 설계 원칙이다. 개인정보처리방침이 「회원가입 없이 이용하는
+--    서비스로, 꼭 필요한 최소한의 정보만 처리한다」고 약속하고 있어서다.
+--    · **IP를 저장하지 않는다** — 해시조차 두지 않는다. 필요 없는 값이고, 두는 순간
+--      '가명처리된 개인정보'가 되어 보관·파기 의무가 따라붙는다.
+--    · **쿠키를 쓰지 않는다** — visit_key는 브라우저 탭의 sessionStorage 난수라
+--      탭을 닫으면 사라지고 방문끼리 이어지지 않는다. 사람을 식별하지 못한다.
+--    · **30일만 보관한다** — /api/track이 적재할 때 오래된 행을 함께 지운다(별도 크론 불필요).
+--
+-- clicks는 jsonb 배열: [{ "t": "진단하기", "p": "/diagnose", "at": "2026-08-27T..." }, ...]
+-- 서버가 개수를 잘라 넣으므로 한 방문이 무한히 커지지 않는다.
+-- ============================================================================
+create table if not exists public.visits (
+  visit_key    text        primary key,          -- 탭 난수(sessionStorage). 사람 식별자가 아니다
+  started_at   timestamptz not null default now(),
+  last_at      timestamptz not null default now(),
+  referrer     text,                              -- 유입 원문 (분류 근거를 남겨둔다)
+  channel      text,                              -- 요약된 채널 (lib/inflow.ts)
+  landing      text,                              -- 첫 진입 경로
+  exit_path    text,                              -- 마지막으로 머문 화면
+  utm_source   text,
+  utm_medium   text,
+  utm_campaign text,
+  device       text,                              -- 'mobile' | 'desktop'
+  pageviews    integer     not null default 1,
+  clicks       jsonb       not null default '[]'::jsonb,
+  duration_sec integer     not null default 0
+);
+
+create index if not exists visits_started_idx on public.visits (started_at desc);
+create index if not exists visits_channel_idx on public.visits (channel);
+
+-- RLS 잠금: 정책 없음 → service_role(서버) 경유만. 수집은 /api/track, 조회는 /admin이 담당한다.
+alter table public.visits enable row level security;
+
+comment on table public.visits is
+  '방문 기록(유입·클릭·이탈). 30일 보관, IP·쿠키 미사용. visit_key는 탭 단위 난수라 사람을 식별하지 않는다.';

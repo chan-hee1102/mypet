@@ -4,11 +4,12 @@ import { cookies } from 'next/headers';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { ingestKnowledge } from '@/lib/ingestKnowledge';
 import { isAdmin, ADMIN_COOKIE } from '@/lib/adminAuth';
+import TrafficPanel from '@/components/admin/TrafficPanel';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
-export const metadata = { title: '문의 관리 — mypet', robots: { index: false, follow: false } };
+export const metadata = { title: '관리자 — mypet', robots: { index: false, follow: false } };
 
 type Inquiry = {
   id: string;
@@ -55,9 +56,10 @@ async function logout() {
   redirect('/admin/login');
 }
 
-export default async function AdminPage({ searchParams }: { searchParams?: { filter?: string } }) {
+export default async function AdminPage({ searchParams }: { searchParams?: { filter?: string; view?: string } }) {
   if (!isAdmin()) redirect('/admin/login');
 
+  const view = searchParams?.view === 'traffic' ? 'traffic' : 'inquiry';
   const filter = searchParams?.filter ?? 'all';
   const admin = createAdminClient();
   const [{ data: inq }, { count: kbCount }] = await Promise.all([
@@ -81,12 +83,24 @@ export default async function AdminPage({ searchParams }: { searchParams?: { fil
     <main className="container container--narrow">
       <section className="hero">
         <span className="eyebrow">관리자</span>
-        <h1>문의 관리</h1>
-        <p className="hero-sub">전체 {all.length}건 · 미처리 {openCount}건 · 환불 {refundCount}건</p>
+        <h1>{view === 'traffic' ? '유입 현황' : '문의 관리'}</h1>
+        <p className="hero-sub">
+          {view === 'traffic'
+            ? '어디서 왔고, 뭘 눌렀고, 어디서 나갔는지'
+            : `전체 ${all.length}건 · 미처리 ${openCount}건 · 환불 ${refundCount}건`}
+        </p>
         <form action={logout} style={{ marginTop: 8 }}>
           <button className="btn btn--ghost btn--sm" type="submit">로그아웃</button>
         </form>
       </section>
+
+      {/* 화면 전환 — 유입 / 문의 */}
+      <div className="seg" style={{ marginBottom: 10 }}>
+        <a href="/admin?view=traffic" className={`seg-opt ${view === 'traffic' ? 'on' : ''}`}>유입 현황</a>
+        <a href="/admin" className={`seg-opt ${view === 'inquiry' ? 'on' : ''}`}>문의 관리</a>
+      </div>
+
+      {view === 'traffic' ? <TrafficPanel /> : <>
 
       {/* 필터 */}
       <div className="seg" style={{ marginBottom: 14 }}>
@@ -143,6 +157,8 @@ export default async function AdminPage({ searchParams }: { searchParams?: { fil
           ))}
         </div>
       )}
+
+      </>}
     </main>
   );
 }
