@@ -314,7 +314,12 @@ export function buildCardFromData(input: PetInput, symptomIds: string[] = []): C
       bodyLabel: wc ? BODY_LABEL[wc.tone] : undefined,
       bodyTone: wc?.tone,
       sizeLabel: b?.size,
-      activityLabel: walkMinutes(input.species, b?.size),
+      /*
+        프로필의 활동량은 4칸짜리 통계 자리라 **짧아야 한다.** 고양이의 전체 문구
+        ("실내 놀이 10~15분씩 하루 2~3회")를 그대로 넣으면 모바일 2×2에서 뭉개진다.
+        전체 문구는 exercise.walkMinutesPerDay와 routine.walk에 그대로 남아 있다.
+      */
+      activityLabel: input.species === 'cat' ? '놀이 2~3회/일' : walkMinutes(input.species, b?.size),
       healthLabel: HEALTH_LABEL[verdict.urgency],
       healthTone: verdict.urgency,
       humanAgeYears: age ? humanAge(input.species, age.months, b?.size) ?? undefined : undefined,
