@@ -6,6 +6,10 @@ import { Species } from './types';
  * 즉시 판정을 만들어 준다 — 일반 챗봇 답변과 차별화되는 개인화 포인트.
  * ⚠️ 문구 원칙: 40~60대가 한 번에 읽히는 쉬운 말. 의료 판단이 아닌 참고 정보이므로
  *   표현은 항상 부드럽게, 병원 안내로 연결.
+ * ⚠️ 2026-09-26 말투 정리: 「딱 좋아요」 「확 줄어요」 같은 구어·과장을 걷어내고 사실을 먼저 쓴다.
+ *   제목에 「—」를 쓰지 않는다 — 리포트(careCardFromData)가 「제목 — 본문」으로 이어 붙여서
+ *   제목 안에 또 있으면 문장이 세 토막 난다.
+ *   이 문구는 무료 가이드와 유료 리포트(나이별 관리) 양쪽에 그대로 나간다.
  */
 
 export type CheckTone = 'ok' | 'warn' | 'info';
@@ -43,58 +47,83 @@ export function weightCheck(opts: {
   if (weight > hi * 1.05) {
     return {
       tone: 'warn',
-      title: `몸무게 ${weight}kg — 조금 무거워요`,
-      body: `${breedKo}는 ${lo}~${hi}kg이 적당해요. ${jointRisk ? '무릎에 무리가 갈 수 있으니 ' : ''}간식부터 조금 줄여 보세요.`,
+      title: `몸무게 ${weight}kg, 표준보다 무거워요`,
+      body: `${breedKo}의 표준 체중은 ${lo}~${hi}kg이에요. ${jointRisk ? '관절에 부담이 갈 수 있어요. ' : ''}간식 양부터 줄여 보세요.`,
     };
   }
   if (weight < lo * 0.95) {
     return {
       tone: 'info',
-      title: `몸무게 ${weight}kg — 가벼운 편이에요`,
-      body: `${breedKo}는 보통 ${lo}~${hi}kg이에요. 원래 작은 아이면 괜찮지만, 갑자기 빠진 거라면 병원에 가보세요.`,
+      title: `몸무게 ${weight}kg, 표준보다 가벼워요`,
+      body: `${breedKo}의 표준 체중은 ${lo}~${hi}kg이에요. 원래 체구가 작다면 괜찮지만, 최근에 빠졌다면 동물병원에서 확인해 보세요.`,
+    };
+  }
+  /*
+    ⚠️ 5% 여유 구간(표준 상한보다 조금 무겁거나 하한보다 조금 가벼움)을 예전엔 「범위 안」이라고 했다.
+       바로 아래 문장이 「표준은 2~3.5kg」인데 3.6kg에 「범위 안」이라고 하면 모순이다(사용성 테스트 지적).
+  */
+  if (weight > hi) {
+    return {
+      tone: 'ok',
+      title: `몸무게 ${weight}kg, 표준 상한을 조금 넘어요`,
+      body: `${breedKo}의 표준 체중은 ${lo}~${hi}kg이에요. 체구가 큰 편이면 괜찮은 정도예요. 더 늘지 않게 지켜봐 주세요.`,
+    };
+  }
+  if (weight < lo) {
+    return {
+      tone: 'ok',
+      title: `몸무게 ${weight}kg, 표준 하한보다 조금 가벼워요`,
+      body: `${breedKo}의 표준 체중은 ${lo}~${hi}kg이에요. 체구가 작은 편이면 괜찮은 정도예요. 더 빠지지 않는지 지켜봐 주세요.`,
     };
   }
   return {
     tone: 'ok',
-    title: `몸무게 ${weight}kg — 딱 좋아요`,
-    body: `${breedKo}는 ${lo}~${hi}kg이 적당한데, 그 안에 들어요. 지금처럼만 유지해 주세요.`,
+    title: `몸무게 ${weight}kg, 표준 범위 안이에요`,
+    body: `${breedKo}의 표준 체중은 ${lo}~${hi}kg이에요. 지금 체중을 유지해 주세요.`,
   };
 }
 
 /** 생애 단계 케어 포인트 — 사람 나이 환산과 함께, 지금 가장 중요한 것 1가지. */
 export function stagePoint(opts: {
-  species: Species; months: number; breedKo: string; topDisease?: string; personAge?: number | null;
+  species: Species; months: number; breedKo: string; topDisease?: string; personAge?: number | null; size?: string;
 }): PersonalCheck | null {
-  const { species, months, breedKo, topDisease, personAge } = opts;
+  const { species, months, breedKo, topDisease, personAge, size } = opts;
+  // 노령 시작: 체구가 작을수록 늦다(공개 가이드의 나이 환산표와 같은 기준). 크기를 모르면 7살.
+  const seniorAt = size && /초소형|소형/.test(size) ? 120 : size && /중형/.test(size) ? 96 : 84;
   if (!Number.isFinite(months) || months < 0) return null;
-  const pa = personAge != null ? `사람 나이로 약 ${personAge}살` : null;
-  const dz = topDisease ? ` ${breedKo}는 ${topDisease}도 같이 봐주세요.` : '';
+  const pa = personAge != null ? ` (사람 나이로 약 ${personAge}살)` : '';
+  const dzLine = topDisease ? ` ${breedKo}에게 흔한 ${topDisease}도 함께 살펴 주세요.` : '';
   if (species === 'dog') {
-    if (months < 12) return { tone: 'info', title: '아직 아기예요 (성장기)', body: `예방접종과, 다른 사람·강아지를 만나보는 경험이 제일 중요한 때예요. 지금 경험이 평생 성격을 만들어요.` };
-    if (months < 84) return { tone: 'info', title: pa ? `${pa} — 한창때예요` : '한창때예요 (성견기)', body: `슬슬 살이 붙는 시기예요. 몸무게와 이빨만 잘 챙겨도 병원 갈 일이 확 줄어요.${dz}` };
-    return { tone: 'warn', title: pa ? `${pa} — 노령기예요` : '노령기예요', body: `1년에 2번은 건강검진을 받아 주세요. 신장·심장은 아프기 전까지 티가 안 나요.${dz}` };
+    if (months < 12) return { tone: 'info', title: '성장기예요', body: '예방접종을 제때 맞추고, 사람이나 다른 강아지를 만나는 경험을 쌓아 주세요. 이 시기의 경험이 성격에 오래 남아요.' };
+    if (months < seniorAt) return { tone: 'info', title: `성견기예요${pa}`, body: `체중이 늘기 쉬운 시기예요. 체중과 치아를 꾸준히 관리해 주세요.${dzLine}` };
+    return { tone: 'warn', title: `노령기예요${pa}`, body: `1년에 두 번 건강검진을 받아 주세요. 신장과 심장 질환은 증상이 늦게 나타나요.${dzLine}` };
   }
-  if (months < 12) return { tone: 'info', title: '아직 아기예요', body: `예방접종과 화장실·스크래처 습관 들이기가 제일 중요한 때예요.` };
-  if (months < 132) return { tone: 'info', title: pa ? `${pa} — 한창때예요` : '한창때예요 (성묘기)', body: `살찌기 쉬운 시기예요. 하루 사료량을 정해두고, 한 달에 한 번 몸무게를 재보세요.${dz}` };
-  return { tone: 'warn', title: pa ? `${pa} — 노령기예요` : '노령기예요', body: `1년에 2번은 건강검진을 받아 주세요. 고양이는 아픈 걸 숨겨서, 검진으로만 알 수 있는 병이 많아요.${dz}` };
+  if (months < 12) return { tone: 'info', title: '성장기예요', body: '예방접종과 함께 화장실, 스크래처 습관을 들이는 시기예요.' };
+  if (months < 132) return { tone: 'info', title: `성묘기예요${pa}`, body: `체중이 늘기 쉬운 시기예요. 하루 사료량을 정해 두고 한 달에 한 번 체중을 재 보세요.${dzLine}` };
+  return { tone: 'warn', title: `노령기예요${pa}`, body: `1년에 두 번 건강검진을 받아 주세요. 고양이는 아픈 티를 잘 내지 않아서 검진으로만 알 수 있는 병이 많아요.${dzLine}` };
 }
 
 /** 중성화 안내 — 안 했을 때만, 성별 맞춤. */
 export function neuterTip(opts: {
   species: Species; sex?: 'male' | 'female'; neutered?: boolean;
 }): PersonalCheck | null {
-  const { sex, neutered } = opts;
+  const { species, sex, neutered } = opts;
   if (neutered !== false || !sex) return null;
+  if (species === 'cat') {
+    return sex === 'female'
+      ? { tone: 'info', title: '중성화를 하지 않았어요', body: '발정이 반복되면 스트레스가 크고, 나이가 들수록 자궁과 유선 질환 위험이 커져요. 수술 시기를 동물병원과 상담해 보세요.' }
+      : { tone: 'info', title: '중성화를 하지 않았어요', body: '수컷 고양이는 소변 스프레이, 영역 다툼, 집 밖으로 나가려는 행동이 잦아요. 수술 시기를 동물병원과 상담해 보세요.' };
+  }
   if (sex === 'female') {
     return {
       tone: 'info',
-      title: '중성화를 아직 안 했어요',
-      body: '암컷은 나이 들수록 자궁·유선(가슴) 질환 위험이 커져요. 병원에서 시기를 상담해 보세요.',
+      title: '중성화를 하지 않았어요',
+      body: '암컷은 나이가 들수록 자궁과 유선 질환 위험이 커져요. 수술 시기를 동물병원과 상담해 보세요.',
     };
   }
   return {
     tone: 'info',
-    title: '중성화를 아직 안 했어요',
-    body: '수컷은 마킹·가출 버릇과 전립선 질환 위험이 있어요. 병원에서 시기를 상담해 보세요.',
+    title: '중성화를 하지 않았어요',
+    body: '수컷은 영역 표시, 가출, 전립선 질환 위험이 있어요. 수술 시기를 동물병원과 상담해 보세요.',
   };
 }

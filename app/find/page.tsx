@@ -18,8 +18,8 @@ export default function FindPage() {
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setError('');
-    if (phone.replace(/\D/g, '').length < 10) { setError('휴대폰 번호를 입력해 주세요.'); return; }
-    if (pin.replace(/\D/g, '').length !== 6) { setError('PIN 숫자 6자리를 입력해 주세요.'); return; }
+    if (phone.replace(/\D/g, '').length < 10) { setError('휴대폰 번호를 숫자로 적어 주세요.'); return; }
+    if (pin.replace(/\D/g, '').length !== 6) { setError('다시 찾기 번호 6자리를 적어 주세요.'); return; }
     setLoading(true);
     setItems(null);
     try {
@@ -29,65 +29,61 @@ export default function FindPage() {
         body: JSON.stringify({ phone, pin }),
       });
       const j = await r.json();
-      if (!r.ok) throw new Error(j.error || '조회에 실패했어요.');
+      if (!r.ok) throw new Error(j.error || '찾지 못했어요.');
       setItems(j.items as Item[]);
     } catch (err) {
-      setError(friendlyError(err, '조회에 실패했어요. 잠시 후 다시 시도해 주세요.'));
+      setError(friendlyError(err, '찾지 못했어요. 잠시 후 다시 시도해 주세요.'));
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <main className="container container--narrow" style={{ paddingBottom: 40 }}>
-      <section className="hero">
-        <span className="eyebrow"><Icon name="tag" size={14} /> 결제한 리포트 다시 보기</span>
-        <h1>내 리포트 찾기</h1>
-        <p className="hero-sub">결제할 때 입력한 <b>휴대폰번호</b>와 <b>다시보기 PIN 6자리</b>를 넣어 주세요.</p>
-      </section>
+    <main className="container container--narrow">
+      <div className="page-head">
+        <h1>리포트 찾기</h1>
+        <p>결제할 때 적은 휴대폰 번호와 다시 찾기 번호 6자리를 넣어 주세요.</p>
+      </div>
 
-      <form className="card" onSubmit={onSubmit}>
+      <form className="card" onSubmit={onSubmit} noValidate>
         <div className="field">
-          <label className="label">휴대폰 번호</label>
-          <input className="input" type="tel" inputMode="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="010-0000-0000" />
+          <label className="label" htmlFor="find-phone">휴대폰 번호</label>
+          <input id="find-phone" className="input" type="tel" inputMode="tel" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="010-0000-0000" />
         </div>
         <div className="field">
-          <label className="label">다시보기 PIN</label>
-          <input className="input" type="tel" inputMode="numeric" maxLength={6} value={pin} onChange={(e) => setPin(e.target.value.replace(/\D/g, '').slice(0, 6))} placeholder="숫자 6자리" />
+          <label className="label" htmlFor="find-pin">다시 찾기 번호</label>
+          <input id="find-pin" className="input" type="tel" inputMode="numeric" maxLength={6} value={pin} onChange={(e) => setPin(e.target.value.replace(/\D/g, '').slice(0, 6))} placeholder="숫자 6자리" autoComplete="off" />
         </div>
-        {error && <div className="alert"><Icon name="alert" size={16} /> {error}</div>}
+        {error && <div className="alert" role="alert"><Icon name="alert" size={16} /> {error}</div>}
         <button className="btn btn--primary btn--lg btn--block" disabled={loading}>
-          {loading ? '찾는 중…' : '리포트 찾기'}
+          {loading ? <><span className="spinner" /> 찾는 중</> : '리포트 찾기'}
         </button>
-        <p className="hint center" style={{ marginTop: 10 }}>휴대폰번호는 저장돼 있지 않아요 — 입력값이 맞을 때만 결과가 나와요.</p>
+        <p className="hint">휴대폰 번호는 원문으로 저장하지 않아요. 휴대폰 번호와 다시 찾기 번호가 모두 맞을 때만 결과가 나와요.</p>
       </form>
 
       {items && items.length === 0 && (
         <div className="card gate" style={{ marginTop: 14 }}>
-          <div className="gate-ico"><Icon name="info" size={22} /></div>
-          <h2 className="gate-title">일치하는 리포트가 없어요</h2>
-          <p className="gate-desc">
-            번호나 PIN이 결제 때 입력한 것과 다르면 찾을 수 없어요.<br />
-            기억이 안 나면 하단 <b>고객문의</b>로 결제 이메일을 알려주세요 — 확인 후 링크를 보내드려요.
+          <h2 className="gate-title">맞는 리포트가 없어요</h2>
+          <p className="gate-desc" style={{ marginBottom: 0 }}>
+            휴대폰 번호나 다시 찾기 번호가 결제 때와 다르면 찾을 수 없어요. 기억나지 않으면 아래 고객문의로 결제할 때 적은 이메일을 알려 주세요.
+            확인한 뒤 링크를 보내 드려요.
           </p>
         </div>
       )}
 
       {items && items.length > 0 && (
-        <div className="card" style={{ marginTop: 14 }}>
-          <div className="card-head"><h2 className="card-title">찾은 리포트 {items.length}건</h2></div>
-          <div className="find-list">
+        <section style={{ marginTop: 24 }}>
+          <h2 style={{ fontSize: 18, marginBottom: 10 }}>찾은 리포트 {items.length}건</h2>
+          <div className="linklist">
             {items.map((it) => (
-              <Link key={it.token} href={`/r/${it.token}`} className="find-item">
-                <span className="find-ico"><Icon name="paw" size={16} filled /></span>
-                <span className="find-name">{it.name}</span>
-                <span className="find-date">{it.date}</span>
-                <span className="find-go">보기 →</span>
+              <Link key={it.token} href={`/r/${it.token}`}>
+                <b>{it.name} 케어 리포트</b>
+                <span className="num">{it.date}{it.done ? '' : ', 아직 완성되지 않음'}</span>
               </Link>
             ))}
           </div>
-          <p className="hint center" style={{ marginTop: 10 }}>결과 링크는 발급일로부터 60일간 볼 수 있어요.</p>
-        </div>
+          <p className="hint">리포트 링크는 발급일로부터 60일 동안 열려요.</p>
+        </section>
       )}
     </main>
   );

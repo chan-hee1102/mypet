@@ -88,15 +88,15 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       />
 
       <nav className="gcrumb">
-        <Link href="/">홈</Link> <span>›</span> <Link href="/guide">정보 가이드</Link>
+        <Link href="/">처음</Link> <span>›</span> <Link href="/guide">정보 가이드</Link>
       </nav>
 
       <h1 className="gtitle">{g.title}</h1>
-      <p className="gquestion">{g.question}</p>
+      <p className="gquestion">{g.lead}</p>
 
       {/* 결론 — AI 답변엔진이 인용하는 자리. 표보다 위에 있어야 한다. */}
       <div className="ganswer">
-        <div className="ganswer-head"><Icon name="check" size={15} strokeWidth={2.4} /> 한 줄 정리</div>
+        <div className="ganswer-head">{g.question}</div>
         <p>{g.answer}</p>
       </div>
 
@@ -125,19 +125,19 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
           ))}
         </ul>
         <p className="gdisclaimer">
-          <Icon name="info" size={14} /> 본 문서는 일반적인 정보를 제공하며 <b>수의사의 진단·진료를 대체하지 않습니다.</b>
-          개체마다 상태가 다르므로 이상 징후가 보이면 병원 방문이 먼저입니다.
+          <Icon name="info" size={14} /> 이 글은 일반적인 정보이며 <b>수의사의 진찰과 진료를 대신하지 않아요.</b>
+          개체마다 상태가 달라서, 이상 징후가 보이면 병원에 먼저 가 보세요.
         </p>
       </section>
 
       {related.length > 0 && (
         <section className="grelated">
           <h2>함께 보면 좋은 글</h2>
-          <div className="grelated-grid">
+          <div className="linklist">
             {related.map((r) => (
-              <Link key={r!.slug} href={`/guide/${r!.slug}`} className="grel-card">
+              <Link key={r!.slug} href={`/guide/${r!.slug}`}>
                 <b>{r!.title}</b>
-                <span>{r!.question}</span>
+                <span>{r!.lead}</span>
               </Link>
             ))}
           </div>
@@ -145,13 +145,13 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       )}
 
       <section className="gcta">
-        <h2>우리 아이 기준으로 정리해 드릴까요?</h2>
+        <h2>우리 아이 숫자로 다시 보고 싶다면</h2>
         <p>
-          이 글은 일반 기준입니다. 품종·나이·체중을 넣으면 같은 내용을 <b>우리 아이 숫자</b>로 바꿔
-          식단·운동·접종 일정까지 한 장으로 정리해 드려요.
+          이 글은 일반 기준이에요. 품종, 나이, 체중을 적으면 같은 기준을 우리 아이 숫자로 바꿔
+          급여량, 접종 일정, 조심할 질환까지 리포트로 정리해 드려요. 결제 전에 무료 가이드로 먼저 확인할 수 있어요.
         </p>
         <div className="gcta-btns">
-          <Link href="/diagnose" className="btn btn--primary btn--lg">맞춤 케어 리포트 받기</Link>
+          <Link href="/diagnose" className="btn btn--primary btn--lg">리포트 만들기</Link>
           <Link href="/breed" className="btn btn--secondary btn--lg">품종 가이드 보기</Link>
         </div>
       </section>

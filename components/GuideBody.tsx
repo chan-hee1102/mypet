@@ -28,12 +28,12 @@ function ToxicTable({ species }: { species: Species }) {
     <>
       <h2>절대 주면 안 되는 것</h2>
       <div className="gtable-wrap">
-        <table className="gtable">
+        <table className="gtable gtable--stack">
           <thead><tr><th style={{ width: '38%' }}>음식</th><th>왜 위험한가</th></tr></thead>
           <tbody>
             {danger.map((f) => (
               <tr key={f.name}>
-                <td><span className="gsev gsev--danger">위험</span> {f.name}</td>
+                <td><b>{f.name}</b></td>
                 <td>{f.reason}</td>
               </tr>
             ))}
@@ -43,12 +43,12 @@ function ToxicTable({ species }: { species: Species }) {
 
       <h2>되도록 피할 것</h2>
       <div className="gtable-wrap">
-        <table className="gtable">
+        <table className="gtable gtable--stack">
           <thead><tr><th style={{ width: '38%' }}>음식</th><th>이유</th></tr></thead>
           <tbody>
             {caution.map((f) => (
               <tr key={f.name}>
-                <td><span className="gsev gsev--caution">주의</span> {f.name}</td>
+                <td><b>{f.name}</b></td>
                 <td>{f.reason}</td>
               </tr>
             ))}

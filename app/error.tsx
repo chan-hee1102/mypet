@@ -11,15 +11,13 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
   }, [error]);
 
   return (
-    <main className="container container--narrow">
+    <main className="container container--narrow status-wrap">
       <div className="card gate">
-        <div className="gate-ico"><Icon name="alert" size={24} /></div>
-        <h2 className="gate-title">문제가 발생했어요</h2>
-        <p className="gate-desc">일시적인 오류일 수 있어요. 잠시 후 다시 시도해 주세요.</p>
+        <div className="gate-ico gate-ico--err"><Icon name="alert" size={20} /></div>
+        <h1 className="gate-title">화면을 불러오지 못했어요</h1>
+        <p className="gate-desc">일시적인 오류일 수 있어요. 다시 시도해도 같으면 아래 고객문의로 알려 주세요.</p>
         <button className="btn btn--primary btn--lg btn--block" onClick={reset}>다시 시도</button>
-        <p className="hint center" style={{ marginTop: 12 }}>
-          <Link href="/" className="linklike">홈으로</Link>
-        </p>
+        <p className="gate-note"><Link href="/" className="linklike">처음으로</Link></p>
       </div>
     </main>
   );

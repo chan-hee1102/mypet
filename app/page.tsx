@@ -1,201 +1,189 @@
 import Link from 'next/link';
-import Image from 'next/image';
-import { Icon } from '@/components/icons';
-import { SITE } from '@/lib/site';
+import type { ReactNode } from 'react';
+import HomeHero from '@/components/HomeHero';
+import { ReportDocument } from '@/components/CareCard';
+import { heroSample } from '@/lib/sample';
+import { GUIDES } from '@/lib/guides';
+import { josa } from '@/lib/josa';
 
 export const metadata = {
-  title: 'mypet — 우리 아이를 위한 맞춤 케어 보고서',
+  title: 'mypet — 반려동물 맞춤 케어 리포트',
   description:
-    '품종·나이·체중을 입력하면 수의사 가이드라인과 188개 품종 데이터를 기반으로 건강·식단·운동·예방을 한 번에 정리해 드려요. 로그인 없이 바로.',
+    '품종·나이·체중을 넣으면 188개 품종 데이터와 수의 지침을 기준으로 하루 급여량, 접종 일정, 조심할 질환, 먹으면 안 되는 음식을 정리해 드려요. 결제 전에 무료 가이드를 먼저 확인할 수 있어요.',
 };
 
+// 첫 화면 예시 기록지의 날짜·남은 일수가 오늘 기준으로 맞도록 한 시간마다 다시 만든다.
+export const revalidate = 3600;
+
 /*
-  랜딩 (2026-08-28)
+  랜딩 (2026-09-26 다시 씀 — 「건강수첩」)
 
-  ⚠️ 이 페이지만 `.lp` 스타일을 쓴다. 사이트의 나머지(진단 폼·리포트·관리자)는
-     globals.css 위쪽의 '토스 문법'을 그대로 유지한다.
-  ⚠️ 전역 앱바·푸터는 이 경로에서 숨긴다(components/HideOnLanding.tsx).
+  예전 판은 반짝이 아이콘 알약 라벨, 아이콘 타일 6칸, 짙은 녹색 띠 위 번호 카드 3장,
+  숫자 카드 4칸으로 이어졌다. 어느 서비스에나 붙일 수 있는 틀이라 우리 것이 아니었다.
 
-  ── 톤에 대하여 ────────────────────────────────────────────────────────
-  첫 판은 Linktree 문법(형광 라임 + 3px 순검정 테두리 + 이모지)을 그대로 옮겼다가 걷어냈다.
-  그건 크리에이터 툴의 언어지 **반려동물 건강 서비스**의 언어가 아니다.
-  보호자가 묻는 것은 "재밌나"가 아니라 **"믿고 따라 해도 되나"**다.
-  그래서 이모지를 모노라인 아이콘으로, 두꺼운 검정 테두리를 헤어라인으로,
-  형광 라임을 딥 포레스트 + 웜 오프화이트로 바꿨다.
-  구조(벤토 그리드·색 띠·알약 버튼)는 좋아서 그대로 뒀다.
-
-  히어로 배치는 kostock과 같다 — 글 왼쪽 / 제품 미리보기 오른쪽.
-  다만 우리 '제품'은 화면이 아니라 **리포트 한 장**이라 UI 목업 대신 실제 결과물을 보여준다.
+  지금 판의 원칙:
+    · 첫 화면은 **실제로 나오는 기록지**, 두 번째는 **실제 리포트의 앞부분**을 그대로 보여준다.
+      값은 리포트 계산 코드로 뽑는다(지어내지 않는다). 설명보다 물건을 먼저 보여준다
+    · 나머지 구역은 조용하게 — 왼쪽 제목 칸, 오른쪽 행으로 된 표. 장식 카드를 쓰지 않는다
+    · 「AI」는 실제로 AI가 쓰는 자리(보호자가 직접 적은 증상에 대한 답)에만 붙인다
 */
 
-/** 리포트가 실제로 담는 것들. 아이콘은 components/icons.tsx의 모노라인 SVG만 쓴다. */
-const TILES: { icon: string; tone: string; title: string; desc: string }[] = [
-  { icon: 'activity', tone: 'lico--green', title: '건강 상태 정리',
-    desc: '품종·나이·체중을 함께 보고 지금 무엇을 챙겨야 하는지 정리해 드려요.' },
-  { icon: 'bowl', tone: 'lico--sage', title: '맞춤 식단 · 영양',
-    desc: '하루 급여 기준과 이 품종에 맞는 사료·간식 방향을 알려드려요.' },
-  { icon: 'calendar', tone: 'lico--green', title: '예방접종 · 검진 일정',
-    desc: '다음 접종일과 정기 검진 시점을 날짜로 짚어드려요.' },
-  { icon: 'alert', tone: 'lico--rose', title: '먹으면 안 되는 음식',
-    desc: '초콜릿·포도·자일리톨 등, 왜 위험한지 이유까지 함께 적어요.' },
-  { icon: 'scissors', tone: 'lico--sage', title: '털 · 피부 관리',
-    desc: '이중모인지, 얼마나 자주 빗어야 하는지는 품종마다 달라요.' },
-  { icon: 'check', tone: 'lico--amber', title: '주간 케어 체크리스트',
-    desc: '이번 주에 실천할 것을 요일별로 확인하며 관리해요.' },
-];
-
-const STEPS = [
-  { n: 1, t: '우리 아이 정보 입력', d: '종·품종·나이·체중과 요즘 신경 쓰이는 점을 적어주세요. 회원가입은 없습니다.' },
-  { n: 2, t: '무료 품종 가이드 확인', d: '결제 전에 품종 특성·주의 질환·금지 음식을 먼저 보여드려요.' },
-  { n: 3, t: '맞춤 리포트 받기', d: '우리 아이 기준으로 정리한 전체 리포트를 받고, 링크는 이메일로도 보내드려요.' },
+const SOURCES: { org: string; use: string }[] = [
+  { org: 'AKC · FCI · UK Kennel Club', use: '강아지 품종별 표준 체중, 수명, 자주 보고되는 질환' },
+  { org: 'TICA · CFA · International Cat Care', use: '고양이 품종 특성과 관리' },
+  { org: 'WSAVA · AAHA 백신 지침', use: '예방접종 시작 시기와 추가접종 주기' },
+  { org: 'CAPC', use: '심장사상충·구충 예방 주기' },
+  { org: 'ASPCA 동물독극물통제센터', use: '먹으면 안 되는 음식과 위험한 이유' },
+  { org: 'AAHA · WSAVA 영양 지침', use: '하루 필요 열량 계산식(기초대사량 × 활동계수)' },
 ];
 
 export default function LandingPage() {
+  const dog = heroSample('dog');
+  const cat = heroSample('cat');
+  const today = new Intl.DateTimeFormat('ko-KR', { timeZone: 'Asia/Seoul', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date());
+  const d = dog.hero;
+
+  const contents: { k: string; v: ReactNode; ai?: boolean }[] = [
+    { k: '하루 급여량', v: <>체중, 나이, 중성화 여부로 계산해요. 예시의 {d.breedKo} {d.weightKg}kg이면 하루 <b>{d.dailyKcal}</b>, 건사료로 {d.dailyGram}이에요.</> },
+    { k: '접종·검진 일정', v: <>마지막 접종 달을 적으면 다음 접종 날짜를 계산해요. 모르는 항목은 병원에서 확인할 항목으로 따로 적어 드려요.</> },
+    { k: '조심할 질환과 신호', v: <>품종에서 자주 보고되는 질환과, 집에서 알아챌 수 있는 신호. {josa(d.breedKo, '이라면/라면')} {d.risks.join(', ')} 같은 것들이에요.</> },
+    { k: '먹으면 안 되는 음식', v: <>{d.toxicCount}가지와 각각 위험한 이유, 먹었을 때 먼저 할 일까지 적어요.</> },
+    { k: '관리 포인트', v: <>털과 피부, 산책 시간, 그 품종에서 놓치기 쉬운 관리. 예시의 {josa(d.breedKo, '은/는')} 하루 {dog.card.exercise.walkMinutesPerDay} 산책이 기준이에요.</> },
+    { k: '나이별 관리', v: <>지금 나이에 챙길 것과 사람 나이로 환산한 나이를 함께 적어요.</> },
+    { k: '주간 체크리스트', v: <>요일별로 표시하는 표예요. 인쇄해서 붙여 두고 쓰기 좋게 만들었어요.</> },
+    { k: '증상에 대한 답', v: <>걱정되는 증상을 직접 적으면 가능한 원인과 병원에 가야 할 기준을 정리해요. 적지 않으면 AI를 쓰지 않아요.</>, ai: true },
+    { k: '병원에 가야 하는 신호', v: <>바로 병원에 가야 하는 응급 신호를 눈으로 확인할 수 있는 모습으로 적어요.</> },
+  ];
+
   return (
-    <div className="lp">
-      <div className="strip">
-        수의사 가이드라인 · <strong>188개 품종 데이터</strong> 기반 — 로그인 없이 바로 시작
-      </div>
+    <main>
+      <HomeHero samples={{ dog: dog.hero, cat: cat.hero }} today={today} />
 
-      <nav className="lnav">
-        <div className="lnav-in">
-          <Link href="/" className="lnav-logo">
-            <span className="lnav-mark"><Icon name="paw" size={17} filled /></span>
-            mypet
-          </Link>
-          <div className="lnav-links">
-            <a href="#what">무엇을 받나요</a>
-            <a href="#how">어떻게 되나요</a>
-            <Link href="/guide">정보 가이드</Link>
-            <Link href="/breed">품종 가이드</Link>
-          </div>
-          <Link href="/diagnose" className="lbtn lbtn--primary lnav-cta">진단 시작</Link>
-        </div>
-      </nav>
-
-      {/* ── 히어로 ─────────────────────────────────────────────── */}
-      <section className="band band--hero">
-        <div className="wrap hero">
+      <section className="home-sec" id="contents">
+        <div className="home-sec-in home-sec-in--report">
           <div>
-            <span className="ltag"><Icon name="sparkle" size={13} filled /> AI 맞춤 케어 리포트</span>
-            <h1 style={{ marginTop: 18 }}>
-              우리 아이를 위한<br />맞춤 케어 보고서
-            </h1>
-            <p className="lead" style={{ marginTop: 18, maxWidth: 520 }}>
-              품종·나이·체중만 입력하면, 수의사 가이드라인과 188개 품종 데이터를 바탕으로
-              건강·식단·운동·예방까지 한 번에 정리해 드립니다.
-            </p>
-            <div className="hero-cta">
-              <Link href="/diagnose" className="lbtn lbtn--primary lbtn--lg">
-                <Icon name="sparkle" size={16} filled /> 무료로 시작하기
-              </Link>
-              <Link href="/breed" className="lbtn lbtn--ghost lbtn--lg">품종 가이드 먼저 보기</Link>
+            <h2>리포트에 들어가는 내용</h2>
+            <p className="home-sec-intro">검색해서 하나씩 찾던 기준을, 입력한 아이의 숫자로 바꿔 한 번에 모았어요.</p>
+            <dl className="contents" style={{ marginTop: 28 }}>
+              {contents.map((c) => (
+                <div key={c.k} className={`contents-row ${c.ai ? 'contents-row--ai' : ''}`}>
+                  <dt>{c.k}</dt>
+                  <dd>{c.v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <figure className="preview">
+            {/* 실제 리포트 컴포넌트를 줄여서 보여 준다 — 캡처 이미지가 아니라서 디자인이 바뀌어도 어긋나지 않는다 */}
+            <div className="preview-frame" aria-hidden="true" {...({ inert: '' } as object)}>
+              <div className="preview-in">
+                <ReportDocument species="dog" petName={d.name} card={dog.card} />
+              </div>
             </div>
-            <p className="hero-note">회원가입 없이 · 무료 가이드를 먼저 확인하고 결정하세요</p>
-          </div>
+            <figcaption>
+              {d.name}({d.breedKo}, {d.ageYears}살, {d.weightKg}kg)의 예시 리포트 앞부분이에요.{' '}
+              <Link href="/sample" className="linklike">예시 리포트 전체 보기</Link>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
 
-          {/* 실제 리포트 한 장. 세로로 길어 아래를 페이드로 자르고 칩으로 목업이 아님을 밝힌다. */}
-          <div className="shot">
-            <Image
-              src="/report-sample.png"
-              alt="mypet 맞춤 케어 보고서 예시 — 건강 상태 요약, 맞춤 식단, 예방접종 일정, 주간 체크리스트"
-              width={1024}
-              height={1536}
-              priority
-              sizes="(max-width: 999px) 92vw, 540px"
-            />
-            <span className="shot-tag">실제 리포트 예시</span>
+      <section className="home-sec" id="sources">
+        <div className="home-sec-in">
+          <div>
+            <h2>무엇을 근거로 쓰나요</h2>
+            <p className="home-sec-intro">리포트의 숫자는 아래 기관의 표와 계산식에서 나와요.</p>
+          </div>
+          <div>
+            <dl className="srcs">
+              {SOURCES.map((s) => (
+                <div key={s.org}>
+                  <dt>{s.org}</dt>
+                  <dd>{s.use}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="srcs-note">
+              AI는 보호자가 직접 적은 증상에 답할 때만 써요. 그 부분은 리포트 안에 따로 표시해요.
+              mypet의 리포트는 일반적인 관리 정보이며, <b>수의사의 진찰과 진료를 대신하지 않아요.</b>
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ── 무엇을 받나요 ───────────────────────────────────────── */}
-      <section className="band band--cream" id="what">
-        <div className="wrap">
-          <div className="shead">
-            <h2>리포트 한 장에 이만큼 담깁니다</h2>
-            <p>검색해서 모으던 정보를, 우리 아이 기준으로 한 번에 정리해 드려요.</p>
+      <section className="home-sec" id="guides">
+        <div className="home-sec-in">
+          <div>
+            <h2>정보 가이드</h2>
+            <p className="home-sec-intro">리포트 없이도 볼 수 있는 일반 기준이에요.</p>
           </div>
-          <div className="grid3">
-            {TILES.map((t) => (
-              <div key={t.title} className="lcard tile">
-                <div className={`lico ${t.tone}`}><Icon name={t.icon} size={21} /></div>
-                <h3>{t.title}</h3>
-                <p>{t.desc}</p>
-              </div>
+          <div className="linklist linklist--2">
+            {GUIDES.map((g) => (
+              <Link key={g.slug} href={`/guide/${g.slug}`}>
+                <b>{g.title}</b>
+                <span>{g.lead}</span>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 어떻게 되나요 ───────────────────────────────────────── */}
-      <section className="band band--forest" id="how">
-        <div className="wrap">
-          <div className="shead">
-            <h2>3분이면 끝납니다</h2>
-            <p>결제 전에 무료 가이드를 먼저 보여드려요. 보고 나서 결정하셔도 늦지 않습니다.</p>
+      <section className="home-sec" id="faq">
+        <div className="home-sec-in">
+          <div>
+            <h2>자주 묻는 질문</h2>
           </div>
-          <div className="steps">
-            {STEPS.map((s) => (
-              <div key={s.n} className="step">
-                <div className="step-n">{s.n}</div>
-                <h3>{s.t}</h3>
-                <p style={{ marginTop: 9, fontSize: 14.5 }}>{s.d}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 무엇을 근거로 하나요 ─────────────────────────────────── */}
-      <section className="band band--white">
-        <div className="wrap">
-          <div className="shead">
-            <h2>추측이 아니라 근거로 씁니다</h2>
-            <p>어디서 온 정보인지 리포트에 함께 적습니다. 확인하실 수 있어야 믿을 수 있으니까요.</p>
-          </div>
-          <div className="stats">
-            <div className="stat"><b>188</b><span>품종 데이터</span></div>
-            <div className="stat"><b>AKC · FCI</b><span>공인 품종 표준</span></div>
-            <div className="stat"><b>254</b><span>수의 근거 문서</span></div>
-            <div className="stat"><b>60일</b><span>리포트 열람 기간</span></div>
-          </div>
-          <p style={{ marginTop: 24, fontSize: 14, color: 'var(--muted)', maxWidth: 720 }}>
-            본 서비스는 일반적인 정보를 제공하며 <strong style={{ color: 'var(--ink-2)' }}>수의사의 진단·진료를 대체하지 않습니다.</strong>{' '}
-            이상 징후가 보이면 병원 방문이 먼저입니다.
-          </p>
-        </div>
-      </section>
-
-      {/* ── 마지막 CTA ─────────────────────────────────────────── */}
-      <section className="band band--forest">
-        <div className="wrap" style={{ textAlign: 'center' }}>
-          <h2>우리 아이, 오늘부터 제대로 챙기세요</h2>
-          <p className="lead" style={{ marginTop: 15, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
-            회원가입 없이 3분이면 무료 품종 가이드를 확인할 수 있습니다.
-          </p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: 11, flexWrap: 'wrap', marginTop: 28 }}>
-            <Link href="/diagnose" className="lbtn lbtn--primary lbtn--lg">
-              <Icon name="sparkle" size={16} filled /> 무료로 시작하기
-            </Link>
-            <Link href="/find" className="lbtn lbtn--ghost lbtn--lg">이미 받은 리포트 찾기</Link>
+          <div className="faq">
+            <details>
+              <summary>결제한 뒤 창을 닫았어요. 리포트는 어디서 보나요?</summary>
+              <p>
+                결제할 때 적은 이메일로 리포트 링크를 보내 드려요. 메일이 보이지 않으면 <Link href="/find" className="linklike">리포트 찾기</Link>에서
+                휴대폰 번호와 결제 때 정한 다시 찾기 번호 6자리로 다시 찾을 수 있어요. 링크는 60일 동안 열려요.
+              </p>
+            </details>
+            <details>
+              <summary>동물병원 진료를 대신할 수 있나요?</summary>
+              <p>
+                아니요. 품종 표준과 수의 지침으로 계산한 일반적인 관리 정보예요. 이상 증상이 보이면 동물병원 진료가 먼저예요.
+              </p>
+            </details>
+            <details>
+              <summary>믹스견이거나 품종을 모르면요?</summary>
+              <p>
+                말티푸, 폼피츠, 비숑푸들처럼 자주 쓰는 믹스견 이름은 부모 품종을 기준으로 계산해요.
+                품종을 모르면 비워 두세요. 강아지·고양이 일반 기준으로 정리해 드려요.
+              </p>
+            </details>
+            <details>
+              <summary>환불이 되나요?</summary>
+              <p>
+                리포트는 결제하면 바로 열리는 디지털 콘텐츠라서, 연 뒤에는 단순 변심에 따른 환불이 제한돼요.
+                리포트를 받지 못했거나 내용에 문제가 있으면 환불해 드려요. 자세한 기준은 <Link href="/refund" className="linklike">환불정책</Link>에 있어요.
+              </p>
+            </details>
+            <details>
+              <summary>입력한 정보는 어떻게 쓰이나요?</summary>
+              <p>
+                아이 정보는 리포트를 만드는 데만 써요. 이메일은 리포트 링크를 보내는 데 쓰고,
+                휴대폰 번호와 다시 찾기 번호는 원문을 저장하지 않고 되돌릴 수 없게 바꾼 값만 남겨요.
+              </p>
+            </details>
           </div>
         </div>
       </section>
 
-      <footer className="lfoot">
-        <div className="wrap" style={{ display: 'flex', gap: 18, flexWrap: 'wrap', alignItems: 'center' }}>
-          <Link href="/guide">정보 가이드</Link>
-          <Link href="/breed">품종 가이드</Link>
-          <Link href="/terms">이용약관</Link>
-          <Link href="/privacy"><strong>개인정보처리방침</strong></Link>
-          <Link href="/refund">환불정책</Link>
-          <Link href="/contact">문의</Link>
-          <span style={{ marginLeft: 'auto', fontSize: 12.5, color: 'var(--muted)' }}>
-            {SITE.company} · 사업자등록번호 {SITE.bizNo}
-          </span>
+      <section className="home-end">
+        <div className="home-end-in">
+          <div>
+            <h2>나이와 체중을 알면 바로 시작할 수 있어요</h2>
+            <p>무료 가이드를 먼저 보고 결제할지 정하세요.</p>
+          </div>
+          <div className="home-end-btns">
+            <Link href="/diagnose" className="btn btn--primary btn--lg">무료 가이드 보기</Link>
+            <Link href="/find" className="btn btn--secondary btn--lg">리포트 찾기</Link>
+          </div>
         </div>
-      </footer>
-    </div>
+      </section>
+    </main>
   );
 }

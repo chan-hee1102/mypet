@@ -38,7 +38,7 @@ export function GET() {
     '## 서비스',
     '',
     `- [맞춤 케어 리포트 만들기](${SITE.url}/diagnose) — 우리 아이 정보 기준으로 정리한 리포트 (1회 ${SITE.pricePerPet.toLocaleString('ko-KR')}원)`,
-    `- [증상 체크](${SITE.url}/symptom) — 증상별로 병원에 가야 하는 기준 확인`,
+    `- [증상별 병원 기준](${SITE.url}/guide/pet-symptom-vet-signs) — 증상별로 병원에 가야 하는 기준 확인`,
     `- [받은 리포트 찾기](${SITE.url}/find)`,
     '',
     '## 근거 자료',

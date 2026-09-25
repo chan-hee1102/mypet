@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { GUIDES } from '@/lib/guides';
-import { Icon } from '@/components/icons';
 import { SITE } from '@/lib/site';
 
 /**
@@ -47,31 +46,30 @@ export default function GuideHub() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
 
-      <nav className="gcrumb"><Link href="/">홈</Link> <span>›</span> 정보 가이드</nav>
+      <nav className="gcrumb"><Link href="/">처음</Link> <span>›</span> 정보 가이드</nav>
 
       <h1 className="gtitle">{TITLE}</h1>
       <p className="gquestion">
         수의사 가이드라인과 188개 품종 데이터를 바탕으로, 보호자가 가장 많이 찾는 질문에 표로 답합니다.
       </p>
 
-      <div className="ghub-grid">
+      <div className="linklist" style={{ marginTop: 28 }}>
         {GUIDES.map((g) => (
-          <Link key={g.slug} href={`/guide/${g.slug}`} className="ghub-card">
+          <Link key={g.slug} href={`/guide/${g.slug}`}>
             <b>{g.title}</b>
-            <span className="ghub-q">{g.question}</span>
-            <span className="ghub-go">읽어보기 <Icon name="chevron" size={14} /></span>
+            <span>{g.lead}</span>
           </Link>
         ))}
       </div>
 
       <section className="gcta">
-        <h2>우리 아이 기준으로 정리해 드릴까요?</h2>
+        <h2>우리 아이 숫자로 다시 보고 싶다면</h2>
         <p>
-          위 글들은 일반 기준입니다. 품종·나이·체중을 넣으면 같은 내용을 <b>우리 아이 숫자</b>로 바꿔
-          식단·운동·접종 일정까지 한 장으로 정리해 드려요.
+          위 글은 일반 기준이에요. 품종, 나이, 체중을 적으면 같은 기준을 우리 아이 숫자로 바꿔
+          급여량, 접종 일정, 조심할 질환까지 리포트로 정리해 드려요.
         </p>
         <div className="gcta-btns">
-          <Link href="/diagnose" className="btn btn--primary btn--lg">맞춤 케어 리포트 받기</Link>
+          <Link href="/diagnose" className="btn btn--primary btn--lg">리포트 만들기</Link>
           <Link href="/breed" className="btn btn--secondary btn--lg">품종 가이드 188종</Link>
         </div>
       </section>

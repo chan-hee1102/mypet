@@ -26,7 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/diagnose`, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/guide`, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/breed`, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${base}/symptom`, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${base}/sample`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/terms`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${base}/privacy`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${base}/refund`, changeFrequency: 'yearly', priority: 0.2 },

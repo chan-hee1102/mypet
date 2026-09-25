@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import breedData from '@/lib/breedKnowledge.json';
-import { Icon } from '@/components/icons';
 import { SITE } from '@/lib/site';
+import BreedIndex from '@/components/BreedIndex';
 
 /** 품종 가이드 인덱스 — 검색 유입 + 내부 링크 허브. */
 
@@ -17,39 +17,26 @@ export const metadata: Metadata = {
 };
 
 export default function BreedIndexPage() {
-  const dogs = BREEDS.filter((b) => b.species === 'dog');
-  const cats = BREEDS.filter((b) => b.species === 'cat');
+  const byName = (a: Breed, b: Breed) => a.breed_ko.localeCompare(b.breed_ko, 'ko');
+  const dogs = BREEDS.filter((b) => b.species === 'dog').sort(byName);
+  const cats = BREEDS.filter((b) => b.species === 'cat').sort(byName);
 
   return (
-    <main className="container container--narrow bpage">
-      <section className="hero">
-        <span className="eyebrow"><Icon name="shield" size={14} /> 공식 수의 자료 기반</span>
-        <h1>품종별 키우기 가이드</h1>
-        <p className="hero-sub">성격·수명·미용·조심할 질환까지, {BREEDS.length}개 품종을 정리했어요.</p>
-      </section>
+    <main className="container guide breed-index">
+      <nav className="gcrumb"><Link href="/">처음</Link> <span>›</span> 품종 가이드</nav>
+      <h1 className="gtitle">품종별 키우기 가이드</h1>
+      <p className="gquestion">
+        {BREEDS.length}개 품종의 성격, 표준 체중과 수명, 미용, 자주 보고되는 질환을 AKC·FCI·TICA 같은 공식 자료로 정리했어요.
+      </p>
 
-      <section className="section" style={{ marginBottom: 13 }}>
-        <div className="section-head"><span className="section-ico"><Icon name="paw" size={18} /></span><h2 className="section-title">강아지 {dogs.length}종</h2></div>
-        <div className="breed-links">
-          {dogs.map((b) => (
-            <Link key={b.breed_ko} href={`/breed/${encodeURIComponent(b.breed_ko)}`} className="breed-link">{b.breed_ko}</Link>
-          ))}
+      <BreedIndex dogs={dogs.map((b) => b.breed_ko)} cats={cats.map((b) => b.breed_ko)} />
+
+      <section className="gcta">
+        <h2>우리 아이 체중이 표준 범위 안인지 확인해 보세요</h2>
+        <p>품종, 나이, 체중을 적으면 품종 표준과 비교한 결과를 무료로 바로 보여 드려요.</p>
+        <div className="gcta-btns">
+          <Link href="/diagnose" className="btn btn--primary btn--lg">무료 가이드 보기</Link>
         </div>
-      </section>
-
-      <section className="section" style={{ marginBottom: 13 }}>
-        <div className="section-head"><span className="section-ico"><Icon name="paw" size={18} /></span><h2 className="section-title">고양이 {cats.length}종</h2></div>
-        <div className="breed-links">
-          {cats.map((b) => (
-            <Link key={b.breed_ko} href={`/breed/${encodeURIComponent(b.breed_ko)}`} className="breed-link">{b.breed_ko}</Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="cta-band">
-        <h2>우리 아이 맞춤 체크는 무료</h2>
-        <p>품종·나이·몸무게만 넣으면 표준 대비 판정을 바로 보여드려요.</p>
-        <Link href="/diagnose" className="btn btn--white btn--lg"><Icon name="sparkle" size={17} filled /> 무료로 시작하기</Link>
       </section>
     </main>
   );

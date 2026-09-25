@@ -80,9 +80,9 @@ export function defaultSchedules(species: Species, opts: ScheduleOpts = {}): Gen
   if (combo) {
     out.push({ type: 'vaccine', title: `${comboName} 추가접종`, due_date: ymd(addMonths(combo, 12)), remind_before: 14 });
   } else if (isPuppy) {
-    out.push({ type: 'vaccine', title: `${comboName} 자견 시리즈 — 병원에서 접종 일정 확인`, due_date: ymd(addMonths(today, 1)), remind_before: 7 });
+    out.push({ type: 'vaccine', title: `${comboName} 어린 시기 접종 일정 확인`, due_date: ymd(addMonths(today, 1)), remind_before: 7 });
   } else {
-    out.push({ type: 'vaccine', title: `${comboName} — 병원에서 접종 이력 확인`, due_date: ymd(addMonths(today, 1)), remind_before: 7 });
+    out.push({ type: 'vaccine', title: `${comboName} 접종 이력 확인`, due_date: ymd(addMonths(today, 1)), remind_before: 7 });
   }
 
   // 3) 광견병
@@ -90,7 +90,7 @@ export function defaultSchedules(species: Species, opts: ScheduleOpts = {}): Gen
   if (rab) {
     out.push({ type: 'vaccine', title: '광견병 추가접종', due_date: ymd(addMonths(rab, 12)), remind_before: 14 });
   } else {
-    out.push({ type: 'vaccine', title: '광견병 — 병원에서 접종 이력 확인', due_date: ymd(addMonths(today, 1)), remind_before: 7 });
+    out.push({ type: 'vaccine', title: '광견병 접종 이력 확인', due_date: ymd(addMonths(today, 1)), remind_before: 7 });
   }
 
   // 4) 건강검진 — 노령 6개월, 그 외 연 1회

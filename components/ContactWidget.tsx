@@ -77,10 +77,10 @@ export default function ContactWidget() {
             <button className="modal-close" onClick={() => setOpen(false)} aria-label="닫기"><Icon name="cross" size={18} /></button>
 
             {done ? (
-              <div style={{ textAlign: 'center', padding: '8px 4px 4px' }}>
-                <div className="gate-ico" style={{ margin: '0 auto 10px' }}><Icon name="check" size={22} /></div>
+              <div style={{ padding: '4px 0 0' }}>
+                <div className="gate-ico"><Icon name="check" size={20} /></div>
                 <h3 className="modal-title">문의가 접수됐어요</h3>
-                <p className="hint" style={{ marginTop: 6 }}>{email}로 답변드릴게요 (영업일 1~2일).</p>
+                <p className="hint" style={{ marginTop: 6 }}>{email}로 영업일 1~2일 안에 답변드릴게요.</p>
                 <button className="btn btn--primary btn--block" style={{ marginTop: 14 }} onClick={() => setOpen(false)}>닫기</button>
               </div>
             ) : (
@@ -113,7 +113,7 @@ export default function ContactWidget() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder={category === '환불'
-                      ? '환불 사유와 결제 일시·반려동물 이름을 적어주시면 빠릅니다.'
+                      ? '결제할 때 적은 이메일과 결제 일시, 환불 사유를 적어 주세요.'
                       : '문의하실 내용을 자세히 적어 주세요.'}
                   />
                 </div>
@@ -121,7 +121,7 @@ export default function ContactWidget() {
                 {error && <div className="alert"><Icon name="alert" size={16} /> {error}</div>}
 
                 <button className="btn btn--primary btn--lg btn--block" type="submit" disabled={loading}>
-                  {loading ? <><span className="spinner" /> 접수 중…</> : '문의 보내기'}
+                  {loading ? <><span className="spinner" /> 보내는 중</> : '문의 보내기'}
                 </button>
                 <p className="hint center" style={{ marginTop: 10 }}>
                   또는 이메일: <a href={`mailto:${SITE.email}`} className="linklike">{SITE.email}</a>

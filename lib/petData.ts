@@ -59,11 +59,11 @@ export function computeAge(birth?: string): { label: string; months: number } | 
 /** 생애 단계 (간단 기준) */
 export function lifeStage(species: Species, months: number): string {
   if (species === 'dog') {
-    if (months < 12) return '퍼피(성장기)';
-    if (months < 84) return '성견';
-    return '노령견';
+    if (months < 12) return '성장기';
+    if (months < 84) return '성견기';
+    return '노령기';
   }
-  if (months < 12) return '아기 고양이';
-  if (months < 132) return '성묘';
-  return '노령묘';
+  if (months < 12) return '성장기';
+  if (months < 132) return '성묘기';
+  return '노령기';
 }

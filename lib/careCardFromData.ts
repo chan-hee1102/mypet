@@ -1,6 +1,6 @@
 import breedData from './breedKnowledge.json';
 import { TOXIC_FOODS, GOOD_FOODS, computeAge, lifeStage } from './petData';
-import { SYMPTOMS, SYMPTOM_INFO, detectEmergency } from './symptomData';
+import { SYMPTOMS, symptomInfo, detectEmergency } from './symptomData';
 import { weightCheck, stagePoint, neuterTip, parseWeightRange, humanAge } from './guidePersonal';
 import { defaultSchedules } from './careSchedule';
 import type { CareCard, PetInput, Species } from './types';
@@ -64,15 +64,15 @@ const BODY_LABEL: Record<'ok' | 'warn' | 'info', string> = {
   ok: '적정', warn: '과체중 주의', info: '가벼운 편',
 };
 const HEALTH_LABEL: Record<'now' | 'soon' | 'routine', string> = {
-  now: '진료 권장', soon: '관찰 필요', routine: '양호',
+  now: '진료 권장', soon: '관찰 필요', routine: '입력한 증상 없음',
 };
 
 /** "남아 · 중성화" 표기. 모르는 항목은 적지 않는다. */
 function sexLabel(input: PetInput): string | undefined {
-  const sex = input.sex === 'male' ? '남아' : input.sex === 'female' ? '여아' : null;
+  const sex = input.sex === 'male' ? '수컷' : input.sex === 'female' ? '암컷' : null;
   const neuter = input.neutered === true ? '중성화' : input.neutered === false ? '중성화 전' : null;
   if (!sex && !neuter) return undefined;
-  return [sex, neuter].filter(Boolean).join(' · ');
+  return [sex, neuter].filter(Boolean).join(', ');
 }
 
 /**
@@ -100,7 +100,7 @@ function feedingPlan(
     ? '하루 2회 이상 나눠서 (자율급식이면 총량만 정해두기)'
     : '하루 2회로 나눠서';
   const notes = [
-    '사료 포장지에 적힌 kcal/kg으로 나누면 우리 사료 기준 정확한 g수가 나와요.',
+    '하루 열량을 사료 포장지의 kcal/kg 값으로 나누고 1,000을 곱하면, 지금 먹이는 사료 기준 g수가 나와요.',
     '간식은 하루 전체 열량의 10%를 넘지 않게 해주세요.',
     species === 'cat'
       ? '고양이는 물을 잘 안 마셔요. 습식사료를 섞으면 수분 섭취에 도움이 돼요.'
@@ -178,7 +178,7 @@ function walkMinutes(species: Species, size?: string): string {
 function routineOf(species: Species, size: string | undefined, grooming: string[]): CareCard['routine'] {
   const g = grooming.join(' ');
   const daily = /매일|하루/.test(g);
-  const double = /이중모|언더코트|털 빠짐|털빠짐/.test(g);
+  const double = /이중모|더블코트|더블 코트|언더코트|털 빠짐|털빠짐/.test(g);
   return {
     bath: species === 'cat'
       ? '고양이는 스스로 그루밍하므로 목욕은 꼭 필요할 때만 (2~3개월에 1회 이내)'
@@ -210,16 +210,16 @@ function buildVerdict(input: PetInput, symptomIds: string[], hasSymptomText: boo
   if (anySymptom) {
     return {
       urgency: 'soon',
-      headline: '집에서 관찰하되, 기준을 넘으면 병원으로',
-      summary: `${name}의 증상은 집에서 지켜볼 수 있는 범위일 수 있어요. 다만 아래 '병원에 가야 하는 신호'에 하나라도 해당하면 미루지 마세요.`,
-      todo: ['증상이 나타난 시각과 횟수를 기록해 주세요', '평소와 다른 점(밥·물·배변·활동량)을 함께 적어두면 진료가 빨라져요', '아래 판별 기준을 먼저 확인하세요'],
+      headline: '증상을 기록하고, 아래 신호가 보이면 병원으로',
+      summary: `${name}의 증상이 언제부터, 얼마나 자주 나타나는지 기록해 주세요. 아래 「병원에 가야 하는 신호」에 하나라도 해당하면 미루지 말고 동물병원에 연락하세요.`,
+      todo: ['증상이 나타난 시각과 횟수를 기록해 주세요', '밥, 물, 배변, 활동량이 평소와 다른 점을 함께 적어 두세요', '아래 「병원에 가야 하는 신호」를 먼저 확인하세요'],
     };
   }
   return {
     urgency: 'routine',
     headline: '지금은 예방 관리에 집중할 때예요',
-    summary: `${name}에게 당장 급한 신호는 없어요. 품종·나이에 맞춘 아래 관리 항목을 꾸준히 챙기는 것이 가장 효과가 큽니다.`,
-    todo: ['아래 주간 관리 항목을 한 가지씩 시작해 보세요', '정기 검진 주기를 달력에 미리 넣어두세요', '체중을 주기적으로 기록하면 변화를 일찍 알 수 있어요'],
+    summary: '입력하신 내용에는 급하게 볼 증상이 없어요. 품종과 나이에 맞춘 아래 관리 항목을 꾸준히 챙겨 주세요.',
+    todo: ['아래 주간 체크리스트를 한 가지씩 시작해 보세요', '정기 검진 날짜를 달력에 미리 넣어 두세요', '한 달에 한 번 체중을 재서 적어 두세요'],
   };
 }
 
@@ -227,13 +227,13 @@ function buildVerdict(input: PetInput, symptomIds: string[], hasSymptomText: boo
  * 선택형 증상에 대한 답 — SYMPTOM_INFO(검증된 표)에서 그대로 가져온다.
  * 보호자가 **직접 적은** 증상은 여기서 답하지 않는다(careAdvisor가 제미나이에 맡긴다).
  */
-function answerFromTable(symptomIds: string[]): CareCard['symptomAnswer'] | undefined {
-  const known = symptomIds.filter((id) => SYMPTOM_INFO[id]);
+function answerFromTable(symptomIds: string[], species: Species): CareCard['symptomAnswer'] | undefined {
+  const known = symptomIds.filter((id) => symptomInfo(id, species));
   if (known.length === 0) return undefined;
   const causes: string[] = [];
   const goNow: string[] = [];
   for (const id of known) {
-    const info = SYMPTOM_INFO[id];
+    const info = symptomInfo(id, species)!;
     const label = SYMPTOMS.find((s) => s.id === id)?.label ?? id;
     causes.push(`${label} — ${info.causes}`);
     goNow.push(`${label}: ${info.vet}`);
@@ -241,19 +241,18 @@ function answerFromTable(symptomIds: string[]): CareCard['symptomAnswer'] | unde
   return {
     causes,
     careNow: [
-      '증상이 나타난 시각·횟수·지속 시간을 적어두세요',
       '밥과 물을 평소만큼 먹는지 확인해 주세요',
-      '토하거나 설사한 경우, 사진을 찍어두면 진료 때 도움이 돼요',
+      '토하거나 설사했다면 사진을 찍어 두세요. 진료 때 도움이 돼요',
     ],
     goNow,
     homeCheck: [
-      '잇몸 색이 분홍색인지 (창백하거나 푸르면 즉시 병원)',
-      '호흡 수 — 편히 쉴 때 1분에 몇 번인지',
-      '평소와 비교한 활동량·식욕 변화',
+      '잇몸이 분홍색인지 확인해 주세요. 창백하거나 푸르스름하면 바로 병원에 가세요',
+      '편히 쉴 때 1분 동안 숨을 몇 번 쉬는지 세어 보세요',
+      '활동량과 식욕이 평소와 비교해 어떤지 봐 주세요',
     ],
     vetPrep: {
-      tests: '증상에 따라 신체검사·혈액검사·영상검사(X-ray/초음파)가 진행될 수 있어요.',
-      script: '언제부터 시작됐고, 하루에 몇 번, 얼마나 지속되는지 — 이 세 가지를 먼저 말씀하시면 진료가 빨라집니다.',
+      tests: '증상에 따라 신체검사, 혈액검사, 엑스레이나 초음파 검사를 할 수 있어요.',
+      script: '○일 전부터 하루 ○번쯤 그랬고, 한 번에 ○분 정도 이어져요.',
     },
   };
 }
@@ -274,14 +273,14 @@ export function buildCardFromData(input: PetInput, symptomIds: string[] = []): C
   const breedKo = b?.breed_ko ?? (input.breed ?? '이 품종');
   const wc = weightCheck({
     name: input.name, breedKo, weight: input.weightKg,
-    range: parseWeightRange(b?.weight_kg),
+    range: b?.breed_ko?.startsWith('믹스') ? null : parseWeightRange(b?.weight_kg),
     // 무릎 질환이 호발 목록에 있으면 체중 안내에 그 이유를 함께 적는다.
     jointRisk: (b?.guide?.hereditary ?? []).some((h) => /슬개골|관절|고관절/.test(h.name)),
   });
   if (wc) ageTips.push(`${wc.title} — ${wc.body}`);
   if (age) {
     const sp = stagePoint({
-      species: input.species, months: age.months, breedKo,
+      species: input.species, months: age.months, breedKo, size: b?.size,
       topDisease: b?.guide?.hereditary?.[0]?.name,
       personAge: humanAge(input.species, age.months, b?.size),
     });
@@ -298,7 +297,7 @@ export function buildCardFromData(input: PetInput, symptomIds: string[] = []): C
 
   return {
     verdict,
-    symptomAnswer: answerFromTable(symptomIds),
+    symptomAnswer: answerFromTable(symptomIds, input.species),
     // 서버에서 만드는 값이라 사용자 시계에 영향받지 않는다(리포트는 서버에서 생성된다).
     generatedAt: todayYmd(),
 
@@ -371,11 +370,17 @@ export function buildCardFromData(input: PetInput, symptomIds: string[] = []): C
     ageCare: { stage, tips: ageTips },
     routine,
 
-    // 병원에 가야 하는 신호 — 품종 호발 질환 + 종 공통 응급 신호
+    /*
+      병원에 가야 하는 신호 — 눈으로 확인할 수 있는 종 공통 응급 신호만.
+      ⚠️ 2026-09-26까지는 품종 질환 3개를 「○○ 증상이 보이면 진료를 받아 보세요」로 앞에 붙였다.
+         같은 문장이 세 번 반복돼 기계가 쓴 글처럼 읽혔고, 질환 목록(breedTraits.healthRisks)과 겹쳤다.
+         리포트는 질환을 같은 절 아래에 이름·설명으로 따로 보여 준다(components/CareCard.tsx).
+    */
     redFlags: [
-      ...hereditary.slice(0, 3).map((h) => `${h.name} 관련 증상(${h.note.replace(/입니다\.$/, '')})이 보이면 진료를 받아보세요`),
       '잇몸이 창백하거나 푸르게 보일 때',
-      '호흡이 가쁘거나 혀를 길게 빼고 힘들어할 때',
+      ...(input.species === 'cat'
+        ? ['입을 벌리고 숨을 쉬거나, 쉬고 있는데도 숨이 빠를 때', '화장실을 들락거리는데 소변이 나오지 않을 때(특히 수컷)']
+        : ['숨이 가쁘고 혀를 길게 빼고 힘들어할 때', '배가 갑자기 부풀고 헛구역질을 할 때']),
       '24시간 이상 아무것도 먹지 않을 때',
       '반복해서 토하거나 혈변·검은 변이 보일 때',
     ],

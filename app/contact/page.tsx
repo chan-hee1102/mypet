@@ -46,17 +46,14 @@ export default function ContactPage() {
 
   if (done) {
     return (
-      <main className="container container--narrow">
+      <main className="container container--narrow status-wrap">
         <div className="card gate">
-          <div className="gate-ico"><Icon name="check" size={24} /></div>
-          <h2 className="gate-title">문의가 접수됐어요</h2>
+          <div className="gate-ico"><Icon name="check" size={20} /></div>
+          <h1 className="gate-title">문의가 접수됐어요</h1>
           <p className="gate-desc">
-            남겨주신 <b>{email}</b>로 답변드릴게요.<br />
-            보통 영업일 기준 1~2일 안에 회신드립니다.
+            {email}로 영업일 1~2일 안에 답변드릴게요.
           </p>
-          <Link href="/" className="btn btn--primary btn--lg btn--block">
-            <Icon name="paw" size={17} filled /> 홈으로
-          </Link>
+          <Link href="/" className="btn btn--primary btn--lg btn--block">처음으로</Link>
         </div>
       </main>
     );
@@ -64,13 +61,10 @@ export default function ContactPage() {
 
   return (
     <main className="container container--narrow">
-      <section className="hero">
-        <span className="eyebrow"><Icon name="paw" size={14} filled /> 문의하기</span>
-        <h1>도움이 필요하신가요?</h1>
-        <p className="hero-sub">
-          결제·환불·오류 등 무엇이든 남겨주세요. 답변은 입력하신 이메일로 보내드립니다.
-        </p>
-      </section>
+      <div className="page-head">
+        <h1>문의하기</h1>
+        <p>결제, 환불, 오류 무엇이든 남겨 주세요. 답변은 적어 주신 이메일로 보내 드려요.</p>
+      </div>
 
       <form className="card" onSubmit={submit}>
         <div className="field">
@@ -121,7 +115,7 @@ export default function ContactPage() {
         {error && <div className="alert"><Icon name="alert" size={16} /> {error}</div>}
 
         <button className="btn btn--primary btn--lg btn--block" type="submit" disabled={loading}>
-          {loading ? <><span className="spinner" /> 접수 중…</> : '문의 보내기'}
+          {loading ? <><span className="spinner" /> 보내는 중</> : '문의 보내기'}
         </button>
 
         <p className="hint center" style={{ marginTop: 12 }}>
