@@ -33,12 +33,32 @@ async function notifyAdmin(q: { name: string | null; email: string; category: st
   }
 }
 
+/*
+  간단한 IP 속도 제한 — 문의는 DB 한 줄과 관리자 메일 한 통을 만든다. 제한이 없던 동안에는
+  스크립트 한 줄로 관리자 메일함을 채울 수 있었다. 인스턴스별 메모리라 완벽하지 않지만 비용을 크게 올린다.
+*/
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const RATE_MAX = 5;
+const hits = new Map<string, { n: number; ts: number }>();
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  if (hits.size > 5000) hits.clear();
+  const h = hits.get(ip);
+  if (!h || now - h.ts > RATE_WINDOW_MS) { hits.set(ip, { n: 1, ts: now }); return false; }
+  h.n += 1;
+  return h.n > RATE_MAX;
+}
+
 /**
  * 문의 접수. 로그인/비로그인 모두 허용.
  * RLS상 inquiries는 클라이언트 정책이 없어(전체 차단) 서버 admin client로 기록한다.
  */
 export async function POST(req: Request) {
   try {
+    const ip = req.headers.get('x-real-ip') || req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+    if (rateLimited(ip)) {
+      return NextResponse.json({ error: '문의를 너무 자주 보냈어요. 10분 뒤에 다시 보내 주세요.' }, { status: 429 });
+    }
     const body = await req.json();
     const name = String(body?.name ?? '').trim().slice(0, 60);
     const email = String(body?.email ?? '').trim().slice(0, 200);

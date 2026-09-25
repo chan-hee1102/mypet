@@ -47,6 +47,8 @@ export interface CareCard {
     homeCheck?: string[];
     /** 병원 준비: 예상 검사·수의사에게 전달할 요약 문장 — 신규 */
     vetPrep?: { tests: string; script: string };
+    /** 보호자가 직접 적은 증상에 AI(Gemini) 답이 합쳐졌는지. 옛 카드에는 없다(그땐 watchOk 유무로 가늠한다). */
+    ai?: boolean;
   };
   /**
    * @deprecated 2026-08-28 폐지 — 사진 분석을 더 이상 하지 않는다.

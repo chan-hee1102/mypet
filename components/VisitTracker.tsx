@@ -97,6 +97,8 @@ export default function VisitTracker() {
 
     // 관리자 화면에서 시작한 방문은 아예 만들지 않는다(운영자 자신이다).
     if (isSkipped(window.location.pathname)) return;
+    // 개발 서버·사내망에서 연 화면은 고객 방문이 아니다 — 예전엔 「직접 유입」으로 섞여 들어갔다.
+    if (/^(localhost|127\.|0\.0\.0\.0|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|\[::1\])/.test(window.location.hostname)) return;
 
     let key: string | null = null;
     try {
@@ -111,7 +113,8 @@ export default function VisitTracker() {
       return;
     }
     keyRef.current = key;
-    viewsRef.current = 1;
+    // 0으로 둔다 — 바로 뒤 ② 효과가 첫 화면을 1로 센다. 여기서 1로 두면 ②가 2로 올려 첫 방문이 2쪽으로 잡혔다.
+    viewsRef.current = 0;
 
     const q = new URLSearchParams(window.location.search);
     void fetch(ENDPOINT, {

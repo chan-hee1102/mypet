@@ -6,6 +6,7 @@ import { validateImage, clampText } from '@/lib/validation';
 import { finderHash } from '@/lib/finder';
 import { SITE } from '@/lib/site';
 import { PetInput, Species } from '@/lib/types';
+import { SYMPTOMS } from '@/lib/symptomData';
 
 export const runtime = 'nodejs';
 
@@ -48,15 +49,28 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: '종류가 올바르지 않습니다.' }, { status: 400 });
     }
     // 입력 필드 정규화·길이 제한 (프롬프트 토큰 부풀리기·DB 남용 방지)
+    const ym = (v: unknown) => (typeof v === 'string' && /^\d{4}-(0[1-9]|1[0-2])$/.test(v) ? v : undefined);
     const input: PetInput = {
       name: clampText(raw.name, 30) ?? '',
       species: raw.species,
       breed: clampText(raw.breed, 60),
-      birth: typeof raw.birth === 'string' && /^\d{4}-\d{2}$/.test(raw.birth) ? raw.birth : undefined,
+      birth: ym(raw.birth),
       sex: raw.sex === 'male' || raw.sex === 'female' ? raw.sex : undefined,
       neutered: typeof raw.neutered === 'boolean' ? raw.neutered : undefined,
       weightKg: typeof raw.weightKg === 'number' && raw.weightKg > 0 && raw.weightKg < 150 ? raw.weightKg : undefined,
       notes: clampText(raw.notes, 1000),
+      /*
+        ⚠️ 2026-09-26까지 여기서 symptomIds가 빠져 있었다. 무료 단계에서 고른 증상 칩이
+           리포트 생성에 **전달되지 않아서**, 「숨을 가쁘게 쉬어요」(응급)를 고르고 결제해도
+           리포트의 종합 소견이 「양호」로 나왔다. 아는 id만 통과시킨다.
+      */
+      symptomIds: Array.isArray(raw.symptomIds)
+        ? Array.from(new Set(raw.symptomIds.filter((id): id is string => typeof id === 'string' && SYMPTOMS.some((s) => s.id === id)))).slice(0, 10)
+        : undefined,
+      // 마지막 접종 시기(선택) — 알면 다음 접종 날짜를 계산하고, 모르면 「병원에서 이력 확인」으로 남는다.
+      lastVaccineCombo: ym(raw.lastVaccineCombo),
+      lastVaccineRabies: ym(raw.lastVaccineRabies),
+      lastHeartworm: ym(raw.lastHeartworm),
     };
     if (!input.name) {
       return NextResponse.json({ error: '이름을 입력해 주세요.' }, { status: 400 });

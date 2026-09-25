@@ -8,7 +8,7 @@ import type { CareCard, Species } from '@/lib/types';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-export const metadata = { title: '진단 결과 — mypet', robots: { index: false, follow: false } };
+export const metadata = { title: '케어 리포트 — mypet', robots: { index: false, follow: false } };
 
 const LINK_VALID_DAYS = 60; // KG이니시스 입점 요건: 결과 링크 유효기간 60일
 
@@ -28,16 +28,15 @@ export default async function ResultPage({ params }: { params: { token: string }
     const ageDays = (Date.now() - new Date(baseTs).getTime()) / 86400000;
     if (ageDays > LINK_VALID_DAYS) {
       return (
-        <main className="container container--narrow">
+        <main className="container container--narrow status-wrap">
           <div className="card gate">
-            <div className="gate-ico"><Icon name="lock" size={24} /></div>
+            <div className="gate-ico gate-ico--warn"><Icon name="lock" size={20} /></div>
             <h2 className="gate-title">열람 기간이 지났어요</h2>
             <p className="gate-desc">
-              진단 결과는 발급일로부터 <b>{LINK_VALID_DAYS}일</b>간 볼 수 있어요.
-              다시 필요하시면 새로 진단받아 주세요.
+              리포트는 발급일로부터 {LINK_VALID_DAYS}일 동안 볼 수 있어요. 다시 필요하면 새로 만들어 주세요.
             </p>
             <Link href="/diagnose" className="btn btn--primary btn--lg btn--block">
-              <Icon name="sparkle" size={17} filled /> 새 진단 시작하기
+              새 리포트 만들기
             </Link>
           </div>
         </main>
@@ -46,21 +45,11 @@ export default async function ResultPage({ params }: { params: { token: string }
   }
 
   if (dx.status !== 'done' || !dx.card) {
-    if (dx.status === 'failed') {
-      return (
-        <main className="container container--narrow">
-          <div className="card gate">
-            <div className="gate-ico"><Icon name="alert" size={24} /></div>
-            <h2 className="gate-title">진단 생성에 문제가 있었어요</h2>
-            <p className="gate-desc">결제가 되었는데 결과가 안 보이면 하단 &ldquo;환불 문의&rdquo;로 알려주세요. 바로 처리해 드려요.</p>
-            <Link href="/diagnose" className="btn btn--primary btn--lg btn--block">
-              <Icon name="sparkle" size={17} filled /> 새 진단 시작하기
-            </Link>
-          </div>
-        </main>
-      );
-    }
-    // pending·paid·generating → 자동 복구(유실 결제 finalize) + 완성 시 자동 새로고침
+    /*
+      pending·paid·generating·failed 모두 ResultPending으로 — 거기서 finalize가 결제를 다시 확인하고
+      리포트를 (다시) 만든다. 예전에는 failed면 여기서 「새 리포트 만들기」를 주 버튼으로 보여 줘서,
+      돈을 낸 사람에게 **다시 결제하라**는 길을 먼저 내밀었다.
+    */
     return <ResultPending token={params.token} />;
   }
 
@@ -68,7 +57,7 @@ export default async function ResultPage({ params }: { params: { token: string }
   const input = dx.input as { name?: string } | null;
 
   return (
-    <main className="container container--narrow report--large">
+    <main className="container container--doc">
       <ReportClient species={dx.species as Species} petName={input?.name ?? '우리 아이'} card={card} />
     </main>
   );

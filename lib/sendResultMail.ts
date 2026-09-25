@@ -37,18 +37,21 @@ export async function sendResultMail({ to, token, petName }: ResultMailArgs): Pr
     광고가 아니라 **구매한 결과물의 전달**이므로 정보성 메일이다(수신동의 대상이 아니다).
   */
   const subject = `[mypet] ${name} 케어 리포트가 준비됐어요`;
+  // ⚠️ 문의 주소로 관리자 개인 메일을 적지 않는다(예전엔 모든 결제 메일에 노출됐다).
+  //    문의하기 페이지는 DB에 남고 관리자에게 알림 메일이 간다(app/api/inquiries).
+  const contactUrl = `${SITE.url.replace(/\/$/, '')}/contact`;
 
   const text = [
-    `${name}의 AI 케어 리포트가 완성됐습니다.`,
+    `${name} 케어 리포트가 준비됐어요.`,
     ``,
-    `아래 링크에서 확인하세요:`,
+    `아래 링크에서 확인해 주세요.`,
     url,
     ``,
     `· 이 링크는 발급일로부터 60일간 열람할 수 있어요.`,
-    `· 링크를 잃어버려도 사이트의 '리포트 찾기'에서 결제 시 입력한 휴대폰번호와 PIN으로 다시 찾을 수 있어요.`,
+    `· 링크를 잃어버려도 '리포트 찾기'에서 결제할 때 적은 휴대폰 번호와 다시 찾기 번호로 다시 찾을 수 있어요.`,
     ``,
-    `본 리포트는 일반적인 정보를 제공하며 수의사의 진단·진료를 대체하지 않습니다.`,
-    `문의: ${SITE.adminEmail}`,
+    `이 리포트는 일반적인 관리 정보이며, 수의사의 진찰과 진료를 대신하지 않아요.`,
+    `이 메일에는 답장할 수 없어요. 문의는 ${contactUrl} 에 남겨 주세요.`,
     `${SITE.company}`,
   ].join('\n');
 
@@ -56,21 +59,21 @@ export async function sendResultMail({ to, token, petName }: ResultMailArgs): Pr
     <div style="font-family:-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;max-width:520px;margin:0 auto;padding:24px;color:#222">
       <h1 style="font-size:19px;margin:0 0 6px">${escapeHtml(name)} 케어 리포트가 준비됐어요</h1>
       <p style="font-size:14px;line-height:1.6;color:#555;margin:0 0 18px">
-        요청하신 AI 케어 리포트가 완성됐습니다. 아래 버튼으로 확인하세요.
+        요청하신 케어 리포트가 준비됐어요. 아래 버튼을 눌러 확인해 주세요.
       </p>
       <p style="margin:0 0 20px">
-        <a href="${url}" style="display:inline-block;background:#10a37c;color:#fff;text-decoration:none;padding:12px 22px;border-radius:10px;font-size:15px;font-weight:600">
+        <a href="${url}" style="display:inline-block;background:#155e4d;color:#fff;text-decoration:none;padding:12px 22px;border-radius:10px;font-size:15px;font-weight:600">
           리포트 보기
         </a>
       </p>
       <p style="font-size:12.5px;line-height:1.7;color:#777;margin:0 0 4px">
         · 이 링크는 발급일로부터 <b>60일간</b> 열람할 수 있어요.<br />
-        · 링크를 잃어버려도 사이트의 <b>‘리포트 찾기’</b>에서 결제 시 입력한 휴대폰번호와 PIN으로 다시 찾을 수 있어요.
+        · 링크를 잃어버려도 <b>‘리포트 찾기’</b>에서 결제할 때 적은 휴대폰 번호와 다시 찾기 번호로 다시 찾을 수 있어요.
       </p>
       <hr style="border:0;border-top:1px solid #eee;margin:18px 0" />
       <p style="font-size:11.5px;line-height:1.6;color:#999;margin:0">
-        본 리포트는 일반적인 정보를 제공하며 수의사의 진단·진료를 대체하지 않습니다.<br />
-        문의 ${escapeHtml(SITE.adminEmail)} · ${escapeHtml(SITE.company)}
+        이 리포트는 일반적인 관리 정보이며, 수의사의 진찰과 진료를 대신하지 않아요.<br />
+        이 메일에는 답장할 수 없어요. 문의는 <a href="${contactUrl}" style="color:#555">문의하기</a>에 남겨 주세요. · ${escapeHtml(SITE.company)}
       </p>
     </div>`;
 

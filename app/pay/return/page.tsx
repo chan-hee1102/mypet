@@ -18,6 +18,7 @@ function PayReturnInner() {
   const q = useSearchParams();
   const router = useRouter();
   const [cancelled, setCancelled] = useState('');   // 사용자 취소/결제 실패 (code 존재)
+  const [pgMessage, setPgMessage] = useState('');   // 결제사 원문 메시지(작게만 보여 준다)
   const [softFail, setSoftFail] = useState(false);  // 결제 성공했으나 확인 지연
   const token = q.get('token') ?? '';
   const ran = useRef(false);
@@ -29,8 +30,8 @@ function PayReturnInner() {
     const paymentId = q.get('paymentId');
     const code = q.get('code');
 
-    if (!token) { setCancelled('잘못된 접근이에요. 처음부터 다시 시도해 주세요.'); return; }
-    if (code) { setCancelled(q.get('message') || '결제가 취소되었어요.'); return; }
+    if (!token) { setCancelled('주소가 올바르지 않아요. 리포트 만들기에서 다시 시작해 주세요.'); return; }
+    if (code) { setCancelled('결제가 취소됐거나 승인되지 않았어요.'); setPgMessage(q.get('message') ?? ''); return; }
 
     let stop = false;
     (async () => {
@@ -59,15 +60,14 @@ function PayReturnInner() {
 
   if (cancelled) {
     return (
-      <main className="container container--narrow">
+      <main className="container container--narrow status-wrap">
         <div className="card gate">
-          <div className="gate-ico"><Icon name="alert" size={24} /></div>
-          <h2 className="gate-title">결제가 완료되지 않았어요</h2>
+          <div className="gate-ico gate-ico--warn"><Icon name="alert" size={20} /></div>
+          <h1 className="gate-title">결제가 완료되지 않았어요</h1>
           <p className="gate-desc">{cancelled}</p>
-          <Link href="/diagnose" className="btn btn--primary btn--lg btn--block">
-            <Icon name="refresh" size={16} /> 다시 시도하기
-          </Link>
-          <p className="gate-note">입력하신 정보는 그대로 남아 있어요. 결제만 다시 하시면 됩니다.</p>
+          <Link href="/diagnose" className="btn btn--primary btn--lg btn--block">결제 다시 하기</Link>
+          <p className="gate-note">아이 정보는 그대로 남아 있어요. 이메일, 휴대폰 번호, 다시 찾기 번호만 다시 적고 결제해 주세요.</p>
+          {pgMessage && <p className="gate-note">결제사 안내: {pgMessage}</p>}
         </div>
       </main>
     );
@@ -75,33 +75,27 @@ function PayReturnInner() {
 
   if (softFail) {
     return (
-      <main className="container container--narrow">
+      <main className="container container--narrow status-wrap">
         <div className="card gate">
-          <div className="gate-ico"><Icon name="check" size={24} /></div>
-          <h2 className="gate-title">결제는 접수됐어요</h2>
+          <div className="gate-ico"><Icon name="check" size={20} /></div>
+          <h1 className="gate-title">결제는 접수됐어요</h1>
           <p className="gate-desc">
-            확인이 조금 늦어지고 있어요. 아래 버튼을 누르면 결과 페이지에서
-            자동으로 진단이 이어서 만들어져요. <b>다시 결제하실 필요 없어요.</b>
+            확인이 조금 늦어지고 있어요. 리포트를 열면 이어서 만들어져요. 다시 결제하지 마세요.
           </p>
-          <Link href={`/r/${token}`} className="btn btn--primary btn--lg btn--block">
-            <Icon name="sparkle" size={17} filled /> 결과 페이지 열기
-          </Link>
-          <p className="gate-note">문제가 계속되면 하단 &ldquo;환불 문의&rdquo;로 알려주세요. 바로 처리해 드려요.</p>
+          <Link href={`/r/${token}`} className="btn btn--primary btn--lg btn--block">리포트 열기</Link>
+          <p className="gate-note">문제가 계속되면 <Link href="/contact" className="linklike">문의하기</Link>로 알려 주세요.</p>
         </div>
       </main>
     );
   }
 
   return (
-    <main className="container container--narrow">
-      <div className="card gate">
-        <div className="gate-ico"><Icon name="sparkle" size={24} filled /></div>
-        <h2 className="gate-title">결제 확인 중이에요</h2>
-        <p className="gate-desc">
-          결제를 확인하고 AI 진단을 만들고 있어요.<br />
-          <b>최대 1분</b> 정도 걸려요 — 이 화면을 닫지 말아 주세요.
-        </p>
-        <p className="gate-note"><span className="spinner" style={{ borderColor: 'rgba(16,163,124,.25)', borderTopColor: 'var(--brand)' }} /> 완료되면 자동으로 결과 페이지로 이동해요</p>
+    <main className="container container--narrow status-wrap">
+      <div className="card gate" aria-live="polite">
+        <div className="gate-ico"><Icon name="check" size={20} /></div>
+        <h1 className="gate-title">결제를 확인하고 있어요</h1>
+        <p className="gate-desc">확인이 끝나면 리포트 화면으로 바로 넘어가요. 이 화면을 닫지 말아 주세요.</p>
+        <div className="progress" />
       </div>
     </main>
   );

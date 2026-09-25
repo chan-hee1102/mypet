@@ -104,6 +104,8 @@ export async function generateCareCard(input: PetInput): Promise<CareCard> {
         goNow: [...(prev?.goNow ?? []), ...(answer.goNow ?? [])],
         homeCheck: answer.homeCheck,
         vetPrep: answer.vetPrep,
+        // 리포트가 이 부분에만 「AI」 표시를 붙인다 — 나머지는 전부 표와 계산이다
+        ai: true,
       };
     }
   } catch (e) {
@@ -158,6 +160,12 @@ async function askCustomSymptom(input: PetInput): Promise<CareCard['symptomAnswe
 
 ${evidence}`;
 
+  /*
+    ⚠️ 2026-09-26: gemini-2.5-flash는 기본으로 「생각(thinking)」 토큰을 쓰는데, 그것도 maxOutputTokens에
+       들어간다. 1600 중 1535를 생각에 써서 JSON이 잘렸고(finishReason MAX_TOKENS), 파싱 실패로
+       **AI 답이 늘 비어 있었다**(비용은 나가는데 리포트에는 안 나옴). 생각을 끄고 한도를 넉넉히 둔다.
+    ⚠️ 응답이 멈추면 finalize 함수(60초)가 통째로 죽어 3분간 좌초된다 — 20초에서 끊는다.
+  */
   const res = await getClient().models.generateContent({
     model: MODEL,
     contents: [{ role: 'user', parts: [{ text: user }] }],
@@ -166,15 +174,19 @@ ${evidence}`;
       responseMimeType: 'application/json',
       responseSchema: symptomAnswerSchema,
       temperature: 0.6,
-      maxOutputTokens: 1600,   // 예전 6000 → 조각 하나만 받으므로 크게 줄였다
+      maxOutputTokens: 2400,
+      thinkingConfig: { thinkingBudget: 0 },
+      abortSignal: AbortSignal.timeout(20_000),
     },
   });
 
   const text = res.text;
-  if (!text) return null;
+  const finish = res.candidates?.[0]?.finishReason;
+  if (!text) { console.warn('[careAdvisor] empty answer, finishReason:', finish); return null; }
   try {
     return JSON.parse(text) as CareCard['symptomAnswer'];
   } catch {
+    console.warn('[careAdvisor] JSON parse failed, finishReason:', finish, 'len:', text.length);
     return null;
   }
 }

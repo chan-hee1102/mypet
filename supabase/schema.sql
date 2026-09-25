@@ -122,7 +122,7 @@ create table if not exists public.diagnoses (
   photo_mime  text,
   teaser      jsonb,                         -- 무료 티저(품종 인식·주의질환 수 등)
   card        jsonb,                          -- 결제·생성 후 전체 진단
-  status      text not null default 'pending' check (status in ('pending','paid','done','failed')),
+  status      text not null default 'pending' check (status in ('pending','paid','generating','done','failed')),  -- generating: 20260926 마이그레이션
   amount      integer,
   order_id    text,
   payment_id  text,
