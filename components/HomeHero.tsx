@@ -88,7 +88,7 @@ export default function HomeHero({ samples, today }: { samples: Record<Species, 
                 ))}
               </div>
             </div>
-            <button className="btn btn--primary btn--lg btn--block" type="submit">무료 가이드 보기</button>
+            <button className="btn btn--primary btn--lg btn--block" type="submit" data-track="첫 화면에서 시작">무료 가이드 보기</button>
             <p className="home-start-note">무료 가이드를 먼저 보고, 결제하면 바로 리포트를 받아요. 링크는 메일로도 보내 드려요.</p>
           </form>
         </div>

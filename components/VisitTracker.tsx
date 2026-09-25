@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { OWNER_KEY } from '@/lib/owner';
 
 /**
  * 방문 기록 수집기 — 유입 경로 · 클릭 흐름 · 이탈 화면.
@@ -97,6 +98,8 @@ export default function VisitTracker() {
 
     // 관리자 화면에서 시작한 방문은 아예 만들지 않는다(운영자 자신이다).
     if (isSkipped(window.location.pathname)) return;
+    // 관리자 화면을 연 적 있는 기기(운영자)는 공개 페이지를 봐도 세지 않는다 — lib/owner.ts
+    try { if (localStorage.getItem(OWNER_KEY) === '1') return; } catch { /* 저장소 차단 — 그냥 센다 */ }
     // 개발 서버·사내망에서 연 화면은 고객 방문이 아니다 — 예전엔 「직접 유입」으로 섞여 들어갔다.
     if (/^(localhost|127\.|0\.0\.0\.0|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|\[::1\])/.test(window.location.hostname)) return;
 
@@ -145,6 +148,17 @@ export default function VisitTracker() {
     flush(pathname, false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, search]);
+
+  // ── ④ 심박: 화면이 앞에 있는 동안 30초마다 ─────────────────────────────
+  //    관리자 「실시간」이 「지금 보는 중」을 가를 근거다(/api/admin/live는 마지막 신호 90초 안을 센다).
+  //    체류 시간도 나갈 때 한 번만 받던 것보다 정확해진다. 탭이 뒤에 있으면 보내지 않는다.
+  useEffect(() => {
+    const iv = setInterval(() => {
+      if (keyRef.current && document.visibilityState === 'visible') flush(window.location.pathname, false);
+    }, 30_000);
+    return () => clearInterval(iv);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // ── ③ 클릭 모으기 + 나갈 때 보내기 ───────────────────────────────────
   useEffect(() => {

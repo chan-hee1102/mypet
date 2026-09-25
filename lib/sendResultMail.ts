@@ -22,15 +22,18 @@ export interface ResultMailArgs {
   to: string;
   token: string;
   petName?: string | null;
+  /** 관리자가 덧붙이는 말(늦게 보내는 사과 등). 이용자 입력이 아니지만 HTML에는 이스케이프해 넣는다 */
+  note?: string | null;
 }
 
 /** 보냈으면 true. 키가 없거나 실패면 false(호출측은 이 값으로 재시도 여부만 정한다). */
-export async function sendResultMail({ to, token, petName }: ResultMailArgs): Promise<boolean> {
+export async function sendResultMail({ to, token, petName, note }: ResultMailArgs): Promise<boolean> {
   const key = process.env.RESEND_API_KEY;
   if (!key || !to) return false;
 
   const url = `${SITE.url.replace(/\/$/, '')}/r/${token}`;
   const name = (petName ?? '').trim() || '우리 아이';
+  const extra = (note ?? '').trim().slice(0, 1000);
 
   /*
     제목에 반려동물 이름을 넣는다 — 받은편지함에서 「무슨 메일이지」가 되지 않게.
@@ -44,6 +47,7 @@ export async function sendResultMail({ to, token, petName }: ResultMailArgs): Pr
   const text = [
     `${name} 케어 리포트가 준비됐어요.`,
     ``,
+    ...(extra ? [extra, ``] : []),
     `아래 링크에서 확인해 주세요.`,
     url,
     ``,
@@ -61,6 +65,7 @@ export async function sendResultMail({ to, token, petName }: ResultMailArgs): Pr
       <p style="font-size:14px;line-height:1.6;color:#555;margin:0 0 18px">
         요청하신 케어 리포트가 준비됐어요. 아래 버튼을 눌러 확인해 주세요.
       </p>
+      ${extra ? `<p style="font-size:14px;line-height:1.7;color:#333;margin:0 0 18px;padding:12px 14px;background:#f4f5f3;border-radius:8px">${escapeHtml(extra).replace(/\n/g, '<br />')}</p>` : ''}
       <p style="margin:0 0 20px">
         <a href="${url}" style="display:inline-block;background:#155e4d;color:#fff;text-decoration:none;padding:12px 22px;border-radius:10px;font-size:15px;font-weight:600">
           리포트 보기

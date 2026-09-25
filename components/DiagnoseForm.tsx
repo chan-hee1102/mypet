@@ -287,7 +287,7 @@ function GuideView({
       <div className="sticky-cta">
         <div className="sticky-cta-inner">
           <p className="sticky-cta-price">{name} 리포트<b>{SITE.pricePerPet.toLocaleString()}원</b></p>
-          <button className="btn btn--primary btn--lg" onClick={onNext}>리포트 받기</button>
+          <button className="btn btn--primary btn--lg" onClick={onNext} data-track="리포트 받기">리포트 받기</button>
         </div>
       </div>
     </div>
@@ -660,7 +660,7 @@ export default function DiagnoseForm({ breedNames }: { breedNames: Record<Specie
 
           <div className="form-foot">
             {error && <div className="alert" role="alert"><Icon name="alert" size={16} /> {error}</div>}
-            <button className="btn btn--primary btn--lg btn--block" type="submit" disabled={loading}>
+            <button className="btn btn--primary btn--lg btn--block" type="submit" disabled={loading} data-track="무료 가이드 보기">
               {loading ? <><span className="spinner" /> 불러오는 중</> : '무료 가이드 보기'}
             </button>
           </div>
@@ -800,7 +800,7 @@ export default function DiagnoseForm({ breedNames }: { breedNames: Record<Specie
           </label>
           <p className="terms">리포트를 받지 못했거나 내용에 문제가 있으면 환불해 드려요.</p>
           {error && <div className="alert" role="alert" style={{ marginTop: 12 }}><Icon name="alert" size={16} /> {error}</div>}
-          <button className="btn btn--primary btn--lg btn--block" style={{ marginTop: 12 }} onClick={pay} disabled={paying}>
+          <button className="btn btn--primary btn--lg btn--block" style={{ marginTop: 12 }} onClick={pay} disabled={paying} data-track="결제하기">
             {paying ? <><span className="spinner" /> 결제창을 여는 중</> : `${SITE.pricePerPet.toLocaleString()}원 결제하기`}
           </button>
           {!PAYMENTS_LIVE && <p className="hint center">테스트 모드예요. 실제 결제는 일어나지 않아요.</p>}
