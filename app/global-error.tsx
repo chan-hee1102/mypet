@@ -4,12 +4,12 @@
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <html lang="ko">
-      <body style={{ fontFamily: 'system-ui, sans-serif', padding: '48px 20px', textAlign: 'center', color: '#191c22' }}>
+      <body style={{ fontFamily: 'system-ui, sans-serif', padding: '48px 20px', textAlign: 'center', color: '#0e0f0c' }}>
         <h1 style={{ fontSize: 21, marginBottom: 8 }}>화면을 불러오지 못했어요</h1>
-        <p style={{ color: '#7b818b', marginBottom: 20 }}>잠시 후 다시 시도해 주세요.</p>
+        <p style={{ color: '#6a6c6a', marginBottom: 20 }}>잠시 후 다시 시도해 주세요.</p>
         <button
           onClick={reset}
-          style={{ background: '#0b8560', color: '#fff', border: 'none', borderRadius: 10, padding: '12px 20px', fontWeight: 700, cursor: 'pointer' }}
+          style={{ background: '#9fe870', color: '#163300', border: 'none', borderRadius: 999, padding: '12px 20px', fontWeight: 700, cursor: 'pointer' }}
         >
           다시 시도
         </button>

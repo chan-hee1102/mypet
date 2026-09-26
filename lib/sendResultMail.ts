@@ -67,7 +67,7 @@ export async function sendResultMail({ to, token, petName, note }: ResultMailArg
       </p>
       ${extra ? `<p style="font-size:14px;line-height:1.7;color:#333;margin:0 0 18px;padding:12px 14px;background:#f4f5f3;border-radius:8px">${escapeHtml(extra).replace(/\n/g, '<br />')}</p>` : ''}
       <p style="margin:0 0 20px">
-        <a href="${url}" style="display:inline-block;background:#0b8560;color:#fff;text-decoration:none;padding:12px 22px;border-radius:10px;font-size:15px;font-weight:600">
+        <a href="${url}" style="display:inline-block;background:#9fe870;color:#163300;text-decoration:none;padding:13px 24px;border-radius:999px;font-size:15px;font-weight:600">
           리포트 보기
         </a>
       </p>
