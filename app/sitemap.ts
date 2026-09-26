@@ -3,7 +3,6 @@ import breedData from '@/lib/breedKnowledge.json';
 import { GUIDES } from '@/lib/guides';
 import { SITE } from '@/lib/site';
 import { breedPath } from '@/lib/breedSlug';
-import { featuredBreeds } from '@/lib/growth';
 
 /**
  * 검색엔진 색인용 사이트맵 — 정적 페이지 + 정보 가이드 + 품종 가이드 188종.
@@ -24,15 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'monthly' as const,
     priority: 0.8,
   }));
-  // 2026-09-27 추가한 성장·사료량 페이지와 계산기. lastModified는 고정 날짜 — 매번 now()면 검색엔진이 신호를 믿지 않는다
-  const added = new Date('2026-09-27');
-  const breedTools = featuredBreeds().flatMap((b) => [
-    { url: `${base}${breedPath(b.breed_ko, 'growth')}`, lastModified: added, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${base}${breedPath(b.breed_ko, 'food')}`, lastModified: added, changeFrequency: 'monthly' as const, priority: 0.8 },
-  ]);
-  const tools = ['/tools', '/tools/food', '/tools/adult-weight'].map((p) => ({
-    url: `${base}${p}`, lastModified: added, changeFrequency: 'monthly' as const, priority: p === '/tools' ? 0.6 : 0.9,
-  }));
+  // 성장·사료량 페이지와 계산기(2026-09-27)는 네이버·빙 전용이라 여기 넣지 않는다 — /sitemap-nb.xml(lib/searchScope.ts)
   return [
     { url: base, changeFrequency: 'weekly', priority: 1 },
     { url: `${base}/diagnose`, changeFrequency: 'weekly', priority: 0.9 },
@@ -42,9 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/terms`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${base}/privacy`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${base}/refund`, changeFrequency: 'yearly', priority: 0.2 },
-    ...tools,
     ...guides,
-    ...breedTools,
     ...breeds,
   ];
 }

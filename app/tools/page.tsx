@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { socialMeta } from '@/lib/breedSeo';
+import { NAVER_BING_ONLY } from '@/lib/searchScope';
 import { SITE } from '@/lib/site';
 
 /** 계산기 목록 — 계산기 두 개를 잇는 작은 허브(빵부스러기의 중간 단계) */
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
   title: `${TITLE} | mypet`,
   description: DESCRIPTION,
   alternates: { canonical: `${SITE.url}/tools` },
+  robots: NAVER_BING_ONLY,
   ...socialMeta(TITLE, DESCRIPTION, `${SITE.url}/tools`, 'website'),
 };
 

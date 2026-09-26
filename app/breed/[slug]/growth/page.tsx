@@ -10,6 +10,7 @@ import {
 } from '@/lib/breedSeo';
 import { breedPath, breedSlugOf, featuredBreeds, fmtKg, slugMatches, type BreedRow } from '@/lib/growth';
 import { josa } from '@/lib/josa';
+import { NAVER_BING_ONLY } from '@/lib/searchScope';
 import { SITE } from '@/lib/site';
 
 /**
@@ -57,6 +58,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title: `${title} 성장표 | mypet`,
     description,
     alternates: { canonical: url },
+    robots: NAVER_BING_ONLY,
     ...socialMeta(title, description, url),
   };
 }

@@ -5,6 +5,7 @@ import { FaqList, JsonLd, breadcrumbJsonLd, faqJsonLd, type Faq } from '@/compon
 import AdultWeightCalc from '@/components/tools/AdultWeightCalc';
 import { ORG_REF, PUBLISHED, socialMeta, SOURCES } from '@/lib/breedSeo';
 import { breedPath, featuredBreeds, GROWTH_END, growthRatio, type GrowthClass } from '@/lib/growth';
+import { NAVER_BING_ONLY } from '@/lib/searchScope';
 import { SITE } from '@/lib/site';
 
 /**
@@ -39,6 +40,7 @@ export const metadata: Metadata = {
   title: `${TITLE} | mypet`,
   description: DESCRIPTION,
   alternates: { canonical: `${SITE.url}${URL_PATH}` },
+  robots: NAVER_BING_ONLY,
   ...socialMeta(TITLE, DESCRIPTION, `${SITE.url}${URL_PATH}`),
 };
 

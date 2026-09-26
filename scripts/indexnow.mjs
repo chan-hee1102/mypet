@@ -2,9 +2,13 @@
 // 사이트맵의 주소 전부를 IndexNow(빙·네이버 등 참여 검색엔진 공용)로 알린다. 키 파일은 public/<key>.txt.
 const KEY = '83cf1fe8141eab96104763fb457bb30c';
 const HOST = 'mypet.taif.kr';
-const res = await fetch(`https://${HOST}/sitemap.xml`);
-const xml = await res.text();
-const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+// IndexNow는 빙·네이버 등이 받는다(구글은 참여하지 않는다). 네이버·빙 전용 사이트맵까지 함께 알린다
+let urls = [];
+for (const path of ['/sitemap.xml', '/sitemap-nb.xml']) {
+  const xml = await (await fetch(`https://${HOST}${path}`)).text();
+  urls.push(...[...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]));
+}
+urls = [...new Set(urls)];
 console.log('사이트맵 주소', urls.length);
 for (let i = 0; i < urls.length; i += 1000) {
   const r = await fetch('https://api.indexnow.org/indexnow', {

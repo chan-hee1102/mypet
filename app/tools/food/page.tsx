@@ -6,6 +6,7 @@ import FoodCalc from '@/components/tools/FoodCalc';
 import { gramText, ORG_REF, PUBLISHED, socialMeta, SOURCES } from '@/lib/breedSeo';
 import { dailyFeeding } from '@/lib/energy';
 import { breedPath, featuredBreeds } from '@/lib/growth';
+import { NAVER_BING_ONLY } from '@/lib/searchScope';
 import { SITE } from '@/lib/site';
 
 /**
@@ -31,6 +32,7 @@ export const metadata: Metadata = {
   title: `${TITLE} | mypet`,
   description: DESCRIPTION,
   alternates: { canonical: `${SITE.url}${URL_PATH}` },
+  robots: NAVER_BING_ONLY,
   ...socialMeta(TITLE, DESCRIPTION, `${SITE.url}${URL_PATH}`),
 };
 
