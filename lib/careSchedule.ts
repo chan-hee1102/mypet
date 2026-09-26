@@ -1,5 +1,5 @@
 import { Species } from './types';
-import { computeAge } from './petData';
+import { computeAge, seniorStartMonths } from './petData';
 
 export type ScheduleType = 'vaccine' | 'deworm' | 'medication' | 'checkup';
 
@@ -49,6 +49,7 @@ export type ScheduleOpts = {
   lastVaccineCombo?: string | null; // 종합백신
   lastVaccineRabies?: string | null; // 광견병
   lastHeartworm?: string | null; // 심장사상충·구충
+  size?: string | null; // 품종 체구 — 노령(검진 6개월) 시작 나이가 체구마다 다르다
 };
 
 /**
@@ -65,8 +66,7 @@ export function defaultSchedules(species: Species, opts: ScheduleOpts = {}): Gen
   const age = computeAge(opts.birth ?? undefined);
   const months = age ? age.months : null;
   const isPuppy = months !== null && months < 12;
-  const isSenior =
-    months !== null && ((species === 'dog' && months >= 84) || (species === 'cat' && months >= 132));
+  const isSenior = months !== null && months >= seniorStartMonths(species, opts.size);
   const comboName = species === 'dog' ? '종합백신(DHPPL)' : '종합백신(FVRCP)';
 
   const out: GeneratedSchedule[] = [];
@@ -158,7 +158,7 @@ export const VACCINE_REFERENCE: Record<Species, VaccineRow[]> = {
     { name: '심장사상충 예방', first: '생후 6~8주', interval: '매월 1회',
       booster: '연중 매월', note: '접종이 아니라 투약입니다. 거르면 예방 효과가 끊깁니다.' },
     { name: '정기 건강검진', first: '1세', interval: '연 1회',
-      booster: '7세 이상은 6개월마다', note: '노령기에는 혈액·소변 검사를 함께 보는 것이 좋습니다.' },
+      booster: '노령기(소형견 10세·중형견 8세·대형견 7세 이상)는 6개월마다', note: '노령기에는 혈액·소변 검사를 함께 보는 것이 좋습니다.' },
   ],
   cat: [
     { name: '종합백신 (FVRCP)', first: '생후 6~8주', interval: '2~4주 간격 3회',

@@ -1,4 +1,5 @@
 import { Species } from './types';
+import { seniorStartMonths } from './petData';
 
 /**
  * 1단계 무료 가이드의 "맞춤 체크" 로직.
@@ -102,8 +103,8 @@ export function stagePoint(opts: {
   species: Species; months: number; breedKo: string; topDisease?: string; personAge?: number | null; size?: string;
 }): PersonalCheck | null {
   const { species, months, breedKo, topDisease, personAge, size } = opts;
-  // 노령 시작: 체구가 작을수록 늦다(공개 가이드의 나이 환산표와 같은 기준). 크기를 모르면 7살.
-  const seniorAt = size && /초소형|소형/.test(size) ? 120 : size && /중형/.test(size) ? 96 : 84;
+  // 노령 시작은 리포트 전체가 같은 함수로 정한다(petData.seniorStartMonths)
+  const seniorAt = seniorStartMonths(species, size);
   if (!Number.isFinite(months) || months < 0) return null;
   const pa = personAge != null ? ` (사람 나이로 약 ${personAge}살)` : '';
   const dzLine = topDisease ? ` ${breedKo}에게 흔한 ${topDisease}도 함께 살펴 주세요.` : '';
@@ -113,7 +114,7 @@ export function stagePoint(opts: {
     return { tone: 'warn', title: `노령기예요${pa}`, body: `1년에 두 번 건강검진을 받아 주세요. 신장과 심장 질환은 증상이 늦게 나타나요.${dzLine}` };
   }
   if (months < 12) return { tone: 'info', title: '성장기예요', body: '예방접종과 함께 화장실, 스크래처 습관을 들이는 시기예요.' };
-  if (months < 132) return { tone: 'info', title: `성묘기예요${pa}`, body: `체중이 늘기 쉬운 시기예요. 하루 사료량을 정해 두고 한 달에 한 번 체중을 재 보세요.${dzLine}` };
+  if (months < seniorAt) return { tone: 'info', title: `성묘기예요${pa}`, body: `체중이 늘기 쉬운 시기예요. 하루 사료량을 정해 두고 한 달에 한 번 체중을 재 보세요.${dzLine}` };
   return { tone: 'warn', title: `노령기예요${pa}`, body: `1년에 두 번 건강검진을 받아 주세요. 고양이는 아픈 티를 잘 내지 않아서 검진으로만 알 수 있는 병이 많아요.${dzLine}` };
 }
 

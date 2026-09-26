@@ -56,14 +56,24 @@ export function computeAge(birth?: string): { label: string; months: number } | 
   return { label, months };
 }
 
-/** 생애 단계 (간단 기준) */
-export function lifeStage(species: Species, months: number): string {
-  if (species === 'dog') {
-    if (months < 12) return '성장기';
-    if (months < 84) return '성견기';
-    return '노령기';
-  }
+/**
+ * 노령기가 시작되는 나이(개월) — 리포트의 단계 이름·나이별 관리 문장·검진 주기·급여 계수가 **모두 이 함수 하나**를 본다.
+ * 강아지는 체구가 작을수록 늦다: 초소형·소형 10살, 중형 8살, 대형·초대형 7살.
+ * (AAHA 생애단계 지침의 「기대수명의 마지막 25%」, 공개 가이드의 나이 환산표와 같은 기준)
+ * 체구를 모르면 7살 — 검진을 늦게 권하는 쪽으로 틀리지 않게 가장 이른 기준을 쓴다. 고양이는 11살.
+ * ⚠️ 2026-09-26 전에는 단계 이름·검진 주기는 7살, 나이별 관리 문장은 체구별이라
+ *    8살 소형견 리포트에 「나이별 관리, 노령기」 아래 「성견기예요」가 같이 나왔다.
+ */
+export function seniorStartMonths(species: Species, size?: string | null): number {
+  if (species === 'cat') return 132;
+  if (size && /소형/.test(size)) return 120; // 초소형·소형
+  if (size && /중형/.test(size)) return 96;
+  return 84;
+}
+
+/** 생애 단계 — 성장기(1살 전) → 성견기/성묘기 → 노령기(seniorStartMonths) */
+export function lifeStage(species: Species, months: number, size?: string | null): string {
   if (months < 12) return '성장기';
-  if (months < 132) return '성묘기';
+  if (months < seniorStartMonths(species, size)) return species === 'dog' ? '성견기' : '성묘기';
   return '노령기';
 }

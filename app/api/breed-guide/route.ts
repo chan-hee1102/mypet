@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       guide,
       ageLabel: age ? age.label : null,
-      stage: age ? lifeStage(sp, age.months) : null,
+      stage: age ? lifeStage(sp, age.months, guide?.size) : null,
       foods: { good: GOOD_FOODS[sp], toxic: TOXIC_FOODS[sp] },
     });
   } catch {

@@ -1,5 +1,5 @@
 import breedData from './breedKnowledge.json';
-import { TOXIC_FOODS, GOOD_FOODS, computeAge, lifeStage } from './petData';
+import { TOXIC_FOODS, GOOD_FOODS, computeAge, lifeStage, seniorStartMonths } from './petData';
 import { SYMPTOMS, symptomInfo, detectEmergency } from './symptomData';
 import { weightCheck, stagePoint, neuterTip, parseWeightRange, humanAge } from './guidePersonal';
 import { defaultSchedules } from './careSchedule';
@@ -94,7 +94,7 @@ function sexLabel(input: PetInput): string | undefined {
  *    보호자가 자기 사료 기준으로 정확히 환산할 수 있다.
  */
 function feedingPlan(
-  species: Species, weightKg?: number, months?: number | null, neutered?: boolean,
+  species: Species, weightKg?: number, months?: number | null, neutered?: boolean, size?: string | null,
 ): CareCard['feeding'] {
   const meals = species === 'cat'
     ? '하루 2회 이상 나눠서 (자율급식이면 총량만 정해두기)'
@@ -109,7 +109,7 @@ function feedingPlan(
   if (!weightKg || !Number.isFinite(weightKg) || weightKg <= 0) return { meals, notes };
 
   const rer = 70 * Math.pow(weightKg, 0.75);
-  const factor = activityFactor(species, months, neutered);
+  const factor = activityFactor(species, months, neutered, size);
   const kcal = rer * factor;
   // 건사료 열량 밀도의 통상 범위(3.5~4.0 kcal/g). 열량이 높은 사료일수록 g수는 적어진다.
   const hi = Math.round(kcal / 3.5 / 5) * 5;
@@ -127,16 +127,17 @@ function feedingPlan(
  * 활동계수 — 성장기가 가장 크고, 중성화하면 대사가 떨어져 작아진다.
  * (AAHA·WSAVA 영양 가이드라인에서 통용되는 값. 실제 필요량은 개체차가 커서 체형을 보며 조절해야 한다)
  */
-function activityFactor(species: Species, months?: number | null, neutered?: boolean): number {
+function activityFactor(species: Species, months?: number | null, neutered?: boolean, size?: string | null): number {
   const m = typeof months === 'number' ? months : null;
+  const senior = m !== null && m >= seniorStartMonths(species, size); // 단계 이름과 같은 기준
   if (species === 'cat') {
     if (m !== null && m < 12) return 2.5;         // 자묘
-    if (m !== null && m >= 132) return 1.1;       // 노령묘(11세~)
+    if (senior) return 1.1;                       // 노령묘
     return neutered ? 1.2 : 1.4;
   }
   if (m !== null && m < 4) return 3.0;            // 어린 자견
   if (m !== null && m < 12) return 2.0;           // 자견
-  if (m !== null && m >= 84) return 1.4;          // 노령견(7세~)
+  if (senior) return 1.4;                         // 노령견
   return neutered ? 1.6 : 1.8;
 }
 
@@ -266,7 +267,7 @@ export function buildCardFromData(input: PetInput, symptomIds: string[] = []): C
   const b = findBreed(input.species, input.breed);
   const g = b?.guide ?? {};
   const age = computeAge(input.birth);
-  const stage = age ? lifeStage(input.species, age.months) : '성장 단계 미상';
+  const stage = age ? lifeStage(input.species, age.months, b?.size) : '성장 단계 미상';
   const hasText = !!(input.notes && input.notes.trim().length > 1);
 
   // 연령 관리 — 계산으로 나오는 사실(체중 판정·단계·중성화)만 담는다.
@@ -337,6 +338,7 @@ export function buildCardFromData(input: PetInput, symptomIds: string[] = []): C
       lastVaccineCombo: input.lastVaccineCombo,
       lastVaccineRabies: input.lastVaccineRabies,
       lastHeartworm: input.lastHeartworm,
+      size: b?.size,
     })
       .map((s) => ({ type: s.type, title: s.title, dueDate: s.due_date }))
       // 날짜순으로 세운다 — defaultSchedules는 항목 종류 순서로 만들어서,
@@ -344,7 +346,7 @@ export function buildCardFromData(input: PetInput, symptomIds: string[] = []): C
       .sort((x, y) => x.dueDate.localeCompare(y.dueDate)),
 
     weekly: weeklyItems(input.species, routine, grooming, g.exercise ?? []),
-    feeding: feedingPlan(input.species, input.weightKg, age?.months ?? null, input.neutered),
+    feeding: feedingPlan(input.species, input.weightKg, age?.months ?? null, input.neutered, b?.size),
 
     breedTraits: {
       summary: g.summary

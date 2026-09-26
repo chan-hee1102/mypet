@@ -1,6 +1,6 @@
 import { GoogleGenAI, Type } from '@google/genai';
 import { retrieveKnowledge, knowledgeToPrompt, knowledgeSources, getBreedProfile } from './rag';
-import { buildCardFromData } from './careCardFromData';
+import { buildCardFromData, findBreed } from './careCardFromData';
 import { getBreedTips } from './breedTips';
 import { computeAge, lifeStage } from './petData';
 import { SYMPTOMS } from './symptomData';
@@ -125,7 +125,7 @@ async function askCustomSymptom(input: PetInput): Promise<CareCard['symptomAnswe
 
   const speciesKo = input.species === 'dog' ? '강아지' : '고양이';
   const age = computeAge(input.birth);
-  const stage = age ? lifeStage(input.species, age.months) : '나이 미상';
+  const stage = age ? lifeStage(input.species, age.months, findBreed(input.species, input.breed)?.size) : '나이 미상';
 
   // 근거 보강 — 이 경로에서만 임베딩 검색을 쓴다(임베딩도 유료 호출이다).
   const breedProfile = await getBreedProfile(input.breed, input.species);
