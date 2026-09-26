@@ -82,6 +82,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <nav className="footer-links" aria-label="사이트 안내">
               <Link href="/guide">정보 가이드</Link>
               <Link href="/breed">품종 가이드</Link>
+              <Link href="/tools">계산기</Link>
               <Link href="/find">리포트 찾기</Link>
               <Link href="/terms">이용약관</Link>
               <Link href="/privacy"><strong>개인정보처리방침</strong></Link>

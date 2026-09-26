@@ -6,6 +6,7 @@ import { humanAge } from '@/lib/guidePersonal';
 import type { Guide } from '@/lib/guides';
 import type { Species } from '@/lib/types';
 import { Icon } from './icons';
+import { breedPath } from '@/lib/breedSlug';
 
 /*
   가이드 본문 — **전부 우리 데이터에서 만든다.**
@@ -207,7 +208,7 @@ function BreedWeightTable() {
             {sorted(rows).map((b) => (
               <tr key={b.breed_ko}>
                 <td>
-                  <a href={`/breed/${encodeURIComponent(b.breed_ko)}`}>{b.breed_ko}</a>
+                  <a href={breedPath(b.breed_ko)}>{b.breed_ko}</a>
                   <span className="gcell-note">{b.breed_en}</span>
                 </td>
                 <td>{b.size}</td>

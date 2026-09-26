@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
+import { breedPath } from '@/lib/breedSlug';
 
 /*
   품종 목록 — 검색칸 + 첫 자음(ㄱ·ㄴ·ㄷ…)으로 묶은 색인.
@@ -34,7 +35,7 @@ function Groups({ names }: { names: string[] }) {
           <h3>{k}</h3>
           <p>
             {list.map((n) => (
-              <Link key={n} href={`/breed/${encodeURIComponent(n)}`}>{n}</Link>
+              <Link key={n} href={breedPath(n)}>{n}</Link>
             ))}
           </p>
         </div>

@@ -788,3 +788,37 @@ body:has(.fx-cta) .site-footer{padding-bottom:140px}
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;animation-delay:0ms !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
 }
 .gd-locks span.wrap{white-space:normal}
+
+/* ── 계산기·성장표 (2026-09-27 SEO: 품종 개월별 몸무게·사료량 페이지와 /tools) ── */
+.tool{margin:24px 0 8px;padding:24px 22px 22px;border-radius:var(--r-xl);background:var(--white);box-shadow:inset 0 0 0 1px var(--grey200)}
+.tool .field{margin-bottom:16px}
+.tool-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+.tool-age{display:grid;grid-template-columns:minmax(0,1fr) 132px;gap:8px;align-items:center}
+.tool-age .seg{padding:3px}
+.tool-age .seg-opt{min-height:44px;padding:0 8px}
+.tool-out{min-height:104px;margin-top:4px;padding:20px;border-radius:var(--r);background:var(--lime-soft)}
+.tool-idle{font-size:15px;line-height:1.65;color:var(--grey700)}
+.tool-kicker{font-size:15px;font-weight:600;color:var(--green700)}
+.tool-big{margin-top:4px;font-size:30px;font-weight:900;letter-spacing:-.04em;line-height:1.25;color:var(--forest);font-variant-numeric:tabular-nums}
+.tool-big span{font-size:17px;font-weight:600;letter-spacing:-.02em;color:var(--grey700)}
+.tool-sub{margin-top:8px;font-size:15px;line-height:1.65;color:var(--grey700)}
+.gtable--fit{min-width:0}
+.gtable td.num,.gtable th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.gtable tr.hl td{background:var(--lime-soft)}
+.bsub{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.bsub a{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:var(--pill);background:var(--lime-soft);color:var(--forest);font-size:15px;font-weight:600;text-decoration:none}
+.bsub a:hover{background:var(--green100)}
+.bsub a[aria-current=page]{background:var(--forest);color:var(--lime)}
+.blinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 16px;margin-top:12px}
+.blinks a{padding:10px 4px;border-bottom:1px solid var(--grey100);color:var(--forest);font-size:15px;font-weight:600;text-decoration:none}
+.blinks a:hover{color:var(--green700)}
+@media(max-width:480px){
+  .tool{padding:20px 16px 18px}
+  .tool-row{grid-template-columns:1fr}
+  .tool-big{font-size:26px}
+  .blinks{grid-template-columns:1fr}
+}
+.gtable-tag{display:inline-block;margin-left:6px;padding:0 7px;border-radius:var(--pill);background:var(--forest);color:var(--lime);font-size:12px;font-weight:700;line-height:20px;vertical-align:1px}
+.gwarn{margin:0 0 12px;padding:14px 16px;border-radius:var(--r);background:var(--orange50);color:var(--orange700);font-size:15px;line-height:1.65}
+/* 4열 표가 375px에서 오른쪽 열이 잘리던 것(2026-09-27 감사) — 휴대폰에선 칸 여백을 줄인다 */
+@media(max-width:480px){.gtable--fit th,.gtable--fit td{padding:12px 8px;font-size:14px}.gtable--fit th:first-child,.gtable--fit td:first-child{padding-left:12px}}

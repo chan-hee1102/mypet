@@ -1,8 +1,10 @@
 import DiagnoseForm, { type BreedOption } from '@/components/DiagnoseForm';
 import breedData from '@/lib/breedKnowledge.json';
+import { AppJsonLd } from '@/components/SiteJsonLd';
 
 export const metadata = {
   title: '케어 리포트 만들기 — mypet',
+  alternates: { canonical: 'https://mypet.taif.kr/diagnose' },
   description: '이름, 품종, 나이, 몸무게를 알려 주시면 품종 가이드를 무료로 먼저 보여 드려요. 전체 리포트는 2,900원이에요.',
 };
 export const dynamic = 'force-dynamic';
@@ -19,6 +21,7 @@ const LIST = { dog: pick('dog'), cat: pick('cat') };
 export default function DiagnosePage() {
   return (
     <main className="container dx">
+      <AppJsonLd />
       <DiagnoseForm breeds={LIST} />
     </main>
   );

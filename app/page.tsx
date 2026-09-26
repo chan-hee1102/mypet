@@ -2,9 +2,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Icon } from '@/components/icons';
 import { SITE } from '@/lib/site';
+import { AppJsonLd } from '@/components/SiteJsonLd';
 
 export const metadata = {
-  title: 'mypet — 반려동물 맞춤 케어 리포트',
+  // 한글 이름(마이펫)과 보호자가 검색하는 말(사료량·접종)을 제목 앞쪽에. 영문 브랜드만으로는 걸릴 검색어가 없었다(2026-09-27)
+  title: { absolute: '마이펫 mypet | 강아지·고양이 사료량·접종 맞춤 케어 리포트' },
+  alternates: { canonical: SITE.url },
   description:
     '품종·나이·몸무게를 알려 주시면 188개 품종 데이터와 수의 지침을 기준으로 하루 급여량, 접종 일정, 조심할 질환, 먹으면 안 되는 음식을 정리해 드려요. 결제 전에 무료 가이드를 먼저 볼 수 있어요.',
 };
@@ -47,6 +50,7 @@ export default function LandingPage() {
   const price = SITE.pricePerPet.toLocaleString();
   return (
     <main className="lp">
+      <AppJsonLd />
       <section className="lp-hero">
         <div className="lp-wrap">
           <span className="lp-tag">강아지 · 고양이 188개 품종</span>

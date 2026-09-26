@@ -62,6 +62,18 @@ export default function GuideHub() {
         ))}
       </div>
 
+      <h2 style={{ margin: '44px 0 8px', fontSize: 22, letterSpacing: '-.03em' }}>계산기</h2>
+      <div className="linklist">
+        <Link href="/tools/food">
+          <b>사료량 계산기</b>
+          <span>몸무게·나이·중성화로 하루 열량과 건사료 g</span>
+        </Link>
+        <Link href="/tools/adult-weight">
+          <b>다 크면 몇 kg? 다 큰 몸무게 계산기</b>
+          <span>지금 나이·몸무게로 다 컸을 때 몸무게, 품종별 개월별 몸무게 표</span>
+        </Link>
+      </div>
+
       <section className="gcta">
         <h2>우리 아이 숫자로 다시 보고 싶다면</h2>
         <p>

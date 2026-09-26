@@ -1,5 +1,6 @@
 import { GUIDES } from '@/lib/guides';
 import { SITE } from '@/lib/site';
+import { breedPath, featuredBreeds } from '@/lib/growth';
 
 /**
  * /llms.txt — AI 답변엔진에게 "이 사이트에 무엇이 있고 무엇을 인용해도 되는지" 알려주는 목차.
@@ -30,6 +31,15 @@ export function GET() {
     '## 정보 가이드',
     '',
     ...GUIDES.map((g) => `- [${g.title}](${SITE.url}/guide/${g.slug}) — ${g.question}`),
+    '',
+    '## 계산기',
+    '',
+    `- [사료량 계산기](${SITE.url}/tools/food) — 몸무게·나이·중성화로 하루 열량과 건사료 g. 체중별 하루 사료량 표 포함`,
+    `- [다 큰 몸무게 계산기](${SITE.url}/tools/adult-weight) — 지금 나이·몸무게로 다 컸을 때 몸무게와 성장이 끝나는 시기`,
+    '',
+    '## 품종별 개월별 몸무게·사료량',
+    '',
+    ...featuredBreeds().map((b) => `- ${b.breed_ko}: [개월별 몸무게](${SITE.url}${breedPath(b.breed_ko, 'growth')}) · [사료량](${SITE.url}${breedPath(b.breed_ko, 'food')})`),
     '',
     '## 품종 가이드',
     '',

@@ -87,11 +87,28 @@ const GRAPH = {
   ],
 };
 
+/*
+ * SoftwareApplication(가격 2,900원)은 서비스를 소개하는 홈·/diagnose에만 둔다(2026-09-27).
+ * 모든 페이지에 두면 구글 서치콘솔 「소프트웨어 앱」 보고서가 품종·가이드 300쪽 전부에 평점 누락 경고를 띄운다.
+ */
+const APP_NODE = GRAPH['@graph'].find((n) => n['@type'] === 'SoftwareApplication')!;
+const SITE_GRAPH = { ...GRAPH, '@graph': GRAPH['@graph'].filter((n) => n !== APP_NODE) };
+
 export default function SiteJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(GRAPH).replace(/</g, '\\u003c') }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_GRAPH).replace(/</g, '\\u003c') }}
+    />
+  );
+}
+
+/** 서비스 소개 페이지 전용(홈·/diagnose) */
+export function AppJsonLd() {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', ...APP_NODE }).replace(/</g, '\\u003c') }}
     />
   );
 }
