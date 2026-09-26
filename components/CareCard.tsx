@@ -10,7 +10,6 @@ import { diseaseSign } from '@/lib/diseaseSigns';
 import { TagMark } from './Brand';
 import WeightRuler from './WeightRuler';
 
-
 /** RAG 내부 라벨("근거1)", "근거3, 5)")이 본문에 새어나온 것을 표시 단계에서만 제거. */
 function stripRefs(s: string): string {
   if (!s) return s;
@@ -35,17 +34,16 @@ function headBody(s: string): { head: string | null; body: string } {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   결제 후 전체 리포트 — **문서 한 장** (2026-09-26 「건강수첩」 판)
-
-   인쇄·PDF 저장·공유가 이 제품의 실제 쓰임이다. 그래서 화면도 문서처럼 그린다:
-   머리(발행일) → 이름과 기본 정보 → 네 칸 요약 → 체중 눈금자 → 번호 붙은 절.
-   절 번호는 장식이 아니라 인쇄본에서 「3번 식단」처럼 가리키기 위한 것이다.
+   결제 후 전체 리포트 — 2026-09-26 두 번째 판(토스식)
+   회색 바탕 위에 흰 카드를 쌓는다: 머리 카드(이름·기본 정보) → 요약 → 증상 → 식단 → … 순.
+   번호 붙은 절(1·2·3)과 괘선 표는 걷어냈다 — 「딱딱하고 AI 같다」는 사장님 평.
+   카드 너비에 맞춰 바뀐다(globals.css의 @container doc) — 첫 화면 휴대폰 속에서도 이 컴포넌트를 그대로 쓴다.
 
    ⚠️ 담지 않기로 한 것들 — 근거가 없어 뺐다:
       · **가상의 수의사 코멘트·사진** — 실재하지 않는 사람의 소견은 만들지 않는다.
       · **"3개월 후 피모 +25%" 류의 예측 수치** — 측정한 적 없는 숫자다.
       · **브랜드 사료·영양제 추천** — 우리는 제품 데이터를 갖고 있지 않다.
-   ⚠️ 「AI」 표시는 보호자가 직접 적은 증상에 AI(Gemini)가 답한 절에만 붙인다.
+   ⚠️ 「AI」 표시는 보호자가 직접 적은 증상에 AI(Gemini)가 답한 카드에만 붙인다.
       나머지는 전부 품종 데이터와 수의 지침의 표·계산식이다(lib/careCardFromData.ts).
    ═══════════════════════════════════════════════════════════════════════ */
 
@@ -58,13 +56,19 @@ function dotDate(ymd?: string): string | null {
   if (!ymd || !/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return null;
   return ymd.replace(/-/g, '.');
 }
+/** "2026-10-01" → "10월 1일" */
+function krDate(ymd?: string): string | null {
+  if (!ymd || !/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return null;
+  const [, m, d] = ymd.split('-').map(Number);
+  return `${m}월 ${d}일`;
+}
 
-function Sec({ n, title, ai, children }: { n: number; title: string; ai?: boolean; children: ReactNode }) {
+function Sec({ title, ai, children }: { title: string; ai?: boolean; children: ReactNode }) {
   return (
     <section className="doc-sec">
       <h2>
-        <span className="doc-n">{n}</span>
-        <span>{title}{ai && <span className="doc-ai" title="보호자가 적은 증상에 AI(Gemini)가 답한 부분">AI</span>}</span>
+        {title}
+        {ai && <span className="doc-ai" title="보호자가 적은 증상에 AI(Gemini)가 답한 부분">AI</span>}
       </h2>
       {children}
     </section>
@@ -79,7 +83,7 @@ function List({ items, warn }: { items: string[]; warn?: boolean }) {
   );
 }
 
-/** 결제 후 리포트 문서. 랜딩의 「리포트 미리보기」도 같은 컴포넌트를 쓴다(onReset 없이). */
+/** 결제 후 리포트. 첫 화면 휴대폰 속 미리보기도 같은 컴포넌트를 쓴다(onReset 없이). */
 export function ReportDocument({ species, petName, card, onReset }: {
   species: Species; petName: string; card: CareCardType; onReset?: () => void;
 }) {
@@ -87,6 +91,8 @@ export function ReportDocument({ species, petName, card, onReset }: {
   const v = card.verdict;
   const made = dotDate(card.generatedAt);
   const range = parseWeightRange(p?.weightRange);
+  // 성장기(12개월 전)는 성체 표준과 비교하지 않는다 — 눈금자도 그리지 않는다
+  const showRuler = !!(p?.weightKg && range && !p.growing);
   const sa = card.symptomAnswer;
   const hasSym = !!sa && sa.causes.length > 0;
   const aiUsed = !!sa && (sa.ai ?? (sa.watchOk?.length ?? 0) > 0);
@@ -101,64 +107,54 @@ export function ReportDocument({ species, petName, card, onReset }: {
   const tips = p ? getBreedTips(species, p.breedKo) : [];
   // 옛 카드의 redFlags에는 품종 질환 문장이 섞여 있다 — 질환은 따로 보여 주므로 여기서는 뺀다
   const riskNames = risks.map((r) => r.head).filter(Boolean) as string[];
-  const urgentFlags = card.redFlags.filter((f) => !riskNames.some((nm) => f.startsWith(nm)));
-
-  // 절 번호 — 빠지는 절(증상·일정)이 있어도 번호가 건너뛰지 않게 그릴 때 센다
-  let n = 0;
-  const next = () => ++n;
+  const urgentFlags = card.redFlags.filter((fl) => !riskNames.some((nm) => fl.startsWith(nm)));
 
   const speciesKo = species === 'dog' ? '강아지' : '고양이';
   const bodyTag = p?.bodyTone ? BODY_TAG[p.bodyTone] : 'tag--info';
 
   return (
     <article className="doc">
-      {/*
-        머리는 랜딩 첫 화면의 「케어 기록지」와 같은 모양이다 — 광고에서 본 그 종이를 그대로 받는다.
-        예전에는 로고 줄 → 제목 → 숫자 4칸 → 눈금자로 따로 놀아서, 랜딩에서 약속한 모양과 달랐다.
-      */}
-      <div className="sheet-head doc-head">
-        <span className="doc-brand"><TagMark size={16} /> mypet 케어 리포트</span>
-        {made && <span>{made} 발행</span>}
-      </div>
-      <div className="sheet-name doc-name">
+      <header className="doc-top">
+        <p className="doc-brand">
+          <span><TagMark size={15} /> mypet 케어 리포트</span>
+          {made && <span className="num">{made} 발행</span>}
+        </p>
         <h1>{petName}</h1>
-        <span>{speciesKo}{p?.sexKo ? `, ${p.sexKo}` : ''}</span>
-      </div>
-      {p && (
-        <>
-          <div className="sheet-row">
-            <span className="sheet-k">품종</span>
-            <span className="sheet-v">{p.breedKo}{p.sizeLabel && <small>{p.sizeLabel}{species === 'dog' ? '견' : '묘'}</small>}</span>
-          </div>
-          {p.ageLabel && (
-            <div className="sheet-row">
-              <span className="sheet-k">나이</span>
-              <span className="sheet-v num">{p.ageLabel}{p.humanAgeYears && <small>사람 나이로 약 {p.humanAgeYears}살</small>}</span>
+        <p className="doc-meta">{speciesKo}{p?.sexKo ? `, ${p.sexKo}` : ''}</p>
+        {p && (
+          <dl className="doc-rows">
+            <div className="doc-row">
+              <dt>품종</dt>
+              <dd>{p.breedKo}{p.sizeLabel && <small>{p.sizeLabel}{species === 'dog' ? '견' : '묘'}</small>}</dd>
             </div>
-          )}
-          <div className={`sheet-row ${p.weightKg && range ? 'sheet-row--ruler' : ''}`}>
-            <div className="sheet-line">
-              <span className="sheet-k">체중</span>
-              <span className="sheet-v num">
-                {p.weightKg ? `${p.weightKg}kg` : '미입력'}
+            {p.ageLabel && (
+              <div className="doc-row">
+                <dt>나이</dt>
+                <dd className="num">{p.ageLabel}{p.humanAgeYears ? <small>사람 나이로 약 {p.humanAgeYears}살</small> : null}</dd>
+              </div>
+            )}
+            <div className={`doc-row ${showRuler ? 'doc-row--ruler' : ''}`}>
+              <dt>몸무게</dt>
+              <dd className="num">
+                {p.weightKg ? `${p.weightKg}kg` : '모름'}
                 {p.bodyLabel && <span className={`tag ${bodyTag}`}>{p.bodyLabel}</span>}
-                {range && <small>표준 {range[0]}~{range[1]}kg</small>}
-              </span>
+                {range && !p.growing && <small>표준 {range[0]}~{range[1]}kg</small>}
+              </dd>
+              {showRuler && <WeightRuler weight={p.weightKg!} range={range!} animate={false} />}
             </div>
-            {p.weightKg && range && <WeightRuler weight={p.weightKg} range={range} animate={false} />}
-          </div>
-          <div className="sheet-row">
-            <span className="sheet-k">하루 운동</span>
-            <span className="sheet-v">{p.activityLabel}</span>
-          </div>
-          <div className="sheet-row">
-            <span className="sheet-k">증상</span>
-            <span className="sheet-v"><span className={`tag ${HEALTH_TAG[p.healthTone]}`} style={{ marginLeft: 0 }}>{p.healthLabel}</span></span>
-          </div>
-        </>
-      )}
+            <div className="doc-row">
+              <dt>{species === 'cat' ? '하루 놀이' : '하루 운동'}</dt>
+              <dd>{p.activityLabel}</dd>
+            </div>
+            <div className="doc-row">
+              <dt>증상</dt>
+              <dd><span className={`tag ${HEALTH_TAG[p.healthTone]}`}>{p.healthLabel}</span></dd>
+            </div>
+          </dl>
+        )}
+      </header>
 
-      <Sec n={next()} title="요약">
+      <Sec title="요약">
         {v && (
           <>
             <p className="doc-headline">{v.headline}</p>
@@ -166,9 +162,9 @@ export function ReportDocument({ species, petName, card, onReset }: {
           </>
         )}
         <dl className="doc-kv" style={{ marginTop: 16 }}>
-          {risks.length > 0 && (<><dt>주의할 질환</dt><dd>{risks.slice(0, 3).map((r) => r.head ?? r.body).join(', ')}</dd></>)}
-          <dt>이번 주 관리</dt><dd>{(weekly.length ? weekly : [card.routine.grooming]).slice(0, 2).join(', ')}</dd>
-          {nextCheck && (<><dt>다음 검진</dt><dd className="num">{dotDate(nextCheck.dueDate)}</dd></>)}
+          {risks.length > 0 && <div><dt>주의할 질환</dt><dd>{risks.slice(0, 3).map((r) => r.head ?? r.body).join(', ')}</dd></div>}
+          <div><dt>이번 주 관리</dt><dd>{(weekly.length ? weekly : [card.routine.grooming]).slice(0, 2).join(', ')}</dd></div>
+          {nextCheck && <div><dt>다음 검진</dt><dd className="num">{krDate(nextCheck.dueDate)}</dd></div>}
         </dl>
         {v && v.todo.length > 0 && (
           <>
@@ -180,7 +176,7 @@ export function ReportDocument({ species, petName, card, onReset }: {
       </Sec>
 
       {hasSym && (
-        <Sec n={next()} title="걱정되는 증상" ai={aiUsed}>
+        <Sec title="걱정되는 증상" ai={aiUsed}>
           <h3 style={{ marginTop: 0 }}>가능한 원인</h3>
           {/* 원인이 하나뿐이면 번호를 붙이지 않는다 — 「1」만 덩그러니 있으면 목록이 아니다 */}
           {sa!.causes.length === 1 ? (
@@ -222,17 +218,17 @@ export function ReportDocument({ species, petName, card, onReset }: {
         </Sec>
       )}
 
-      <Sec n={next()} title="식단">
+      <Sec title="하루 식단">
         {f && (
           <div className="doc-feed">
             <dl className="doc-feed-num">
               <dt>하루 급여량</dt>
               <dd>
-                {f.dailyKcal ?? '체중을 입력하지 않아 계산하지 않았어요'}
+                {f.dailyKcal ?? '몸무게를 몰라 계산하지 않았어요'}
                 {f.dailyGram ? <small>건사료 {f.dailyGram}, {f.meals}</small> : <small>{f.meals}</small>}
               </dd>
             </dl>
-            <ul className="doc-list">{f.notes.map((x, i) => <li key={i}>{x}</li>)}</ul>
+            <List items={f.notes} />
           </div>
         )}
         <h3>줘도 괜찮은 것</h3>
@@ -245,7 +241,7 @@ export function ReportDocument({ species, petName, card, onReset }: {
         )}
       </Sec>
 
-      <Sec n={next()} title="먹으면 안 되는 음식">
+      <Sec title="먹으면 안 되는 음식">
         <div className="doc-toxic">
           {toxic.map((t) => (
             <div key={t.name} className={t.severity === 'danger' ? 'is-danger' : ''}>
@@ -258,42 +254,39 @@ export function ReportDocument({ species, petName, card, onReset }: {
       </Sec>
 
       {schedule.length > 0 && (
-        <Sec n={next()} title="예방접종·검진 일정">
-          <table className="doc-table">
-            <thead><tr><th>항목</th><th>예정일</th><th>남은 날</th></tr></thead>
-            <tbody>
-              {schedule.map((s) => {
-                const left = daysUntil(s.dueDate);
-                // 마지막 접종일을 몰라 날짜를 계산하지 않은 항목(옛 리포트는 「병원에서 … 확인」이라는 이름)
-                const unknown = /확인/.test(s.title) && s.type === 'vaccine';
-                return (
-                  <tr key={s.title + s.dueDate}>
-                    <td>{s.title.replace(/\s*—\s*병원에서\s*/, ' ')}</td>
-                    <td className="num">{unknown ? '—' : dotDate(s.dueDate)}</td>
-                    <td className={`num dday ${!unknown && left <= 7 ? 'is-soon' : ''}`}>{unknown ? '병원에서 확인' : dDayLabel(s.dueDate)}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <p className="doc-note">「병원에서 확인」 항목은 마지막 접종일을 몰라 날짜를 계산하지 않았어요. 한 달 안에 다니는 병원에서 접종 이력을 확인해 주세요. 실제 접종 일정은 수의사와 정해 주세요.</p>
+        <Sec title="접종·검진 일정">
+          <ul className="doc-sched">
+            {schedule.map((s) => {
+              const left = daysUntil(s.dueDate);
+              // 마지막 접종일을 몰라 날짜를 계산하지 않은 항목(옛 리포트는 「병원에서 … 확인」이라는 이름)
+              const unknown = /확인/.test(s.title) && s.type === 'vaccine';
+              return (
+                <li key={s.title + s.dueDate}>
+                  <b>{s.title.replace(/\s*—\s*병원에서\s*/, ' ')}</b>
+                  <span>{unknown ? '마지막 접종일을 몰라 날짜를 정하지 않았어요' : krDate(s.dueDate)}</span>
+                  <em className={unknown ? 'is-unknown' : !unknown && left <= 7 ? 'is-soon' : ''}>{unknown ? '병원에서 확인' : dDayLabel(s.dueDate)}</em>
+                </li>
+              );
+            })}
+          </ul>
+          <p className="doc-note">「병원에서 확인」은 한 달 안에 다니는 병원에서 접종 이력을 확인해 주세요. 실제 접종 일정은 수의사와 정해 주세요.</p>
         </Sec>
       )}
 
-      <Sec n={next()} title="관리 포인트">
+      <Sec title="관리 포인트">
         {tips.length > 0 && (
-          <ul className="doc-tips" style={{ marginBottom: 18 }}>
+          <ul className="doc-tips" style={{ marginBottom: 12 }}>
             {tips.map((t) => <li key={t.title}><b>{t.title}</b><span>{t.body}</span></li>)}
           </ul>
         )}
         <dl className="doc-kv">
-          <dt>털·피부</dt><dd>{stripRefs(card.grooming.summary)}</dd>
-          <dt>{species === 'cat' ? '놀이' : '운동'}</dt><dd>{species === 'cat' ? card.exercise.walkMinutesPerDay : `하루 ${card.exercise.walkMinutesPerDay}`}. {stripRefs(card.exercise.summary)}</dd>
+          <div><dt>털·피부</dt><dd>{stripRefs(card.grooming.summary)}</dd></div>
+          <div><dt>{species === 'cat' ? '놀이' : '운동'}</dt><dd>{species === 'cat' ? card.exercise.walkMinutesPerDay : `하루 ${card.exercise.walkMinutesPerDay}`}. {stripRefs(card.exercise.summary)}</dd></div>
         </dl>
         {careCautions.length > 0 && (<><h3>이 품종에서 특히 챙길 것</h3><List items={careCautions} /></>)}
       </Sec>
 
-      <Sec n={next()} title={`나이별 관리 (${card.ageCare.stage})`}>
+      <Sec title={`나이별 관리, ${card.ageCare.stage}`}>
         {card.ageCare.tips.length > 0 && (
           <ul className="doc-list">
             {card.ageCare.tips.map((t, i) => {
@@ -304,14 +297,14 @@ export function ReportDocument({ species, petName, card, onReset }: {
         )}
         <h3>권장 주기</h3>
         <dl className="doc-kv">
-          <dt>목욕</dt><dd>{card.routine.bath}</dd>
-          <dt>산책·놀이</dt><dd>{card.routine.walk}</dd>
-          <dt>빗질·미용</dt><dd>{card.routine.grooming}</dd>
+          <div><dt>목욕</dt><dd>{card.routine.bath}</dd></div>
+          <div><dt>산책·놀이</dt><dd>{card.routine.walk}</dd></div>
+          <div><dt>빗질·미용</dt><dd>{card.routine.grooming}</dd></div>
         </dl>
       </Sec>
 
       {weekly.length > 0 && (
-        <Sec n={next()} title="주간 체크리스트">
+        <Sec title="주간 체크리스트">
           <table className="doc-table doc-week">
             <thead><tr><th>할 일</th>{WEEKDAYS.map((d) => <th key={d} className="box">{d}</th>)}</tr></thead>
             <tbody>
@@ -324,29 +317,29 @@ export function ReportDocument({ species, petName, card, onReset }: {
         </Sec>
       )}
 
-      <Sec n={next()} title="병원에 가야 하는 신호">
-        {/*
-          옛 리포트는 품종 질환을 「○○ 증상이 보이면 진료를 받아 보세요」로 세 번 반복해 적었다.
-          질환은 아래에 이름과 설명으로 따로 두고, 여기에는 눈으로 확인할 수 있는 응급 신호만 남긴다.
-        */}
+      <Sec title="병원에 가야 하는 신호">
+        {/* 눈으로 확인할 수 있는 응급 신호만. 품종 질환은 아래에 이름·설명·신호로 따로 둔다 */}
         <List items={urgentFlags} warn />
         {risks.length > 0 && (
           <>
             <h3>{p?.breedKo ?? '이 품종'}에서 자주 보고되는 질환</h3>
-            <ul className="doc-list">
-              {risks.map((r, i) => (
-                <li key={i}>
-                  {r.head ? <><b>{r.head}</b>. {r.body}</> : r.body}
-                  {diseaseSign(r.head ?? r.body) && <span className="doc-sign"><em>이럴 때 병원에</em> {diseaseSign(r.head ?? r.body)}</span>}
-                </li>
-              ))}
+            <ul className="doc-disease">
+              {risks.map((r, i) => {
+                const sign = diseaseSign(r.head ?? r.body);
+                return (
+                  <li key={i}>
+                    {r.head ? <><b>{r.head}</b><p>{r.body}</p></> : <p>{r.body}</p>}
+                    {sign && <span className="doc-sign"><em>이럴 때 병원에</em>{sign}</span>}
+                  </li>
+                );
+              })}
             </ul>
           </>
         )}
       </Sec>
 
       {card.sources && card.sources.length > 0 && (
-        <div className="doc-sources">
+        <p className="doc-sources">
           품종 정보 출처{' '}
           {card.sources.map((s, i) => (
             <span key={i}>
@@ -355,12 +348,12 @@ export function ReportDocument({ species, petName, card, onReset }: {
             </span>
           ))}
           . 예방접종 주기는 WSAVA·AAHA, 심장사상충은 CAPC, 금지 음식은 ASPCA 자료를 따랐어요.
-        </div>
+        </p>
       )}
       <div className="doc-end">
         이 리포트는 품종 표준과 수의 지침으로 계산한 일반적인 관리 정보이며, 수의사의 진찰과 진료를 대신하지 않아요.
         {onReset && (
-          <button type="button" className="btn btn--quiet no-print" style={{ display: 'flex', marginTop: 10, paddingLeft: 0 }} onClick={onReset}>
+          <button type="button" className="btn btn--quiet no-print" style={{ display: 'flex', marginTop: 8, paddingLeft: 0 }} onClick={onReset}>
             다른 아이 리포트 만들기
           </button>
         )}

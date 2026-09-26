@@ -126,7 +126,7 @@ export default function ResultPending({ token }: { token: string }) {
           <h1 className="gate-title">리포트가 늦어지고 있어요</h1>
           <p className="gate-desc">
             결제는 안전하게 처리됐어요. 다시 결제하지 마세요. 조금 뒤에 이 주소를 다시 열거나,
-            리포트 찾기에서 휴대폰 번호와 다시 찾기 번호로 열 수 있어요. 완성되면 이메일로도 링크를 보내 드려요.
+            완성되면 이메일로 링크를 보내 드려요. 다시 찾기 번호를 정하셨다면 리포트 찾기에서도 열 수 있어요.
           </p>
           <button className="btn btn--primary btn--lg btn--block" onClick={() => window.location.reload()}>지금 다시 확인하기</button>
           <p className="gate-note">10분이 지나도 열리지 않으면 <Link href="/contact" className="linklike">문의하기</Link>로 이 페이지 주소를 보내 주세요.</p>
@@ -144,7 +144,7 @@ export default function ResultPending({ token }: { token: string }) {
         <div className="progress" />
         <p className="gate-note">
           {waited > 0 ? `${waited}초 지났어요. ` : ''}
-          창을 닫으셔도 결제는 안전해요. 리포트 찾기에서 휴대폰 번호와 다시 찾기 번호로 언제든 다시 열 수 있어요.
+          창을 닫으셔도 결제는 안전해요. 완성되면 이메일로 링크를 보내 드려요.
         </p>
       </div>
     </main>

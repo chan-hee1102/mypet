@@ -23,3 +23,11 @@ export function josa(word: string, pair: keyof typeof PAIRS): string {
   const [withB, withoutB] = PAIRS[pair];
   return word + (hasBatchim(word) ? withB : withoutB);
 }
+
+/** 으로/로 조사만 — ㄹ 받침과 받침 없음은 「로」. 따옴표로 감싼 말 뒤에 붙일 때 쓴다: ‘말티’ + ro('말티') */
+export function ro(word: string): string {
+  const c = word.trim().replace(/\s*\([^)]*\)$/, '').slice(-1).charCodeAt(0);
+  if (c < 0xac00 || c > 0xd7a3) return '로';
+  const jong = (c - 0xac00) % 28;
+  return jong === 0 || jong === 8 ? '로' : '으로';
+}

@@ -14,26 +14,26 @@ export interface FoodItem {
 
 export const TOXIC_FOODS: Record<Species, FoodItem[]> = {
   dog: [
-    { name: '초콜릿·카카오', reason: '테오브로민 중독 — 구토·발작·심장이상', severity: 'danger' },
+    { name: '초콜릿·카카오', reason: '구토·발작·심장 이상(테오브로민 중독)', severity: 'danger' },
     { name: '포도·건포도', reason: '소량도 급성 신부전 유발 가능', severity: 'danger' },
-    { name: '양파·마늘·파·부추(파속)', reason: '적혈구 파괴 → 빈혈', severity: 'danger' },
+    { name: '양파·마늘·파·부추(파속)', reason: '적혈구가 깨져 빈혈이 와요', severity: 'danger' },
     { name: '자일리톨(껌·일부 시럽)', reason: '급격한 저혈당·간손상', severity: 'danger' },
     { name: '마카다미아', reason: '쇠약·떨림·고열', severity: 'danger' },
     { name: '알코올·생빵반죽(이스트)', reason: '중독·위 팽창', severity: 'danger' },
     { name: '카페인(커피·녹차)', reason: '심박이상·발작', severity: 'danger' },
     { name: '익힌 뼈', reason: '쪼개져 소화관 천공 위험', severity: 'caution' },
-    { name: '아보카도', reason: '페르신 — 구토·설사', severity: 'caution' },
+    { name: '아보카도', reason: '구토·설사(페르신 성분)', severity: 'caution' },
     { name: '짠 음식·가공육', reason: '나트륨 과다·췌장염 위험', severity: 'caution' },
   ],
   cat: [
-    { name: '양파·마늘·파(파속)', reason: '적혈구 파괴 → 빈혈 (개보다 더 민감)', severity: 'danger' },
+    { name: '양파·마늘·파(파속)', reason: '적혈구가 깨져 빈혈이 와요(개보다 더 민감)', severity: 'danger' },
     { name: '초콜릿·카페인', reason: '테오브로민·카페인 중독', severity: 'danger' },
     { name: '포도·건포도', reason: '신장 손상 가능', severity: 'danger' },
     { name: '알코올·자일리톨', reason: '중독·저혈당', severity: 'danger' },
     { name: '백합 등 일부 식물', reason: '소량도 치명적 신부전 (음식 아니지만 꼭 치워두기)', severity: 'danger' },
     { name: '날생선·과다한 참치', reason: '티아민(B1) 결핍·수은', severity: 'caution' },
-    { name: '우유·유제품', reason: '대부분 유당불내성 → 설사', severity: 'caution' },
-    { name: '개 사료', reason: '타우린 부족 — 고양이 전용식 필요', severity: 'caution' },
+    { name: '우유·유제품', reason: '대부분 유당을 소화하지 못해 설사해요', severity: 'caution' },
+    { name: '개 사료', reason: '타우린이 부족해요(고양이는 전용 사료가 필요)', severity: 'caution' },
     { name: '생달걀 흰자', reason: '비오틴 흡수 방해', severity: 'caution' },
   ],
 };

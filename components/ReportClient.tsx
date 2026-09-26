@@ -34,7 +34,7 @@ export default function ReportClient({ species, petName, card }: { species: Spec
         <p className="hint">
           {copied === 'fail'
             ? '이 브라우저에서는 복사가 막혀 있어요. 주소창의 주소를 길게 눌러 복사해 주세요.'
-            : '링크는 발급일로부터 60일 동안 열려요. 잃어버려도 리포트 찾기에서 휴대폰 번호와 다시 찾기 번호로 다시 찾을 수 있어요.'}
+            : '링크는 발급일로부터 60일 동안 열려요. PDF로 저장해 두면 그 뒤에도 볼 수 있어요.'}
         </p>
       </div>
     </>

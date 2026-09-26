@@ -47,12 +47,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        {/* 본문 서체: IBM Plex Sans KR — 숫자가 또렷하고 기록지다운 단정함이 있다 */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="" />
+        {/*
+          본문 서체: Pretendard(SIL OFL — 상업 사용 가능). 한국 앱 화면에서 가장 익숙한 산세리프라
+          「토스처럼」 읽히는 기준이 된다. dynamic-subset은 화면에 나온 글자 조각만 받는다(가변 굵기 하나).
+        */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
       </head>
       <body>

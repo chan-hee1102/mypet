@@ -57,7 +57,7 @@ export default async function ResultPage({ params }: { params: { token: string }
   const input = dx.input as { name?: string } | null;
 
   return (
-    <main className="container container--doc">
+    <main className="container container--doc on-grey">
       <ReportClient species={dx.species as Species} petName={input?.name ?? '우리 아이'} card={card} />
     </main>
   );

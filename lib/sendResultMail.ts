@@ -52,7 +52,7 @@ export async function sendResultMail({ to, token, petName, note }: ResultMailArg
     url,
     ``,
     `· 이 링크는 발급일로부터 60일간 열람할 수 있어요.`,
-    `· 링크를 잃어버려도 '리포트 찾기'에서 결제할 때 적은 휴대폰 번호와 다시 찾기 번호로 다시 찾을 수 있어요.`,
+    `· PDF로 저장해 두면 60일이 지나도 볼 수 있어요.`,
     ``,
     `이 리포트는 일반적인 관리 정보이며, 수의사의 진찰과 진료를 대신하지 않아요.`,
     `이 메일에는 답장할 수 없어요. 문의는 ${contactUrl} 에 남겨 주세요.`,
@@ -67,13 +67,13 @@ export async function sendResultMail({ to, token, petName, note }: ResultMailArg
       </p>
       ${extra ? `<p style="font-size:14px;line-height:1.7;color:#333;margin:0 0 18px;padding:12px 14px;background:#f4f5f3;border-radius:8px">${escapeHtml(extra).replace(/\n/g, '<br />')}</p>` : ''}
       <p style="margin:0 0 20px">
-        <a href="${url}" style="display:inline-block;background:#155e4d;color:#fff;text-decoration:none;padding:12px 22px;border-radius:10px;font-size:15px;font-weight:600">
+        <a href="${url}" style="display:inline-block;background:#0b8560;color:#fff;text-decoration:none;padding:12px 22px;border-radius:10px;font-size:15px;font-weight:600">
           리포트 보기
         </a>
       </p>
       <p style="font-size:12.5px;line-height:1.7;color:#777;margin:0 0 4px">
         · 이 링크는 발급일로부터 <b>60일간</b> 열람할 수 있어요.<br />
-        · 링크를 잃어버려도 <b>‘리포트 찾기’</b>에서 결제할 때 적은 휴대폰 번호와 다시 찾기 번호로 다시 찾을 수 있어요.
+        · PDF로 저장해 두면 60일이 지나도 볼 수 있어요.
       </p>
       <hr style="border:0;border-top:1px solid #eee;margin:18px 0" />
       <p style="font-size:11.5px;line-height:1.6;color:#999;margin:0">

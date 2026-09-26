@@ -9,7 +9,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
         <p style={{ color: '#7b818b', marginBottom: 20 }}>잠시 후 다시 시도해 주세요.</p>
         <button
           onClick={reset}
-          style={{ background: '#155e4d', color: '#fff', border: 'none', borderRadius: 10, padding: '12px 20px', fontWeight: 700, cursor: 'pointer' }}
+          style={{ background: '#0b8560', color: '#fff', border: 'none', borderRadius: 10, padding: '12px 20px', fontWeight: 700, cursor: 'pointer' }}
         >
           다시 시도
         </button>

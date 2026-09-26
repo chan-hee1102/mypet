@@ -21,10 +21,10 @@ export default function SamplePage() {
   const input = sampleInput('dog');
   const card = sampleCard('dog');
   return (
-    <main className="container container--doc">
+    <main className="container container--doc on-grey">
       <div className="sample-note">
         <p><b>예시 리포트예요.</b> {input.name}(포메라니안, 3살, 3.4kg)라는 가상의 강아지로 만들었어요. 실제 리포트는 입력하신 정보로 계산해요.</p>
-        <Link href="/diagnose" className="btn btn--primary">무료 가이드 보기</Link>
+        <Link href="/diagnose" className="btn btn--primary">우리 아이로 시작하기</Link>
       </div>
       <ReportDocument species="dog" petName={input.name} card={card} />
     </main>

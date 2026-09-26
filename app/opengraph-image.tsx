@@ -24,7 +24,7 @@ export default function Image() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           padding: '72px 80px',
-          background: '#155e4d',
+          background: '#0b8560',
           color: '#ffffff',
           fontFamily: 'sans-serif',
         }}

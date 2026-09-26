@@ -42,7 +42,7 @@ export default function FindPage() {
     <main className="container container--narrow">
       <div className="page-head">
         <h1>리포트 찾기</h1>
-        <p>결제할 때 적은 휴대폰 번호와 다시 찾기 번호 6자리를 넣어 주세요.</p>
+        <p>결제할 때 적은 휴대폰 번호와, 그때 정한 다시 찾기 번호 6자리를 넣어 주세요.</p>
       </div>
 
       <form className="card" onSubmit={onSubmit} noValidate>
@@ -58,7 +58,7 @@ export default function FindPage() {
         <button className="btn btn--primary btn--lg btn--block" disabled={loading}>
           {loading ? <><span className="spinner" /> 찾는 중</> : '리포트 찾기'}
         </button>
-        <p className="hint">휴대폰 번호는 원문으로 저장하지 않아요. 휴대폰 번호와 다시 찾기 번호가 모두 맞을 때만 결과가 나와요.</p>
+        <p className="hint">휴대폰 번호와 다시 찾기 번호가 모두 맞을 때만 결과가 나와요. 번호를 정하지 않았다면 결제 때 받은 이메일의 링크로 열 수 있어요. 메일이 안 보이면 <a href="/contact" className="linklike">문의하기</a>로 알려 주세요.</p>
       </form>
 
       {items && items.length === 0 && (
