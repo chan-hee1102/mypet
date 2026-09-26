@@ -1,18 +1,20 @@
 /**
- * mypet 표식 — 목걸이에 다는 **인식표** 모양.
- * 발바닥 아이콘은 반려동물 서비스라면 어디나 쓰는 모양이라 우리 것이 되지 않는다.
- * 인식표는 「이 아이가 누구인지 적어 두는 것」이라, 기록지를 만드는 서비스와 뜻이 맞는다.
- * favicon(app/icon.svg)도 같은 도형을 쓴다 — 바꾸면 둘 다 바꿀 것.
+ * mypet 표식 — 둥근 네모 안의 발바닥.
+ * 2026-08 판 로고로 되돌렸다(2026-09-26 사장님 요청 — 그 사이 잠깐 인식표 모양을 썼다).
+ * 색은 Wise 판에 맞춰 먹색 바탕 + 라임 발바닥.
+ * favicon(app/icon.svg)·OG 이미지(app/opengraph-image.tsx)도 같은 도형 — 바꾸면 셋 다 바꿀 것.
  */
-export function TagMark({ size = 20 }: { size?: number }) {
+export function BrandMark({ size = 28 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 20 20" aria-hidden="true">
-      <circle cx="10" cy="5.9" r="2.2" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <path
-        fill="currentColor"
-        fillRule="evenodd"
-        d="M7.6 6.6h4.8a4 4 0 0 1 4 4v4.6a4 4 0 0 1-4 4H7.6a4 4 0 0 1-4-4v-4.6a4 4 0 0 1 4-4Zm2.4 1.5a1.2 1.2 0 1 0 0 2.4a1.2 1.2 0 1 0 0-2.4Z"
-      />
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <rect width="24" height="24" rx="7" fill="#163300" />
+      <g fill="#9fe870" transform="translate(12 12) scale(.72) translate(-12 -12.6)">
+        <ellipse cx="6" cy="11" rx="1.6" ry="2.1" />
+        <ellipse cx="10" cy="8.2" rx="1.7" ry="2.2" />
+        <ellipse cx="14" cy="8.2" rx="1.7" ry="2.2" />
+        <ellipse cx="18" cy="11" rx="1.6" ry="2.1" />
+        <path d="M12 13.2c-2.5 0-4.3 1.9-4.3 3.7 0 1.6 1.6 2.3 4.3 2.3s4.3-.7 4.3-2.3c0-1.8-1.8-3.7-4.3-3.7Z" />
+      </g>
     </svg>
   );
 }
@@ -20,7 +22,7 @@ export function TagMark({ size = 20 }: { size?: number }) {
 export function Wordmark() {
   return (
     <>
-      <TagMark />
+      <BrandMark />
       mypet
     </>
   );

@@ -7,7 +7,7 @@ import { daysUntil, dDayLabel } from '@/lib/careSchedule';
 import { parseWeightRange } from '@/lib/guidePersonal';
 import { getBreedTips } from '@/lib/breedTips';
 import { diseaseSign } from '@/lib/diseaseSigns';
-import { TagMark } from './Brand';
+import { BrandMark } from './Brand';
 import WeightRuler from './WeightRuler';
 
 /** RAG 내부 라벨("근거1)", "근거3, 5)")이 본문에 새어나온 것을 표시 단계에서만 제거. */
@@ -116,7 +116,7 @@ export function ReportDocument({ species, petName, card, onReset }: {
     <article className="doc">
       <header className="doc-top">
         <p className="doc-brand">
-          <span><TagMark size={15} /> mypet 케어 리포트</span>
+          <span><BrandMark size={16} /> mypet 케어 리포트</span>
           {made && <span className="num">{made} 발행</span>}
         </p>
         <h1>{petName}</h1>

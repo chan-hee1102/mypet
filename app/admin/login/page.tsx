@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import { TagMark } from '@/components/Brand';
+import { BrandMark } from '@/components/Brand';
 import '../admin.css';
 
 /** 관리자 로그인 — 대시보드와 같은 밝은 카드. 에러는 빨강 */
@@ -34,7 +34,7 @@ export default function AdminLoginPage() {
       <form className="ad-login-card" onSubmit={submit}>
         <span className="ad-brand" style={{ padding: 0 }}>
           <span style={{ color: 'var(--ad-ink)', display: 'inline-flex' }}>
-            <TagMark size={24} />
+            <BrandMark size={24} />
           </span>
           mypet
         </span>

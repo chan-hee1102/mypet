@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { TagMark } from '@/components/Brand';
+import { BrandMark } from '@/components/Brand';
 import type { AdminLive, AdminStats, Inquiry, InquiryStatus, Order, OrderPg, Range } from '@/lib/admin-types';
 import { OWNER_KEY } from '@/lib/owner';
 import { AdIcon, type AdIconName } from './icons';
@@ -203,7 +203,7 @@ export function AdminClient() {
       <aside className="ad-side">
         <a href="/admin" className="ad-brand" aria-label="mypet 관리자">
           <span style={{ color: 'var(--ad-ink)', display: 'inline-flex' }}>
-            <TagMark size={24} />
+            <BrandMark size={24} />
           </span>
           <span className="ad-brand-name">mypet</span>
           <span className="ad-brand-sub">관리자</span>
@@ -236,7 +236,7 @@ export function AdminClient() {
       <header className="ad-top">
         <span className="ad-top-title">
           <span style={{ color: 'var(--ad-ink)', display: 'inline-flex' }}>
-            <TagMark size={22} />
+            <BrandMark size={22} />
           </span>
           {title}
         </span>
