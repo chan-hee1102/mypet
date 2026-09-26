@@ -116,7 +116,8 @@ function feedingPlan(
   const lo = Math.round(kcal / 4.0 / 5) * 5;
   return {
     dailyKcal: `약 ${Math.round(kcal / 10) * 10} kcal`,
-    dailyGram: `${lo}~${hi}g`,
+    // 작은 체구는 두 값이 5g 단위로 같아진다 — 「30~30g」 대신 「약 30g」
+    dailyGram: lo === hi ? `약 ${lo}g` : `${lo}~${hi}g`,
     meals,
     notes,
   };
@@ -276,6 +277,7 @@ export function buildCardFromData(input: PetInput, symptomIds: string[] = []): C
     range: b?.breed_ko?.startsWith('믹스') ? null : parseWeightRange(b?.weight_kg),
     // 무릎 질환이 호발 목록에 있으면 체중 안내에 그 이유를 함께 적는다.
     jointRisk: (b?.guide?.hereditary ?? []).some((h) => /슬개골|관절|고관절/.test(h.name)),
+    months: age?.months ?? null,
   });
   if (wc) ageTips.push(`${wc.title} — ${wc.body}`);
   if (age) {
@@ -310,8 +312,9 @@ export function buildCardFromData(input: PetInput, symptomIds: string[] = []): C
       sexKo: sexLabel(input),
       weightKg: input.weightKg,
       weightRange: b?.weight_kg,
-      bodyLabel: wc ? BODY_LABEL[wc.tone] : undefined,
+      bodyLabel: wc ? (wc.growing ? '성장 중' : BODY_LABEL[wc.tone]) : undefined,
       bodyTone: wc?.tone,
+      growing: wc?.growing || undefined,
       sizeLabel: b?.size,
       /*
         프로필의 활동량은 4칸짜리 통계 자리라 **짧아야 한다.** 고양이의 전체 문구

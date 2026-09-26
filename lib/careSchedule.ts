@@ -35,6 +35,11 @@ function fromMonth(s?: string | null): Date | null {
   const [y, m] = s.split('-').map(Number);
   return new Date(y, m - 1, 1);
 }
+function addDays(d: Date, n: number): Date {
+  const x = new Date(d);
+  x.setDate(x.getDate() + n);
+  return x;
+}
 function laterOf(a: Date, b: Date): Date {
   return a.getTime() >= b.getTime() ? a : b;
 }
@@ -77,7 +82,14 @@ export function defaultSchedules(species: Species, opts: ScheduleOpts = {}): Gen
 
   // 2) 종합백신
   const combo = fromMonth(opts.lastVaccineCombo);
-  if (combo) {
+  /*
+    ⚠️ 어린 시기(생후 5개월 전)의 마지막 접종은 **기초접종 도중**이다 — 2~4주 간격으로 다음 차수를 맞는다.
+       2026-09-26 전에는 여기서도 +12개월을 해서, 3개월 아기 고양이의 다음 접종이 1년 뒤로 나왔다
+       (사용성 테스트 지적). 달 단위로만 받으므로 한 달 뒤로 잡고, 이미 지났으면 2주 안으로 당긴다.
+  */
+  if (combo && months !== null && months < 5) {
+    out.push({ type: 'vaccine', title: `${comboName} 다음 차수(기초접종)`, due_date: ymd(laterOf(addMonths(combo, 1), addDays(today, 14))), remind_before: 3 });
+  } else if (combo) {
     out.push({ type: 'vaccine', title: `${comboName} 추가접종`, due_date: ymd(addMonths(combo, 12)), remind_before: 14 });
   } else if (isPuppy) {
     out.push({ type: 'vaccine', title: `${comboName} 어린 시기 접종 일정 확인`, due_date: ymd(addMonths(today, 1)), remind_before: 7 });
@@ -89,6 +101,9 @@ export function defaultSchedules(species: Species, opts: ScheduleOpts = {}): Gen
   const rab = fromMonth(opts.lastVaccineRabies);
   if (rab) {
     out.push({ type: 'vaccine', title: '광견병 추가접종', due_date: ymd(addMonths(rab, 12)), remind_before: 14 });
+  } else if (months !== null && months < 12) {
+    // 광견병 첫 접종은 생후 3개월 이후 — 그 전이면 3개월이 되는 달로 잡는다
+    out.push({ type: 'vaccine', title: '광견병 첫 접종(생후 3개월 이후)', due_date: ymd(months < 3 ? addMonths(today, 3 - months) : addMonths(today, 1)), remind_before: 7 });
   } else {
     out.push({ type: 'vaccine', title: '광견병 접종 이력 확인', due_date: ymd(addMonths(today, 1)), remind_before: 7 });
   }

@@ -88,6 +88,8 @@ export interface CareCard {
     /** 표준 범위와 대조한 판정. 체중이나 표준값을 모르면 없음 */
     bodyLabel?: string;
     bodyTone?: 'ok' | 'warn' | 'info';
+    /** 12개월 전(성장기) — 표준 체중과 비교하지 않았다(눈금자도 그리지 않는다) */
+    growing?: boolean;
     /** 품종 체급 (초소형/소형/…) */
     sizeLabel?: string;
     /** 하루 권장 운동량 */

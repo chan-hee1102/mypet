@@ -13,7 +13,7 @@ import { Species } from './types';
  */
 
 export type CheckTone = 'ok' | 'warn' | 'info';
-export type PersonalCheck = { tone: CheckTone; title: string; body: string };
+export type PersonalCheck = { tone: CheckTone; title: string; body: string; growing?: boolean };
 
 /** "2.0–3.5" / "3.5–11 (…)" 형태에서 [min,max] 추출. 실패 시 null. */
 export function parseWeightRange(weightKg?: string): [number, number] | null {
@@ -40,10 +40,24 @@ export function humanAge(species: Species, months: number, size?: string): numbe
 export function weightCheck(opts: {
   name: string; breedKo: string; weight?: number; range: [number, number] | null;
   jointRisk?: boolean;
+  /** 개월 수. 12개월 전(성장기)이면 성체 표준과 비교하지 않는다 */
+  months?: number | null;
 }): PersonalCheck | null {
-  const { breedKo, weight, range, jointRisk } = opts;
+  const { breedKo, weight, range, jointRisk, months } = opts;
   if (!weight || !Number.isFinite(weight) || weight <= 0 || !range) return null;
   const [lo, hi] = range;
+  /*
+    ⚠️ 품종 표준 체중은 **다 자란 뒤의 값**이다. 3개월 포메라니안 1kg에 「표준보다 가벼워요, 최근에 빠졌다면
+       병원」이 뜨던 것을 막는다(2026-09-26 사용성 테스트). 성장기에는 늘고 있는지만 본다.
+  */
+  if (typeof months === 'number' && months < 12) {
+    return {
+      tone: 'info',
+      growing: true,
+      title: `몸무게 ${weight}kg, 아직 자라는 중이에요`,
+      body: `${breedKo}의 표준 체중 ${lo}~${hi}kg은 다 자란 뒤의 값이라 지금은 비교하지 않아요. 한두 주마다 재서 꾸준히 늘고 있는지 봐 주세요.`,
+    };
+  }
   if (weight > hi * 1.05) {
     return {
       tone: 'warn',
