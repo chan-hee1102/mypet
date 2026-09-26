@@ -1,19 +1,15 @@
 'use client';
 
-import { useEffect, useState, type ReactNode } from 'react';
-import { CareCard as CareCardType, PreviewCard, Species } from '@/lib/types';
+import type { ReactNode } from 'react';
+import { CareCard as CareCardType, Species } from '@/lib/types';
 import { TOXIC_FOODS, GOOD_FOODS } from '@/lib/petData';
 import { daysUntil, dDayLabel } from '@/lib/careSchedule';
 import { parseWeightRange } from '@/lib/guidePersonal';
 import { getBreedTips } from '@/lib/breedTips';
 import { diseaseSign } from '@/lib/diseaseSigns';
-import { Icon } from './icons';
 import { TagMark } from './Brand';
 import WeightRuler from './WeightRuler';
-import Paywall from './Paywall';
-import SourceBadges from './SourceBadges';
 
-const CONF_KO: Record<string, string> = { high: '높음', medium: '보통', low: '낮음' };
 
 /** RAG 내부 라벨("근거1)", "근거3, 5)")이 본문에 새어나온 것을 표시 단계에서만 제거. */
 function stripRefs(s: string): string {
@@ -370,120 +366,5 @@ export function ReportDocument({ species, petName, card, onReset }: {
         )}
       </div>
     </article>
-  );
-}
-
-/* ── 아래는 옛 로그인 기능(/pets·/create)의 미리보기·잠금 화면. 스타일은 app/legacy.css ── */
-
-function Section({ icon, title, variant, children }: { icon: string; title: string; variant?: string; children: ReactNode }) {
-  return (
-    <section className={`section ${variant ?? ''}`}>
-      <div className="section-head">
-        <span className="section-ico"><Icon name={icon} size={18} /></span>
-        <h3 className="section-title">{title}</h3>
-      </div>
-      {children}
-    </section>
-  );
-}
-
-export default function CareCardView({
-  species,
-  petName,
-  petId,
-  preview,
-  fullCard,
-  unlocked,
-  onUnlock,
-  onReset,
-}: {
-  species: Species;
-  petName: string;
-  petId: string | null;
-  preview: PreviewCard;
-  /** 서버에서 이미 잠금해제 확인하고 내려준 전체 카드(있으면 추가 fetch 안 함). */
-  fullCard?: CareCardType | null;
-  unlocked: boolean;
-  onUnlock: () => void;
-  onReset: () => void;
-}) {
-  const speciesKo = species === 'dog' ? '강아지' : '고양이';
-  // PreviewCard 타입에서는 이미 빠졌지만, 옛 리포트 데이터에는 값이 남아 있다.
-  const pa = (preview as { photoAnalysis?: CareCardType['photoAnalysis'] }).photoAnalysis;
-  const conf = pa?.confidence;
-
-  // 프리미엄(전체 리포트)은 잠금 해제된 경우에만 서버 보호 라우트에서 가져온다.
-  const [premium, setPremium] = useState<CareCardType | null>(fullCard ?? null);
-  const [premiumErr, setPremiumErr] = useState(false);
-  useEffect(() => {
-    if (!unlocked || premium || !petId) return;
-    let cancelled = false;
-    setPremiumErr(false);
-    fetch(`/api/report/${petId}`)
-      .then((r) => (r.ok ? r.json() : Promise.reject(r)))
-      .then((j) => { if (!cancelled) setPremium(j.card as CareCardType); })
-      .catch(() => { if (!cancelled) setPremiumErr(true); });
-    return () => { cancelled = true; };
-  }, [unlocked, premium, petId]);
-
-  // 결제 완료 + 카드 로드됨 → **문서형 전체 리포트**.
-  if (unlocked && premium) {
-    return <ReportDocument species={species} petName={petName} card={premium} onReset={onReset} />;
-  }
-
-  return (
-    <div className="report">
-      <div className="report-hero">
-        <div>
-          <div className="report-eyebrow">맞춤 케어 리포트</div>
-          <h2 className="report-title">{petName}</h2>
-          <div className="report-chips">
-            <span className="chip chip--solid">{speciesKo}</span>
-            {pa?.breedGuess && <span className="chip">{pa.breedGuess}</span>}
-            {conf && conf !== 'low'
-              ? <span className={`chip conf-${conf}`}>신뢰도 {CONF_KO[conf] ?? conf}</span>
-              : <span className="chip">입력 정보 기준</span>}
-          </div>
-        </div>
-        <button className="btn btn--ghost" onClick={onReset}>
-          <Icon name="refresh" size={14} /> 다시
-        </button>
-      </div>
-
-      {pa && (
-        <Section icon="info" title="사진·기본 분석">
-          <p>{stripRefs(pa.coatSkinNotes)}</p>
-          <div className="meta-grid">
-            <span className="meta-pill">체형<b>{pa.bodyCondition}</b></span>
-            <span className="meta-pill">품종 추정<b>{pa.breedGuess}</b></span>
-          </div>
-        </Section>
-      )}
-      <Section icon="tag" title="품종 특성">
-        <p>{stripRefs(preview.breedTraits.summary)}</p>
-        {preview.breedTraits.healthRisks.length > 0 && (
-          <>
-            <div className="sub">조심할 질환</div>
-            <div className="food-chips" style={{ marginTop: 6 }}>
-              {preview.breedTraits.healthRisks.map((r, i) => <span className="food-chip" key={i}>{stripRefs(r)}</span>)}
-            </div>
-          </>
-        )}
-      </Section>
-      {unlocked ? (
-        premiumErr ? (
-          <div className="alert"><Icon name="alert" size={16} /> 리포트를 불러오지 못했어요. 새로고침해 주세요.</div>
-        ) : (
-          <div className="card" style={{ textAlign: 'center', padding: '28px', color: 'var(--muted)' }}>
-            <span className="spinner spinner--ink" /> 전체 리포트를 불러오는 중
-          </div>
-        )
-      ) : (
-        <Paywall petName={petName} onUnlock={onUnlock} />
-      )}
-
-      <button className="btn btn--secondary btn--block" onClick={onReset}>다른 아이 등록하기</button>
-      <SourceBadges sources={preview.sources} />
-    </div>
   );
 }

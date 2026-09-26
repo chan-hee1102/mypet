@@ -9,7 +9,8 @@ import { type NextRequest, NextResponse } from 'next/server';
   /api/symptom은 횟수 제한 없이 AI를 불렀다.
 
   여기서 입구를 닫는다: 옛 화면은 리포트 만들기로 보내고, 옛 API는 410(없어짐)을 준다.
-  코드 파일은 아직 남아 있다 — 완전히 지울 때는 이 목록과 app/legacy.css도 함께 지울 것.
+  옛 화면·API 코드와 app/legacy.css는 2026-09-26에 지웠다. 이 전환은 남겨 둔다 —
+  옛 주소(북마크·검색 결과의 /symptom 등)가 404 대신 리포트 만들기로 가게.
   관리자(/admin)는 비밀번호 쿠키로 페이지에서 자체 게이트하므로 건드리지 않는다.
 */
 const LEGACY_PAGES = ['/login', '/create', '/pets', '/symptom', '/account', '/dashboard', '/reset-password', '/auth'];

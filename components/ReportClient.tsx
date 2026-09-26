@@ -2,14 +2,13 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import CareCardView from './CareCard';
-import type { CareCard, PreviewCard, Species } from '@/lib/types';
+import { ReportDocument } from './CareCard';
+import type { CareCard, Species } from '@/lib/types';
 
 /** 결제 후 리포트 화면 — 문서 + PDF 저장 + 링크 복사. */
 export default function ReportClient({ species, petName, card }: { species: Species; petName: string; card: CareCard }) {
   const router = useRouter();
   const [copied, setCopied] = useState<'idle' | 'ok' | 'fail'>('idle');
-  const preview: PreviewCard = { breedTraits: card.breedTraits, sources: card.sources };
 
   async function copyLink() {
     try {
@@ -24,16 +23,7 @@ export default function ReportClient({ species, petName, card }: { species: Spec
 
   return (
     <>
-      <CareCardView
-        species={species}
-        petName={petName}
-        petId={null}
-        preview={preview}
-        fullCard={card}
-        unlocked
-        onUnlock={() => {}}
-        onReset={() => router.push('/diagnose')}
-      />
+      <ReportDocument species={species} petName={petName} card={card} onReset={() => router.push('/diagnose')} />
 
       {/* 저장·공유는 문서 아래에 — 첫 화면은 결론부터 */}
       <div className="doc-actions">
