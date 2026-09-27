@@ -40,8 +40,11 @@ export const metadata: Metadata = {
   verification: {
     // 구글 서치콘솔 소유확인(속성 https://mypet.taif.kr/, 2026-09-26) — 확인 뒤에도 지우지 말 것
     google: '6I00I70OE7LS_5E0KC2gT3lvy48NDAAZFLymQUgFu2U',
-    // 네이버 서치어드바이저 소유확인
-    other: { 'naver-site-verification': 'ce285daa384d1170d4dd8146059fe75ddb5d57a9' },
+    // 네이버 서치어드바이저 소유확인 · 빙 웹마스터 소유확인(2026-09-27) — 확인 뒤에도 지우지 말 것
+    other: {
+      'naver-site-verification': 'ce285daa384d1170d4dd8146059fe75ddb5d57a9',
+      'msvalidate.01': 'BEDEA6B8C02AFAA25F4D03B262F1C87B',
+    },
   },
 };
 
