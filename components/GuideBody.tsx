@@ -7,6 +7,10 @@ import type { Guide } from '@/lib/guides';
 import type { Species } from '@/lib/types';
 import { Icon } from './icons';
 import { breedPath } from '@/lib/breedSlug';
+import Link from 'next/link';
+import { CUP_GRAM, cupText, rescueOf, type CareRule } from '@/lib/care';
+import { dailyFeeding } from '@/lib/energy';
+import { KITTEN_WEIGHT } from '@/lib/kittenWeight';
 
 /*
   가이드 본문 — **전부 우리 데이터에서 만든다.**
@@ -279,6 +283,150 @@ function SymptomTable() {
   );
 }
 
+/* ───────── 2026-11-19 새 가이드 4편 — 이것도 전부 원본 데이터에서 ───────── */
+
+/** 길에서 데려왔다면 — 품종 안내판 「길에서 데려왔다면」 칸과 같은 규칙(lib/care rescueOf → care-rules.json topic rescue) */
+function RescueList() {
+  const groups: { title: string; items: { when: string; rule: CareRule }[] }[] = [
+    { title: '강아지를 데려왔다면', items: rescueOf('믹스견(잡종)', 'dog') ?? [] },
+    { title: '고양이를 데려왔다면', items: rescueOf('믹스/혼혈 고양이', 'cat') ?? [] },
+  ];
+  return (
+    <>
+      {groups.map((g) => (
+        <section key={g.title}>
+          <h2>{g.title}</h2>
+          <ol className="grescue">
+            {g.items.map(({ when, rule: r }) => (
+              <li key={r.id}>
+                <span className="grescue-when">{when}</span>
+                <b>{r.title}</b>
+                <p>
+                  {r.body}
+                  {r.penalty ? <span className="grescue-pen"> {r.penalty}</span> : null}
+                </p>
+                <a href={r.url} target="_blank" rel="noopener noreferrer nofollow" className="grescue-ref">
+                  {r.ref}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))}
+    </>
+  );
+}
+
+/** 중성화 전후 하루 열량·건사료 — lib/energy dailyFeeding(다 큰 3살 기준) */
+function NeuterFoodTable() {
+  const rows = (sp: 'dog' | 'cat', kgs: number[]) =>
+    kgs.map((kg) => {
+      const before = dailyFeeding(sp, kg, 36, false);
+      const after = dailyFeeding(sp, kg, 36, true);
+      const r10 = (n: number) => Math.round(n / 10) * 10;
+      return { kg, before: r10(before.kcal), after: r10(after.kcal), g: `${after.gramLo}~${after.gramHi}g` };
+    });
+  const Table = ({ title, sp, kgs }: { title: string; sp: 'dog' | 'cat'; kgs: number[] }) => (
+    <>
+      <h2>{title}</h2>
+      <div className="gtable-wrap">
+        <table className="gtable gtable--num">
+          <thead><tr><th>몸무게</th><th className="num">중성화 전</th><th className="num">중성화 후</th><th className="num">중성화 후 건사료</th></tr></thead>
+          <tbody>
+            {rows(sp, kgs).map((r) => (
+              <tr key={r.kg}>
+                <td><b>{r.kg}kg</b></td>
+                <td className="num">{r.before}kcal</td>
+                <td className="num">{r.after}kcal</td>
+                <td className="num">{r.g}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+  return (
+    <>
+      <Table title="다 큰 개 — 중성화 전후 하루 열량" sp="dog" kgs={[2, 3, 5, 7, 10, 15, 20, 30]} />
+      <Table title="다 큰 고양이 — 중성화 전후 하루 열량" sp="cat" kgs={[3, 4, 5, 6, 7]} />
+      <p className="gnote">
+        <Icon name="info" size={15} /> 쉬는 동안 쓰는 열량(70 × 몸무게의 0.75제곱)에 활동계수(개 1.8 → 1.6, 고양이 1.4 → 1.2)를 곱했어요. 건사료는 1g에 3.5~4.0kcal로 계산해서, 사료마다 열량이 다르면 포장지 열량으로 다시 계산해 주세요.{' '}
+        <Link href="/tools/food">사료량 계산기</Link>
+      </p>
+    </>
+  );
+}
+
+/** 사료 g ↔ 종이컵 — lib/care CUP_GRAM(어림값) */
+function CupGramsTable() {
+  const sizes: { key: keyof typeof CUP_GRAM; label: string }[] = [
+    { key: 'small', label: '작은 알갱이' },
+    { key: 'medium', label: '보통 알갱이' },
+    { key: 'large', label: '큰 알갱이' },
+  ];
+  const grams = [30, 50, 70, 100, 150, 200, 300, 400];
+  return (
+    <>
+      <h2>알갱이 크기별 종이컵 한 컵</h2>
+      <div className="gtable-wrap">
+        <table className="gtable gtable--num">
+          <thead><tr><th>알갱이</th><th className="num">종이컵 한 컵(약 180ml)</th></tr></thead>
+          <tbody>
+            {sizes.map((s) => (
+              <tr key={s.key}><td><b>{s.label}</b></td><td className="num">약 {CUP_GRAM[s.key]}g</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <h2>g → 종이컵 환산표</h2>
+      <div className="gtable-wrap">
+        <table className="gtable gtable--num">
+          <thead><tr><th>사료</th>{sizes.map((s) => <th key={s.key} className="num">{s.label}</th>)}</tr></thead>
+          <tbody>
+            {grams.map((g) => (
+              <tr key={g}>
+                <td><b>{g}g</b></td>
+                {sizes.map((s) => <td key={s.key} className="num">약 {cupText(g / CUP_GRAM[s.key])}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="gnote">
+        <Icon name="info" size={15} /> 어림값이에요. 사료마다 밀도가 달라서, 처음 한 번은 주방 저울로 한 컵을 재 보고 그 무게로 계산하는 게 가장 정확해요.
+      </p>
+    </>
+  );
+}
+
+/** 아기 고양이 주령별 몸무게 — lib/kittenWeight(ASPCApro·VCA·iCatCare) */
+function KittenWeightTable() {
+  return (
+    <>
+      <h2>아기 고양이 주령별 정상 몸무게</h2>
+      <div className="gtable-wrap">
+        <table className="gtable gtable--num">
+          <thead><tr><th>주령</th><th>나이(일)</th><th className="num">몸무게</th><th>근거</th></tr></thead>
+          <tbody>
+            {KITTEN_WEIGHT.map((r) => (
+              <tr key={r.age}>
+                <td><b>{r.age}</b></td>
+                <td>{r.days}</td>
+                <td className="num">{r.grams}</td>
+                <td>{r.src}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="gnote">
+        <Icon name="info" size={15} /> 첫 2주 안에 태어날 때 몸무게의 두 배가 되고, 생후 3~4개월까지는 주에 50~100g씩 늘어요(Merck). 보통 체구 고양이 기준이라 큰 품종은 범위를 넘을 수 있어요.
+      </p>
+    </>
+  );
+}
+
 export default function GuideBody({ guide }: { guide: Guide }) {
   switch (guide.body) {
     case 'toxic-foods':  return <ToxicTable species={guide.species ?? 'dog'} />;
@@ -287,5 +435,9 @@ export default function GuideBody({ guide }: { guide: Guide }) {
     case 'walk-time':    return <WalkTable />;
     case 'breed-weight': return <BreedWeightTable />;
     case 'symptom-vet':  return <SymptomTable />;
+    case 'rescue':       return <RescueList />;
+    case 'neuter-food':  return <NeuterFoodTable />;
+    case 'cup-grams':    return <CupGramsTable />;
+    case 'kitten-weight': return <KittenWeightTable />;
   }
 }

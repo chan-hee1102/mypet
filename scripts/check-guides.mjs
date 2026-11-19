@@ -20,9 +20,11 @@ const src = readFileSync(new URL('../lib/guides.ts', import.meta.url), 'utf8').s
 // guides.ts의 문자열은 전부 작은따옴표 리터럴이고 내부에 이스케이프가 없다
 // (있으면 TS 자체가 깨지므로, 여기서도 단순 매칭으로 충분하다).
 const STR = "'([^']*)'";
+// answer는 계산한 숫자를 넣으려고 백틱 템플릿을 쓰기도 한다(2026-11-19 중성화 후 사료량) — ${…} 자리를 빼고 길이만 잰다
+const TPL = '`([^`]*)`';
 const pick = (block, key) => {
-  const m = block.match(new RegExp('(?:^|\\n)\\s*' + key + ':\\s*' + STR));
-  return m ? m[1] : null;
+  const m = block.match(new RegExp('(?:^|\\n)\\s*' + key + ':\\s*(?:' + STR + '|' + TPL + ')'));
+  return m ? (m[1] ?? m[2].replace(/\$\{[^}]*\}/g, '')) : null;
 };
 const pickArr = (block, key) => {
   const m = block.match(new RegExp('(?:^|\\n)\\s*' + key + ':\\s*\\[([\\s\\S]*?)\\]'));

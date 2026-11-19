@@ -16,6 +16,8 @@ export type BreedRow = {
   weight_kg?: string;
   life_years?: string;
   source_org?: string;
+  source_title?: string;
+  source_url?: string;
   guide?: {
     traits?: string[];
     grooming?: string[];
@@ -99,7 +101,22 @@ export function isWideRange(b: BreedRow): boolean {
 
 /** 공인 품종 표준이 없는 혼합 품종(말티푸·폼피츠·믹스…) */
 export const isMixed = (b: BreedRow) => /혼합|믹스|혼혈/.test(`${b.source_org ?? ''}${b.breed_ko}`);
-export const isFeatured = (name: string) => FEATURED_BREEDS.includes(name);
-export const featuredBreeds = () => FEATURED_BREEDS.map(findBreed).filter((b): b is BreedRow => !!b);
+
+/**
+ * 2026-11-19 확대(사장님 「전부 해줘」): 네이버 유입 14일 착지가 거의 다 사료량·개월별 몸무게 페이지라(말티푸 사료량 89·말티푸 몸무게 54·
+ * 코숏 몸무게 37·브리티시숏헤어 35·진돗개 35…), 위 손으로 고른 44종에 더해 표준 체중 범위가 좁은(isWideRange 아님) 품종을 전부 연다 → 165종.
+ * 손으로 고른 44종은 범위가 넓어도(말티푸 2~6kg 등) 그대로 둔다 — 이미 검색 유입이 오는 페이지다.
+ * 닥스훈트는 미니어처·스탠다드를 섞은 범위라 계속 뺀다. 검색 노출은 네이버·빙만(NAVER_BING_ONLY, lib/searchScope).
+ * 이 목록에 든 품종은 품종 안내판 제목에서 「사료량」을 뺀다(전용 페이지가 그 검색어를 맡는다 — app/breed/[slug]/page.tsx).
+ */
+const NEVER_FEATURE = new Set(['닥스훈트']);
+const ALL_FEATURED: string[] = [
+  ...FEATURED_BREEDS,
+  ...BREEDS.filter((b) => !FEATURED_BREEDS.includes(b.breed_ko) && !NEVER_FEATURE.has(b.breed_ko) && !isWideRange(b) && breedGrowthClass(b))
+    .map((b) => b.breed_ko)
+    .sort((a, c) => a.localeCompare(c, 'ko')),
+];
+export const isFeatured = (name: string) => ALL_FEATURED.includes(name);
+export const featuredBreeds = () => ALL_FEATURED.map(findBreed).filter((b): b is BreedRow => !!b);
 
 export { breedPath, breedSlugOf, slugMatches } from './breedSlug';

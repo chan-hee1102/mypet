@@ -1,4 +1,6 @@
 import type { Species } from './types';
+import { dailyFeeding } from './energy';
+import { KITTEN_SOURCES } from './kittenWeight';
 
 /**
  * 정보 가이드 — 검색·AI 답변엔진에 노출되는 공개 페이지의 원본.
@@ -26,7 +28,11 @@ export type GuideBody =
   | 'human-age'        // 나이 환산표
   | 'walk-time'        // 체급별 산책 시간
   | 'breed-weight'     // 품종별 표준 체중 188종
-  | 'symptom-vet';     // 증상별 병원 판단 기준
+  | 'symptom-vet'      // 증상별 병원 판단 기준
+  | 'rescue'           // 길에서 데려왔다면 — 법 조문·수의 지침(lib/data/care-rules.json topic rescue)
+  | 'neuter-food'      // 중성화 전후 체중별 하루 열량·건사료(lib/energy)
+  | 'cup-grams'        // 사료 g ↔ 종이컵(lib/care CUP_GRAM — 어림값)
+  | 'kitten-weight';   // 아기 고양이 주령별 몸무게(lib/kittenWeight)
 
 export interface Guide {
   slug: string;
@@ -55,6 +61,22 @@ const ASPCA = { org: 'ASPCA', title: 'People Foods to Avoid Feeding Your Pets', 
 const WSAVA = { org: 'WSAVA', title: 'Vaccination Guidelines for Dogs and Cats', url: 'https://wsava.org/global-guidelines/vaccination-guidelines/' };
 const AAHA = { org: 'AAHA', title: 'Canine Vaccination Guidelines', url: 'https://www.aaha.org/resources/2022-aaha-canine-vaccination-guidelines/' };
 const CAPC = { org: 'CAPC', title: 'Heartworm Guidelines', url: 'https://capcvet.org/guidelines/heartworm/' };
+// 2026-11-19 새 가이드 4편의 근거(모두 원문 대조 — 법은 국가법령정보센터 본문, 수의 지침은 기관 원문)
+const LAW_ANIMAL = { org: '국가법령정보센터', title: '동물보호법 제34·39·40·43·45조', url: 'https://www.law.go.kr/법령/동물보호법' };
+const LAW_CRIMINAL = { org: '국가법령정보센터', title: '형법 제360조(점유이탈물횡령)', url: 'https://www.law.go.kr/법령/형법/제360조' };
+const LAW_TNR = { org: '국가법령정보센터', title: '고양이 중성화사업 실시 요령 제6조 제8항(농림축산식품부 고시)', url: 'https://www.law.go.kr/행정규칙/고양이%20중성화사업%20실시%20요령' };
+const AAFP_RETRO = { org: 'AAFP', title: '2020 Feline Retrovirus Testing and Management Guidelines', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC11135720/' };
+const WSAVA_VACC = { org: 'WSAVA', title: '2024 Guidelines for the Vaccination of Dogs and Cats', url: 'https://wsava.org/wp-content/uploads/2024/04/WSAVA-Vaccination-guidelines-2024.pdf' };
+const AHS = { org: 'American Heartworm Society', title: 'Heartworm in Dogs', url: 'https://www.heartwormsociety.org/heartworms-in-dogs' };
+const ICC_STRAY = { org: 'International Cat Care', title: "I've found a stray cat, what do I do?", url: 'https://icatcare.org/articles/ive-found-a-stray-cat-what-do-i-do' };
+const AAHA_NUTRITION = { org: 'AAHA', title: '2021 AAHA Nutrition and Weight Management Guidelines', url: 'https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/' };
+const WSAVA_TREATS = { org: 'WSAVA', title: 'Guide to Treats (2025)', url: 'https://wsava.org/wp-content/uploads/2025/11/WSAVA_GuidetoTreats_Cats_251107.pdf' };
+const MYPET_CUP = { org: '마이펫', title: '정보 기준 — 종이컵 어림값', url: 'https://mypet.taif.kr/sources#cup' };
+
+// 중성화 전후 예시 숫자 — 가이드 결론 문단에 그대로 쓴다(lib/energy 같은 식)
+const kc = (sp: 'dog' | 'cat', kg: number, neut: boolean) => Math.round(dailyFeeding(sp, kg, 36, neut).kcal / 10) * 10;
+const DOG5 = { before: kc('dog', 5, false), after: kc('dog', 5, true) };
+const CAT4 = { before: kc('cat', 4, false), after: kc('cat', 4, true) };
 
 export const GUIDES: Guide[] = [
   {
@@ -202,7 +224,7 @@ export const GUIDES: Guide[] = [
       { q: '체중이 갑자기 줄었는데 괜찮을까요?', a: '식사량을 줄이지 않았는데 한 달 사이 체중의 5% 이상이 빠졌다면 진료가 필요합니다. 신장·갑상선·당뇨·종양 등이 원인일 수 있습니다.' },
     ],
     sources: [AKC],
-    related: ['dog-age-in-human-years', 'dog-walk-time', 'dog-vaccine-schedule'],
+    related: ['dog-age-in-human-years', 'dog-walk-time', 'kitten-weight-by-week'],
   },
 
   {
@@ -223,7 +245,85 @@ export const GUIDES: Guide[] = [
       { q: '증상을 어떻게 기록해야 진료에 도움이 되나요?', a: '언제부터, 하루 몇 번, 얼마나 지속되는지 세 가지를 적어 가면 진료가 빨라집니다. 구토물·배변 상태는 사진으로 남겨두면 설명보다 정확합니다.' },
     ],
     sources: [AKC],
-    related: ['dog-toxic-foods', 'cat-toxic-foods', 'dog-vaccine-schedule'],
+    related: ['found-stray-pet', 'dog-toxic-foods', 'cat-toxic-foods'],
+  },
+
+  {
+    slug: 'found-stray-pet',
+    question: '길에서 강아지나 고양이를 데려오면 뭐부터 해야 하나요?',
+    title: '길고양이·유기견을 데려왔다면 — 신고·검진·입양 순서',
+    lead: '주인 확인과 신고, 공고 10일 뒤 입양, 첫 검진, 왼쪽 귀 끝 표시의 뜻까지',
+    answer:
+      '주인을 잃었거나 버려진 동물은 시·군·구나 동물보호센터에 신고할 수 있고, 지자체가 공고한 날부터 10일이 지나도 주인을 알 수 없으면 소유권이 시·군·구로 넘어가 입양(분양)될 수 있어요. 건강하게 스스로 사는 길고양이는 지자체 구조 대상이 아니고, 왼쪽 귀 끝이 약 1cm 잘려 있으면 이미 중성화를 마친 길고양이예요. 데려왔다면 동물병원 검진부터 받아요 — 고양이는 FeLV·FIV 검사, 7개월 넘은 개는 심장사상충 검사를 먼저 하고, 접종 기록이 없으면 다시 맞혀요.',
+    description:
+      '길에서 데려온 강아지·고양이, 신고와 공고 10일 뒤 입양 순서, 첫 검진(FeLV·FIV·심장사상충), 왼쪽 귀 끝 표시의 뜻까지 동물보호법과 수의 지침으로 정리했어요.',
+    keywords: ['유기견 데려오면', '길고양이 데려오면', '유기견 신고', '길고양이 입양', '길고양이 귀 잘림'],
+    body: 'rescue',
+    faq: [
+      { q: '주운 강아지를 그냥 키워도 되나요?', a: '주인이 있는 동물을 신고하지 않고 데려다 키우면 민사·형사 문제에 휘말릴 수 있고, 형법의 점유이탈물횡령죄(1년 이하 징역, 300만 원 이하 벌금 또는 과료)가 적용될 수 있어요. 시·군·구나 동물보호센터에 신고하고, 공고한 날부터 10일이 지난 뒤 입양 절차를 밟는 게 안전해요.' },
+      { q: '새끼 고양이만 있으면 바로 데려와야 하나요?', a: '멀리서 지켜보며 어미가 돌아오는지 먼저 봐요. 3시간이 지나도 어미가 오지 않으면 동물병원이나 동물보호센터·보호단체에 연락해요.' },
+      { q: '길고양이 귀 끝이 잘려 있는 건 왜인가요?', a: '지자체 길고양이 중성화 사업에서 수술한 고양이의 왼쪽 귀 끝을 약 1cm 잘라 표시해요. 이미 중성화를 마치고 잡은 곳에 다시 풀어 준 고양이라는 뜻이에요.' },
+      { q: '데려온 고양이도 동물등록을 해야 하나요?', a: '법으로 등록해야 하는 동물은 개뿐이라 고양이는 등록하지 않아도 과태료가 없어요. 개는 2개월령 이상이면 데려온 날부터 30일 안에 시·군·구에 등록해야 해요.' },
+    ],
+    sources: [LAW_ANIMAL, LAW_CRIMINAL, LAW_TNR, AAFP_RETRO, WSAVA_VACC, AHS, ICC_STRAY],
+    related: ['dog-vaccine-schedule', 'cat-vaccine-schedule', 'pet-symptom-vet-signs'],
+  },
+
+  {
+    slug: 'neutered-food-amount',
+    question: '중성화하면 사료를 얼마나 줄여야 하나요?',
+    title: '중성화 후 사료량 — 체중별 하루 급여량 표',
+    lead: '중성화 전후 하루 열량과 건사료 g을 체중별로 나란히 비교',
+    answer: `수의영양학에서 널리 쓰는 계산(쉬는 동안 쓰는 열량 × 활동계수)으로 보면, 다 큰 개는 중성화 뒤 하루 필요 열량이 약 11%(계수 1.8 → 1.6), 고양이는 약 14%(1.4 → 1.2) 줄어요. 예를 들어 5kg 개는 하루 약 ${DOG5.before}kcal에서 ${DOG5.after}kcal로, 4kg 고양이는 약 ${CAT4.before}kcal에서 ${CAT4.after}kcal로 줄어요. 먹는 양이 그대로면 살이 붙기 쉬워서, 수술 뒤 한두 달은 몸무게를 자주 재 보며 양을 맞춰 주세요.`,
+    description: '중성화한 강아지·고양이는 하루 열량이 개 약 11%, 고양이 약 14% 줄어요. 체중별 중성화 전후 하루 열량과 건사료 g을 표로 비교했어요.',
+    keywords: ['중성화 후 사료량', '중성화 사료 줄이기', '중성화 후 살', '중성화 칼로리'],
+    body: 'neuter-food',
+    faq: [
+      { q: '중성화하면 왜 살이 찌기 쉬운가요?', a: '필요한 열량이 줄었는데 먹는 양이 그대로면 남는 열량이 살로 가요. 그래서 수술 뒤에는 하루 양을 다시 계산해 주는 게 좋아요.' },
+      { q: '아직 자라는 중인데 중성화했어요. 바로 줄이나요?', a: '성장기에는 자라느라 열량이 더 필요해요. 다 자라기 전에는 사료량 계산기에 지금 나이·몸무게를 넣어 확인해 주세요.' },
+      { q: '간식은 얼마나 줘도 되나요?', a: '간식은 하루 열량의 10% 안이에요. 간식을 준 날은 그만큼 사료를 덜어 주세요.' },
+    ],
+    sources: [AAHA_NUTRITION, WSAVA_TREATS],
+    related: ['kibble-cup-grams', 'dog-walk-time', 'dog-breed-weight'],
+  },
+
+  {
+    slug: 'kibble-cup-grams',
+    question: '건사료 종이컵 한 컵은 몇 g인가요?',
+    title: '사료 종이컵 한 컵은 몇 g? — g ↔ 종이컵 환산표',
+    lead: '알갱이 크기별 종이컵 한 컵 무게와 자주 쓰는 g이 몇 컵인지',
+    answer:
+      '종이컵(약 180ml)에 깎아 담은 건사료는 알갱이에 따라 약 70~90g이에요. 마이펫은 작은 알갱이 약 90g, 보통 알갱이 약 80g, 큰 알갱이 약 70g으로 어림해요. 사료마다 밀도가 달라서 처음 한 번은 주방 저울로 한 컵을 재 보고, 그 무게로 계산하는 게 가장 정확해요.',
+    description: '종이컵 한 컵 건사료는 알갱이에 따라 약 70~90g이에요. 알갱이 크기별 한 컵 무게와 50g·100g·200g이 몇 컵인지 환산표로 정리했어요.',
+    keywords: ['사료 종이컵 그램', '사료 한 컵 몇 g', '종이컵 사료 계량', '사료 계량컵'],
+    body: 'cup-grams',
+    faq: [
+      { q: '사료 포장지의 「1컵」과 종이컵은 같은가요?', a: '아니에요. 포장지의 1컵은 대개 미국식 계량컵(약 240ml)이라 종이컵(약 180ml)보다 커요. 포장지 급여표를 볼 때는 g 숫자를 기준으로 삼으세요.' },
+      { q: '왜 사료마다 한 컵 무게가 다른가요?', a: '알갱이 크기와 모양, 기름 함량에 따라 한 컵에 들어가는 무게가 달라져요. 같은 종이컵이어도 사료를 바꾸면 한 번 다시 재 보세요.' },
+      { q: '저울이 없으면 어떻게 재나요?', a: '한 번만 저울이 있는 곳에서 한 컵 무게를 재 두고, 그 높이에 종이컵 안쪽으로 표시해 두면 매번 같은 양을 담을 수 있어요.' },
+    ],
+    sources: [MYPET_CUP],
+    related: ['neutered-food-amount', 'dog-breed-weight', 'dog-walk-time'],
+  },
+
+  {
+    slug: 'kitten-weight-by-week',
+    question: '아기 고양이는 몇 주에 몇 g이어야 하나요?',
+    title: '아기 고양이 주령별 몸무게 — 1~8주 표',
+    lead: '갓 태어나서 8주까지 주마다 정상 몸무게 범위와 하루 증가량',
+    answer:
+      '갓 태어난 아기 고양이는 보통 80~120g(평균 약 100g)이고, 첫 2주 안에 태어날 때 몸무게의 두 배가 돼요. 그 뒤로 주에 50~100g씩 늘어서 4주 무렵 약 415~505g, 8주 무렵 약 835~925g이에요. 하루가 지나도 몸무게가 늘지 않으면 걱정할 신호라, 동물병원에 연락해 보세요.',
+    description: '아기 고양이 출생 체중(평균 약 100g)부터 1~8주 주령별 정상 몸무게 범위, 주당 증가량, 병원에 가야 하는 신호를 수의 자료로 정리했어요.',
+    keywords: ['아기 고양이 몸무게', '새끼 고양이 주령별 몸무게', '아기 고양이 체중', '고양이 8주 몸무게'],
+    body: 'kitten-weight',
+    species: 'cat',
+    faq: [
+      { q: '8주가 지나면 얼마나 늘어요?', a: '생후 3~4개월까지는 주에 50~100g씩 빠르게 늘어요. 12주 무렵 약 1.4kg(3파운드)이 흔한 기준이에요.' },
+      { q: '몸무게는 얼마나 자주 재야 하나요?', a: '어미 없이 키우는 아기 고양이는 매일 같은 시간에 주방 저울로 재서 기록해요. 하루가 지나도 늘지 않으면 동물병원에 연락하세요.' },
+      { q: '메인쿤 같은 큰 품종도 이 표를 보면 되나요?', a: '표는 보통 체구 고양이 기준이라 큰 품종은 범위를 넘을 수 있어요. 다 큰 뒤의 품종별 몸무게는 품종 안내판에서 확인하세요.' },
+    ],
+    sources: [KITTEN_SOURCES.aspca, KITTEN_SOURCES.merck, KITTEN_SOURCES.vca, KITTEN_SOURCES.icc, KITTEN_SOURCES.uwucd],
+    related: ['cat-vaccine-schedule', 'cat-toxic-foods', 'dog-breed-weight'],
   },
 ];
 

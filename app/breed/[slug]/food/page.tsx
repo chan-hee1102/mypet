@@ -6,10 +6,11 @@ import { FaqList, JsonLd, breadcrumbJsonLd, faqJsonLd, type Faq } from '@/compon
 import FoodCalc from '@/components/tools/FoodCalc';
 import {
   adultFeedingRows, adultWord, baseName, breedNotes, gramText, growthFacts, isBigDog, kindOf, nameWithAlias, neighbors, ORG_REF,
-  PUBLISHED, puppyFeedingRows, socialMeta, SOURCES, titleName,
+  PUBLISHED, UPDATED, puppyFeedingRows, socialMeta, SOURCES, titleName,
 } from '@/lib/breedSeo';
-import { breedPath, breedSlugOf, featuredBreeds, fmtKg, slugMatches, type BreedRow } from '@/lib/growth';
+import { FEATURED_BREEDS, breedPath, breedSlugOf, featuredBreeds, fmtKg, slugMatches, type BreedRow } from '@/lib/growth';
 import { josa } from '@/lib/josa';
+import { CUP_GRAM, careOf, cupText } from '@/lib/care';
 import { NAVER_BING_ONLY } from '@/lib/searchScope';
 import { SITE } from '@/lib/site';
 
@@ -19,7 +20,10 @@ import { SITE } from '@/lib/site';
  * 성장기는 다 큰 몸무게 대비 비율로 계수를 서서히 낮춘 mypet 방식(lib/energy growthFactor)이라 화면에 그렇게 밝힌다.
  */
 
-export const dynamicParams = false;
+// 운영은 false — 목록(188종)에 없는 주소를 라우팅 단계에서 진짜 404로 막는다. true면 app/loading.tsx 스트리밍이 먼저 200을 보내
+// notFound() 화면이 200으로 나가고 1년 캐시까지 된다(소프트 404, 2026-11-19 운영 빌드로 확인).
+// 개발(next dev)만 true — Next 14 dev는 한글 주소를 인코딩된 채로 목록과 비교해 false면 모든 품종이 404가 된다.
+export const dynamicParams = process.env.NODE_ENV === 'development';
 
 export function generateStaticParams() {
   return featuredBreeds().map((b) => ({ slug: breedSlugOf(b.breed_ko) }));
@@ -38,7 +42,11 @@ function copy(b: BreedRow) {
   const aw = adultWord(b);
   const title = `${titleName(b)} 사료량, 하루 몇 g? 개월·체중별 급여량`;
   const description = `다 큰 ${josa(nameWithAlias(b), '은/는')} 하루 ${kcal(mid.neutered.kcal)}, 건사료 ${gramText(mid.neutered)} 안팎(중성화, ${fmtKg(mid.weight)}kg 기준). 2개월부터 ${aw}까지 개월별·체중별 사료량 표와 계산기.`;
-  const answer = `다 큰 ${josa(`${name}(중성화, ${fmtKg(mid.weight)}kg)`, '은/는')} 하루 약 ${kcal(mid.neutered.kcal)}, 건사료로 ${gramText(mid.neutered)} 안팎이 시작점이에요. 3개월 무렵에는 ${gramText(p3)} 안팎을 하루 3~4번에 나눠 줘요.`;
+  // 종이컵(180ml) 어림 — 알갱이 크기별 g(lib/care CUP_GRAM, 어림이라 「약」). 개는 아침저녁 두 번이 기본이라 한 번 양으로, 고양이는 하루 양으로
+  const kib = careOf(b.breed_ko)?.kibble ?? 'medium';
+  const cups = (mid.neutered.gramLo + mid.neutered.gramHi) / 2 / CUP_GRAM[kib];
+  const cupLine = b.species === 'cat' ? ` 종이컵으로는 하루 약 ${cupText(cups)}이에요.` : ` 종이컵으로는 아침저녁 한 번에 약 ${cupText(cups / 2)}씩이에요.`;
+  const answer = `다 큰 ${josa(`${name}(중성화, ${fmtKg(mid.weight)}kg)`, '은/는')} 하루 약 ${kcal(mid.neutered.kcal)}, 건사료로 ${gramText(mid.neutered)} 안팎이 시작점이에요.${cupLine} 3개월 무렵에는 ${gramText(p3)} 안팎을 하루 3~4번에 나눠 줘요.`;
   const faq: Faq[] = [
     { q: `${name} 하루 사료량은 얼마인가요?`, a: `중성화한 ${aw} ${fmtKg(mid.weight)}kg 기준 하루 약 ${kcal(mid.neutered.kcal)}, 건사료 ${gramText(mid.neutered)}이에요. 중성화하지 않았다면 ${gramText(mid.intact)}으로 조금 더 필요해요.` },
     { q: `${name} 3개월 사료량은요?`, a: `3개월 예상 몸무게 ${fmtKg(p3.weight)}kg 기준 하루 ${gramText(p3)} 안팎이에요. 성장기에는 몸무게가 빨리 늘어서 한두 주마다 다시 계산해 주세요.` },
@@ -61,7 +69,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const { title, description } = copy(b);
   const url = `${SITE.url}${breedPath(b.breed_ko, 'food')}`;
   return {
-    title: `${title} | mypet`,
+    title: `${title} | 마이펫`,
     description,
     alternates: { canonical: url },
     robots: NAVER_BING_ONLY,
@@ -87,8 +95,8 @@ export default function BreedFoodPage({ params }: { params: { slug: string } }) 
             headline: title,
             description,
             inLanguage: 'ko',
-            datePublished: PUBLISHED,
-            dateModified: PUBLISHED,
+            datePublished: FEATURED_BREEDS.includes(b.breed_ko) ? PUBLISHED : UPDATED,
+            dateModified: UPDATED,
             mainEntityOfPage: url,
             image: `${SITE.url}/opengraph-image`,
             about: { '@type': 'Thing', name: `${b.breed_ko} (${b.breed_en})` },
@@ -99,7 +107,7 @@ export default function BreedFoodPage({ params }: { params: { slug: string } }) 
           faqJsonLd([{ q: `${name} 하루 사료량은 얼마인가요?`, a: answer }, ...faq.slice(1)]),
           breadcrumbJsonLd([
             { name: '홈', url: SITE.url },
-            { name: '품종 가이드', url: `${SITE.url}/breed` },
+            { name: '품종 안내판', url: `${SITE.url}/breed` },
             { name: b.breed_ko, url: `${SITE.url}${breedPath(b.breed_ko)}` },
             { name: '사료량', url },
           ]),
@@ -107,7 +115,7 @@ export default function BreedFoodPage({ params }: { params: { slug: string } }) 
       />
 
       <nav className="gcrumb">
-        <Link href="/breed">품종 가이드</Link> <span>›</span> <Link href={breedPath(b.breed_ko)}>{b.breed_ko}</Link> <span>›</span> 사료량
+        <Link href="/breed">품종 안내판</Link> <span>›</span> <Link href={breedPath(b.breed_ko)}>{b.breed_ko}</Link> <span>›</span> 사료량
       </nav>
 
       <h1 className="gtitle">{titleName(b)} 사료량</h1>

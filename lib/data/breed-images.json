@@ -1,0 +1,1782 @@
+{
+  "말티즈": {
+    "src": "/breeds/maltese.webp",
+    "w": 600,
+    "h": 600,
+    "file": "File:Maltese 600.jpg",
+    "author": "Sannse",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maltese_600.jpg"
+  },
+  "토이푸들": {
+    "src": "/breeds/toy-poodle.webp",
+    "w": 800,
+    "h": 1202,
+    "file": "File:ショコラ (3094369727).jpg",
+    "author": "Yasuhiko Ito from Sendai, Japan",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:%E3%82%B7%E3%83%A7%E3%82%B3%E3%83%A9_(3094369727).jpg"
+  },
+  "포메라니안": {
+    "src": "/breeds/pomeranian.webp",
+    "w": 768,
+    "h": 636,
+    "file": "File:Pomeranian.JPG",
+    "author": "Blackoranges",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pomeranian.JPG"
+  },
+  "시츄": {
+    "src": "/breeds/shih-tzu.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:Shih Tzu with his bandana.jpg",
+    "author": "Jim Winstead",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Shih_Tzu_with_his_bandana.jpg"
+  },
+  "치와와": {
+    "src": "/breeds/chihuahua.webp",
+    "w": 800,
+    "h": 573,
+    "file": "File:Chihuahua 01 K.jpg",
+    "author": "Lilly M",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chihuahua_01_K.jpg"
+  },
+  "닥스훈트": {
+    "src": "/breeds/dachshund.webp",
+    "w": 800,
+    "h": 592,
+    "file": "File:닥스훈트(단모종) (Dachshund (Short)).jpg",
+    "author": "Katemil94",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:%EB%8B%A5%EC%8A%A4%ED%9B%88%ED%8A%B8(%EB%8B%A8%EB%AA%A8%EC%A2%85)_(Dachshund_(Short)).jpg"
+  },
+  "비숑프리제": {
+    "src": "/breeds/bichon-frise.webp",
+    "w": 800,
+    "h": 578,
+    "file": "File:Bichon Frisé - studdogbichon.jpg",
+    "author": "Heike Andres",
+    "license": "CC BY-SA 3.0 de",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bichon_Fris%C3%A9_-_studdogbichon.jpg"
+  },
+  "요크셔테리어": {
+    "src": "/breeds/yorkshire-terrier.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:Filou DSC01222.jpg",
+    "author": "Pelz",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Filou_DSC01222.jpg"
+  },
+  "진돗개": {
+    "src": "/breeds/jindo.webp",
+    "w": 800,
+    "h": 529,
+    "file": "File:1131107 (25)원본.jpg",
+    "author": "울프파크",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:1131107_(25)%EC%9B%90%EB%B3%B8.jpg"
+  },
+  "웰시코기(펨브로크)": {
+    "src": "/breeds/pembroke-welsh-corgi.webp",
+    "w": 800,
+    "h": 599,
+    "file": "File:Welsh Pembroke Corgi.jpg",
+    "author": "Dog breed facts",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Welsh_Pembroke_Corgi.jpg"
+  },
+  "골든리트리버": {
+    "src": "/breeds/golden-retriever.webp",
+    "w": 652,
+    "h": 515,
+    "file": "File:Golden Retriever Dukedestiny01 drvd.jpg",
+    "author": "Dukedestiny01.jpg: \"Janneke Vreugdenhil\" derivative work: Anka Friedrich",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Golden_Retriever_Dukedestiny01_drvd.jpg"
+  },
+  "래브라도리트리버": {
+    "src": "/breeds/labrador-retriever.webp",
+    "w": 800,
+    "h": 522,
+    "file": "File:Labrador on Quantock (2175262184).jpg",
+    "author": "IDS.photos from Tiverton, UK",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Labrador_on_Quantock_(2175262184).jpg"
+  },
+  "보더콜리": {
+    "src": "/breeds/border-collie.webp",
+    "w": 600,
+    "h": 491,
+    "file": "File:Border Collie 600.jpg",
+    "author": "Unknown author",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Border_Collie_600.jpg"
+  },
+  "시바이누": {
+    "src": "/breeds/shiba-inu.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:Taka Shiba.jpg",
+    "author": "Takashiba at English Wikipedia",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Taka_Shiba.jpg"
+  },
+  "사모예드": {
+    "src": "/breeds/samoyed.webp",
+    "w": 800,
+    "h": 822,
+    "file": "File:Samojed00.jpg",
+    "author": "Pleple2000",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Samojed00.jpg"
+  },
+  "비글": {
+    "src": "/breeds/beagle.webp",
+    "w": 600,
+    "h": 480,
+    "file": "File:Beagle 600.jpg",
+    "author": "Unknown author",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Beagle_600.jpg"
+  },
+  "미니어처슈나우저": {
+    "src": "/breeds/miniature-schnauzer.webp",
+    "w": 800,
+    "h": 601,
+    "file": "File:Miniature Schnauzer salt & pepper (cropped).jpg",
+    "author": "Canarian",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Miniature_Schnauzer_salt_%26_pepper_(cropped).jpg"
+  },
+  "페키니즈": {
+    "src": "/breeds/pekingese.webp",
+    "w": 800,
+    "h": 547,
+    "file": "File:1AKC Pekingese Dog Show 2011.jpg",
+    "author": "SheltieBoy",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:1AKC_Pekingese_Dog_Show_2011.jpg"
+  },
+  "파피용": {
+    "src": "/breeds/papillon.webp",
+    "w": 800,
+    "h": 625,
+    "file": "File:Outdoor Continental Toy Spaniel Papillon.jpeg",
+    "author": "Gvdmoort",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Outdoor_Continental_Toy_Spaniel_Papillon.jpeg"
+  },
+  "프렌치불도그": {
+    "src": "/breeds/french-bulldog.webp",
+    "w": 800,
+    "h": 593,
+    "file": "File:2008-07-28 Dog at Frolick Field.jpg",
+    "author": "Ildar Sagdejev (Specious)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2008-07-28_Dog_at_Frolick_Field.jpg"
+  },
+  "퍼그": {
+    "src": "/breeds/pug.webp",
+    "w": 800,
+    "h": 638,
+    "file": "File:Mops oct09 cropped2.jpg",
+    "author": "Mops_oct09.jpg: Dagur Brynjólfsson from Hafnarfjordur, Iceland; derivative work: Anka Friedrich",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mops_oct09_cropped2.jpg"
+  },
+  "시베리안허스키": {
+    "src": "/breeds/siberian-husky.webp",
+    "w": 800,
+    "h": 579,
+    "file": "File:Husky L.jpg",
+    "author": "xJaM (talk · contribs)",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Husky_L.jpg"
+  },
+  "보스턴테리어": {
+    "src": "/breeds/boston-terrier.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:Boston-terrier-carlos-de.JPG",
+    "author": "Andreas Schlaugat",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Boston-terrier-carlos-de.JPG"
+  },
+  "잭러셀테리어": {
+    "src": "/breeds/jack-russell-terrier.webp",
+    "w": 800,
+    "h": 1200,
+    "file": "File:Jack Russell Terrier 1.jpg",
+    "author": "Plank",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jack_Russell_Terrier_1.jpg"
+  },
+  "저먼스피츠": {
+    "src": "/breeds/german-spitz.webp",
+    "w": 800,
+    "h": 800,
+    "file": "File:Mittel-white2.jpg",
+    "author": "Canarian",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mittel-white2.jpg"
+  },
+  "저먼셰퍼드": {
+    "src": "/breeds/german-shepherd-dog.webp",
+    "w": 583,
+    "h": 485,
+    "file": "File:German Shepherd - DSC 0346 (10096362833).jpg",
+    "author": "gomagoti",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:German_Shepherd_-_DSC_0346_(10096362833).jpg"
+  },
+  "도베르만핀셔": {
+    "src": "/breeds/doberman-pinscher.webp",
+    "w": 800,
+    "h": 729,
+    "file": "File:Doberman długouchy.jpg",
+    "author": "Pleple2000",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Doberman_d%C5%82ugouchy.jpg"
+  },
+  "로트와일러": {
+    "src": "/breeds/rottweiler.webp",
+    "w": 800,
+    "h": 608,
+    "file": "File:Rottweiler standing facing left.jpg",
+    "author": "Dr. Manfred Herrmann Allgemeiner Deutscher Rottweiler-Klub (ADRK) e.V. http://www.ADRK.de",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rottweiler_standing_facing_left.jpg"
+  },
+  "그레이트데인": {
+    "src": "/breeds/great-dane.webp",
+    "w": 800,
+    "h": 777,
+    "file": "File:Dog niemiecki żółty LM980.jpg",
+    "author": "Lilly M",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dog_niemiecki_%C5%BC%C3%B3%C5%82ty_LM980.jpg"
+  },
+  "차우차우": {
+    "src": "/breeds/chow-chow.webp",
+    "w": 800,
+    "h": 722,
+    "file": "File:Chow-chow in Tallinn.JPG",
+    "author": "Томасина",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chow-chow_in_Tallinn.JPG"
+  },
+  "아키타": {
+    "src": "/breeds/akita.webp",
+    "w": 800,
+    "h": 534,
+    "file": "File:Akita Inu dog.jpg",
+    "author": "Biser Yanev",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Akita_Inu_dog.jpg"
+  },
+  "셰틀랜드시프도그": {
+    "src": "/breeds/shetland-sheepdog.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:Shetland Sheepdog sable.jpg",
+    "author": "Flickr user nickobec (Nick Cowie)",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Shetland_Sheepdog_sable.jpg"
+  },
+  "러프콜리": {
+    "src": "/breeds/collie.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:Rough-Collie-japan08 (cropped).jpg",
+    "author": "Yasu w",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rough-Collie-japan08_(cropped).jpg"
+  },
+  "아메리칸코커스패니얼": {
+    "src": "/breeds/american-cocker-spaniel.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:Golden American Cocker Spaniel.jpg",
+    "author": "Ryan Johnson",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Golden_American_Cocker_Spaniel.jpg"
+  },
+  "잉글리시코커스패니얼": {
+    "src": "/breeds/english-cocker-spaniel.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:\"Bill\" - Cocker spaniel anglais 2.JPG",
+    "author": "Jean-Pol GRANDMONT",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:%22Bill%22_-_Cocker_spaniel_anglais_2.JPG"
+  },
+  "라사압소": {
+    "src": "/breeds/lhasa-apso.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:Lhasa Apso shorter hair July 4th 2008.jpg",
+    "author": "Micov",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lhasa_Apso_shorter_hair_July_4th_2008.jpg"
+  },
+  "휘핏": {
+    "src": "/breeds/whippet.webp",
+    "w": 800,
+    "h": 641,
+    "file": "File:Whippet 2018 6.jpg",
+    "author": "Canarian",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Whippet_2018_6.jpg"
+  },
+  "그레이하운드": {
+    "src": "/breeds/greyhound.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:GraceTheGreyhound.jpg",
+    "author": "Neurodoc",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:GraceTheGreyhound.jpg"
+  },
+  "바셋하운드": {
+    "src": "/breeds/basset-hound.webp",
+    "w": 560,
+    "h": 373,
+    "file": "File:BassetHound profil.jpg",
+    "author": "Cali1008",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:BassetHound_profil.jpg"
+  },
+  "달마시안": {
+    "src": "/breeds/dalmatian.webp",
+    "w": 768,
+    "h": 1024,
+    "file": "File:Sun Dog Dalmatian.jpg",
+    "author": "Bradlien",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sun_Dog_Dalmatian.jpg"
+  },
+  "와이마라너": {
+    "src": "/breeds/weimaraner.webp",
+    "w": 800,
+    "h": 968,
+    "file": "File:Weimaraner Freika-2.jpg",
+    "author": "Rufus46",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Weimaraner_Freika-2.jpg"
+  },
+  "비즐라": {
+    "src": "/breeds/vizsla.webp",
+    "w": 800,
+    "h": 840,
+    "file": "File:Wyżeł węgierski gładkowłosy 500.jpg",
+    "author": "Pleple2000",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wy%C5%BCe%C5%82_w%C4%99gierski_g%C5%82adkow%C5%82osy_500.jpg"
+  },
+  "잉글리시불도그": {
+    "src": "/breeds/english-bulldog.webp",
+    "w": 800,
+    "h": 542,
+    "file": "File:Buldog angielski 555.jpg",
+    "author": "Pleple2000",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Buldog_angielski_555.jpg"
+  },
+  "미니어처핀셔": {
+    "src": "/breeds/miniature-pinscher.webp",
+    "w": 800,
+    "h": 532,
+    "file": "File:Miniature pinscher.jpg",
+    "author": "Sebastian Wallin. Sebastian Wallin. Sebwal",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Miniature_pinscher.jpg"
+  },
+  "웨스트하이랜드화이트테리어": {
+    "src": "/breeds/west-highland-white-terrier.webp",
+    "w": 800,
+    "h": 670,
+    "file": "File:West Highland White Terrier Krakow.jpg",
+    "author": "Christopher Walker from Krakow, Poland",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:West_Highland_White_Terrier_Krakow.jpg"
+  },
+  "케언테리어": {
+    "src": "/breeds/cairn-terrier.webp",
+    "w": 800,
+    "h": 532,
+    "file": "File:Cairn Terrier - 002.jpg",
+    "author": "Bitjungle",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cairn_Terrier_-_002.jpg"
+  },
+  "스탠다드푸들": {
+    "src": "/breeds/standard-poodle.webp",
+    "w": 800,
+    "h": 530,
+    "file": "File:Full attention (8067543690).jpg",
+    "author": "Tim Wilson from Blaine, MN, USA",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Full_attention_(8067543690).jpg"
+  },
+  "미니어처푸들": {
+    "src": "/breeds/miniature-poodle.webp",
+    "w": 800,
+    "h": 1067,
+    "file": "File:Miniature Poodle (Hungary).jpg",
+    "author": "UszkarFoto92",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Miniature_Poodle_(Hungary).jpg"
+  },
+  "풍산개": {
+    "src": "/breeds/pungsan-dog.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:Poongsandogs.JPG",
+    "author": "Maeng9981",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Poongsandogs.JPG"
+  },
+  "삽살개": {
+    "src": "/breeds/sapsali.webp",
+    "w": 800,
+    "h": 1067,
+    "file": "File:Korean sapsali.jpg",
+    "author": "Micadl22",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Korean_sapsali.jpg"
+  },
+  "코리안숏헤어": {
+    "src": "/breeds/korean-shorthair.webp",
+    "w": 800,
+    "h": 1067,
+    "file": "File:Korean shorthairs SNUH 2024 (11).jpg",
+    "author": "Sadopaul",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Korean_shorthairs_SNUH_2024_(11).jpg"
+  },
+  "페르시안": {
+    "src": "/breeds/persian.webp",
+    "w": 800,
+    "h": 1040,
+    "file": "File:Stock-latinin (52749868962).jpg",
+    "author": "Reba Spike",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Stock-latinin_(52749868962).jpg"
+  },
+  "러시안블루": {
+    "src": "/breeds/russian-blue.webp",
+    "w": 800,
+    "h": 1034,
+    "file": "File:RUS Zhemchuzhina Danae Kaptown (4189740643).jpg",
+    "author": "Nickolas Titkov from Moscow, Russian Federation",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:RUS_Zhemchuzhina_Danae_Kaptown_(4189740643).jpg"
+  },
+  "스코티시폴드": {
+    "src": "/breeds/scottish-fold.webp",
+    "w": 734,
+    "h": 872,
+    "file": "File:Scottish Fold - CFF cat show Heinola 2008-05-03 IMG 7882.JPG",
+    "author": "Heikki Siltala",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Scottish_Fold_-_CFF_cat_show_Heinola_2008-05-03_IMG_7882.JPG"
+  },
+  "브리티시숏헤어": {
+    "src": "/breeds/british-shorthair.webp",
+    "w": 800,
+    "h": 783,
+    "file": "File:Mystica from British Empire Cattery.jpg",
+    "author": "BritishEmpire",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mystica_from_British_Empire_Cattery.jpg"
+  },
+  "벵갈": {
+    "src": "/breeds/bengal.webp",
+    "w": 800,
+    "h": 1028,
+    "file": "File:Paintedcats Red Star standing.jpg",
+    "author": "User:Lightburst",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Paintedcats_Red_Star_standing.jpg"
+  },
+  "먼치킨": {
+    "src": "/breeds/munchkin.webp",
+    "w": 800,
+    "h": 676,
+    "file": "File:Munchkin cat 2 (cropped).jpg",
+    "author": "Tasy Hong",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Munchkin_cat_2_(cropped).jpg"
+  },
+  "랙돌": {
+    "src": "/breeds/ragdoll.webp",
+    "w": 800,
+    "h": 757,
+    "file": "File:Ragdoll from Gatil Ragbelas.jpg",
+    "author": "Simone Johnsson",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ragdoll_from_Gatil_Ragbelas.jpg"
+  },
+  "노르웨이숲고양이": {
+    "src": "/breeds/norwegian-forest-cat.webp",
+    "w": 711,
+    "h": 417,
+    "file": "File:Dalaja-Doll-norvégien-ambre-blotched-tabby avec-blanc 2008 (cropped).jpg",
+    "author": "Gangburgondes",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dalaja-Doll-norv%C3%A9gien-ambre-blotched-tabby_avec-blanc_2008_(cropped).jpg"
+  },
+  "메인쿤": {
+    "src": "/breeds/maine-coon.webp",
+    "w": 682,
+    "h": 960,
+    "file": "File:Mâle Black Silver Blotched Tabby.jpeg",
+    "author": "Own work",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:M%C3%A2le_Black_Silver_Blotched_Tabby.jpeg"
+  },
+  "아메리칸숏헤어": {
+    "src": "/breeds/american-shorthair.webp",
+    "w": 567,
+    "h": 425,
+    "file": "File:Jewelkatz Romeo Of Stalker-Bars.jpg",
+    "author": "odin_aka_zero-one",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jewelkatz_Romeo_Of_Stalker-Bars.jpg"
+  },
+  "아비시니안": {
+    "src": "/breeds/abyssinian.webp",
+    "w": 800,
+    "h": 1142,
+    "file": "File:Gustav chocolate.jpg",
+    "author": "Karin Langner-Bahmann",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gustav_chocolate.jpg"
+  },
+  "샴": {
+    "src": "/breeds/siamese.webp",
+    "w": 800,
+    "h": 1069,
+    "file": "File:Siamesecatbasbousa.jpg",
+    "author": "Sandrus",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Siamesecatbasbousa.jpg"
+  },
+  "스핑크스": {
+    "src": "/breeds/sphynx.webp",
+    "w": 800,
+    "h": 1691,
+    "file": "File:Sphynx - cat. img 031.jpg",
+    "author": "Dmitry Makeev",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sphynx_-_cat._img_031.jpg"
+  },
+  "터키시앙고라": {
+    "src": "/breeds/turkish-angora.webp",
+    "w": 800,
+    "h": 650,
+    "file": "File:Turkish Angora in Ankara Zoo (AOÇ).JPG",
+    "author": "Ankarakediler",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Turkish_Angora_in_Ankara_Zoo_(AO%C3%87).JPG"
+  },
+  "엑조틱숏헤어": {
+    "src": "/breeds/exotic-shorthair.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:P5024729 (8702522266).jpg",
+    "author": "Melv_L - MACASR",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:P5024729_(8702522266).jpg"
+  },
+  "라가머핀": {
+    "src": "/breeds/ragamuffin.webp",
+    "w": 632,
+    "h": 752,
+    "file": "File:20050922AmarilloRes.jpg",
+    "author": "\"Iris Preyler-Hamertinger\"",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:20050922AmarilloRes.jpg"
+  },
+  "데본렉스": {
+    "src": "/breeds/devon-rex.webp",
+    "w": 800,
+    "h": 1202,
+    "file": "File:Devon Rex Cassini.jpeg",
+    "author": "Anna Belial",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Devon_Rex_Cassini.jpeg"
+  },
+  "코니시렉스": {
+    "src": "/breeds/cornish-rex.webp",
+    "w": 800,
+    "h": 799,
+    "file": "File:Cornish Rex - Gatos (cropped).jpg",
+    "author": "Alexandre Gonçalves",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cornish_Rex_-_Gatos_(cropped).jpg"
+  },
+  "싱가푸라": {
+    "src": "/breeds/singapura.webp",
+    "w": 800,
+    "h": 1067,
+    "file": "File:Singapura cat.jpg",
+    "author": "AnneAllier",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Singapura_cat.jpg"
+  },
+  "버만": {
+    "src": "/breeds/birman.webp",
+    "w": 800,
+    "h": 798,
+    "file": "File:Tallulah, a Seal-Point Birman cat (2014; cropped 2025).jpg",
+    "author": "Jon McKnight",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tallulah,_a_Seal-Point_Birman_cat_(2014;_cropped_2025).jpg"
+  },
+  "샤르트뢰": {
+    "src": "/breeds/chartreux.webp",
+    "w": 800,
+    "h": 755,
+    "file": "File:IC Blue Melody Flipper CHA male EX1 CACIB.jpg",
+    "author": "Heikki Siltala - catza.net",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:IC_Blue_Melody_Flipper_CHA_male_EX1_CACIB.jpg"
+  },
+  "오리엔탈숏헤어": {
+    "src": "/breeds/oriental-shorthair.webp",
+    "w": 800,
+    "h": 1067,
+    "file": "File:Fatale de la légende d'ali.jpg",
+    "author": "Daly69",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fatale_de_la_l%C3%A9gende_d%27ali.jpg"
+  },
+  "발리니즈": {
+    "src": "/breeds/balinese.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:Chocolate-point-balinese.jpg",
+    "author": "Talophex",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chocolate-point-balinese.jpg"
+  },
+  "톤키니즈": {
+    "src": "/breeds/tonkinese.webp",
+    "w": 800,
+    "h": 800,
+    "file": "File:Tonkinese Cat - Leo.jpg",
+    "author": "Luigi Leahy",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tonkinese_Cat_-_Leo.jpg"
+  },
+  "히말라얀": {
+    "src": "/breeds/himalayan.webp",
+    "w": 800,
+    "h": 1210,
+    "file": "File:Sonny Bunny.jpg",
+    "author": "Cindy See",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sonny_Bunny.jpg"
+  },
+  "봄베이": {
+    "src": "/breeds/bombay.webp",
+    "w": 634,
+    "h": 792,
+    "file": "File:Bombay femelle.JPG",
+    "author": "Pititebilette",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bombay_femelle.JPG"
+  },
+  "이집션마우": {
+    "src": "/breeds/egyptian-mau.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:RoyalNefertt Serket of AchetAton.jpg",
+    "author": "Achet Aton",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:RoyalNefertt_Serket_of_AchetAton.jpg"
+  },
+  "코랏": {
+    "src": "/breeds/korat.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:Korat cat wikipedia.jpg",
+    "author": "Jacques Julien Photo",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Korat_cat_wikipedia.jpg"
+  },
+  "셀커크렉스": {
+    "src": "/breeds/selkirk-rex.webp",
+    "w": 800,
+    "h": 534,
+    "file": "File:Selkirk Rex grey.JPG",
+    "author": "Leinwand",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Selkirk_Rex_grey.JPG"
+  },
+  "동경이": {
+    "src": "/breeds/donggyeongi.webp",
+    "w": 800,
+    "h": 450,
+    "file": "File:White Donggyeongi (Baekgu) 18 September 2017.jpg",
+    "author": "한국교육방송공사(EBS)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:White_Donggyeongi_(Baekgu)_18_September_2017.jpg"
+  },
+  "도사견": {
+    "src": "/breeds/tosa-inu.webp",
+    "w": 800,
+    "h": 645,
+    "file": "File:BUKADAI 2.jpg",
+    "author": "BUKADAI..JPG: Ludivine HOUDAS derivative work: Caronna (talk)",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:BUKADAI_2.jpg"
+  },
+  "말티푸": {
+    "src": "/breeds/maltese-poodle-mix.webp",
+    "w": 800,
+    "h": 502,
+    "file": "File:Maltipoo Dog - Poodle Maltese Mix Breed.jpg",
+    "author": "Paulconwall",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maltipoo_Dog_-_Poodle_Maltese_Mix_Breed.jpg"
+  },
+  "시푸": {
+    "src": "/breeds/shih-tzu-poodle-mix.webp",
+    "w": 800,
+    "h": 1067,
+    "file": "File:Shihpoo.jpg",
+    "author": "Chloeshihpoo",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Shihpoo.jpg"
+  },
+  "코카푸": {
+    "src": "/breeds/cocker-spaniel-poodle-mix.webp",
+    "w": 512,
+    "h": 447,
+    "file": "File:Cockapoo apricot standing.jpg",
+    "author": "Karla Clippinger",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cockapoo_apricot_standing.jpg"
+  },
+  "치푸": {
+    "src": "/breeds/chihuahua-poodle-mix.webp",
+    "w": 800,
+    "h": 1067,
+    "file": "File:Chihuahua x Poodle.jpg",
+    "author": "Nicolelau1999",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chihuahua_x_Poodle.jpg"
+  },
+  "요키푸": {
+    "src": "/breeds/yorkshire-terrier-poodle-mix.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:22-1350-nixie.jpg",
+    "author": "Reagle",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:22-1350-nixie.jpg"
+  },
+  "슈나푸": {
+    "src": "/breeds/miniature-schnauzer-poodle-mix.webp",
+    "w": 800,
+    "h": 918,
+    "file": "File:Chester2.jpg",
+    "author": "Alisand16",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chester2.jpg"
+  },
+  "골든두들": {
+    "src": "/breeds/golden-retriever-poodle-mix.webp",
+    "w": 800,
+    "h": 719,
+    "file": "File:Golden Doodle Standing (HD).jpg",
+    "author": "Gullpavon",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Golden_Doodle_Standing_(HD).jpg"
+  },
+  "라브라두들": {
+    "src": "/breeds/labrador-retriever-poodle-mix.webp",
+    "w": 800,
+    "h": 666,
+    "file": "File:Labradoodle-Brown-Male-SideFace.jpg",
+    "author": "Anton Porsche",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Labradoodle-Brown-Male-SideFace.jpg"
+  },
+  "푸숑(비숑푸들)": {
+    "src": "/breeds/bichon-frise-poodle-mix.webp",
+    "w": 800,
+    "h": 830,
+    "file": "File:Figo the Poochon.jpg",
+    "author": "JazzHandsIncarnate",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Figo_the_Poochon.jpg"
+  },
+  "폼스키": {
+    "src": "/breeds/pomeranian-siberian-husky-mix.webp",
+    "w": 800,
+    "h": 1205,
+    "file": "File:Kaïna.jpg",
+    "author": "Kryssoares03",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ka%C3%AFna.jpg"
+  },
+  "카바푸": {
+    "src": "/breeds/cavalier-king-charles-spaniel-poodle-mix.webp",
+    "w": 800,
+    "h": 1067,
+    "file": "File:JArabright.jpg",
+    "author": "BAVhah",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:JArabright.jpg"
+  },
+  "믹스견(잡종)": {
+    "src": "/breeds/mixed-breed-dog.webp",
+    "w": 800,
+    "h": 603,
+    "file": "File:01-Kundel mixed breed dog.jpg",
+    "author": "Maciek Godlewski",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:01-Kundel_mixed_breed_dog.jpg"
+  },
+  "카발리에킹찰스스패니얼": {
+    "src": "/breeds/cavalier-king-charles-spaniel.webp",
+    "w": 691,
+    "h": 505,
+    "file": "File:CarterBIS.Tiki.13.6.09.jpg",
+    "author": "Andreweatock",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:CarterBIS.Tiki.13.6.09.jpg"
+  },
+  "그레이트피레니즈": {
+    "src": "/breeds/great-pyrenees.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:Great Pyrenees Mountain Dog 2.png",
+    "author": "HeartSpoon",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Great_Pyrenees_Mountain_Dog_2.png"
+  },
+  "버니즈마운틴독": {
+    "src": "/breeds/bernese-mountain-dog.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:3-BerneseMountainDogInGrass.jpg",
+    "author": "FriendlyToaster",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:3-BerneseMountainDogInGrass.jpg"
+  },
+  "올드잉글리시쉽독": {
+    "src": "/breeds/old-english-sheepdog.webp",
+    "w": 800,
+    "h": 588,
+    "file": "File:Old English Sheepdog (side).jpg",
+    "author": "AKS.9955",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Old_English_Sheepdog_(side).jpg"
+  },
+  "잉글리시세터": {
+    "src": "/breeds/english-setter.webp",
+    "w": 500,
+    "h": 375,
+    "file": "File:EnglishSetter9 fx wb.jpg",
+    "author": "Elf at English Wikipedia",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:EnglishSetter9_fx_wb.jpg"
+  },
+  "아이리시세터": {
+    "src": "/breeds/irish-setter.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:Can Setter dog GFDL.jpg",
+    "author": "Luis Miguel Bugallo Sánchez (Lmbuga Commons)(Lmbuga Galipedia) Publicada por/Publish by: Luis Miguel Bugallo Sánchez",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Can_Setter_dog_GFDL.jpg"
+  },
+  "포인터": {
+    "src": "/breeds/pointer.webp",
+    "w": 800,
+    "h": 532,
+    "file": "File:English Pointer.jpg",
+    "author": "Unknown author",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:English_Pointer.jpg"
+  },
+  "알래스칸말라뮤트": {
+    "src": "/breeds/alaskan-malamute.webp",
+    "w": 640,
+    "h": 519,
+    "file": "File:Alaskan Malamute.jpg",
+    "author": "SCMW",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Alaskan_Malamute.jpg"
+  },
+  "보르조이": {
+    "src": "/breeds/borzoi.webp",
+    "w": 800,
+    "h": 695,
+    "file": "File:Chart rosyjski borzoj rybnik-kamien pl.jpg",
+    "author": "Pleple2000",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chart_rosyjski_borzoj_rybnik-kamien_pl.jpg"
+  },
+  "아프간하운드": {
+    "src": "/breeds/afghan-hound.webp",
+    "w": 800,
+    "h": 783,
+    "file": "File:312-Zoophoto.jpg",
+    "author": "João Marcos Martins",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:312-Zoophoto.jpg"
+  },
+  "불테리어": {
+    "src": "/breeds/bull-terrier.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:Bullterrier-3453301920.jpg",
+    "author": "Pixabay User TC-TORRES",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bullterrier-3453301920.jpg"
+  },
+  "스태퍼드셔불테리어": {
+    "src": "/breeds/staffordshire-bull-terrier.webp",
+    "w": 800,
+    "h": 610,
+    "file": "File:Staffordshire Bull Terrier 05.jpg",
+    "author": "claralieu",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Staffordshire_Bull_Terrier_05.jpg"
+  },
+  "도고아르헨티노": {
+    "src": "/breeds/dogo-argentino.webp",
+    "w": 800,
+    "h": 1067,
+    "file": "File:Argentine Dogo (535032632) (cropped).jpg",
+    "author": "Ricardo Martins from Gent, Belgium",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Argentine_Dogo_(535032632)_(cropped).jpg"
+  },
+  "스탠다드슈나우저": {
+    "src": "/breeds/standard-schnauzer.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:Standard Grey Schnauzer (cropped).JPG",
+    "author": "Tamorlan",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Standard_Grey_Schnauzer_(cropped).JPG"
+  },
+  "자이언트슈나우저": {
+    "src": "/breeds/giant-schnauzer.webp",
+    "w": 800,
+    "h": 652,
+    "file": "File:Nev Lemar Barbara1.jpg",
+    "author": "Petrucha",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nev_Lemar_Barbara1.jpg"
+  },
+  "잉글리시토이테리어": {
+    "src": "/breeds/english-toy-terrier.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:ENGLISH TOY TERRIER, NO JV-14 NO UCH X-Pected Dine Mites X-Factor (23995274170).jpg",
+    "author": "Svenska Mässan from Sweden",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:ENGLISH_TOY_TERRIER,_NO_JV-14_NO_UCH_X-Pected_Dine_Mites_X-Factor_(23995274170).jpg"
+  },
+  "차이니즈크레스티드": {
+    "src": "/breeds/chinese-crested.webp",
+    "w": 800,
+    "h": 532,
+    "file": "File:IndyStands.jpg",
+    "author": "Tommy Gildseth",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:IndyStands.jpg"
+  },
+  "벨지안말리노이즈": {
+    "src": "/breeds/belgian-malinois.webp",
+    "w": 800,
+    "h": 614,
+    "file": "File:Malinois glowa rybnik - kamien pl.jpg",
+    "author": "Pleple2000",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Malinois_glowa_rybnik_-_kamien_pl.jpg"
+  },
+  "오스트레일리안셰퍼드": {
+    "src": "/breeds/australian-shepherd.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:Australian Shepherd red bi.JPG",
+    "author": "Trickdog-Fina",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Australian_Shepherd_red_bi.JPG"
+  },
+  "잉글리시스프링거스패니얼": {
+    "src": "/breeds/english-springer-spaniel.webp",
+    "w": 761,
+    "h": 571,
+    "file": "File:Springer Spaniel Wide Shot.jpg",
+    "author": "Ratsniffer",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Springer_Spaniel_Wide_Shot.jpg"
+  },
+  "플랫코티드리트리버": {
+    "src": "/breeds/flat-coated-retriever.webp",
+    "w": 550,
+    "h": 412,
+    "file": "File:Flat Coated Retriever - black.jpg",
+    "author": "Gunnandreassen",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Flat_Coated_Retriever_-_black.jpg"
+  },
+  "노바스코샤덕톨링리트리버": {
+    "src": "/breeds/nova-scotia-duck-tolling-retriever.webp",
+    "w": 666,
+    "h": 532,
+    "file": "File:Duck Toller.jpg",
+    "author": "Cal119 at English Wikipedia",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Duck_Toller.jpg"
+  },
+  "아메리칸불리": {
+    "src": "/breeds/american-bully.webp",
+    "w": 800,
+    "h": 813,
+    "file": "File:Champion Charlie Muscles (2).jpg",
+    "author": "BullyB6",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Champion_Charlie_Muscles_(2).jpg"
+  },
+  "아메리칸핏불테리어": {
+    "src": "/breeds/american-pit-bull-terrier.webp",
+    "w": 800,
+    "h": 500,
+    "file": "File:001 American Pit Bull Terrier.jpg",
+    "author": "geoggirl (Flickr)",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:001_American_Pit_Bull_Terrier.jpg"
+  },
+  "캉갈": {
+    "src": "/breeds/kangal-shepherd-dog.webp",
+    "w": 800,
+    "h": 693,
+    "file": "File:Kangal front on.jpg",
+    "author": "Kangalshepherddog",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kangal_front_on.jpg"
+  },
+  "코카시안셰퍼드": {
+    "src": "/breeds/caucasian-shepherd-dog.webp",
+    "w": 800,
+    "h": 668,
+    "file": "File:Owczarek kaukaski 65556.jpg",
+    "author": "Pleple2000",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Owczarek_kaukaski_65556.jpg"
+  },
+  "보크서": {
+    "src": "/breeds/boxer.webp",
+    "w": 800,
+    "h": 590,
+    "file": "File:Male fawn Boxer undocked.jpg",
+    "author": "Mood210",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Male_fawn_Boxer_undocked.jpg"
+  },
+  "마스티프": {
+    "src": "/breeds/mastiff.webp",
+    "w": 800,
+    "h": 549,
+    "file": "File:Westgort Anticipation 17 months.JPG",
+    "author": "Radovan Rohovsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Westgort_Anticipation_17_months.JPG"
+  },
+  "세인트버나드": {
+    "src": "/breeds/saint-bernard.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:Hummel Vedor vd Robandahoeve.jpg",
+    "author": "Blanky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hummel_Vedor_vd_Robandahoeve.jpg"
+  },
+  "뉴펀들랜드": {
+    "src": "/breeds/newfoundland.webp",
+    "w": 800,
+    "h": 1200,
+    "file": "File:Newfoundland dog Smoky.jpg",
+    "author": "Flickr user DanDee Shots",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Newfoundland_dog_Smoky.jpg"
+  },
+  "보더테리어": {
+    "src": "/breeds/border-terrier.webp",
+    "w": 800,
+    "h": 585,
+    "file": "File:Border-terrier-bitch.jpg",
+    "author": "Charles J Sharp",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Border-terrier-bitch.jpg"
+  },
+  "베들링턴테리어": {
+    "src": "/breeds/bedlington-terrier.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:Boutchie apres championnat 004.JPG",
+    "author": "David Owsiany",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Boutchie_apres_championnat_004.JPG"
+  },
+  "실리햄테리어": {
+    "src": "/breeds/sealyham-terrier.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:SealyhamTerrier01.jpg",
+    "author": "Dr. Sabine Schumann",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:SealyhamTerrier01.jpg"
+  },
+  "스코티시테리어": {
+    "src": "/breeds/scottish-terrier.webp",
+    "w": 800,
+    "h": 1000,
+    "file": "File:Scottish Terrier Photo of Face.jpg",
+    "author": "Elise Carroll",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Scottish_Terrier_Photo_of_Face.jpg"
+  },
+  "폭스테리어": {
+    "src": "/breeds/fox-terrier.webp",
+    "w": 800,
+    "h": 574,
+    "file": "File:01 Wire Fox terrier.jpg",
+    "author": "State Farm",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:01_Wire_Fox_terrier.jpg"
+  },
+  "에어데일테리어": {
+    "src": "/breeds/airedale-terrier.webp",
+    "w": 800,
+    "h": 538,
+    "file": "File:Airedale.jpg",
+    "author": "Michail Jungierek",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Airedale.jpg"
+  },
+  "아펜핀셔": {
+    "src": "/breeds/affenpinscher.webp",
+    "w": 800,
+    "h": 805,
+    "file": "File:Pinczer małpi 756.jpg",
+    "author": "Pleple2000",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pinczer_ma%C5%82pi_756.jpg"
+  },
+  "브뤼셀그리펀": {
+    "src": "/breeds/brussels-griffon.webp",
+    "w": 800,
+    "h": 1001,
+    "file": "File:Gryfonik 144.jpg",
+    "author": "pl:user:Lilly M",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gryfonik_144.jpg"
+  },
+  "코통드툴레아": {
+    "src": "/breeds/coton-de-tulear.webp",
+    "w": 680,
+    "h": 491,
+    "file": "File:Coton de Tular 1.jpg",
+    "author": "Uschi Goess (eingestellt von Caronna)",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Coton_de_Tular_1.jpg"
+  },
+  "하바니즈": {
+    "src": "/breeds/havanese.webp",
+    "w": 800,
+    "h": 724,
+    "file": "File:A Havanese judging.jpg",
+    "author": "audrey_sel",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_Havanese_judging.jpg"
+  },
+  "이탈리안그레이하운드": {
+    "src": "/breeds/italian-greyhound.webp",
+    "w": 800,
+    "h": 1065,
+    "file": "File:Italian Greyhound standing gray (cropped).jpg",
+    "author": "christina",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Italian_Greyhound_standing_gray_(cropped).jpg"
+  },
+  "살루키": {
+    "src": "/breeds/saluki.webp",
+    "w": 800,
+    "h": 651,
+    "file": "File:Red Smooth Saluki.jpg",
+    "author": "r.",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Red_Smooth_Saluki.jpg"
+  },
+  "바센지": {
+    "src": "/breeds/basenji.webp",
+    "w": 727,
+    "h": 667,
+    "file": "File:Basenji Profile (loosercrop).jpg",
+    "author": "fugzu",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Basenji_Profile_(loosercrop).jpg"
+  },
+  "로디지안리지백": {
+    "src": "/breeds/rhodesian-ridgeback.webp",
+    "w": 800,
+    "h": 554,
+    "file": "File:Big rhodesian male IMG 6830.JPG",
+    "author": "Andeskilima",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Big_rhodesian_male_IMG_6830.JPG"
+  },
+  "비어디드콜리": {
+    "src": "/breeds/bearded-collie.webp",
+    "w": 600,
+    "h": 540,
+    "file": "File:Bearded Collie 600.jpg",
+    "author": "Unknown author",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bearded_Collie_600.jpg"
+  },
+  "케리블루테리어": {
+    "src": "/breeds/kerry-blue-terrier.webp",
+    "w": 800,
+    "h": 779,
+    "file": "File:Kerry Blue Terrier.jpg",
+    "author": "Peter Kumpert, Germany",
+    "license": "CC BY-SA 3.0 de",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kerry_Blue_Terrier.jpg"
+  },
+  "소프트코티드휘튼테리어": {
+    "src": "/breeds/soft-coated-wheaten-terrier.webp",
+    "w": 700,
+    "h": 575,
+    "file": "File:Soft-Coated Wheaten Terrier.jpg",
+    "author": "Terrierkännaren",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Soft-Coated_Wheaten_Terrier.jpg"
+  },
+  "노퍽테리어": {
+    "src": "/breeds/norfolk-terrier.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:Norfolkterrier.jpg",
+    "author": "Flillia",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Norfolkterrier.jpg"
+  },
+  "노리치테리어": {
+    "src": "/breeds/norwich-terrier.webp",
+    "w": 800,
+    "h": 532,
+    "file": "File:NorwichTerrier Elvis.jpg",
+    "author": "Gamma Corvi",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:NorwichTerrier_Elvis.jpg"
+  },
+  "실키테리어": {
+    "src": "/breeds/silky-terrier.webp",
+    "w": 632,
+    "h": 560,
+    "file": "File:Australian Silky Terrier Alana Of Silky's Dream.jpg",
+    "author": "Ofsilkysdream",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Australian_Silky_Terrier_Alana_Of_Silky%27s_Dream.jpg"
+  },
+  "포르투기즈워터독": {
+    "src": "/breeds/portuguese-water-dog.webp",
+    "w": 800,
+    "h": 791,
+    "file": "File:Portugalski pies wodny 2322.jpg",
+    "author": "Pleple2000",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Portugalski_pies_wodny_2322.jpg"
+  },
+  "키슈견": {
+    "src": "/breeds/kishu-ken.webp",
+    "w": 800,
+    "h": 803,
+    "file": "File:Kishukendog.jpg",
+    "author": "Canarian",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kishukendog.jpg"
+  },
+  "시코쿠견": {
+    "src": "/breeds/shikoku-ken.webp",
+    "w": 800,
+    "h": 732,
+    "file": "File:Shikokunkoira1.jpg",
+    "author": "Canarian",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Shikokunkoira1.jpg"
+  },
+  "가이켄(고슈)": {
+    "src": "/breeds/kai-ken.webp",
+    "w": 800,
+    "h": 892,
+    "file": "File:Kai-front.jpg",
+    "author": "Kei87c1",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kai-front.jpg"
+  },
+  "라이카": {
+    "src": "/breeds/laika.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:West Siberian Laika.jpg",
+    "author": "Unknown author",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:West_Siberian_Laika.jpg"
+  },
+  "티베탄마스티프": {
+    "src": "/breeds/tibetan-mastiff.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:IKA DU DOMAINE DE TOUNDRA CHAMPIONNE INTERNATIONALE ET MONACO 2015.jpg",
+    "author": "Brunodesola",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:IKA_DU_DOMAINE_DE_TOUNDRA_CHAMPIONNE_INTERNATIONALE_ET_MONACO_2015.jpg"
+  },
+  "샤페이": {
+    "src": "/breeds/chinese-shar-pei.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:Henry wikipedia.jpg",
+    "author": "canis-candie",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Henry_wikipedia.jpg"
+  },
+  "스코티시스트레이트": {
+    "src": "/breeds/scottish-straight.webp",
+    "w": 800,
+    "h": 1067,
+    "file": "File:Scottish Straight in sunlight.jpg",
+    "author": "WikisMistress",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Scottish_Straight_in_sunlight.jpg"
+  },
+  "픽시밥": {
+    "src": "/breeds/pixie-bob.webp",
+    "w": 640,
+    "h": 480,
+    "file": "File:Jarnac Bepacific feb07.jpg",
+    "author": "Nathalie Bent",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jarnac_Bepacific_feb07.jpg"
+  },
+  "사바나": {
+    "src": "/breeds/savannah.webp",
+    "w": 800,
+    "h": 1200,
+    "file": "File:Savannah Cat portrait.jpg",
+    "author": "Jason Douglas",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Savannah_Cat_portrait.jpg"
+  },
+  "오시캣": {
+    "src": "/breeds/ocicat.webp",
+    "w": 800,
+    "h": 458,
+    "file": "File:Chocolate-Spotted-Ocicat.jpg",
+    "author": "Check-Six at English Wikipedia",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chocolate-Spotted-Ocicat.jpg"
+  },
+  "소말리": {
+    "src": "/breeds/somali.webp",
+    "w": 800,
+    "h": 1122,
+    "file": "File:Сомалийская кошка.jpg",
+    "author": "Матвеева Ирина Владимировна",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:%D0%A1%D0%BE%D0%BC%D0%B0%D0%BB%D0%B8%D0%B9%D1%81%D0%BA%D0%B0%D1%8F_%D0%BA%D0%BE%D1%88%D0%BA%D0%B0.jpg"
+  },
+  "버미즈": {
+    "src": "/breeds/burmese.webp",
+    "w": 800,
+    "h": 739,
+    "file": "File:British burmese - Andel Alois at Cat show.JPG",
+    "author": "Heikkisiltala",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:British_burmese_-_Andel_Alois_at_Cat_show.JPG"
+  },
+  "맹크스": {
+    "src": "/breeds/manx.webp",
+    "w": 800,
+    "h": 622,
+    "file": "File:Manx cat Latte.jpg",
+    "author": "Hekl01999",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Manx_cat_Latte.jpg"
+  },
+  "아메리칸컬": {
+    "src": "/breeds/american-curl.webp",
+    "w": 800,
+    "h": 570,
+    "file": "File:American curl 2.jpg",
+    "author": "Unknown author",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:American_curl_2.jpg"
+  },
+  "네벨룽": {
+    "src": "/breeds/nebelung.webp",
+    "w": 800,
+    "h": 1042,
+    "file": "File:Nebelung female cat.jpg",
+    "author": "Tutu nebelung",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nebelung_female_cat.jpg"
+  },
+  "하바나브라운": {
+    "src": "/breeds/havana-brown.webp",
+    "w": 800,
+    "h": 992,
+    "file": "File:Havana Brown cat.jpg",
+    "author": "Havanabrowngirl",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Havana_Brown_cat.jpg"
+  },
+  "라팜": {
+    "src": "/breeds/laperm.webp",
+    "w": 500,
+    "h": 374,
+    "file": "File:Laperm LH blacktortie white.jpg",
+    "author": "Bebopscrx",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laperm_LH_blacktortie_white.jpg"
+  },
+  "아메리칸와이어헤어": {
+    "src": "/breeds/american-wirehair.webp",
+    "w": 800,
+    "h": 796,
+    "file": "File:American Wirehair - CFF cat show Heinola 2008-05-04 IMG 8721.JPG",
+    "author": "Heikki Siltala",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:American_Wirehair_-_CFF_cat_show_Heinola_2008-05-04_IMG_8721.JPG"
+  },
+  "재패니즈밥테일": {
+    "src": "/breeds/japanese-bobtail.webp",
+    "w": 650,
+    "h": 465,
+    "file": "File:JapaneseBobtailBlueEyedMi-ke.JPG",
+    "author": "ようてい",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:JapaneseBobtailBlueEyedMi-ke.JPG"
+  },
+  "쿠릴리안밥테일": {
+    "src": "/breeds/kurilian-bobtail.webp",
+    "w": 800,
+    "h": 540,
+    "file": "File:KURILIAN BOBTAIL Maschio Veika 2011 (cropped).JPG",
+    "author": "TRUE KURILIANS",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KURILIAN_BOBTAIL_Maschio_Veika_2011_(cropped).JPG"
+  },
+  "시베리안": {
+    "src": "/breeds/siberian.webp",
+    "w": 800,
+    "h": 847,
+    "file": "File:Samiha's Siberian cat Moon Pie.jpg",
+    "author": "Floofymarshmallow",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Samiha%27s_Siberian_cat_Moon_Pie.jpg"
+  },
+  "터키시반": {
+    "src": "/breeds/turkish-van.webp",
+    "w": 800,
+    "h": 944,
+    "file": "File:IC Suviyön Aksamyildizi (Rusina) TUV d 62.JPG",
+    "author": "Heikki Siltala",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:IC_Suviy%C3%B6n_Aksamyildizi_(Rusina)_TUV_d_62.JPG"
+  },
+  "버밀라": {
+    "src": "/breeds/burmilla.webp",
+    "w": 471,
+    "h": 423,
+    "file": "File:Male Burmilla cat.jpeg",
+    "author": "David Johnson [1]",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Male_Burmilla_cat.jpeg"
+  },
+  "셀커크렉스롱헤어": {
+    "src": "/breeds/selkirk-rex-longhair.webp",
+    "w": 800,
+    "h": 670,
+    "file": "File:Selkirk Longhair.jpg",
+    "author": "Desaix83, d'après le travail d'Heikki Siltala",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Selkirk_Longhair.jpg"
+  },
+  "피터볼드": {
+    "src": "/breeds/peterbald.webp",
+    "w": 800,
+    "h": 1453,
+    "file": "File:Tabou, chat Peterbald type «Brush».jpg",
+    "author": "Acracrabe",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tabou,_chat_Peterbald_type_%C2%ABBrush%C2%BB.jpg"
+  },
+  "돈스코이": {
+    "src": "/breeds/donskoy.webp",
+    "w": 800,
+    "h": 607,
+    "file": "File:DSX World Premior RU*Don Xuk's Login WOW (14037189016).jpg",
+    "author": "Nickolas Titkov from Moscow, Russian Federation",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:DSX_World_Premior_RU*Don_Xuk%27s_Login_WOW_(14037189016).jpg"
+  },
+  "토이거": {
+    "src": "/breeds/toyger.webp",
+    "w": 800,
+    "h": 740,
+    "file": "File:Toyger - Cornish Rex presentation show Riihimäki 2008-11-16 IMG 0101.JPG",
+    "author": "Heikki Siltala",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyger_-_Cornish_Rex_presentation_show_Riihim%C3%A4ki_2008-11-16_IMG_0101.JPG"
+  },
+  "차우시": {
+    "src": "/breeds/chausie.webp",
+    "w": 800,
+    "h": 533,
+    "file": "File:Chausie.jpg",
+    "author": "Wilczakrew",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chausie.jpg"
+  },
+  "하이랜드폴드": {
+    "src": "/breeds/highland-fold.webp",
+    "w": 800,
+    "h": 788,
+    "file": "File:Long-haired grey Scottish Fold.jpg",
+    "author": "Ansrea",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Long-haired_grey_Scottish_Fold.jpg"
+  },
+  "스코티시폴드롱헤어": {
+    "src": "/breeds/scottish-fold-longhair.webp",
+    "w": 800,
+    "h": 536,
+    "file": "File:SFL Deyma Barberry O.A. (4170828275).jpg",
+    "author": "Nickolas Titkov from Moscow, Russian Federation",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:SFL_Deyma_Barberry_O.A._(4170828275).jpg"
+  },
+  "먼치킨롱헤어": {
+    "src": "/breeds/munchkin-longhair.webp",
+    "w": 800,
+    "h": 600,
+    "file": "File:Studious Buttercup -munchkincat (17588513890).jpg",
+    "author": "Doug McCaughan from Knoxville, TN, USA",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Studious_Buttercup_-munchkincat_(17588513890).jpg"
+  },
+  "미스킨": {
+    "src": "/breeds/munchkin-2.webp",
+    "w": 800,
+    "h": 640,
+    "file": "File:Munchkin cat stretching.jpg",
+    "author": "Egor Plenkin",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Munchkin_cat_stretching.jpg"
+  },
+  "믹스/혼혈 고양이": {
+    "src": "/breeds/mixed-breed-cat.webp",
+    "w": 800,
+    "h": 536,
+    "file": "File:Cat 0088.jpg",
+    "author": "Ronincmc",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cat_0088.jpg"
+  }
+}

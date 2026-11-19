@@ -415,5 +415,105 @@
     "ref": "AKC — How to Trim Your Dog's Nails at Home (수의 단체 지침이 아님)",
     "url": "https://www.akc.org/expert-advice/health/how-to-trim-dogs-nails-safely/",
     "verified": false
+  },
+  {
+    "id": "found-report",
+    "kind": "law",
+    "species": "both",
+    "topic": "rescue",
+    "title": "주인 잃은 동물은 시·군·구나 동물보호센터에 신고",
+    "body": "주인을 잃었거나 버려진 동물을 발견하면 누구나 시·군·구나 동물보호센터에 신고할 수 있어요. 경찰서에 맡겨 주인을 찾게 해도 돼요. 지자체가 보호하게 되면 동물등록 여부를 확인해, 등록된 동물이면 바로 주인에게 알려요.",
+    "ref": "동물보호법 제39조 제1항 제2호·제34조 제2항, 유실물법 제12조",
+    "url": "https://www.law.go.kr/법령/동물보호법/제39조",
+    "verified": true
+  },
+  {
+    "id": "found-keeping-risk",
+    "kind": "law",
+    "species": "both",
+    "topic": "rescue",
+    "title": "신고 없이 그냥 키우면 문제가 될 수 있어요",
+    "body": "주인이 있는 동물을 신고하지 않고 데려다 키우면 민사·형사 문제에 휘말릴 수 있어요. 남이 잃어버린 재물을 가진 것으로 보아 점유이탈물횡령죄가 적용될 수 있어요.",
+    "penalty": "점유이탈물횡령 1년 이하 징역, 300만 원 이하 벌금 또는 과료",
+    "ref": "형법 제360조 제1항, 국가동물보호정보시스템 자주 묻는 질문",
+    "url": "https://www.law.go.kr/법령/형법/제360조",
+    "verified": true
+  },
+  {
+    "id": "found-ownership",
+    "kind": "law",
+    "species": "both",
+    "topic": "rescue",
+    "title": "공고한 날부터 10일이 지나야 입양할 수 있어요",
+    "body": "지자체가 보호하는 동물은 7일 이상 공고해 주인을 찾아요. 공고한 날부터 10일이 지나도 주인을 알 수 없으면 소유권이 시·군·구로 넘어가고, 그 뒤 시·도 조례에 따라 기증·분양(입양)될 수 있어요. 직접 키우고 싶다면 보호센터에 입양 절차를 물어보세요.",
+    "ref": "동물보호법 제40조·제43조 제1호·제45조 제1항",
+    "url": "https://www.law.go.kr/법령/동물보호법/제43조",
+    "verified": true
+  },
+  {
+    "id": "street-cat-not-rescue",
+    "kind": "law",
+    "species": "cat",
+    "topic": "rescue",
+    "title": "건강한 길고양이는 구조·보호 대상이 아니에요",
+    "body": "도심이나 주택가에서 스스로 번식해 살아가는 길고양이는 지자체 구조·보호 대상에서 빠져요. 다치거나 아파 보이면 동물병원이나 동물보호센터에 연락해 보세요.",
+    "ref": "동물보호법 제34조 제1항 단서, 시행규칙 제14조 제1항",
+    "url": "https://www.law.go.kr/법령/동물보호법시행규칙/제14조",
+    "verified": true
+  },
+  {
+    "id": "tnr-eartip",
+    "kind": "law",
+    "species": "cat",
+    "topic": "rescue",
+    "title": "왼쪽 귀 끝이 잘려 있다면 중성화를 마친 길고양이",
+    "body": "지자체 길고양이 중성화 사업에서는 수술한 고양이의 왼쪽 귀 끝을 약 1cm 잘라 표시하고, 잡은 곳에 다시 풀어 줘요. 귀 끝이 잘려 있으면 이미 중성화를 마친 동네 길고양이예요.",
+    "ref": "고양이 중성화사업 실시 요령(농림축산식품부 고시 제2021-88호) 제6조 제8항",
+    "url": "https://www.law.go.kr/행정규칙/고양이%20중성화사업%20실시%20요령",
+    "verified": true
+  },
+  {
+    "id": "kitten-wait-mother",
+    "kind": "care",
+    "species": "cat",
+    "topic": "rescue",
+    "title": "새끼 고양이만 있으면 어미부터 기다려요",
+    "body": "새끼 고양이를 발견하면 멀리서 지켜보며 어미가 돌아오는지 봐요. 3시간이 지나도 어미가 오지 않으면 동물병원이나 동물보호센터·보호단체에 연락해요.",
+    "ref": "International Cat Care — I've found a stray cat, what do I do?",
+    "url": "https://icatcare.org/articles/ive-found-a-stray-cat-what-do-i-do",
+    "verified": true
+  },
+  {
+    "id": "cat-retrovirus-test",
+    "kind": "care",
+    "species": "cat",
+    "topic": "rescue",
+    "title": "데려오면 FeLV·FIV 검사부터",
+    "body": "고양이 백혈병(FeLV)과 면역결핍(FIV) 바이러스는 겉으로 알기 어려워요. 데려오면 되도록 빨리 동물병원에서 검사하고, 결과가 나올 때까지 집에 있는 다른 고양이와 따로 지내게 해요.",
+    "ref": "AAFP 2020 Feline Retrovirus Testing and Management Guidelines",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11135720/",
+    "verified": true
+  },
+  {
+    "id": "unknown-vaccine",
+    "kind": "care",
+    "species": "both",
+    "topic": "rescue",
+    "title": "접종 기록을 모르면 다시 맞혀요",
+    "body": "기록이 없으면 맞은 적 없는 것으로 보고 다시 시작해요. 6개월 넘은 개는 핵심 백신(생백신) 1번으로 충분한 경우가 많고, 렙토스피라는 2번 맞아요. 고양이는 다 컸어도 핵심 백신을 2~4주 간격으로 2번 맞아요. 횟수와 시기는 수의사와 정해요.",
+    "ref": "WSAVA 2024 Guidelines for the Vaccination of Dogs and Cats",
+    "url": "https://wsava.org/wp-content/uploads/2024/04/WSAVA-Vaccination-guidelines-2024.pdf",
+    "verified": true
+  },
+  {
+    "id": "heartworm-test",
+    "kind": "care",
+    "species": "dog",
+    "topic": "rescue",
+    "title": "7개월 넘은 개는 심장사상충 검사 먼저",
+    "body": "예방약을 먹은 적 없는 7개월 넘은 개는 심장사상충 검사를 한 뒤에 예방약을 시작해요.",
+    "ref": "American Heartworm Society — Heartworm in Dogs",
+    "url": "https://www.heartwormsociety.org/heartworms-in-dogs",
+    "verified": true
   }
 ]

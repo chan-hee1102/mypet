@@ -5,6 +5,10 @@ import { GUIDES, findGuide } from '@/lib/guides';
 import GuideBody from '@/components/GuideBody';
 import { Icon } from '@/components/icons';
 import { SITE } from '@/lib/site';
+import { PUBLISHED, UPDATED } from '@/lib/breedSeo';
+
+/** 2026-11-19에 처음 연 가이드 — 처음 낸 날도 그날 */
+const NEW_GUIDES = new Set(['found-stray-pet', 'neutered-food-amount', 'kibble-cup-grams', 'kitten-weight-by-week']);
 
 /**
  * 정보 가이드 상세 — 검색·AI 답변엔진 유입의 본체.
@@ -30,7 +34,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   if (!g) return {};
   const url = `${SITE.url}/guide/${g.slug}`;
   return {
-    title: `${g.title} | mypet`,
+    title: `${g.title} | 마이펫`,
     description: g.description,
     keywords: g.keywords,
     alternates: { canonical: url },
@@ -53,7 +57,12 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       description: g.description,
       inLanguage: 'ko',
       mainEntityOfPage: url,
-      publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+      // 2026-11-19: 날짜·운영자(@id = SiteJsonLd의 카이랩)·이미지 — 생성형 검색은 「누가·언제」를 인용 판단에 쓴다
+      datePublished: NEW_GUIDES.has(g.slug) ? UPDATED : PUBLISHED,
+      dateModified: UPDATED,
+      image: `${SITE.url}/opengraph-image`,
+      author: { '@id': `${SITE.url}/#org` },
+      publisher: { '@id': `${SITE.url}/#org` },
       // 근거로 삼은 원문을 그대로 밝힌다 — 인용될 글의 최소 조건이다.
       citation: g.sources.map((s) => ({ '@type': 'CreativeWork', name: `${s.org} — ${s.title}`, url: s.url })),
     },
@@ -124,6 +133,9 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
             </li>
           ))}
         </ul>
+        <p className="gdisclaimer">
+          <Icon name="info" size={14} /> 마지막 확인 {UPDATED.replace(/^(\d+)-(\d+)-(\d+)$/, (_, y, m, d) => `${y}년 ${Number(m)}월 ${Number(d)}일`)} · <Link href="/sources">정보 기준</Link>
+        </p>
         <p className="gdisclaimer">
           <Icon name="info" size={14} /> 이 글은 일반적인 정보이며 <b>수의사의 진찰과 진료를 대신하지 않아요.</b>
           개체마다 상태가 달라서, 이상 징후가 보이면 병원에 먼저 가 보세요.

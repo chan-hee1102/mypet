@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 /**
  * 품종 안내판 목록(/breed) — 이름 찾기 + 체구·털 빠짐 거르기(2026-11-19).
  * 「털 덜 빠지는 강아지」「소형견 종류」처럼 조건으로 찾는 사람이 많아서 거르기를 붙였다.
+ * 첫 화면·처음 데려온다면의 「강아지 N종 전체 보기」「고양이 N종 전체 보기」는 #dog·#cat으로 바로 그 구획에 내려온다.
  * ⚠️ 거르기 전에는 전부 그린다 — 서버 HTML에 188개 링크가 다 있어야 검색엔진이 품종 페이지에 닿는다.
  */
 export type FinderItem = { name: string; path: string; species: 'dog' | 'cat'; size: string; sizeLabel: string; coatLabel: string; shedding: number | null };
@@ -41,6 +42,12 @@ export function BreedFinder({ items }: { items: FinderItem[] }) {
   const [catSize, setCatSize] = useState<string | null>(null);
   const [lowShed, setLowShed] = useState(false);
 
+  // #dog·#cat으로 들어오면 그 구획으로 — 앱 안 이동(Link)은 app/loading.tsx 「불러오는 중」을 거치며 Next가 해시 위치를 놓쳐 맨 위에 선다
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (id === 'dog' || id === 'cat') document.getElementById(id)?.scrollIntoView();
+  }, []);
+
   const pass = (b: FinderItem, size: string | null) =>
     (!q.trim() || norm(b.name).includes(norm(q))) && (!size || b.size === size) && (!lowShed || (b.shedding !== null && b.shedding <= 2));
   const dogs = useMemo(() => items.filter((b) => b.species === 'dog' && pass(b, dogSize)), [items, q, dogSize, lowShed]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -75,7 +82,7 @@ export function BreedFinder({ items }: { items: FinderItem[] }) {
         </button>
       </div>
 
-      <section className="sheet">
+      <section className="sheet bf-sec" id="dog">
         <div className="bf-head">
           <h2>
             강아지 <span>{dogs.length}종</span>
@@ -84,7 +91,7 @@ export function BreedFinder({ items }: { items: FinderItem[] }) {
         </div>
         <List items={dogs} />
       </section>
-      <section className="sheet">
+      <section className="sheet bf-sec" id="cat">
         <div className="bf-head">
           <h2>
             고양이 <span>{cats.length}종</span>

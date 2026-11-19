@@ -1,3 +1,4 @@
+import { UPDATED } from '@/lib/breedSeo';
 import { naverBingOnlyUrls } from '@/lib/searchScope';
 
 /**
@@ -7,7 +8,7 @@ import { naverBingOnlyUrls } from '@/lib/searchScope';
 export const revalidate = 86400;
 
 export function GET() {
-  const lastmod = '2026-09-27';
+  const lastmod = UPDATED; // 2026-11-19 165종으로 확대·제목 손봄 — 크게 고칠 때 lib/breedSeo UPDATED를 올린다
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${naverBingOnlyUrls()

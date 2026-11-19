@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import breedData from '@/lib/breedKnowledge.json';
 import { BreedFinder, type FinderItem } from '@/components/board/BreedFinder';
@@ -41,9 +42,21 @@ export default function BreedIndexPage() {
         <nav className="gcrumb">
           <Link href="/">마이펫</Link> <span>›</span> 품종 안내판
         </nav>
-        <header className="tz-hero">
-          <h1>품종 안내판 {BREEDS.length}종</h1>
-          <p className="tz-lead">품종마다 하루 사료량·산책·빗질·미용·배변과 조심할 질환, 맞는 준비물을 한 장에 정리했어요.</p>
+        {/* 사진 표지(2026-11-19) — 포메라니안·웰시코기·골든리트리버·페르시안·코숏(public/pet-lineup.webp, gpt-image-2 → 배경 순백, unoptimized) */}
+        <header className="pic-hero pic-hero--lineup">
+          <div className="pic-hero-txt">
+            <h1>품종 안내판 {BREEDS.length}종</h1>
+            <p className="tz-lead">품종마다 하루 사료량·산책·빗질·미용·배변과 조심할 질환, 맞는 준비물을 한 장에 정리했어요.</p>
+          </div>
+          <Image
+            className="pic-hero-img"
+            src="/pet-lineup.webp"
+            alt="포메라니안, 웰시코기, 골든리트리버, 페르시안, 코리안숏헤어가 나란히 앉아 있는 모습"
+            width={1400}
+            height={654}
+            priority
+            unoptimized
+          />
         </header>
         <BreedFinder items={items} />
       </div>

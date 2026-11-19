@@ -43,6 +43,34 @@ export const FLAGS = {
 
 export type Flag = keyof typeof FLAGS;
 
+/** 「이런 아이예요」 조심할 점 이름표 — 짧은 이름 + 묶음(건강·관리·생활·법). 긴 문장(FLAGS)은 건강 칸·자세히 보기에 남는다(2026-11-19) */
+export const FLAG_SHORT: Record<Flag, { label: string; group: 'health' | 'care' | 'life' | 'law' }> = {
+  patella: { label: '슬개골 탈구', group: 'health' },
+  hip: { label: '고관절 이형성', group: 'health' },
+  back: { label: '허리 디스크', group: 'health' },
+  trachea: { label: '기관 허탈', group: 'health' },
+  brachy: { label: '짧은 코 호흡', group: 'health' },
+  eyes: { label: '눈 다침', group: 'health' },
+  tearStain: { label: '눈물 자국', group: 'care' },
+  ears: { label: '외이염', group: 'health' },
+  skinFold: { label: '주름 사이 관리', group: 'care' },
+  skin: { label: '예민한 피부', group: 'health' },
+  dental: { label: '치주질환', group: 'health' },
+  obesity: { label: '살찌기 쉬움', group: 'health' },
+  bloat: { label: '위확장 염전', group: 'health' },
+  separation: { label: '분리불안', group: 'life' },
+  prey: { label: '강한 사냥 본능', group: 'life' },
+  escape: { label: '탈출·땅 파기', group: 'life' },
+  dangerous: { label: '법정 맹견', group: 'law' },
+  drool: { label: '침 흘림', group: 'care' },
+  heart: { label: '심장병', group: 'health' },
+  kidney: { label: '신장병', group: 'health' },
+  urinary: { label: '요로 질환', group: 'health' },
+  hairball: { label: '헤어볼', group: 'care' },
+  climber: { label: '높은 곳 좋아함', group: 'life' },
+  joint: { label: '관절 질환', group: 'health' },
+};
+
 export type CareNotes = {
   /** 사료: 알갱이 크기·급여 횟수·살찌기·소화·성장기 */
   food: string;

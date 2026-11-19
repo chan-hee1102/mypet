@@ -15,6 +15,8 @@ import type { Species } from './types';
  */
 
 export const PUBLISHED = '2026-09-27';
+/** 마지막으로 손본 날 — dateModified·사이트맵 lastmod(2026-11-19: 165종으로 확대·종이컵 답·이름 「마이펫」). 크게 고치면 같이 올린다 */
+export const UPDATED = '2026-11-19';
 export const ORG_REF = { '@id': `${SITE.url}/#org` };
 
 export const SOURCES = {

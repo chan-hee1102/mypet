@@ -10,6 +10,7 @@ import { Suspense } from 'react';
 import VisitTracker from '@/components/VisitTracker';
 import SiteJsonLd from '@/components/SiteJsonLd';
 import { Wordmark } from '@/components/Brand';
+import { SiteNav } from '@/components/SiteNav';
 import { SHOP_LIVE } from '@/lib/shop';
 
 /*
@@ -71,12 +72,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Link href="/" className="wordmark" aria-label="마이펫 처음으로">
               <Wordmark />
             </Link>
-            <nav className="site-nav" aria-label="주 메뉴">
-              <Link href="/breed">품종 안내판</Link>
-              <Link href="/start/dog">처음 데려온다면</Link>
-              <Link href="/guide" className="nav-opt">정보 가이드</Link>
-              <Link href="/tools" className="nav-opt">계산기</Link>
-            </nav>
+            <SiteNav />
           </div>
         </header>
 
@@ -89,6 +85,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <Link href="/start/dog">처음 데려온다면</Link>
               <Link href="/guide">정보 가이드</Link>
               <Link href="/tools">계산기</Link>
+              <Link href="/sources">정보 기준</Link>
               <Link href="/terms">이용약관</Link>
               <Link href="/privacy"><strong>개인정보처리방침</strong></Link>
               <ContactWidget />

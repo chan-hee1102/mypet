@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CareIcon, type CareIconName } from '@/components/board/CareIcon';
 import { Disclosure, ShopCards } from '@/components/board/ShopCards';
 import { FaqList, JsonLd, faqJsonLd, type Faq } from '@/components/seo/SeoBits';
-import { careOf, rulesById, type CareRule } from '@/lib/care';
+import { careOf, careProfiles, rulesById, type CareRule } from '@/lib/care';
 import { COAT_LABEL, SIZE_LABEL } from '@/lib/careProfile';
 import { breedPath } from '@/lib/breedSlug';
 import { socialMeta } from '@/lib/breedSeo';
@@ -132,24 +133,37 @@ export default function StartPage({ params }: { params: { species: string } }) {
   const picks = picksById(d.shop);
   const live = hasLive(picks);
   const other: Sp = sp === 'dog' ? 'cat' : 'dog';
+  const total = [...careProfiles().values()].filter((p) => p.species === sp).length;
   const laws = sp === 'dog' ? rulesById('dog-registration', 'walk-leash-2m', 'walk-id-tag', 'puppy-socialization') : rulesById('cat-registration-optional', 'litter-box-count-size', 'lily-toxic-cat');
 
   return (
     <main className="tz">
       <JsonLd data={[faqJsonLd(d.faq)]} />
       <div className="tz-wrap">
-        <nav className="st-switch" aria-label="강아지·고양이">
-          <Link href="/start/dog" aria-current={sp === 'dog' ? 'page' : undefined}>
-            강아지
-          </Link>
-          <Link href="/start/cat" aria-current={sp === 'cat' ? 'page' : undefined}>
-            고양이
-          </Link>
-        </nav>
-        <header className="tz-hero">
-          <h1>{d.ko}를 처음 데려온다면</h1>
-          <p className="tz-lead">{d.lead}</p>
-          {live ? <Disclosure /> : null}
+        {/* 사진 표지(2026-11-19) — 첫 화면 「처음 데려온다면」 카드와 같은 새끼 사진(public/pet-puppy·pet-kitten, unoptimized) */}
+        <header className="pic-hero">
+          <div className="pic-hero-txt">
+            <nav className="st-switch" aria-label="강아지·고양이">
+              <Link href="/start/dog" aria-current={sp === 'dog' ? 'page' : undefined}>
+                강아지
+              </Link>
+              <Link href="/start/cat" aria-current={sp === 'cat' ? 'page' : undefined}>
+                고양이
+              </Link>
+            </nav>
+            <h1>{d.ko}를 처음 데려온다면</h1>
+            <p className="tz-lead">{d.lead}</p>
+            {live ? <Disclosure /> : null}
+          </div>
+          <Image
+            className="pic-hero-img"
+            src={sp === 'dog' ? '/pet-puppy.webp' : '/pet-kitten.webp'}
+            alt={sp === 'dog' ? '앉아 있는 크림색 새끼 강아지' : '앉아 있는 회색 줄무늬 새끼 고양이'}
+            width={520}
+            height={sp === 'dog' ? 711 : 831}
+            priority
+            unoptimized
+          />
         </header>
 
         <section className="sheet">
@@ -224,10 +238,14 @@ export default function StartPage({ params }: { params: { species: string } }) {
               );
             })}
           </ul>
-          <Link href="/breed" className="sheet-more">
-            188종 전체 보기
+          <Link href={`/breed#${sp}`} className="sheet-more">
+            {d.ko} {total}종 전체 보기
           </Link>
         </section>
+        {/* 품종을 모르거나 길에서 데려온 아이 — 믹스 안내판의 「길에서 데려왔다면」 칸으로(2026-11-19) */}
+        <Link href={`${breedPath(sp === 'dog' ? '믹스견(잡종)' : '믹스/혼혈 고양이')}#rescue`} className="row-link" style={{ marginTop: 12 }}>
+          품종을 모르거나 길에서 데려왔다면
+        </Link>
 
         <section className="sheet">
           <FaqList items={d.faq} />

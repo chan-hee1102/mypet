@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/start/dog`, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/start/cat`, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/guide`, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${base}/sources`, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${base}/terms`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${base}/privacy`, changeFrequency: 'yearly', priority: 0.2 },
     ...guides,

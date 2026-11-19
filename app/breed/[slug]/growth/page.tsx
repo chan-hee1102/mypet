@@ -6,9 +6,9 @@ import { FaqList, JsonLd, breadcrumbJsonLd, faqJsonLd, type Faq } from '@/compon
 import AdultWeightCalc from '@/components/tools/AdultWeightCalc';
 import {
   babyWord, baseName, breedHealth, breedNotes, growthBasisNote, growthCare, growthFacts, growthSources, kindOf, nameWithAlias,
-  neighbors, ORG_REF, PUBLISHED, socialMeta, standardNote, titleName,
+  neighbors, ORG_REF, PUBLISHED, UPDATED, socialMeta, standardNote, titleName,
 } from '@/lib/breedSeo';
-import { breedPath, breedSlugOf, featuredBreeds, fmtKg, slugMatches, type BreedRow } from '@/lib/growth';
+import { FEATURED_BREEDS, breedPath, breedSlugOf, featuredBreeds, fmtKg, slugMatches, type BreedRow } from '@/lib/growth';
 import { josa } from '@/lib/josa';
 import { NAVER_BING_ONLY } from '@/lib/searchScope';
 import { SITE } from '@/lib/site';
@@ -20,7 +20,10 @@ import { SITE } from '@/lib/site';
  * ⚠️ 판정하지 않는다: 「정상」「괜찮아요」 대신 「보통 성장 속도」. 숫자는 mypet 추정값이라서.
  */
 
-export const dynamicParams = false;
+// 운영은 false — 목록(188종)에 없는 주소를 라우팅 단계에서 진짜 404로 막는다. true면 app/loading.tsx 스트리밍이 먼저 200을 보내
+// notFound() 화면이 200으로 나가고 1년 캐시까지 된다(소프트 404, 2026-11-19 운영 빌드로 확인).
+// 개발(next dev)만 true — Next 14 dev는 한글 주소를 인코딩된 채로 목록과 비교해 false면 모든 품종이 404가 된다.
+export const dynamicParams = process.env.NODE_ENV === 'development';
 
 export function generateStaticParams() {
   return featuredBreeds().map((b) => ({ slug: breedSlugOf(b.breed_ko) }));
@@ -55,7 +58,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const { title, description } = copy(b);
   const url = `${SITE.url}${breedPath(b.breed_ko, 'growth')}`;
   return {
-    title: `${title} 성장표 | mypet`,
+    title: `${title} 성장표 | 마이펫`,
     description,
     alternates: { canonical: url },
     robots: NAVER_BING_ONLY,
@@ -82,8 +85,8 @@ export default function BreedGrowthPage({ params }: { params: { slug: string } }
             headline: title,
             description,
             inLanguage: 'ko',
-            datePublished: PUBLISHED,
-            dateModified: PUBLISHED,
+            datePublished: FEATURED_BREEDS.includes(b.breed_ko) ? PUBLISHED : UPDATED,
+            dateModified: UPDATED,
             mainEntityOfPage: url,
             image: `${SITE.url}/opengraph-image`,
             about: { '@type': 'Thing', name: `${b.breed_ko} (${b.breed_en})` },
@@ -94,7 +97,7 @@ export default function BreedGrowthPage({ params }: { params: { slug: string } }
           faqJsonLd([{ q: `${name} 다 크면 몇 kg이고 언제까지 크나요?`, a: answer }, ...faq]),
           breadcrumbJsonLd([
             { name: '홈', url: SITE.url },
-            { name: '품종 가이드', url: `${SITE.url}/breed` },
+            { name: '품종 안내판', url: `${SITE.url}/breed` },
             { name: b.breed_ko, url: `${SITE.url}${breedPath(b.breed_ko)}` },
             { name: '개월별 몸무게', url },
           ]),
@@ -102,7 +105,7 @@ export default function BreedGrowthPage({ params }: { params: { slug: string } }
       />
 
       <nav className="gcrumb">
-        <Link href="/breed">품종 가이드</Link> <span>›</span> <Link href={breedPath(b.breed_ko)}>{b.breed_ko}</Link> <span>›</span> 개월별 몸무게
+        <Link href="/breed">품종 안내판</Link> <span>›</span> <Link href={breedPath(b.breed_ko)}>{b.breed_ko}</Link> <span>›</span> 개월별 몸무게
       </nav>
 
       <h1 className="gtitle">{titleName(b)} 개월별 몸무게</h1>
