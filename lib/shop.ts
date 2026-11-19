@@ -178,7 +178,8 @@ export const linkOf = (id: string): string | null => {
 export const SHOP_LIVE = Object.keys(LINKS).some((k) => linkOf(k));
 
 /** 관리자가 링크를 만들 때 여는 쿠팡 검색 주소 */
-export const searchUrl = (q: string) => `https://www.coupang.com/np/search?q=${encodeURIComponent(q)}`;
+// 쿠팡 검색창이 만드는 모양 그대로(한글 인코딩 + component·channel) — 파트너스 간편 링크가 이 모양만 받는다(2026-11-19 「지원하지 않는 형태」)
+export const searchUrl = (q: string) => `https://www.coupang.com/np/search?component=&q=${encodeURIComponent(q).replace(/%20/g, '+')}&channel=user`;
 
 /** 개발 화면(또는 SHOP_PREVIEW=1로 빌드한 검수용)에선 링크 없는 카드도 보여 준다. 운영은 링크 있는 카드만 */
 const SHOW_EMPTY = process.env.NODE_ENV === 'development' || process.env.SHOP_PREVIEW === '1';
