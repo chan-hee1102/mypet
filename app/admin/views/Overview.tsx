@@ -7,9 +7,10 @@ import { Donut } from '../charts/Donut';
 import { Sparkline } from '../charts/Sparkline';
 import { AdIcon } from '../icons';
 import { ago, Card, CHANNEL_COLOR, CountUp, Delta, dur, Empty, InquiryBadge, KpiCard, OrderBadge, pct, RatioText, Skeleton, won } from '../ui';
+import { isPerson } from '@/lib/visitor';
 import { LiveRow } from './Live';
 
-type Goto = (v: 'orders' | 'live' | 'inbox') => void;
+type Goto = (v: 'orders' | 'presence' | 'inbox') => void;
 
 /** 개요 — KPI 6개 · 방문 추이 · 유입 채널 · 최근 주문 · 지금 보는 중 · 새 문의 */
 export function Overview({
@@ -32,6 +33,8 @@ export function Overview({
   goto: Goto;
 }) {
   if (!stats) return <OverviewSkeleton />;
+  // 사람만(2026-11-19) — 봇은 「봇 수집」 탭
+  const onlinePeople = (live?.online ?? []).filter((v) => isPerson(v.kind));
   const k = stats.kpi;
   const s = stats.series;
   const engagedNow = pct(k.engaged.cur);
@@ -56,8 +59,8 @@ export function Overview({
       ) : null}
 
       <div className="ad-kpis ad-kpis--6">
-        <KpiCard label="지금 보는 중" live value={live ? live.online.length : '—'} foot={live ? <span>리포트 만들기 화면 {live.online.filter((v) => v.path.startsWith('/diagnose')).length}명</span> : null} />
-        <KpiCard label="방문" value={<CountUp value={k.visits.cur} />} foot={<Delta cur={k.visits.cur} prev={k.visits.prev} unit="회" />}>
+        <KpiCard label="지금 보는 중" live value={live ? onlinePeople.length : '—'} foot={live ? <span>리포트 만들기 화면 {onlinePeople.filter((v) => v.path.startsWith('/diagnose')).length}명</span> : null} />
+        <KpiCard label="사람 방문" value={<CountUp value={k.visits.cur} />} foot={<Delta cur={k.visits.cur} prev={k.visits.prev} unit="회" />}>
           <Sparkline values={s.map((p) => p.visits)} />
         </KpiCard>
         <KpiCard
@@ -142,10 +145,10 @@ export function Overview({
             </ul>
           )}
         </Card>
-        <Card flush title={`지금 보는 중 ${live?.online.length ?? 0}명`} action={<button type="button" className="ad-link" onClick={() => goto('live')}>실시간 보기</button>}>
-          {live && live.online.length ? (
+        <Card flush title={`지금 보는 중 ${onlinePeople.length}명`} action={<button type="button" className="ad-link" onClick={() => goto('presence')}>실시간 보기</button>}>
+          {onlinePeople.length ? (
             <ul className="ad-list">
-              {live.online.slice(0, 5).map((v) => (
+              {onlinePeople.slice(0, 5).map((v) => (
                 <LiveRow key={v.key} v={v} />
               ))}
             </ul>

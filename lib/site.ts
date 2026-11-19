@@ -22,7 +22,7 @@ export const SITE = {
   phone: '070-7938-5587', // KG이니시스 입점 요건: 푸터 전화번호 표기
   /** 문의 열람 권한이 있는 관리자 계정(구글 로그인 이메일). /admin 접근 게이트. */
   adminEmail: 'mukkeby99@gmail.com',
-  lastUpdated: '2026-06-21',
+  lastUpdated: '2026-11-19',
 } as const;
 
 /** 사업자정보가 아직 placeholder인지 (출시 전 경고용) */

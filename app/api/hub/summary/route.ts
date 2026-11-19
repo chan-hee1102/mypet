@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
  *
  * 인증은 서명(lib/hub-auth.ts). 주는 건 숫자뿐이다(연락처·결제 정보·경로 없음).
  * 정의는 이 사이트 관리자 화면(api/admin/stats·live)과 같게 맞췄다 — 바꾸면 여기도 같이.
- *   방문     = visits 행(탭 하나) 수. IP를 모으지 않아 사람 수가 아니다 → 단위 「회」
+ *   방문     = 사람으로 본 visits 행(kind human·likely — 2026-11-19부터 봇·봇 의심은 뺀다, lib/visitor.ts). IP를 모으지 않아 단위는 「회」
  *   지금 접속 = 마지막 신호 90초 안의 방문
  *   결제     = paid_at이 그날인 주문, 샌드박스(테스트) 제외 · 매출도 같은 주문
  * 「개발 환경」 유입은 우리 자신이라 뺀다(lib/admin-visits isDev와 같은 규칙).
@@ -23,6 +23,8 @@ const DAYS = 7;
 const ONLINE_MS = 90_000;
 // 채널이 비어 있는 행도 살려야 해서 neq만 쓰면 안 된다(SQL에서 NULL <> 값 은 참이 아니다)
 const NOT_DEV = 'channel.is.null,channel.neq."개발 환경"';
+/** 사람으로 본 방문만 — 판정 전 행(kind null)은 빼지 않는다(마이그레이션 직후 잠깐) */
+const PEOPLE = 'kind.is.null,kind.in.(human,likely)';
 
 const kstMidnight = (ms: number) => {
   const k = ms + KST;
@@ -42,7 +44,8 @@ export async function GET(req: Request) {
       .from('visits')
       .select('visit_key', { count: 'exact', head: true })
       .gte('last_at', new Date(now - ONLINE_MS).toISOString())
-      .or(NOT_DEV);
+      .or(NOT_DEV)
+          .or(PEOPLE);
     if (liveError) throw new Error(liveError.message);
     const live = { now: online ?? 0, note: null };
     const generatedAt = new Date(now).toISOString();
@@ -58,7 +61,8 @@ export async function GET(req: Request) {
           .select('visit_key', { count: 'exact', head: true })
           .gte('started_at', new Date(a).toISOString())
           .lt('started_at', new Date(a + DAY).toISOString())
-          .or(NOT_DEV);
+          .or(NOT_DEV)
+          .or(PEOPLE);
         if (error) throw new Error(error.message);
         return count ?? 0;
       }),
@@ -70,7 +74,8 @@ export async function GET(req: Request) {
       .select('visit_key', { count: 'exact', head: true })
       .gte('started_at', new Date(today0).toISOString())
       .eq('device', 'mobile')
-      .or(NOT_DEV);
+      .or(NOT_DEV)
+          .or(PEOPLE);
     if (mobileError) throw new Error(mobileError.message);
 
     const [{ data: paidRows, error: paidError }, { count: stuck }] = await Promise.all([

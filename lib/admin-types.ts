@@ -1,3 +1,4 @@
+import type { Kind } from './visitor';
 /**
  * 관리자 대시보드 API 응답 타입 — 서버(/api/admin/*)와 화면(app/admin)이 같이 쓴다.
  *
@@ -52,6 +53,8 @@ export interface AdminStats {
   heatmap: number[][] | null;
   /** 결제 기록은 있는데 리포트가 없는 주문(DB만으로 알 수 있는 것 — 포트원 대조는 주문 화면) */
   stuckOrders: number;
+  /** 이번 기간에 통계에서 뺀 봇·봇 의심 방문(2026-11-19) */
+  botsExcluded: number;
 }
 
 export interface LiveVisit {
@@ -64,14 +67,45 @@ export interface LiveVisit {
   clicks: number;
   lastClick: string | null;
   atIso: string;
+  /** 처음 들어온 시각 — 「오늘 다녀간 사람」 줄의 시각 */
+  startIso: string;
   channel: Channel;
   source: string;
+  /** 사람·봇 판정(lib/visitor.ts kindOf)과 그 이유 */
+  kind: Kind;
+  why: string;
+  /** 「크롬 141」·「카카오톡 10」 — 2026-11-19 이전 기록엔 없다 */
+  browser: string | null;
+}
+
+/** 하루 — 사람(사람+사람 추정) · 이름 밝힌 봇(검색·AI·미리보기·자동 브라우저) · 봇 의심 */
+export interface PeopleDay {
+  day: string;
+  people: number;
+  bots: number;
+  suspect: number;
 }
 
 export interface AdminLive {
   generatedAt: string;
+  /** 마지막 신호 90초 안 — 사람·봇 다(화면이 거른다) */
   online: LiveVisit[];
-  recent: LiveVisit[];
+  /** 오늘(KST 0시~) 다녀간 방문 — 최신순, 최대 400 */
+  today: LiveVisit[];
+  /** 최근 7일 — ?week=1일 때만(1분에 한 번) */
+  week: PeopleDay[] | null;
+}
+
+/** 봇 수집 탭 — 방문 통계에서 빼는 것들이 무엇이고 무엇을 읽었나 */
+export interface AdminBots {
+  generatedAt: string;
+  days: (PeopleDay & { search: number; ai: number; preview: number; auto: number })[];
+  /** 이름별(검색봇 네이버·AI봇 ChatGPT…) — 봇 의심은 이유별 */
+  names: { kind: Kind; name: string; visits: number }[];
+  /** 봇·의심이 연 첫 화면 */
+  pages: { path: string; visits: number }[];
+  /** 봇·의심 브라우저 */
+  browsers: { name: string; visits: number }[];
 }
 
 export type OrderStatus = 'pending' | 'paid' | 'generating' | 'done' | 'failed';

@@ -2,34 +2,39 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { BrandMark } from '@/components/Brand';
-import type { AdminLive, AdminStats, Inquiry, InquiryStatus, Order, OrderPg, Range } from '@/lib/admin-types';
+import type { AdminBots, AdminLive, AdminStats, Inquiry, InquiryStatus, Order, OrderPg, PeopleDay, Range } from '@/lib/admin-types';
 import { OWNER_KEY } from '@/lib/owner';
 import { AdIcon, type AdIconName } from './icons';
 import { ago, orderState, Segmented } from './ui';
 import { Analytics } from './views/Analytics';
+import { Bots } from './views/Bots';
 import { Inbox } from './views/Inbox';
-import { Live } from './views/Live';
 import { Orders, type OrderAction } from './views/Orders';
 import { Overview } from './views/Overview';
+import { Presence } from './views/Presence';
 
 /**
  * 관리자 대시보드 — taif.kr/admin과 같은 뼈대(2026-09-26).
+ * 2026-11-19 메뉴를 KOSTOCK 관리자 순서로: 실시간 접속 · 유입 현황 · 봇 수집 · 주문 · 문의 · 요약(옛 개요).
+ *   사장님 「하루 150명 넘게 오는 것 같은데 진짜 사람인지 봇인지」 — 숫자는 사람만, 봇은 「봇 수집」에(lib/visitor.ts).
  *   데스크탑: 왼쪽 사이드바 232px · 태블릿: 아이콘 레일 64px · 휴대폰: 위 바 + 아래 탭
  * 데이터는 네 갈래로 읽는다.
  *   /stats — 기간 집계. 열 때·기간 바꿀 때·새로고침 때만(폴링 금지 — 대역폭)
- *   /live  — 지금 보는 중. 15초마다, 탭이 뒤로 가 있으면 멈춤
+ *   /live  — 지금 접속·오늘 방문(사람·봇 판정 포함). 15초마다, 탭이 뒤로 가 있으면 멈춤. 7일 집계는 1분에 한 번(?week=1)
+ *   /bots  — 봇 수집 14일. 그 탭을 열 때·새로고침 때만
  *   /orders — 주문 + 완성 안 된 최근 주문의 결제사 대조. 열 때·조치 뒤
  *   /inquiries — 문의함. 열 때·상태를 바꾼 뒤
  */
-type View = 'overview' | 'orders' | 'analytics' | 'live' | 'inbox';
+type View = 'presence' | 'analytics' | 'bots' | 'orders' | 'inbox' | 'overview';
 const VIEWS: { key: View; label: string; icon: AdIconName }[] = [
-  { key: 'overview', label: '개요', icon: 'overview' },
+  { key: 'presence', label: '실시간 접속', icon: 'live' },
+  { key: 'analytics', label: '유입 현황', icon: 'chart' },
+  { key: 'bots', label: '봇 수집', icon: 'bot' },
   { key: 'orders', label: '주문', icon: 'orders' },
-  { key: 'analytics', label: '방문 분석', icon: 'chart' },
-  { key: 'live', label: '실시간', icon: 'live' },
   { key: 'inbox', label: '문의함', icon: 'inbox' },
+  { key: 'overview', label: '요약', icon: 'overview' },
 ];
-const TAB_LABEL: Record<View, string> = { overview: '개요', orders: '주문', analytics: '방문', live: '실시간', inbox: '문의' };
+const TAB_LABEL: Record<View, string> = { presence: '실시간', analytics: '유입', bots: '봇', orders: '주문', inbox: '문의', overview: '요약' };
 const RANGES = [
   [1, '오늘'],
   [7, '7일'],
@@ -38,10 +43,13 @@ const RANGES = [
 const LIVE_MS = 15_000;
 
 export function AdminClient() {
-  const [view, setView] = useState<View>('overview');
+  const [view, setView] = useState<View>('presence');
   const [days, setDays] = useState<Range>(7);
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [live, setLive] = useState<AdminLive | null>(null);
+  const [week, setWeek] = useState<PeopleDay[] | null>(null);
+  const [bots, setBots] = useState<AdminBots | null>(null);
+  const liveTurn = useRef(0);
   const [orders, setOrders] = useState<Order[] | null>(null);
   const [inq, setInq] = useState<Inquiry[]>([]);
   const [loading, setLoading] = useState(false);
@@ -85,12 +93,27 @@ export function AdminClient() {
       setLoading(false);
     }
   }, [days]);
-  const loadLive = useCallback(async () => {
+  const loadLive = useCallback(async (forceWeek = false) => {
+    // 7일 집계는 처음과 1분에 한 번(15초 × 4) — 7일치 행을 15초마다 읽지 않게
+    const withWeek = forceWeek || liveTurn.current % 4 === 0;
+    liveTurn.current += 1;
     try {
-      const body = await guard(await fetch('/api/admin/live', { cache: 'no-store' }));
-      if (body) setLive(body as AdminLive);
+      const body = await guard(await fetch(`/api/admin/live${withWeek ? '?week=1' : ''}`, { cache: 'no-store' }));
+      if (body) {
+        const l = body as AdminLive;
+        setLive(l);
+        if (l.week) setWeek(l.week);
+      }
     } catch {
       /* 다음 턴 */
+    }
+  }, []);
+  const loadBots = useCallback(async () => {
+    try {
+      const body = await guard(await fetch('/api/admin/bots', { cache: 'no-store' }));
+      if (body) setBots(body as AdminBots);
+    } catch {
+      setErr('봇 기록을 불러오지 못했어요.');
     }
   }, []);
   const loadOrders = useCallback(async () => {
@@ -179,10 +202,14 @@ export function AdminClient() {
   };
   const refresh = () => {
     loadStats();
-    loadLive();
+    loadLive(true);
     loadOrders();
     loadInq();
+    if (view === 'bots') loadBots();
   };
+  useEffect(() => {
+    if (view === 'bots' && !bots) loadBots();
+  }, [view, bots, loadBots]);
 
   const problems = (orders ?? []).filter((o) => orderState(o).problem);
   const openCount = inq.filter((i) => i.status === 'open').length;
@@ -279,7 +306,8 @@ export function AdminClient() {
             {view === 'analytics' ? <Analytics stats={stats} /> : null}
           </div>
           {view === 'orders' ? <Orders items={orders} selected={orderSel} setSelected={setOrderSel} onAction={onOrderAction} /> : null}
-          {view === 'live' ? <Live live={live} /> : null}
+          {view === 'presence' ? <Presence live={live} week={week} orders={orders} /> : null}
+          {view === 'bots' ? <Bots data={bots} /> : null}
           {view === 'inbox' ? <Inbox items={inq} selectedId={inqSel} setSelectedId={setInqSel} onStatus={onInquiryStatus} /> : null}
         </div>
       </main>

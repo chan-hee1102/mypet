@@ -141,7 +141,7 @@ body:has([data-admin]) .site-footer{display:none}
 @media (min-width:1280px){.ad-kpis--6{grid-template-columns:repeat(6,minmax(0,1fr))}}
 .ad-kpi{display:flex;flex-direction:column;min-width:0;min-height:128px;border:1px solid var(--ad-border);border-radius:14px;background:var(--ad-surface);box-shadow:var(--ad-shadow);padding:16px}
 .ad-kpi-label{display:flex;align-items:center;gap:6px;margin:0;font-size:12.5px;font-weight:500;color:var(--ad-t3)}
-.ad-kpi-value{margin:4px 0 0;font-size:22px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ad-kpi-value{margin:4px 0 0;overflow:hidden;font-size:22px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap;text-overflow:ellipsis}
 .ad-kpi-value small{margin-left:2px;font-size:14px;font-weight:600;color:var(--ad-t2)}
 @media (min-width:768px){.ad-kpi-value{font-size:27px}}
 .ad-kpi-foot{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:4px;font-size:11.5px;color:var(--ad-t3)}
@@ -379,6 +379,36 @@ button.ad-bar:hover .ad-bar-fill{background:rgba(21,94,77,.18)}
 @keyframes ad-fade{from{opacity:0}}
 @keyframes ad-up{from{transform:translateY(100%)}}
 @keyframes ad-in{from{transform:translateX(24px);opacity:0}}
+/* ── 실시간 접속·봇 수집(2026-11-19, KOSTOCK 관리자와 같은 읽는 순서) ── */
+@media (min-width:1024px){.ad-kpis--4{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.ad-key-sq{display:inline-block;flex:none;width:9px;height:9px;border-radius:2px}
+.ad-key-sq.is-people{background:var(--ad-ink)}
+.ad-key-sq.is-bot{background:#b9c2be}
+.ad-key-sq.is-suspect{background:#e9b26a}
+.ad-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;align-items:end;height:210px;padding:4px 2px 0}
+.ad-week--bots{grid-template-columns:repeat(14,minmax(0,1fr));gap:4px}
+.ad-week-col{display:flex;flex-direction:column;align-items:center;height:100%;min-width:0}
+.ad-week-num{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ad-t1)}
+.ad-week-bar{position:relative;display:flex;flex-direction:column-reverse;justify-content:flex-start;width:min(44px,100%);flex:1;margin:6px 0;border-radius:6px 6px 2px 2px;background:var(--ad-sunken);overflow:hidden}
+.ad-week-seg{display:block;width:100%;flex:none}
+.ad-week-seg.is-people{background:var(--ad-ink)}
+.ad-week-seg.is-bot{background:#b9c2be}
+.ad-week-seg.is-suspect{background:#e9b26a}
+.ad-week-people{position:absolute;left:0;right:0;height:2px;background:var(--ad-ink)}
+.ad-week-day{font-size:12px;color:var(--ad-t2);font-variant-numeric:tabular-nums}
+.ad-week-sub{min-height:16px;font-size:11px;color:var(--ad-t3)}
+.ad-week-col.is-today .ad-week-day{font-weight:700;color:var(--ad-ink)}
+.ad-week--bots .ad-week-num{font-size:11px;font-weight:600}
+.ad-week--bots .ad-week-day{font-size:10.5px}
+@media (max-width:639px){.ad-week--bots{gap:2px}.ad-week--bots .ad-week-num{font-size:9.5px;letter-spacing:-.03em}}
+.ad-switch{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ad-t2);cursor:pointer;user-select:none}
+.ad-switch input{width:16px;height:16px;accent-color:var(--ad-ink)}
+.ad-live--who .ad-live-src{flex-wrap:nowrap}
+.ad-live--who .ad-status{height:20px;font-size:11.5px;padding:0 7px}
+.ad-live.is-bot{opacity:.62}
+.ad-more{display:block;width:100%;height:42px;border-top:1px solid var(--ad-border);font-size:13px;font-weight:600;color:var(--ad-ink)}
+.ad-more:hover{background:var(--ad-surface2)}
+
 @keyframes ad-toast{from{transform:translateY(16px);opacity:0}}
 @keyframes ad-flash{from{background:var(--ad-soft)}to{background:transparent}}
 @media (prefers-reduced-motion:reduce){

@@ -81,7 +81,13 @@ export function Analytics({ stats }: { stats: AdminStats | null }) {
 
   return (
     <div className="ad-stack">
-      <Card title="추이" action={<Segmented label="지표" items={METRICS} value={metric} onChange={setMetric} />}>
+      <Card
+        title={
+          <span style={{ display: 'inline-flex', alignItems: 'baseline', gap: 8 }}>
+            추이{stats.botsExcluded ? <span className="ad-card-note">봇·봇 의심 {stats.botsExcluded.toLocaleString('ko-KR')}회 뺌</span> : null}
+          </span>
+        }
+        action={<Segmented label="지표" items={METRICS} value={metric} onChange={setMetric} />}>
         <ResponsiveArea
           unit={metric === 'paid' ? '건' : '회'}
           data={s.map((p) => ({ label: p.label, value: p[metric], prev: metric === 'visits' ? p.prevVisits : null, mark: metric === 'paid' ? 0 : p.paid }))}

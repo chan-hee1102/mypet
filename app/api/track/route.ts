@@ -5,7 +5,8 @@
  * 같은 탭이면 같은 키로 계속 덮어써서 **방문 하나당 한 행**만 남는다.
  *
  * ⚠️ 개인정보 최소화 — schema.sql의 visits 주석과 같은 원칙이다.
- *    IP를 읽지도 저장하지도 않는다. 쿠키를 만들지 않는다.
+ *    IP를 읽지도 저장하지도 않는다. 쿠키를 만들지 않는다. UA는 원문을 저장하지 않고 「크롬 141」·「search:네이버」로만 줄여 둔다.
+ *    사람·봇 판정(2026-11-19, lib/visitor.ts): 브라우저 이름·봇 표식·시간대·언어·화면을 만졌나·정상으로 닫았나.
  *    여기서 하나라도 늘리려면 개인정보처리방침 ④부터 고쳐야 한다.
  *
  * ⚠️ 이 라우트는 **누구나 부를 수 있다**(비로그인 서비스라 인증할 것이 없다).
@@ -16,6 +17,7 @@
 import { NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { inflowChannel } from '@/lib/inflow';
+import { botOf, browserOf, kindOf } from '@/lib/visitor';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -100,6 +102,10 @@ export async function POST(req: Request) {
     if (isInit) {
       const referrer = clip(body.referrer, LIMITS.referrer);
       const utmSource = clip(body.utm_source, LIMITS.utm);
+      const ua = req.headers.get('user-agent') ?? '';
+      const device = body.device === 'mobile' ? 'mobile' : 'desktop';
+      const bot = botOf({ ua, secChUa: req.headers.get('sec-ch-ua'), platform: req.headers.get('sec-ch-ua-platform'), webdriver: body.wd === true });
+      const tz = clip(body.tz, 40);
       const row = {
         visit_key: key,
         started_at: now,
@@ -111,10 +117,17 @@ export async function POST(req: Request) {
         utm_source: utmSource,
         utm_medium: clip(body.utm_medium, LIMITS.utm),
         utm_campaign: clip(body.utm_campaign, LIMITS.utm),
-        device: body.device === 'mobile' ? 'mobile' : 'desktop',
+        device,
         pageviews: 1,
         clicks,
         duration_sec: 0,
+        browser: browserOf(ua),
+        bot,
+        tz,
+        lang: clip(body.lang, 12),
+        interacted: false,
+        closed: false,
+        kind: kindOf({ bot, device, duration_sec: 0, pageviews: 1, clicks: clicks.length, interacted: false, closed: false, tz }).kind,
       };
       // 새로고침으로 같은 키가 다시 오면 덮어쓴다(방문 하나 = 한 행).
       await admin.from('visits').upsert(row, { onConflict: 'visit_key' });
@@ -128,17 +141,25 @@ export async function POST(req: Request) {
       유입 정보 없는 반쪽 행을 만들면 채널 표에 정체불명 방문이 쌓인다.
     */
     const { data: prev } = await admin
-      .from('visits').select('clicks').eq('visit_key', key).maybeSingle();
+      .from('visits').select('clicks, bot, device, tz, pageviews, interacted, closed').eq('visit_key', key).maybeSingle();
     if (!prev) return NextResponse.json({ ok: true });
 
     const merged = [...(Array.isArray(prev.clicks) ? prev.clicks : []), ...clicks].slice(-MAX_CLICKS);
+    const duration = nonNegInt(body.duration, 12 * 3600);   // 12시간 넘는 체류는 값이 깨진 것
+    const pageviews = typeof body.pageviews !== 'undefined' ? nonNegInt(body.pageviews, 500) : prev.pageviews ?? 1;
+    // 한 번 참이 된 신호는 거짓으로 돌리지 않는다(나중 신호에 빠져 있어도)
+    const interacted = prev.interacted === true || body.act === true;
+    const closed = prev.closed === true || body.closed === true;
     const patch: Record<string, unknown> = {
       last_at: now,
       clicks: merged,
-      duration_sec: nonNegInt(body.duration, 12 * 3600),   // 12시간 넘는 체류는 값이 깨진 것
+      duration_sec: duration,
+      interacted,
+      closed,
+      kind: kindOf({ bot: prev.bot ?? null, device: prev.device ?? null, duration_sec: duration, pageviews, clicks: merged.length, interacted, closed, tz: prev.tz ?? null }).kind,
     };
     if (path) patch.exit_path = path;
-    if (typeof body.pageviews !== 'undefined') patch.pageviews = nonNegInt(body.pageviews, 500);
+    if (typeof body.pageviews !== 'undefined') patch.pageviews = pageviews;
 
     await admin.from('visits').update(patch).eq('visit_key', key);
     return NextResponse.json({ ok: true });

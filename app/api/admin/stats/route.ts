@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { isAdmin } from '@/lib/adminAuth';
 import { CHANNELS, type AdminStats, type Range, type Ratio, type SeriesPoint } from '@/lib/admin-types';
-import { clicksOf, fetchVisits, groupOf, isEngaged, openedCheckout, openedGuide, pretty, reachedDiagnose, type VisitRow } from '@/lib/admin-visits';
+import { clicksOf, fetchVisits, groupOf, isEngaged, isPersonRow, openedCheckout, openedGuide, pretty, reachedDiagnose, type VisitRow } from '@/lib/admin-visits';
 import { SITE } from '@/lib/site';
 import { createAdminClient } from '@/lib/supabase/admin';
 
@@ -50,6 +50,7 @@ export async function GET(req: NextRequest) {
   const sinceIso = new Date(prevFrom ?? from).toISOString();
 
   let all: VisitRow[];
+  let excluded = 0;
   let orders: OrderRow[];
   try {
     const [v, o] = await Promise.all([
@@ -61,7 +62,9 @@ export async function GET(req: NextRequest) {
         .limit(5000),
     ]);
     if (o.error) throw new Error(o.error.message);
-    all = v;
+    // 방문 통계는 사람만(2026-11-19) — 봇·봇 의심은 「봇 수집」 탭에서 따로 센다(lib/visitor.ts)
+    excluded = v.filter((r) => Date.parse(r.started_at) >= from && !isPersonRow(r)).length;
+    all = v.filter(isPersonRow);
     orders = (o.data ?? []) as OrderRow[];
   } catch (e) {
     return Response.json({ error: e instanceof Error ? e.message : '읽기 실패' }, { status: 500 });
@@ -220,6 +223,7 @@ export async function GET(req: NextRequest) {
     clicks,
     heatmap,
     stuckOrders: stuck ?? 0,
+    botsExcluded: excluded,
   };
   return Response.json(body, { headers: { 'Cache-Control': 'private, no-store' } });
 }

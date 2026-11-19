@@ -1,5 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Channel } from './admin-types';
+import { isPerson, kindOf, type Verdict } from './visitor';
 
 /** visits 한 행(탭 하나) — schema.sql visits */
 export type VisitRow = {
@@ -16,15 +17,29 @@ export type VisitRow = {
   pageviews: number;
   duration_sec: number;
   clicks: { t?: string | null; p?: string | null; at?: string | null }[] | null;
+  /** 2026-11-19부터 — 사람·봇 판정 신호(lib/visitor.ts). 그 전 행은 null·false */
+  browser: string | null;
+  bot: string | null;
+  tz: string | null;
+  interacted: boolean | null;
+  closed: boolean | null;
+  kind: string | null;
 };
 
 export const VISIT_COLUMNS =
-  'visit_key, started_at, last_at, referrer, channel, landing, exit_path, utm_source, utm_medium, device, pageviews, duration_sec, clicks';
+  'visit_key, started_at, last_at, referrer, channel, landing, exit_path, utm_source, utm_medium, device, pageviews, duration_sec, clicks, browser, bot, tz, interacted, closed, kind';
 
 /** 「개발 환경」은 우리 자신이다(lib/inflow.ts) — 집계에 넣지 않는다 */
 export const isDev = (r: VisitRow) => r.channel === '개발 환경';
 
 export const clicksOf = (r: VisitRow) => (Array.isArray(r.clicks) ? r.clicks : []);
+
+/** 사람인가 봇인가 — 저장된 kind 대신 지금 규칙으로 다시 판정한다(규칙을 고치면 지난 30일도 같이 바뀌게) */
+export const verdictOf = (r: VisitRow): Verdict =>
+  kindOf({ bot: r.bot, device: r.device, duration_sec: r.duration_sec, pageviews: r.pageviews, clicks: clicksOf(r).length, interacted: r.interacted, closed: r.closed, tz: r.tz });
+
+/** 방문 통계에 넣는 방문 = 사람·사람 추정(봇·봇 의심은 「봇 수집」 탭으로) */
+export const isPersonRow = (r: VisitRow) => isPerson(verdictOf(r).kind);
 
 /** 참여 = 10초 이상 머물렀거나, 두 화면 이상 봤거나, 무언가를 누른 방문 */
 export const isEngaged = (r: VisitRow) => r.duration_sec >= 10 || r.pageviews >= 2 || clicksOf(r).length > 0;

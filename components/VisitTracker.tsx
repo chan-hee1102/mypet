@@ -18,6 +18,9 @@ import { OWNER_KEY } from '@/lib/owner';
  *   ① 첫 진입 1회 — 유입 정보는 이때만 보낸다(이후에 보내면 referrer가 우리 자신으로 덮인다)
  *   ② 화면 이동 시 — 지금 어디 있나(이탈 화면의 근거)
  *   ③ 탭을 숨기거나 닫을 때 — 모아둔 클릭 + 체류시간. sendBeacon이라 페이지가 죽어도 나간다
+ *
+ * 사람·봇 가르기(2026-11-19, lib/visitor.ts): 첫 신호에 시간대·언어·자동 조종 여부, 화면을 처음 만지면(스크롤·터치·마우스·키) 한 번 바로,
+ * 탭이 정상으로 닫히면(pagehide) 닫힘 표시. JS를 돌리는 크롤러는 화면을 만지지 않고, 브라우저째 꺼져 닫힘 신호도 없다.
  */
 
 const KEY_NAME = 'mypet_visit';
@@ -63,9 +66,11 @@ export default function VisitTracker() {
   const startedRef = useRef<number>(Date.now());
   const viewsRef = useRef(0);
   const initedRef = useRef(false);
+  /** 화면을 한 번이라도 만졌나 — 한 번 참이면 계속 보낸다(서버는 참을 거짓으로 되돌리지 않는다) */
+  const actRef = useRef(false);
 
   /** 모아둔 클릭 + 현재 화면을 보낸다. keepalive(또는 sendBeacon)라 페이지가 닫혀도 나간다. */
-  const flush = (path: string, useBeacon: boolean) => {
+  const flush = (path: string, useBeacon: boolean, closed = false) => {
     const key = keyRef.current;
     if (!key) return;
     if (isSkipped(path)) return;   // 관리자 화면에서의 클릭·체류는 고객 기록이 아니다
@@ -75,6 +80,8 @@ export default function VisitTracker() {
       clicks: clicksRef.current,
       pageviews: viewsRef.current,
       duration: Math.round((Date.now() - startedRef.current) / 1000),
+      act: actRef.current,
+      closed,
     });
     clicksRef.current = [];   // 보낸 것은 비운다(다음 flush에서 중복되지 않게)
     try {
@@ -132,8 +139,32 @@ export default function VisitTracker() {
         utm_medium: q.get('utm_medium'),
         utm_campaign: q.get('utm_campaign'),
         device: window.matchMedia('(max-width: 768px)').matches ? 'mobile' : 'desktop',
+        // 사람·봇 가르기 — 해외 서버에서 도는 봇은 시간대가 서울이 아니고, 자동 조종 브라우저는 webdriver가 참이다
+        tz: (() => {
+          try {
+            return Intl.DateTimeFormat().resolvedOptions().timeZone ?? null;
+          } catch {
+            return null;
+          }
+        })(),
+        lang: navigator.language || null,
+        wd: navigator.webdriver === true,
       }),
     }).catch(() => {});
+  }, []);
+
+  // ── ⑤ 화면을 처음 만졌을 때 한 번 — 사람이라는 가장 확실한 신호(봇은 스크롤·터치·마우스를 만들지 않는다) ──
+  useEffect(() => {
+    const evs = ['pointerdown', 'pointermove', 'touchstart', 'keydown', 'wheel', 'scroll'] as const;
+    const onAct = () => {
+      if (actRef.current) return;
+      actRef.current = true;
+      evs.forEach((e) => window.removeEventListener(e, onAct, true));
+      if (keyRef.current) flush(window.location.pathname, false);
+    };
+    evs.forEach((e) => window.addEventListener(e, onAct, { capture: true, passive: true }));
+    return () => evs.forEach((e) => window.removeEventListener(e, onAct, true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ── ② 화면 이동: 지금 어디 있나 ──────────────────────────────────────
@@ -181,7 +212,7 @@ export default function VisitTracker() {
     const onHide = () => {
       if (document.visibilityState === 'hidden') flush(window.location.pathname, true);
     };
-    const onPageHide = () => flush(window.location.pathname, true);
+    const onPageHide = () => flush(window.location.pathname, true, true);   // 정상으로 닫힘 — 브라우저째 꺼지는 봇은 이 신호가 없다
 
     document.addEventListener('click', onClick, { capture: true });
     document.addEventListener('visibilitychange', onHide);
