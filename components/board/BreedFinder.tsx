@@ -22,7 +22,7 @@ function List({ items }: { items: FinderItem[] }) {
     <ul className="bf-grid">
       {items.map((b) => (
         <li key={b.path}>
-          <Link href={b.path} className="bf-card">
+          <Link href={b.path} className="chip">
             <b>{b.name}</b>
             <span>
               {b.sizeLabel}
@@ -61,7 +61,7 @@ export function BreedFinder({ items }: { items: FinderItem[] }) {
 
   return (
     <div className="bf">
-      <div className="bf-tools">
+      <div className="sheet bf-tools">
         <label className="hs-box bf-search">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
             <circle cx="11" cy="11" r="7" />
@@ -75,7 +75,7 @@ export function BreedFinder({ items }: { items: FinderItem[] }) {
         </button>
       </div>
 
-      <section className="bf-sec">
+      <section className="sheet">
         <div className="bf-head">
           <h2>
             강아지 <span>{dogs.length}종</span>
@@ -84,7 +84,7 @@ export function BreedFinder({ items }: { items: FinderItem[] }) {
         </div>
         <List items={dogs} />
       </section>
-      <section className="bf-sec">
+      <section className="sheet">
         <div className="bf-head">
           <h2>
             고양이 <span>{cats.length}종</span>

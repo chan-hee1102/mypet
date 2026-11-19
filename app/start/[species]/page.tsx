@@ -135,9 +135,9 @@ export default function StartPage({ params }: { params: { species: string } }) {
   const laws = sp === 'dog' ? rulesById('dog-registration', 'walk-leash-2m', 'walk-id-tag', 'puppy-socialization') : rulesById('cat-registration-optional', 'litter-box-count-size', 'lily-toxic-cat');
 
   return (
-    <main className="bd st">
+    <main className="tz">
       <JsonLd data={[faqJsonLd(d.faq)]} />
-      <div className="bd-wrap">
+      <div className="tz-wrap">
         <nav className="st-switch" aria-label="강아지·고양이">
           <Link href="/start/dog" aria-current={sp === 'dog' ? 'page' : undefined}>
             강아지
@@ -146,16 +146,16 @@ export default function StartPage({ params }: { params: { species: string } }) {
             고양이
           </Link>
         </nav>
-        <header className="bd-hero">
+        <header className="tz-hero">
           <h1>{d.ko}를 처음 데려온다면</h1>
-          <p className="bd-lead">{d.lead}</p>
+          <p className="tz-lead">{d.lead}</p>
           {live ? <Disclosure /> : null}
         </header>
 
-        <section className="bd-sec">
-          <header className="bd-sec-head">
-            <span className="bd-sec-ico shop-ico--food">
-              <CareIcon name="paw" size={34} />
+        <section className="sheet">
+          <header className="sec-head">
+            <span className="sec-ico shop-ico--food">
+              <CareIcon name="paw" size={30} />
             </span>
             <h2>첫날 준비물</h2>
           </header>
@@ -163,7 +163,7 @@ export default function StartPage({ params }: { params: { species: string } }) {
             {d.items.map((it) => (
               <li key={it.name}>
                 <span className="st-check-ico">
-                  <CareIcon name={it.icon} size={36} />
+                  <CareIcon name={it.icon} size={32} />
                 </span>
                 <div>
                   <b>{it.name}</b>
@@ -174,10 +174,10 @@ export default function StartPage({ params }: { params: { species: string } }) {
           </ul>
         </section>
 
-        <section className="bd-sec">
-          <header className="bd-sec-head">
-            <span className="bd-sec-ico shop-ico--home">
-              <CareIcon name="house" size={34} />
+        <section className="sheet">
+          <header className="sec-head">
+            <span className="sec-ico shop-ico--home">
+              <CareIcon name="house" size={30} />
             </span>
             <h2>첫 주에 할 일</h2>
           </header>
@@ -193,30 +193,30 @@ export default function StartPage({ params }: { params: { species: string } }) {
           <LawList rules={laws} />
         </section>
 
-        <section className="bd-sec">
-          <header className="bd-sec-head">
-            <span className="bd-sec-ico shop-ico--toy">
-              <CareIcon name="tag" size={34} />
+        <section className="sheet">
+          <header className="sec-head">
+            <span className="sec-ico shop-ico--toy">
+              <CareIcon name="tag" size={30} />
             </span>
             <h2>준비물 고르기</h2>
           </header>
-          <p className="bd-note">사료·가슴줄·빗처럼 크기와 털에 따라 달라지는 건 품종 안내판에서 그 품종에 맞춰 골라 드려요.</p>
+          <p className="sec-note">사료·가슴줄·빗처럼 크기와 털에 따라 달라지는 건 품종 안내판에서 그 품종에 맞춰 골라 드려요.</p>
           <ShopCards picks={picks} label="체구와 상관없이 다 쓰는 것" />
         </section>
 
-        <section className="bd-sec">
-          <header className="bd-sec-head">
-            <span className="bd-sec-ico shop-ico--grooming">
-              <CareIcon name="heart" size={34} />
+        <section className="sheet">
+          <header className="sec-head">
+            <span className="sec-ico shop-ico--grooming">
+              <CareIcon name="heart" size={30} />
             </span>
             <h2>품종을 알면 더 정확해요</h2>
           </header>
-          <ul className="hp-chips st-chips">
+          <ul className="chips">
             {d.popular.map((n) => {
               const p = careOf(n);
               return (
                 <li key={n}>
-                  <Link href={breedPath(n)} className="hp-chip">
+                  <Link href={breedPath(n)} className="chip">
                     <b>{n.replace(/\s*\([^)]*\)\s*/g, '')}</b>
                     <span>{p ? `${SIZE_LABEL[p.sizeClass]} · ${COAT_LABEL[p.coat]}` : '안내판 보기'}</span>
                   </Link>
@@ -224,14 +224,16 @@ export default function StartPage({ params }: { params: { species: string } }) {
               );
             })}
           </ul>
-          <p className="hp-all">
-            <Link href="/breed">188종 전체 보기</Link>
-          </p>
+          <Link href="/breed" className="sheet-more">
+            188종 전체 보기
+          </Link>
         </section>
 
-        <FaqList items={d.faq} />
+        <section className="sheet">
+          <FaqList items={d.faq} />
+        </section>
 
-        <p className="gdisclaimer">
+        <p className="tz-src">
           일반적인 안내이며 수의사의 진찰과 진료를 대신하지 않아요. {d.ko === '강아지' ? '' : ''}
           <Link href={`/start/${other}`}>{other === 'dog' ? '강아지' : '고양이'}를 데려온다면</Link>
         </p>

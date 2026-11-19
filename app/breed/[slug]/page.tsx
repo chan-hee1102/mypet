@@ -87,7 +87,7 @@ function LawList({ rules }: { rules: CareRule[] }) {
 function Facts({ items }: { items: string[] }) {
   if (!items.length) return null;
   return (
-    <ul className="bd-facts">
+    <ul className="checks sec-facts">
       {items.map((t, i) => (
         <li key={i}>{t}</li>
       ))}
@@ -125,7 +125,7 @@ export default function BreedPage({ params }: { params: { slug: string } }) {
   ];
 
   return (
-    <main className="bd">
+    <main className="tz">
       <JsonLd
         data={[
           faqJsonLd(faq),
@@ -136,33 +136,35 @@ export default function BreedPage({ params }: { params: { slug: string } }) {
           ]),
         ]}
       />
-      <div className="bd-wrap">
+      <div className="tz-wrap">
         <nav className="gcrumb">
           <Link href="/breed">품종 안내판</Link> <span>›</span> {speciesKo} <span>›</span> {b.breed_ko}
         </nav>
-        <header className="bd-hero">
+        <header className="tz-hero">
           <h1>{b.breed_ko} 키우기</h1>
-          <p className="bd-en">
-            {b.breed_en} · {speciesKo}
-            {p ? ` · ${SIZE_LABEL[p.sizeClass]} · ${COAT_LABEL[p.coat]}` : ''}
-          </p>
-          {g.summary ? <p className="bd-lead">{g.summary}</p> : null}
+          <div className="tz-tags">
+            <span>{b.breed_en}</span>
+            <span>{speciesKo}</span>
+            {p ? <span>{SIZE_LABEL[p.sizeClass]}</span> : null}
+            {p ? <span>{COAT_LABEL[p.coat]}</span> : null}
+          </div>
+          {g.summary ? <p className="tz-lead">{g.summary}</p> : null}
           {live ? <Disclosure /> : null}
         </header>
 
         {p ? <CareBoard name={b.breed_ko} tiles={boardOf(b, p)} meters={metersOf(p)} flags={flagTexts(p)} /> : null}
 
         {featured ? (
-          <nav className="bd-sub" aria-label={`${b.breed_ko} 더 보기`}>
+          <nav className="tz-links2" aria-label={`${b.breed_ko} 더 보기`}>
             <Link href={breedPath(b.breed_ko, 'growth')}>개월별 몸무게 표</Link>
             <Link href={breedPath(b.breed_ko, 'food')}>개월별 사료량 표</Link>
           </nav>
         ) : null}
 
         {(g.traits?.length ?? 0) > 0 ? (
-          <section className="bd-traits">
-            <h2>이런 아이예요</h2>
-            <ul>
+          <section className="sheet">
+            <h2 className="sheet-title">이런 아이예요</h2>
+            <ul className="checks">
               {g.traits!.map((t, i) => (
                 <li key={i}>{t}</li>
               ))}
@@ -172,8 +174,8 @@ export default function BreedPage({ params }: { params: { slug: string } }) {
       </div>
 
       {p ? (
-        <nav className="bd-nav" aria-label="칸 바로가기">
-          <div className="bd-nav-in">
+        <nav className="tz-nav" aria-label="칸 바로가기">
+          <div className="tz-nav-in">
             {SECTIONS.map((s) => (
               <a key={s.key} href={`#${s.key}`}>
                 {isDog ? s.dog : s.cat}
@@ -183,28 +185,28 @@ export default function BreedPage({ params }: { params: { slug: string } }) {
         </nav>
       ) : null}
 
-      <div className="bd-wrap">
+      <div className="tz-wrap">
         {p
           ? SECTIONS.map((s) => (
-              <section key={s.key} id={s.key} className="bd-sec">
-                <header className="bd-sec-head">
-                  <span className={`bd-sec-ico shop-ico--${s.key}`}>
-                    <CareIcon name={s.icon[isDog ? 0 : 1]} size={34} />
+              <section key={s.key} id={s.key} className="sheet sec">
+                <header className="sec-head">
+                  <span className={`sec-ico shop-ico--${s.key}`}>
+                    <CareIcon name={s.icon[isDog ? 0 : 1]} size={30} />
                   </span>
                   <h2>
                     {b.breed_ko} {isDog ? s.dog : s.cat}
                   </h2>
                 </header>
-                <p className="bd-note">{p.notes[s.key]}</p>
+                <p className="sec-note">{p.notes[s.key]}</p>
                 <Facts items={facts[s.key]} />
 
                 {s.key === 'food' ? (
                   featured ? (
-                    <p className="bd-more">
+                    <p className="sec-more">
                       개월별로 보려면 <Link href={breedPath(b.breed_ko, 'food')}>{b.breed_ko} 사료량 표</Link>와 <Link href={breedPath(b.breed_ko, 'growth')}>개월별 몸무게 표</Link>를 보세요.
                     </p>
                   ) : (
-                    <p className="bd-more">
+                    <p className="sec-more">
                       지금 몸무게로 계산하려면 <Link href="/tools/food">사료량 계산기</Link>를 써 보세요.
                     </p>
                   )
@@ -213,7 +215,7 @@ export default function BreedPage({ params }: { params: { slug: string } }) {
                 {s.key === 'health' ? (
                   <>
                     {(g.hereditary?.length ?? 0) > 0 ? (
-                      <ul className="bdz">
+                      <ul className="dz">
                         {g.hereditary!.map((h, i) => (
                           <li key={i}>
                             <b>{h.name}</b>
@@ -223,7 +225,7 @@ export default function BreedPage({ params }: { params: { slug: string } }) {
                       </ul>
                     ) : null}
                     {(g.cautions?.length ?? 0) > 0 ? <Facts items={g.cautions!} /> : null}
-                    <div className="bd-links">
+                    <div className="sec-links">
                       <Link href={isDog ? '/guide/dog-vaccine-schedule' : '/guide/cat-vaccine-schedule'}>예방접종 시기</Link>
                       <Link href={isDog ? '/guide/dog-toxic-foods' : '/guide/cat-toxic-foods'}>먹으면 안 되는 음식</Link>
                       <Link href="/guide/pet-symptom-vet-signs">병원에 가야 하는 증상</Link>
@@ -237,10 +239,12 @@ export default function BreedPage({ params }: { params: { slug: string } }) {
             ))
           : null}
 
-        <FaqList items={faq} />
+        <section className="sheet">
+          <FaqList items={faq} />
+        </section>
 
-        <section className="bd-end">
-          <h2>다른 품종도 보기</h2>
+        <section className="sheet tz-end">
+          <h2 className="sheet-title">다른 품종도 보기</h2>
           <div className="gcta-btns">
             <Link href="/breed" className="btn btn--primary">
               품종 안내판 전체
@@ -251,7 +255,7 @@ export default function BreedPage({ params }: { params: { slug: string } }) {
           </div>
         </section>
 
-        <p className="gdisclaimer">
+        <p className="tz-src">
           {(p?.sources ?? []).map((s, i) => (
             <span key={s.url}>
               {i ? ' · ' : ''}

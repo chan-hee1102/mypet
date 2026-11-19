@@ -36,14 +36,14 @@ export default function BreedIndexPage() {
     });
 
   return (
-    <main className="bd">
-      <div className="bd-wrap">
+    <main className="tz">
+      <div className="tz-wrap">
         <nav className="gcrumb">
           <Link href="/">마이펫</Link> <span>›</span> 품종 안내판
         </nav>
-        <header className="bd-hero">
+        <header className="tz-hero">
           <h1>품종 안내판 {BREEDS.length}종</h1>
-          <p className="bd-lead">품종마다 하루 사료량·산책·빗질·미용·배변과 조심할 질환, 맞는 준비물을 한 장에 정리했어요.</p>
+          <p className="tz-lead">품종마다 하루 사료량·산책·빗질·미용·배변과 조심할 질환, 맞는 준비물을 한 장에 정리했어요.</p>
         </header>
         <BreedFinder items={items} />
       </div>
