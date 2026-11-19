@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Icon } from '@/components/icons';
 import { SITE } from '@/lib/site';
 
-const CATEGORIES = ['결제', '환불', '오류', '제휴', '기타'] as const;
+const CATEGORIES = ['내용 오류', '사이트 오류', '제휴', '기타'] as const;
 
 export default function ContactPage() {
   const [name, setName] = useState('');
@@ -63,7 +63,7 @@ export default function ContactPage() {
     <main className="container container--narrow">
       <div className="page-head">
         <h1>문의하기</h1>
-        <p>결제, 환불, 오류 무엇이든 남겨 주세요. 답변은 적어 주신 이메일로 보내 드려요.</p>
+        <p>틀린 내용, 사이트 오류, 제휴 무엇이든 남겨 주세요. 답변은 적어 주신 이메일로 보내 드려요.</p>
       </div>
 
       <form className="card" onSubmit={submit}>
@@ -108,7 +108,7 @@ export default function ContactPage() {
             rows={6}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="문의하실 내용을 자세히 적어 주세요. 결제 관련이면 결제 일시·반려동물 이름을 함께 적어주시면 빠릅니다."
+            placeholder="문의하실 내용을 자세히 적어 주세요. 틀린 내용이면 품종 이름과 칸(사료·산책 등)을 같이 적어 주시면 빨라요."
           />
         </div>
 

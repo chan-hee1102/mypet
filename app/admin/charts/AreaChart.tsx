@@ -8,7 +8,7 @@ export type AreaPoint = {
   label: string;
   value: number;
   prev?: number | null;
-  /** 이 칸의 사건(결제 완료) 수 — 0보다 크면 선 위에 점 */
+  /** 이 칸의 사건(쿠팡 이동) 수 — 0보다 크면 선 위에 점 */
   mark?: number;
 };
 
@@ -18,7 +18,7 @@ export type AreaPoint = {
  * 선은 왼쪽부터 가림막을 걷어 그린다. 가림막 폭은 JS로 늘린다 — clipPath 안 사각형의 CSS 애니메이션은
  * 크롬이 중간 프레임에서 다시 그리지 않아 선이 반쯤 잘린 채 멈췄다(2026-09-26 캡처).
  */
-export function AreaChart({ data, height = 300, unit = '회', markLabel = '결제' }: { data: AreaPoint[]; height?: number; unit?: string; markLabel?: string }) {
+export function AreaChart({ data, height = 300, unit = '회', markLabel = '쿠팡' }: { data: AreaPoint[]; height?: number; unit?: string; markLabel?: string }) {
   const [ref, w] = useWidth<HTMLDivElement>();
   const [hover, setHover] = useState<number | null>(null);
   const gid = useId().replace(/:/g, '');

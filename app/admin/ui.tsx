@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import type { Channel, InquiryStatus, Order, Ratio } from '@/lib/admin-types';
+import type { Channel, InquiryStatus, Ratio } from '@/lib/admin-types';
 import { AdIcon, type AdIconName } from './icons';
 
 /* ── 색 ─────────────────────────────────────────────────────── */
@@ -162,23 +162,3 @@ export function InquiryBadge({ s }: { s: InquiryStatus }) {
  * 주문 상태 — DB 상태와 결제사 기록을 합쳐 사람이 할 일을 기준으로 이름을 붙인다.
  * 「결제됨, 리포트 없음」이 이 화면이 잡아내려는 것이다(2026-07-23 사례).
  */
-export type OrderState = { label: string; tone: 'ok' | 'bad' | 'warn' | 'off' | 'info'; problem: boolean };
-export function orderState(o: Order): OrderState {
-  const pg = o.pg?.status;
-  if (o.status === 'done') return o.test ? { label: '테스트', tone: 'off', problem: false } : { label: '완료', tone: 'ok', problem: false };
-  if (o.status === 'failed') return { label: '생성 실패', tone: 'bad', problem: true };
-  if (o.status === 'paid' || o.status === 'generating') {
-    const stale = !o.paidAt || Date.now() - Date.parse(o.paidAt) > 5 * 60_000;
-    return stale ? { label: '생성 멈춤', tone: 'bad', problem: true } : { label: '만드는 중', tone: 'info', problem: false };
-  }
-  // pending — 결제사 기록으로 가른다
-  if (pg === 'PAID') return { label: '결제됨, 리포트 없음', tone: 'bad', problem: true };
-  if (pg === 'CANCELLED' || pg === 'PARTIAL_CANCELLED') return { label: '결제 취소', tone: 'off', problem: false };
-  if (pg === 'FAILED') return { label: '결제 실패', tone: 'off', problem: false };
-  if (o.pgReason === 'error') return { label: '결제 확인 안 됨', tone: 'warn', problem: false };
-  return { label: '결제 전 이탈', tone: 'off', problem: false };
-}
-export function OrderBadge({ o }: { o: Order }) {
-  const s = orderState(o);
-  return <span className={`ad-status ad-status--${s.tone}`}>{s.label}</span>;
-}

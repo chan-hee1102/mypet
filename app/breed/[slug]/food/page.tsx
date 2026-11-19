@@ -215,7 +215,7 @@ export default function BreedFoodPage({ params }: { params: { slug: string } }) 
           {cat
             ? '다 큰 뒤에는 중성화 1.2배, 중성화 안 함 1.4배, 노령묘 1.2배예요. 아기 고양이는 2.5배에서 시작해 다 자라 갈수록 1.4배까지 서서히 낮췄어요.'
             : '다 큰 뒤에는 중성화 1.6배, 중성화 안 함 1.8배, 노령기 1.4배예요. 성장기에는 다 큰 몸무게의 40%까지 3배로 잡고 다 자라 갈수록 1.8배까지 서서히 낮췄어요.'}{' '}
-          성장기 계수를 몸무게 비율에 맞춰 낮춘 것은 mypet이 정한 방식이고, 다 큰 뒤 계산은 mypet 리포트와 같아요.
+          성장기 계수를 몸무게 비율에 맞춰 낮춘 것은 마이펫이 정한 방식이에요.
         </p>
       </section>
 
@@ -234,16 +234,14 @@ export default function BreedFoodPage({ params }: { params: { slug: string } }) 
       </section>
 
       <section className="gcta">
-        <h2>급여량부터 접종 일정까지 한 번에</h2>
-        <p>
-          {name}의 나이와 몸무게를 적으면 하루 급여량, 다음 접종일, 조심할 질환, 먹으면 안 되는 음식을 리포트로 정리해 드려요. 결제 전에 무료 가이드로 먼저 확인할 수 있어요.
-        </p>
+        <h2>{name} 키우기, 한 장에 다 모았어요</h2>
+        <p>사료 말고도 간식·장난감·산책·미용·배변·집 환경까지 — {name}에게 맞는 숫자와 준비물을 안내판 한 장에서 보세요.</p>
         <div className="gcta-btns">
-          <Link href={`/diagnose?breed=${encodeURIComponent(b.breed_ko)}&sp=${b.species}`} className="btn btn--primary btn--lg">
-            리포트 만들기
+          <Link href={breedPath(b.breed_ko)} className="btn btn--primary btn--lg">
+            {name} 키우기 안내판
           </Link>
-          <Link href={breedPath(b.breed_ko)} className="btn btn--secondary btn--lg">
-            {name} 성격·질환 보기
+          <Link href={breedPath(b.breed_ko, 'growth')} className="btn btn--secondary btn--lg">
+            개월별 몸무게 표
           </Link>
         </div>
       </section>

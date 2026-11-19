@@ -13,7 +13,7 @@ import { ResponsiveArea } from './Overview';
 const METRICS = [
   ['visits', '방문'],
   ['engaged', '참여 방문'],
-  ['paid', '결제'],
+  ['shop', '쿠팡 이동'],
 ] as const;
 type Metric = (typeof METRICS)[number][0];
 
@@ -89,8 +89,8 @@ export function Analytics({ stats }: { stats: AdminStats | null }) {
         }
         action={<Segmented label="지표" items={METRICS} value={metric} onChange={setMetric} />}>
         <ResponsiveArea
-          unit={metric === 'paid' ? '건' : '회'}
-          data={s.map((p) => ({ label: p.label, value: p[metric], prev: metric === 'visits' ? p.prevVisits : null, mark: metric === 'paid' ? 0 : p.paid }))}
+          unit="회"
+          data={s.map((p) => ({ label: p.label, value: p[metric], prev: metric === 'visits' ? p.prevVisits : null, mark: metric === 'shop' ? 0 : p.shop }))}
         />
       </Card>
 
@@ -140,10 +140,10 @@ export function Analytics({ stats }: { stats: AdminStats | null }) {
       </div>
 
       <div className="ad-row ad-row--7-5">
-        <Card title="결제까지 가는 길">
+        <Card title="쿠팡까지 가는 길">
           <Funnel steps={stats.funnel.map((f) => ({ label: f.label, value: f.value }))} />
           <p className="ad-hint" style={{ marginTop: 12 }}>
-            앞 네 단계는 방문 기준, 결제창 열기와 결제 완료는 주문 기준이에요. 리포트 만들기는 한 주소 안에서 단계가 바뀌어서 버튼 기록으로 셉니다.
+            전부 방문(사람) 기준이에요. 쿠팡 카드 누름은 준비물 카드 클릭 기록(「쿠팡:카드 id」)으로 셉니다.
           </p>
         </Card>
         <Card title="많이 누른 것" action={<span className="ad-card-note">한 방문에 한 번씩</span>}>

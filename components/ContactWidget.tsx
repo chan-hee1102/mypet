@@ -5,7 +5,7 @@ import { Icon } from './icons';
 import { SITE } from '@/lib/site';
 import { friendlyError } from '@/lib/friendlyError';
 
-const CATEGORIES = ['환불', '결제', '오류', '제휴', '기타'] as const;
+const CATEGORIES = ['내용 오류', '사이트 오류', '제휴', '기타'] as const;
 type Cat = (typeof CATEGORIES)[number];
 
 export default function ContactWidget() {
@@ -69,7 +69,6 @@ export default function ContactWidget() {
   return (
     <>
       <button type="button" className="footer-link-btn" onClick={() => openWith('기타')}>고객문의</button>
-      <button type="button" className="footer-link-btn" onClick={() => openWith('환불')}>환불 문의</button>
 
       {open && (
         <div className="modal-overlay" onClick={() => setOpen(false)} role="dialog" aria-modal="true">
@@ -85,7 +84,7 @@ export default function ContactWidget() {
               </div>
             ) : (
               <form onSubmit={submit}>
-                <h3 className="modal-title">{category === '환불' ? '환불 문의' : '고객문의'}</h3>
+                <h3 className="modal-title">고객문의</h3>
                 <p className="hint" style={{ marginBottom: 12 }}>답변은 입력하신 이메일로 보내드려요.</p>
 
                 <div className="field">
@@ -112,9 +111,7 @@ export default function ContactWidget() {
                     rows={4}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder={category === '환불'
-                      ? '결제할 때 적은 이메일과 결제 일시, 환불 사유를 적어 주세요.'
-                      : '문의하실 내용을 자세히 적어 주세요.'}
+                    placeholder={category === '내용 오류' ? '어느 품종·어느 칸의 내용이 틀렸는지 적어 주세요.' : '문의하실 내용을 자세히 적어 주세요.'}
                   />
                 </div>
 

@@ -5,7 +5,7 @@ import { SITE } from '@/lib/site';
 
 export const runtime = 'nodejs';
 
-const CATEGORIES = ['결제', '환불', '오류', '제휴', '기타'];
+const CATEGORIES = ['내용 오류', '사이트 오류', '제휴', '기타'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
@@ -24,7 +24,7 @@ async function notifyAdmin(q: { name: string | null; email: string; category: st
         from: process.env.MAIL_FROM || 'mypet 문의 <noreply@taif.kr>',
         to: [SITE.adminEmail],
         reply_to: q.email,
-        subject: `[mypet 문의] ${q.category}`,
+        subject: `[마이펫 문의] ${q.category}`,
         text: `유형: ${q.category}\n이름: ${q.name ?? '-'}\n이메일: ${q.email}\n\n${q.message}`,
       }),
     });

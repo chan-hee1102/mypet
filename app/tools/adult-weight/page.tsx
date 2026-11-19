@@ -152,12 +152,10 @@ export default function AdultWeightTool() {
       <FaqList items={FAQ} />
 
       <section className="gcta">
-        <h2>다 큰 몸무게에 맞춘 급여량까지</h2>
-        <p>
-          품종, 나이, 몸무게를 적으면 표준 체중과 비교하고 하루 급여량, 접종 일정, 조심할 질환을 리포트로 정리해 드려요. 결제 전에 무료 가이드로 먼저 확인할 수 있어요.
-        </p>
+        <h2>품종마다 다른 키우기, 한 장에</h2>
+        <p>사료량·산책·빗질·미용·배변과 준비물을 품종 안내판에 정리했어요.</p>
         <div className="gcta-btns">
-          <Link href="/diagnose" className="btn btn--primary btn--lg">리포트 만들기</Link>
+          <Link href="/breed" className="btn btn--primary btn--lg">품종 안내판 보기</Link>
           <Link href="/tools/food" className="btn btn--secondary btn--lg">사료량 계산기</Link>
         </div>
       </section>

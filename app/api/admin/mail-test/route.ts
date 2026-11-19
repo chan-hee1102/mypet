@@ -8,8 +8,8 @@ export const dynamic = 'force-dynamic';
 /**
  * POST /api/admin/mail-test — 메일 발송 설정 점검 (관리자 전용)
  *
- * ⚠️ 왜 필요한가: 이 서비스의 메일 발송(문의 알림·리포트 링크)은 **실패를 조용히 삼킨다.**
- *    그건 옳은 설계다 — 메일이 안 갔다고 결제 응답을 되돌리면 안 되니까.
+ * ⚠️ 왜 필요한가: 이 서비스의 메일 발송(문의 알림)은 **실패를 조용히 삼킨다.**
+ *    그건 옳은 설계다 — 메일이 안 갔다고 문의 접수를 실패로 돌리면 안 되니까.
  *    하지만 그 대가로 **설정이 틀렸을 때 알 방법이 없다.** 키를 안 넣었는지, 도메인 인증이
  *    안 됐는지, from 주소가 거부됐는지 — 전부 똑같이 '아무 일도 안 일어남'으로 보인다.
  *    (실제로 RESEND_API_KEY가 비어 있는 동안 문의 알림이 한 통도 안 나갔을 수 있다)
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       ok: false,
       stage: 'config',
-      reason: 'RESEND_API_KEY 가 설정되지 않았습니다. 이 상태에서는 문의 알림과 리포트 링크 메일이 조용히 발송되지 않습니다.',
+      reason: 'RESEND_API_KEY 가 설정되지 않았습니다. 이 상태에서는 문의 알림 메일이 조용히 발송되지 않습니다.',
       from,
     }, { status: 503 });
   }
@@ -60,7 +60,6 @@ export async function POST(req: Request) {
           '',
           '이 설정으로 나가는 메일:',
           '· 고객 문의 접수 알림 (관리자에게)',
-          '· 진단 리포트 링크 (이용자에게)',
         ].join('\n'),
       }),
       signal: AbortSignal.timeout(10_000),

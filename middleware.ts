@@ -1,20 +1,17 @@
 import { type NextRequest, NextResponse } from 'next/server';
+import { breedPath } from '@/lib/breedSlug';
 
 /*
-  ⚠️ 2026-09-26 옛 로그인 기능을 닫았다.
+  닫은 주소 처리 — 옛 주소(북마크·검색 결과)가 404 대신 갈 곳으로 가게.
 
-  mypet은 원래 로그인해서 반려동물을 등록하는 서비스였다가, 로그인 없는 1회 결제형(/diagnose)으로
-  바뀌었다. 그런데 옛 화면과 API가 살아 있어서 **가짜 메일로 가입하면 결제 없이 같은 리포트를
-  무료로 받을 수 있었다**(/create → /api/analyze → 「베타 무료」 잠금 해제 → /api/unlock).
-  /api/symptom은 횟수 제한 없이 AI를 불렀다.
-
-  여기서 입구를 닫는다: 옛 화면은 리포트 만들기로 보내고, 옛 API는 410(없어짐)을 준다.
-  옛 화면·API 코드와 app/legacy.css는 2026-09-26에 지웠다. 이 전환은 남겨 둔다 —
-  옛 주소(북마크·검색 결과의 /symptom 등)가 404 대신 리포트 만들기로 가게.
-  관리자(/admin)는 비밀번호 쿠키로 페이지에서 자체 게이트하므로 건드리지 않는다.
+  ① 2026-09-26: 로그인해서 반려동물을 등록하던 옛 기능(/login·/create·/symptom …)을 닫았다.
+  ② 2026-11-19: 2,900원 리포트(/diagnose·결제·/r 결과·/find 다시 찾기·/sample·/refund)를 전부 걷어냈다(사장님 「전면 개편」).
+     /diagnose?breed=말티즈 처럼 품종이 붙은 주소는 그 품종 안내판으로, 나머지는 첫 화면으로 보낸다.
+     결과 링크(/r/…)를 받은 실제 고객은 없었다(주문 전부 사장님 시험 — 관리자 기록으로 확인).
+  옛 API는 410(없어짐). 관리자(/admin)는 비밀번호 쿠키로 자체 게이트하므로 건드리지 않는다.
 */
-const LEGACY_PAGES = ['/login', '/create', '/pets', '/symptom', '/account', '/dashboard', '/reset-password', '/auth'];
-const LEGACY_APIS = ['/api/analyze', '/api/symptom', '/api/unlock', '/api/records', '/api/schedules', '/api/report', '/api/payments'];
+const LEGACY_PAGES = ['/login', '/create', '/pets', '/symptom', '/account', '/dashboard', '/reset-password', '/auth', '/diagnose', '/find', '/r', '/pay', '/sample', '/refund'];
+const LEGACY_APIS = ['/api/analyze', '/api/symptom', '/api/unlock', '/api/records', '/api/schedules', '/api/report', '/api/payments', '/api/diagnose', '/api/find', '/api/portone', '/api/breed-guide', '/api/admin/orders', '/api/admin/knowledge'];
 
 const hit = (path: string, list: string[]) => list.some((p) => path === p || path.startsWith(p + '/'));
 
@@ -26,7 +23,8 @@ export function middleware(request: NextRequest) {
   }
   if (hit(path, LEGACY_PAGES)) {
     const url = request.nextUrl.clone();
-    url.pathname = '/diagnose';
+    const breed = path.startsWith('/diagnose') ? request.nextUrl.searchParams.get('breed') : null;
+    url.pathname = breed ? breedPath(breed) : path.startsWith('/diagnose') ? '/breed' : '/';
     url.search = '';
     return NextResponse.redirect(url, 308);
   }
@@ -37,7 +35,10 @@ export const config = {
   matcher: [
     '/login/:path*', '/create/:path*', '/pets/:path*', '/symptom/:path*', '/account/:path*',
     '/dashboard/:path*', '/reset-password/:path*', '/auth/:path*',
+    '/diagnose/:path*', '/find/:path*', '/r/:path*', '/pay/:path*', '/sample/:path*', '/refund/:path*',
     '/api/analyze/:path*', '/api/symptom/:path*', '/api/unlock/:path*', '/api/records/:path*',
     '/api/schedules/:path*', '/api/report/:path*', '/api/payments/:path*',
+    '/api/diagnose/:path*', '/api/find/:path*', '/api/portone/:path*', '/api/breed-guide/:path*',
+    '/api/admin/orders/:path*', '/api/admin/knowledge/:path*',
   ],
 };

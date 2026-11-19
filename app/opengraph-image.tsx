@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'mypet — 반려동물 맞춤 케어 리포트';
+export const alt = '마이펫 — 강아지·고양이 품종별 키우기 안내판';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -35,7 +35,7 @@ export default function Image() {
           <div style={{ fontSize: 120, fontWeight: 700, letterSpacing: -5, color: '#9fe870' }}>mypet</div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <div style={{ fontSize: 48, letterSpacing: -1 }}>Pet care report by breed, age and weight</div>
+          <div style={{ fontSize: 48, letterSpacing: -1 }}>Care guide boards for 188 dog & cat breeds</div>
           <div style={{ fontSize: 30, opacity: 0.75 }}>mypet.taif.kr</div>
         </div>
       </div>

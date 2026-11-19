@@ -75,14 +75,11 @@ export default function GuideHub() {
       </div>
 
       <section className="gcta">
-        <h2>우리 아이 숫자로 다시 보고 싶다면</h2>
-        <p>
-          위 글은 일반 기준이에요. 품종, 나이, 체중을 적으면 같은 기준을 우리 아이 숫자로 바꿔
-          급여량, 접종 일정, 조심할 질환까지 리포트로 정리해 드려요.
-        </p>
+        <h2>우리 아이 품종으로 보고 싶다면</h2>
+        <p>강아지 130종·고양이 58종, 품종마다 하루 사료량·산책·빗질·미용·배변과 준비물을 안내판 한 장에 정리했어요.</p>
         <div className="gcta-btns">
-          <Link href="/diagnose" className="btn btn--primary btn--lg">리포트 만들기</Link>
-          <Link href="/breed" className="btn btn--secondary btn--lg">품종 가이드 188종</Link>
+          <Link href="/breed" className="btn btn--primary btn--lg">품종 안내판 188종</Link>
+          <Link href="/start/dog" className="btn btn--secondary btn--lg">처음 데려온다면</Link>
         </div>
       </section>
     </main>

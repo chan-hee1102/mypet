@@ -21,7 +21,8 @@ export interface SeriesPoint {
   label: string;
   visits: number;
   engaged: number;
-  paid: number;
+  /** 쿠팡 준비물 카드를 누른 방문 */
+  shop: number;
   prevVisits: number | null;
 }
 
@@ -32,12 +33,14 @@ export interface AdminStats {
     visits: Cmp<number>;
     engaged: Cmp<Ratio>;
     medianSeconds: Cmp<number>;
-    guides: Cmp<number>;
-    orders: Cmp<number>;
-    paid: Cmp<number>;
-    revenue: Cmp<number>;
-    /** 결제 완료 / 방문 */
-    conversion: Ratio;
+    /** 품종 안내판을 본 방문 */
+    boards: Cmp<number>;
+    /** 쿠팡 준비물 카드를 누른 방문(한 방문에서 여러 번 눌러도 한 번) */
+    shop: Cmp<number>;
+    /** 쿠팡 카드 클릭 수(전부) */
+    shopClicks: Cmp<number>;
+    /** 쿠팡으로 넘어간 방문 / 방문 */
+    shopRate: Ratio;
     search: Cmp<number> & { naver: number; google: number };
     ai: Cmp<number> & { top: string | null };
   };
@@ -46,13 +49,13 @@ export interface AdminStats {
   landings: { label: string; visits: number }[];
   exits: { label: string; visits: number }[];
   devices: { device: string; visits: number; engaged: number }[];
-  /** 방문 → 결제 완료. 앞 네 단계는 방문(탭), 뒤 두 단계는 주문 기준 */
-  funnel: { label: string; value: number; basis: 'visit' | 'order' }[];
+  /** 방문 → 품종 안내판 → 쿠팡 카드(전부 방문 기준) */
+  funnel: { label: string; value: number }[];
+  /** 많이 누른 쿠팡 카드 — 카드 id별 방문 수 */
+  shopTop: { id: string; visits: number }[];
   clicks: { label: string; visits: number }[];
   /** [월..일][0~11] 2시간 단위 방문 수(KST). 30일에서만 */
   heatmap: number[][] | null;
-  /** 결제 기록은 있는데 리포트가 없는 주문(DB만으로 알 수 있는 것 — 포트원 대조는 주문 화면) */
-  stuckOrders: number;
   /** 이번 기간에 통계에서 뺀 봇·봇 의심 방문(2026-11-19) */
   botsExcluded: number;
 }
@@ -108,39 +111,25 @@ export interface AdminBots {
   browsers: { name: string; visits: number }[];
 }
 
-export type OrderStatus = 'pending' | 'paid' | 'generating' | 'done' | 'failed';
-
-/** 포트원 결제 조회 결과 중 화면에 필요한 것 */
-export interface OrderPg {
-  status: string;
-  amount: number | null;
-  paidAt: string | null;
-  email: string | null;
-  phone: string | null;
-  name: string | null;
-}
-
-export interface Order {
-  token: string;
+/** 쿠팡 링크 탭 — 준비물 카드마다 링크가 걸렸나, 몇 품종에 붙나, 최근 14일 몇 번 눌렸나 */
+export interface AdminShopSlot {
+  id: string;
   species: 'dog' | 'cat';
-  petName: string;
-  breed: string | null;
-  status: OrderStatus;
-  amount: number | null;
-  createdAt: string;
-  paidAt: string | null;
-  email: string | null;
-  mailedAt: string | null;
-  /** 결제 키가 없던 때(샌드박스) 만든 테스트 주문 — 매출·결제 수에서 뺀다 */
-  test: boolean;
-  /** 결제사 조회 — 완성되지 않은 최근 주문만 조회한다. null = 조회 안 함 */
-  pg: OrderPg | null;
-  pgReason: 'no_secret' | 'not_found' | 'error' | null;
+  cat: string;
+  title: string;
+  q: string;
+  searchUrl: string;
+  linked: boolean;
+  /** 이 카드가 1~3순위로 붙는 품종 수 */
+  breeds: number;
+  /** 최근 14일 이 카드를 누른 방문(사람만) */
+  clicks: number;
 }
-
-export interface OrdersResponse {
-  items: Order[];
+export interface AdminShop {
   generatedAt: string;
+  slots: AdminShopSlot[];
+  /** 지난 14일 품종 안내판 방문(사람) — 링크를 먼저 만들 카드 고르는 데 */
+  boardViews: number;
 }
 
 export type InquiryStatus = 'open' | 'answered' | 'closed';

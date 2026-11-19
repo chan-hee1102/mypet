@@ -1,8 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { isAdmin } from '@/lib/adminAuth';
 import { CHANNELS, type AdminStats, type Range, type Ratio, type SeriesPoint } from '@/lib/admin-types';
-import { clicksOf, fetchVisits, groupOf, isEngaged, isPersonRow, openedCheckout, openedGuide, pretty, reachedDiagnose, type VisitRow } from '@/lib/admin-visits';
-import { SITE } from '@/lib/site';
+import { clickedShop, clicksOf, fetchVisits, groupOf, isEngaged, isPersonRow, pretty, shopClicksOf, viewedBoard, type VisitRow } from '@/lib/admin-visits';
 import { createAdminClient } from '@/lib/supabase/admin';
 
 export const runtime = 'nodejs';
@@ -10,18 +9,17 @@ export const dynamic = 'force-dynamic';
 
 /**
  * 관리자 통계 — 기간 KPI(직전 같은 길이 기간과 비교)·추이·채널·퍼널·버튼·랜딩·이탈·기기·요일×시간.
+ * 2026-11-19 개편: 결제·주문을 걷어내고 「품종 안내판 → 쿠팡 카드」 퍼널로(카드 클릭 = data-track 「쿠팡:id」).
  *
  * 실시간은 /api/admin/live가 따로 맡는다. 이 라우트는 기간 행을 통째로 읽으므로 **폴링하지 않는다** —
  * 화면을 열 때·기간을 바꿀 때·새로고침 때만(Supabase 무료 대역폭 5GB/월).
  * 하루 수백 방문까지는 행을 읽어 여기서 집계해도 된다. 그보다 커지면 일별 요약 테이블로 옮길 것.
  *
  * ⚠️ 방문 기록은 30일 보관이다(개인정보처리방침 · /api/track purgeOld). 그래서 기간은 오늘·7일·30일뿐이고,
- *    30일은 직전 기간 비교가 없다(이미 지워졌다). 주문은 지우지 않지만 같은 기간 규칙을 따른다.
+ *    30일은 직전 기간 비교가 없다(이미 지워졌다).
  */
 const DAY = 86_400_000;
 const KST = 9 * 3_600_000;
-
-type OrderRow = { status: string; amount: number | null; created_at: string; paid_at: string | null; provider: string | null };
 
 /** KST 자정(그날 0시)의 UTC 시각 */
 function kstMidnight(ms: number) {
@@ -51,41 +49,22 @@ export async function GET(req: NextRequest) {
 
   let all: VisitRow[];
   let excluded = 0;
-  let orders: OrderRow[];
   try {
-    const [v, o] = await Promise.all([
-      fetchVisits(db, sinceIso),
-      db
-        .from('diagnoses')
-        .select('status, amount, created_at, paid_at, provider')
-        .or(`created_at.gte.${sinceIso},paid_at.gte.${sinceIso}`)
-        .limit(5000),
-    ]);
-    if (o.error) throw new Error(o.error.message);
+    const v = await fetchVisits(db, sinceIso);
     // 방문 통계는 사람만(2026-11-19) — 봇·봇 의심은 「봇 수집」 탭에서 따로 센다(lib/visitor.ts)
     excluded = v.filter((r) => Date.parse(r.started_at) >= from && !isPersonRow(r)).length;
     all = v.filter(isPersonRow);
-    orders = (o.data ?? []) as OrderRow[];
   } catch (e) {
     return Response.json({ error: e instanceof Error ? e.message : '읽기 실패' }, { status: 500 });
   }
-  const { count: stuck } = await db
-    .from('diagnoses')
-    .select('token', { count: 'exact', head: true })
-    .in('status', ['paid', 'generating', 'failed']);
 
   const t = (r: VisitRow) => Date.parse(r.started_at);
   const inRange = (ms: number, a: number, b: number) => ms >= a && ms < b;
   const cur = all.filter((r) => t(r) >= from);
   const prev = prevFrom !== null && prevTo !== null ? all.filter((r) => inRange(t(r), prevFrom, prevTo)) : null;
 
-  const created = (a: number, b: number) => orders.filter((o) => inRange(Date.parse(o.created_at), a, b));
-  // 샌드박스(결제 키 없던 때의 테스트)는 결제·매출에서 뺀다
-  const paidIn = (a: number, b: number) => orders.filter((o) => o.paid_at && o.provider !== 'sandbox' && inRange(Date.parse(o.paid_at), a, b));
-  const revenue = (rows: OrderRow[]) => rows.reduce((s, o) => s + (o.amount ?? SITE.pricePerPet), 0);
-  const end = now + 1;
-  const paidCur = paidIn(from, end);
-  const paidPrev = prevFrom !== null && prevTo !== null ? paidIn(prevFrom, prevTo) : null;
+  const shopN = (rows: VisitRow[]) => rows.filter(clickedShop).length;
+  const shopClicksN = (rows: VisitRow[]) => rows.reduce((n, r) => n + shopClicksOf(r).length, 0);
 
   const median = (rows: VisitRow[]) => {
     if (!rows.length) return 0;
@@ -110,11 +89,10 @@ export async function GET(req: NextRequest) {
     visits: { cur: cur.length, prev: prev ? prev.length : null },
     engaged: { cur: ratio(cur.filter(isEngaged).length, cur.length), prev: prev ? ratio(prev.filter(isEngaged).length, prev.length) : null },
     medianSeconds: { cur: median(cur), prev: prev ? median(prev) : null },
-    guides: { cur: cur.filter(openedGuide).length, prev: prev ? prev.filter(openedGuide).length : null },
-    orders: { cur: created(from, end).length, prev: prevFrom !== null && prevTo !== null ? created(prevFrom, prevTo).length : null },
-    paid: { cur: paidCur.length, prev: paidPrev ? paidPrev.length : null },
-    revenue: { cur: revenue(paidCur), prev: paidPrev ? revenue(paidPrev) : null },
-    conversion: ratio(paidCur.length, cur.length),
+    boards: { cur: cur.filter(viewedBoard).length, prev: prev ? prev.filter(viewedBoard).length : null },
+    shop: { cur: shopN(cur), prev: prev ? shopN(prev) : null },
+    shopClicks: { cur: shopClicksN(cur), prev: prev ? shopClicksN(prev) : null },
+    shopRate: ratio(shopN(cur), cur.length),
     search: {
       cur: searchCur.length,
       prev: prev ? ofGroup(prev, '검색').length : null,
@@ -132,7 +110,7 @@ export async function GET(req: NextRequest) {
   const series: SeriesPoint[] = [];
   const bucket = (a: number, b: number) => {
     const rs = all.filter((r) => inRange(t(r), a, b));
-    return { visits: rs.length, engaged: rs.filter(isEngaged).length, paid: paidIn(a, b).length };
+    return { visits: rs.length, engaged: rs.filter(isEngaged).length, shop: shopN(rs) };
   };
   if (days === 1) {
     const hourNow = new Date(now + KST).getUTCHours();
@@ -192,13 +170,13 @@ export async function GET(req: NextRequest) {
   const clicks = [...clickMap.entries()].map(([label, visits]) => ({ label, visits })).sort((a, b) => b.visits - a.visits).slice(0, 12);
 
   const funnel: AdminStats['funnel'] = [
-    { label: '방문', value: cur.length, basis: 'visit' },
-    { label: '리포트 만들기 화면', value: cur.filter(reachedDiagnose).length, basis: 'visit' },
-    { label: '무료 가이드 보기', value: cur.filter(openedGuide).length, basis: 'visit' },
-    { label: '결제 정보 화면', value: cur.filter(openedCheckout).length, basis: 'visit' },
-    { label: '결제창 열기', value: created(from, end).length, basis: 'order' },
-    { label: '결제 완료', value: paidCur.length, basis: 'order' },
+    { label: '방문', value: cur.length },
+    { label: '품종 안내판 봄', value: cur.filter(viewedBoard).length },
+    { label: '쿠팡 카드 누름', value: shopN(cur) },
   ];
+  const shopMap = new Map<string, number>();
+  for (const r of cur) for (const id of new Set(shopClicksOf(r))) shopMap.set(id, (shopMap.get(id) ?? 0) + 1);
+  const shopTop = [...shopMap.entries()].map(([id, visits]) => ({ id, visits })).sort((a, b) => b.visits - a.visits).slice(0, 12);
 
   // ── 요일×시간 히트맵(KST, 2시간 단위) — 30일에서만 의미가 있다 ──
   let heatmap: number[][] | null = null;
@@ -220,9 +198,9 @@ export async function GET(req: NextRequest) {
     exits,
     devices,
     funnel,
+    shopTop,
     clicks,
     heatmap,
-    stuckOrders: stuck ?? 0,
     botsExcluded: excluded,
   };
   return Response.json(body, { headers: { 'Cache-Control': 'private, no-store' } });

@@ -218,16 +218,14 @@ export default function BreedGrowthPage({ params }: { params: { slug: string } }
       </section>
 
       <section className="gcta">
-        <h2>우리 {name} 기준으로 다시 보고 싶다면</h2>
-        <p>
-          나이와 몸무게를 적으면 {name} 표준과 비교하고, 급여량과 접종 일정, 조심할 질환까지 리포트로 정리해 드려요. 결제 전에 무료 가이드로 먼저 확인할 수 있어요.
-        </p>
+        <h2>{name} 키우기, 한 장에 다 모았어요</h2>
+        <p>몸무게 말고도 사료·간식·장난감·산책·미용·배변까지 — {name}에게 맞는 숫자와 준비물을 안내판 한 장에서 보세요.</p>
         <div className="gcta-btns">
-          <Link href={`/diagnose?breed=${encodeURIComponent(b.breed_ko)}&sp=${b.species}`} className="btn btn--primary btn--lg">
-            리포트 만들기
+          <Link href={breedPath(b.breed_ko)} className="btn btn--primary btn--lg">
+            {name} 키우기 안내판
           </Link>
-          <Link href={breedPath(b.breed_ko)} className="btn btn--secondary btn--lg">
-            {name} 성격·질환 보기
+          <Link href={breedPath(b.breed_ko, 'food')} className="btn btn--secondary btn--lg">
+            개월별 사료량 표
           </Link>
         </div>
       </section>

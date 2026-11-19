@@ -5,7 +5,7 @@ import { SITE } from '@/lib/site';
 import { breedPath } from '@/lib/breedSlug';
 
 /**
- * 검색엔진 색인용 사이트맵 — 정적 페이지 + 정보 가이드 + 품종 가이드 188종.
+ * 검색엔진 색인용 사이트맵 — 정적 페이지 + 처음 데려온다면 + 정보 가이드 + 품종 안내판 188종.
  *
  * ⚠️ 여기에만 있고 **어디서도 링크되지 않는 페이지는 색인이 잘 안 된다.** 사이트맵은 발견을 돕는
  *    힌트일 뿐, 링크가 색인의 근거다. 새 페이지를 넣을 때는 /guide 허브나 푸터에서 닿는지 함께 확인할 것.
@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = SITE.url;
   const breeds = (breedData as { breed_ko: string }[]).map((b) => ({
     url: `${base}${breedPath(b.breed_ko)}`,
-    lastModified: new Date('2026-09-27'),
+    lastModified: new Date('2026-11-19'),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
@@ -26,13 +26,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 성장·사료량 페이지와 계산기(2026-09-27)는 네이버·빙 전용이라 여기 넣지 않는다 — /sitemap-nb.xml(lib/searchScope.ts)
   return [
     { url: base, changeFrequency: 'weekly', priority: 1 },
-    { url: `${base}/diagnose`, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${base}/guide`, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${base}/breed`, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${base}/sample`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${base}/breed`, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${base}/start/dog`, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/start/cat`, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/guide`, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${base}/terms`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${base}/privacy`, changeFrequency: 'yearly', priority: 0.2 },
-    { url: `${base}/refund`, changeFrequency: 'yearly', priority: 0.2 },
     ...guides,
     ...breeds,
   ];

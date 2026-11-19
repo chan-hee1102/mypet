@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import type { AdminLive, LiveVisit, Order, PeopleDay } from '@/lib/admin-types';
+import type { AdminLive, LiveVisit, PeopleDay } from '@/lib/admin-types';
 import { isPerson, KIND_LABEL } from '@/lib/visitor';
 import { AdIcon } from '../icons';
-import { Card, CHANNEL_COLOR, dur, Empty, KpiCard, Skeleton, won } from '../ui';
+import { Card, CHANNEL_COLOR, dur, Empty, KpiCard, Skeleton } from '../ui';
 
 /*
  * 실시간 접속 — KOSTOCK 관리자 「실시간 접속」과 같은 읽는 순서(2026-11-19 사장님 「코스톡처럼, 진짜 사람인지 봇인지」):
@@ -84,7 +84,7 @@ function WeekBars({ week }: { week: PeopleDay[] }) {
 
 const PAGE = 40;
 
-export function Presence({ live, week, orders }: { live: AdminLive | null; week: PeopleDay[] | null; orders: Order[] | null }) {
+export function Presence({ live, week, shopToday }: { live: AdminLive | null; week: PeopleDay[] | null; shopToday: number | null }) {
   const [showBots, setShowBots] = useState(false);
   const [more, setMore] = useState(PAGE);
   if (!live) {
@@ -105,8 +105,8 @@ export function Presence({ live, week, orders }: { live: AdminLive | null; week:
   const onlinePeople = live.online.filter((v) => isPerson(v.kind));
   const onlineShown = showBots ? live.online : onlinePeople;
   const todayShown = showBots ? live.today : people;
-  const today0 = kstDay(Date.now());
-  const paidToday = (orders ?? []).filter((o) => o.paidAt && kstDay(Date.parse(o.paidAt)) === today0 && !o.test);
+  // 오늘 쿠팡으로 넘어간 방문 — 오늘 목록의 사람 중 「쿠팡:」 카드를 누른 방문(서버가 준 오늘 통계가 있으면 그걸 쓴다)
+  const shopNow = shopToday ?? people.filter((v) => v.lastClick?.startsWith('쿠팡:')).length;
   const ratio = live.today.length ? Math.round((people.length / live.today.length) * 100) : 0;
 
   const toggle = (
@@ -121,7 +121,7 @@ export function Presence({ live, week, orders }: { live: AdminLive | null; week:
       <div className="ad-kpis ad-kpis--4">
         <KpiCard label="오늘 다녀간 사람" value={people.length} foot={<span>봇·봇 의심 {botsToday}회는 뺐어요</span>} />
         <KpiCard label="지금 접속" live value={onlinePeople.length} foot={<span>봇 {live.online.length - onlinePeople.length} 따로 · 90초 안 신호</span>} />
-        <KpiCard label="오늘 결제" value={`${paidToday.length}건`} foot={<span>{won(paidToday.reduce((s, o) => s + (o.amount ?? 0), 0))}</span>} />
+        <KpiCard label="오늘 쿠팡 이동" value={`${shopNow}회`} foot={<span>준비물 카드를 누른 방문</span>} />
         <KpiCard label="사람 비율" value={`${ratio}%`} foot={<span>오늘 기록 {live.today.length}회 중</span>} />
       </div>
 

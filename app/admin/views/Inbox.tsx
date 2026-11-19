@@ -161,7 +161,7 @@ function Detail({ q, onClose, onStatus }: { q: Inquiry; onClose: () => void; onS
               </button>
             ))}
           </div>
-          {q.category === '환불' ? <p className="ad-hint">환불은 포트원 관리자 콘솔에서 결제를 취소한 뒤 답장해 주세요. 주문 화면에서 이메일로 찾으면 그 주문이 보여요.</p> : null}
+          {q.category === '환불' ? <p className="ad-hint">유료 리포트는 2026-11-19에 종료했어요. 옛 결제 환불이면 포트원 관리자 콘솔에서 결제를 취소한 뒤 답장해 주세요.</p> : null}
         </div>
         <div className="ad-panel-foot">
           <a className="ad-btn ad-btn--primary ad-btn--block" href={`mailto:${q.email}?subject=${subject}`} onClick={() => q.status === 'open' && onStatus(q.id, 'answered')}>

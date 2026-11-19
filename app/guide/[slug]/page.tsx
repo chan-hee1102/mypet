@@ -145,14 +145,11 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       )}
 
       <section className="gcta">
-        <h2>우리 아이 숫자로 다시 보고 싶다면</h2>
-        <p>
-          이 글은 일반 기준이에요. 품종, 나이, 체중을 적으면 같은 기준을 우리 아이 숫자로 바꿔
-          급여량, 접종 일정, 조심할 질환까지 리포트로 정리해 드려요. 결제 전에 무료 가이드로 먼저 확인할 수 있어요.
-        </p>
+        <h2>우리 아이 품종으로 보고 싶다면</h2>
+        <p>이 글은 일반 기준이에요. 품종마다 다른 사료량·산책·미용·배변과 준비물은 품종 안내판에 정리했어요.</p>
         <div className="gcta-btns">
-          <Link href="/diagnose" className="btn btn--primary btn--lg">리포트 만들기</Link>
-          <Link href="/breed" className="btn btn--secondary btn--lg">품종 가이드 보기</Link>
+          <Link href="/breed" className="btn btn--primary btn--lg">품종 안내판 보기</Link>
+          <Link href="/start/dog" className="btn btn--secondary btn--lg">처음 데려온다면</Link>
         </div>
       </section>
     </main>

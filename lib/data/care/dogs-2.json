@@ -1,0 +1,2284 @@
+[
+  {
+    "breed": "웨스트하이랜드화이트테리어",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "wire",
+    "shedding": 3,
+    "brushing": "few",
+    "trimWeeks": [
+      8,
+      12
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      45,
+      60
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 5,
+    "heat": 2,
+    "cold": 1,
+    "kibble": "small",
+    "flags": [
+      "skin",
+      "patella",
+      "prey"
+    ],
+    "notes": {
+      "food": "피부가 예민한 품종이라 사료를 바꾼 뒤 가려움이나 발 핥기가 늘면 기록해 두고 수의사와 상의해요. 작은 알갱이를 하루 2번 나눠 줘요.",
+      "treat": "간식 재료가 바뀌면 피부 반응이 올라오는 개체가 있어요. 새 간식은 한 가지씩 소량으로 며칠 시험해 보고 늘려요.",
+      "toy": "땅을 파고 작은 짐승을 쫓던 테리어라 삑삑 소리 나는 장난감을 물고 흔들기를 좋아해요. 솜이 쉽게 뜯기니 튼튼한 것을 골라요.",
+      "walk": "하루 두 번, 합쳐 45~60분 걷고 냄새 맡을 시간을 줘요. 작은 동물을 보면 튀어 나가는 습성이 있어 리드줄은 꼭 잡아요.",
+      "grooming": "뻣뻣한 겉털은 2~3개월마다 손으로 뽑는 스트리핑이나 클리핑으로 정리해요. 흰 털이라 입과 눈 주변이 누렇게 물들기 쉬워 자주 닦아 줘요.",
+      "potty": "영리하지만 고집이 있어 배변 훈련은 짧고 일정하게 반복해야 해요. 실내 패드는 소형용이면 충분해요.",
+      "home": "경계심이 강해 바깥 소리에 잘 짖는 편이에요. 아파트라면 초인종·복도 소리에 덜 반응하도록 어릴 때부터 연습해요.",
+      "health": "아토피성 피부염과 말라세지아 피부염이 자주 보고되고, 나이 들면 폐섬유증이 보고돼요. 피부 상태와 기침·숨찬 기색을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/west-highland-white-terrier/"
+      }
+    ]
+  },
+  {
+    "breed": "케언테리어",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "wire",
+    "shedding": 2,
+    "brushing": "few",
+    "trimWeeks": [
+      8,
+      12
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      45,
+      60
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 4,
+    "heat": 2,
+    "cold": 1,
+    "kibble": "small",
+    "flags": [
+      "patella",
+      "prey"
+    ],
+    "notes": {
+      "food": "6~7kg대의 활동적인 소형 테리어라 작은 알갱이를 하루 2번 줘요. 산책이 줄어드는 겨울이나 장마철엔 양을 조금 줄여요.",
+      "treat": "영리해서 간식 보상 훈련에 반응이 빨라요. 고집이 세서 간식 없이도 따르도록 칭찬과 놀이 보상을 섞어 써요.",
+      "toy": "굴속 짐승을 찾아내던 본능이 강해 담요 속에 숨긴 간식 찾기나 파고드는 놀이를 즐겨요. 씹는 힘은 보통이에요.",
+      "walk": "하루 두 번, 합쳐 45~60분 걷기가 알맞아요. 작은 동물을 쫓아 달려 나가는 습성이 있어 풀어 두지 말고 리드줄을 잡아요.",
+      "grooming": "거친 겉털은 엉킴이 적은 편이라 주 2~3번 빗질과 몇 달에 한 번 묵은 털을 뽑아 주는 정리로 충분해요.",
+      "potty": "실내에서는 소형 패드로 배변 훈련이 무난한 편이에요. 마당이 있으면 배변하며 화단을 파헤칠 수 있어요.",
+      "home": "아파트에서도 지낼 수 있지만 지루하면 짖거나 바닥과 가구를 긁어요. 혼자 두는 시간은 짧게 하고 노즈워크로 시간을 채워요.",
+      "health": "슬개골 탈구, 레그-칼베-페르테스병, 간문맥 단락(간 혈관 이상)이 보고돼요. 다리를 들고 걷는지와 간 수치를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/cairn-terrier/"
+      }
+    ]
+  },
+  {
+    "breed": "스탠다드푸들",
+    "species": "dog",
+    "sizeClass": "large",
+    "coat": "curly",
+    "shedding": 1,
+    "brushing": "daily",
+    "trimWeeks": [
+      4,
+      8
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 3,
+    "heat": 1,
+    "cold": 2,
+    "kibble": "large",
+    "flags": [
+      "bloat",
+      "hip",
+      "skin"
+    ],
+    "notes": {
+      "food": "가슴이 깊은 대형견이라 하루 양을 2~3번에 나눠 줘요. 급하게 먹는 개체는 천천히 먹게 하는 그릇을 쓰고, 알갱이는 큰 것이 맞아요.",
+      "treat": "머리가 좋아 간식 보상으로 새 동작을 빨리 배워요. 훈련용은 손톱만 하게 잘라 하루 열량의 10% 안에서 줘요.",
+      "toy": "물새를 물어 오던 사냥개 출신이라 공·원반 던지기와 물놀이를 좋아해요. 퍼즐 장난감으로 머리를 쓰게 하면 덜 지루해해요.",
+      "walk": "하루 60~90분, 두 번 이상 걷고 뛸 시간을 줘요. 몸집이 커서 끄는 힘이 세니 몸통을 감싸는 가슴줄이 다루기 쉬워요.",
+      "grooming": "털이 거의 안 빠지는 대신 계속 자라 4~8주마다 커트가 필요해요. 귓속에도 털이 자라 귀 청소를 자주 해 줘요.",
+      "potty": "영리해서 배변 훈련이 빠른 편이에요. 몸집이 커서 실내 패드보다 산책 때 바깥 배변이 자리 잡기 쉬워요.",
+      "home": "사람과 함께 있는 걸 좋아해 오래 혼자 두면 지루해해요. 아파트에서도 지낼 수 있지만 매일 운동을 채워 줘야 차분해요.",
+      "health": "위확장 염전, 애디슨병, 피지샘염이 보고돼요. 식후 배가 부풀면 바로 진료받고, 털이 듬성듬성 빠지는지 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/poodle-standard/"
+      }
+    ]
+  },
+  {
+    "breed": "미니어처푸들",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "curly",
+    "shedding": 1,
+    "brushing": "daily",
+    "trimWeeks": [
+      4,
+      6
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      30,
+      60
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 2,
+    "voice": 4,
+    "heat": 1,
+    "cold": 2,
+    "kibble": "small",
+    "flags": [
+      "patella",
+      "trachea",
+      "dental",
+      "tearStain"
+    ],
+    "notes": {
+      "food": "작은 알갱이를 하루 2번 줘요. 췌장염이 보고되는 품종이라 사람 음식이나 기름진 간식은 주지 않는 편이 안전해요.",
+      "treat": "학습이 빨라 간식 보상으로 금방 배우지만, 체중이 6~7kg이라 몇 개만으로도 열량이 넘치기 쉬워요. 잘게 쪼개서 줘요.",
+      "toy": "물어오기와 숨긴 간식 찾기처럼 머리를 쓰는 놀이를 즐겨요. 씹는 힘은 세지 않아 부드러운 장난감도 오래 써요.",
+      "walk": "하루 두 번, 합쳐 30~60분 걷기가 알맞아요. 기관 허탈이 보고되는 품종이라 목줄보다 가슴줄이 목에 부담이 적어요.",
+      "grooming": "곱슬털이 엉키기 쉬워 슬리커 브러시로 매일 빗고 4~6주마다 커트해요. 눈물 자국이 잘 생겨 눈 밑을 자주 닦아요.",
+      "potty": "머리가 좋아 소형 패드 배변 훈련이 빠른 편이에요. 성공했을 때 바로 칭찬해 주면 금방 익혀요.",
+      "home": "미끄러운 바닥에서 뛰면 무릎에 무리가 가니 매트를 깔고, 소파·침대 오르내림은 계단이나 경사로로 바꿔 줘요.",
+      "health": "슬개골 탈구, 진행성 망막 위축, 기관 허탈이 보고되고 치석도 잘 쌓여요. 무릎·치아·눈 상태를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/poodle-miniature/"
+      }
+    ]
+  },
+  {
+    "breed": "풍산개",
+    "species": "dog",
+    "sizeClass": "medium",
+    "coat": "double",
+    "shedding": 4,
+    "brushing": "few",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 5,
+    "exerciseMin": [
+      90,
+      120
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 4,
+    "voice": 3,
+    "heat": 3,
+    "cold": 1,
+    "kibble": "medium",
+    "flags": [
+      "prey"
+    ],
+    "notes": {
+      "food": "20~30kg의 활동적인 토종견이라 보통 크기 알갱이를 하루 2번 줘요. 운동량이 적은 날엔 양을 줄여 살이 붙지 않게 해요.",
+      "treat": "독립심이 강해 간식 보상이 훈련의 좋은 동기가 돼요. 크게 삼키는 간식은 목에 걸리지 않게 먹는 동안 지켜봐요.",
+      "toy": "큰 짐승을 사냥하던 개라 턱 힘이 세요. 단단한 고무 장난감과 줄다리기 놀이가 잘 맞아요.",
+      "walk": "하루 90~120분, 두 번 이상 활발하게 걸어야 해요. 낯선 개·사람에게 경계심이 강하고 사냥 본능이 있어 리드줄은 짧게 잡아요.",
+      "grooming": "두꺼운 이중모라 봄·가을 털갈이 때는 매일 속털을 빗어 내고, 평소엔 주 2~3번이면 돼요. 털은 자르지 않아요.",
+      "potty": "토종견답게 집 안보다 바깥에서 배변하려는 성향이 강한 편이에요. 하루 산책 시간을 일정하게 맞춰 줘요.",
+      "home": "북부 산간 지방 출신으로 추위엔 강하지만 더위에 약해요. 여름엔 그늘과 물을 늘 준비하고 한낮 산책은 피해요.",
+      "health": "품종별 건강 통계가 적어 단정하기 어려워요. 고관절 같은 중대형견 관절 문제와 피부 상태를 중심으로 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "농촌진흥청 국립축산과학원 보도자료(2018, 한국 토종개 유전체 분석)",
+        "url": "https://www.rda.go.kr/board/board.do?mode=view&prgId=day_farmprmninfoEntry&dataNo=100000741627"
+      }
+    ]
+  },
+  {
+    "breed": "삽살개",
+    "species": "dog",
+    "sizeClass": "medium",
+    "coat": "long",
+    "shedding": 3,
+    "brushing": "daily",
+    "trimWeeks": [
+      6,
+      10
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 3,
+    "heat": 3,
+    "cold": 1,
+    "kibble": "medium",
+    "flags": [],
+    "notes": {
+      "food": "털이 풍성해 체형이 잘 안 보이니 살찜은 손으로 갈비뼈를 만져 확인해요. 보통 크기 알갱이를 하루 2번 줘요.",
+      "treat": "온순하고 사람을 잘 따라 간식 보상 훈련을 잘 받아들여요. 긴 입가 털에 부스러기가 엉키니 먹은 뒤 닦아 줘요.",
+      "toy": "성격이 느긋한 편이라 격한 놀이보다 장난감 물고 다니기나 가벼운 줄다리기를 즐겨요. 씹는 힘은 보통이에요.",
+      "walk": "하루 60~90분, 두 번 나눠 걷는 정도가 알맞아요. 긴 털에 풀씨나 진드기가 잘 붙으니 산책 뒤 털 속을 살펴요.",
+      "grooming": "눈을 덮는 긴 털은 매일 빗어야 엉키지 않아요. 눈가 털은 짧게 다듬어 시야를 틔우고, 6~10주마다 발·위생 부위를 정리해요.",
+      "potty": "엉덩이 주변 털이 길어 배변이 묻기 쉬워요. 항문 주위 털을 짧게 정리해 두면 뒤처리가 편해요.",
+      "home": "털이 두껍고 길어 여름 더위에 약해요. 서늘한 바닥과 냉방을 마련하고, 목욕 뒤엔 털 속까지 완전히 말려요.",
+      "health": "눈을 덮는 털 때문에 결막염이나 각막 자극이 생길 수 있어요. 눈곱·충혈과 털 속 피부 상태를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "농촌진흥청 국립축산과학원 보도자료(2019, 삽살개)",
+        "url": "https://www.rda.go.kr/board/board.do?mode=view&prgId=day_farmprmninfoEntry&dataNo=100000758603"
+      },
+      {
+        "org": "국가유산청 — 천연기념물 경산의 삽살개",
+        "url": "https://www.heritage.go.kr/"
+      }
+    ]
+  },
+  {
+    "breed": "동경이",
+    "species": "dog",
+    "sizeClass": "medium",
+    "coat": "double",
+    "shedding": 4,
+    "brushing": "few",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 4,
+    "voice": 2,
+    "heat": 2,
+    "cold": 1,
+    "kibble": "medium",
+    "flags": [
+      "prey"
+    ],
+    "notes": {
+      "food": "15~18kg의 날렵한 중형견이라 보통 크기 알갱이를 하루 2번 줘요. 위에서 내려다봤을 때 허리가 잘록한지로 체형을 확인해요.",
+      "treat": "사람과 친화력이 좋은 토종견이라 간식 보상 훈련에 잘 반응해요. 부르면 오기 훈련에 가장 좋아하는 간식을 아껴 써요.",
+      "toy": "사냥 본능이 남아 있어 끈에 매단 장난감 쫓기나 숨긴 간식 찾기에 몰입해요. 씹는 힘이 있어 단단한 장난감이 맞아요.",
+      "walk": "하루 60~90분, 두 번 이상 걸어요. 작은 동물을 보면 쫓아가려는 본능이 있어 넓은 곳에서도 리드줄을 풀지 않아요.",
+      "grooming": "짧고 빳빳한 이중모라 봄·가을 털갈이 때는 매일 속털을 빗어 주고 평소엔 주 2~3번이면 돼요. 커트는 필요 없어요.",
+      "potty": "바깥에서 배변하려는 토종견 성향이 있는 편이에요. 실내 패드 훈련은 어릴 때 시작하고 산책 시간을 일정하게 지켜요.",
+      "home": "다른 토종견보다 낯가림이 적어 가정견으로 무난한 편이에요. 운동이 부족하면 문을 긁거나 땅을 파는 행동이 늘어요.",
+      "health": "선천적으로 꼬리가 없거나 짧은 품종이라 꼬리뼈 형성 이상이 언급돼요. 엉덩이 쪽 통증 반응과 관절을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "국가유산청 — 천연기념물 경주개 동경이",
+        "url": "https://www.heritage.go.kr/heri/cul/culSelectDetail.do?ccbaCpno=1363705400000"
+      },
+      {
+        "org": "농촌진흥청 국립축산과학원 보도자료(2018, 한국 토종개 유전체 분석)",
+        "url": "https://www.rda.go.kr/board/board.do?mode=view&prgId=day_farmprmninfoEntry&dataNo=100000741627"
+      }
+    ]
+  },
+  {
+    "breed": "도사견",
+    "species": "dog",
+    "sizeClass": "giant",
+    "coat": "short",
+    "shedding": 2,
+    "brushing": "weekly",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      45,
+      75
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 5,
+    "voice": 2,
+    "heat": 3,
+    "cold": 2,
+    "kibble": "large",
+    "flags": [
+      "dangerous",
+      "bloat",
+      "hip",
+      "joint",
+      "heart"
+    ],
+    "notes": {
+      "food": "40~90kg까지 나가는 초대형견이라 큰 알갱이를 하루 2~3번에 나눠 줘요. 성장기엔 대형견 강아지용 사료로 천천히 키워요.",
+      "treat": "턱이 크고 삼키는 힘이 세서 작은 간식은 씹지 않고 넘길 수 있어요. 크기가 넉넉한 간식을 주고 먹는 동안 지켜봐요.",
+      "toy": "씹는 힘이 아주 세서 일반 장난감은 금방 부서져요. 초대형견용 단단한 고무 장난감을 고르고 닳으면 바로 바꿔요.",
+      "walk": "하루 45~75분 꾸준히 걷되 식후 바로 뛰지 않게 해요. 동물보호법상 맹견이라 외출할 때 목줄과 입마개를 하거나 이동장치에 넣어야 해요.",
+      "grooming": "짧은 털이라 주 1번 고무 브러시로 쓸어 주면 돼요. 입가와 목 아래 늘어진 피부 사이는 젖은 수건으로 닦아 줘요.",
+      "potty": "초대형견이라 실내 패드보다 바깥 배변이 현실적이에요. 하루 두 번 이상 정해진 시간에 데리고 나가요.",
+      "home": "맹견은 사육 허가와 책임보험 가입이 법으로 정해져 있어요. 아파트보다는 넓은 공간과 경험 있는 보호자가 맞는 품종이에요.",
+      "health": "위확장 염전, 고관절·팔꿈치 이형성, 확장성 심근병증, 안검내반이 보고돼요. 심장 소리와 관절 상태를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/tosa/"
+      },
+      {
+        "org": "FCI",
+        "url": "https://www.fci.be/en/nomenclature/TOSA-260.html"
+      },
+      {
+        "org": "국가법령정보센터 — 동물보호법",
+        "url": "https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EB%8F%99%EB%AC%BC%EB%B3%B4%ED%98%B8%EB%B2%95"
+      }
+    ]
+  },
+  {
+    "breed": "제주개",
+    "species": "dog",
+    "sizeClass": "medium",
+    "coat": "double",
+    "shedding": 4,
+    "brushing": "few",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 4,
+    "voice": 2,
+    "heat": 2,
+    "cold": 1,
+    "kibble": "medium",
+    "flags": [
+      "prey"
+    ],
+    "notes": {
+      "food": "15~20kg의 날렵한 사냥견이라 보통 크기 알갱이를 하루 2번 줘요. 운동량에 따라 살이 쉽게 붙거나 빠지니 체중을 자주 재요.",
+      "treat": "영리하고 독립적인 편이라 간식 보상으로 부르면 오기 훈련을 꾸준히 해 두면 산책이 훨씬 편해져요.",
+      "toy": "섬에서 사냥개로 쓰이던 본능이 남아 장난감 쫓기와 냄새로 찾기 놀이를 즐겨요. 씹는 힘이 있어 단단한 장난감이 맞아요.",
+      "walk": "하루 60~90분, 두 번 이상 활발히 걸어요. 낯선 개와 작은 동물에 반응이 커서 리드줄은 늘 잡고 다녀요.",
+      "grooming": "짧은 이중모라 평소엔 주 2~3번 빗질이면 되고, 털갈이 철엔 매일 속털을 빗어 내요. 커트는 필요 없어요.",
+      "potty": "바깥 배변을 선호하는 토종견 성향이 있는 편이에요. 산책 시간을 규칙적으로 지켜 주면 실내 실수가 줄어요.",
+      "home": "경계심이 강해 낯선 사람이 오면 긴장해요. 어릴 때부터 여러 사람과 소리에 익숙해지게 하고 혼자 두는 시간은 짧게 해요.",
+      "health": "복원 과정에서 유전적 기반이 좁아 개체 차이가 있을 수 있어요. 관절과 귀 상태를 중심으로 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "농촌진흥청 보도자료(2019, 제주개)",
+        "url": "https://korea.kr/news/pressReleaseView.do?newsId=156342738"
+      },
+      {
+        "org": "한국민족문화대백과사전(한국학중앙연구원)",
+        "url": "https://encykorea.aks.ac.kr/Article/E0075046"
+      }
+    ]
+  },
+  {
+    "breed": "불개",
+    "species": "dog",
+    "sizeClass": "medium",
+    "coat": "double",
+    "shedding": 4,
+    "brushing": "few",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 4,
+    "voice": 3,
+    "heat": 2,
+    "cold": 1,
+    "kibble": "medium",
+    "flags": [],
+    "notes": {
+      "food": "15~20kg 안팎의 중형 토종견으로 보고 보통 크기 알갱이를 하루 2번 줘요. 공인 체형 기준이 없어 개체 체중에 맞춰 양을 정해요.",
+      "treat": "경계심이 아주 강한 편이라 낯선 사람이 주는 간식보다 보호자 손으로 보상하며 신뢰를 쌓는 편이 나아요.",
+      "toy": "야성이 강하다고 전해지는 토종견이라 씹고 끄는 힘이 셀 수 있어요. 단단한 고무 장난감으로 시작해 성향을 봐요.",
+      "walk": "하루 60~90분, 두 번 이상 걸어요. 경계심이 강하고 성향이 개체마다 달라 리드줄을 짧게 잡고 낯선 개와는 거리를 둬요.",
+      "grooming": "붉은 황적색의 짧은 이중모인 경우가 많아 털갈이 철엔 매일, 평소엔 주 2~3번 빗질하면 돼요. 커트는 필요 없어요.",
+      "potty": "토종견은 바깥 배변을 선호하는 경우가 많아요. 실내에서 지낸다면 어릴 때부터 패드 자리를 정하고 산책 시간을 규칙적으로 맞춰요.",
+      "home": "남은 개체 수가 적어 성격과 체격 차이가 클 수 있어요. 낯선 방문객에 예민할 수 있으니 조용히 쉴 자리를 따로 마련해 줘요.",
+      "health": "개체 수가 적어 품종별 질환 통계가 거의 없어요. 중형견에 흔한 관절·귀 문제를 중심으로 정기 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "SBS 뉴스(2006, 토종개 불개)",
+        "url": "https://news.sbs.co.kr/news/endPage.do?news_id=N1000058626"
+      },
+      {
+        "org": "농축산기계신문(국립축산과학원 토종개 연구 소개, 2020)",
+        "url": "https://www.alnews.co.kr/news/articleView.html?idxno=4659"
+      }
+    ]
+  },
+  {
+    "breed": "거제개",
+    "species": "dog",
+    "sizeClass": "medium",
+    "coat": "double",
+    "shedding": 4,
+    "brushing": "few",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 4,
+    "voice": 3,
+    "heat": 2,
+    "cold": 1,
+    "kibble": "medium",
+    "flags": [],
+    "notes": {
+      "food": "진돗개보다 크지 않은 중형 토종견으로 전해져 보통 크기 알갱이를 하루 2번 줘요. 혈통이 불확실한 경우가 많아 개체 체중을 기준으로 해요.",
+      "treat": "평소엔 온순하다고 전해지지만 개체 차이가 커요. 간식 보상으로 부르면 오기 훈련부터 차근차근 해 둬요.",
+      "toy": "목표를 끝까지 쫓던 사냥개로 전해져 장난감 쫓기나 냄새로 찾기 놀이가 잘 맞아요. 씹는 힘에 맞게 단단한 장난감을 골라요.",
+      "walk": "지구력이 강한 사냥개로 알려져 하루 60~90분 이상 걷는 게 알맞아요. 사냥 본능이 남아 있을 수 있어 리드줄을 꼭 잡아요.",
+      "grooming": "공인 기준은 없지만 토종견처럼 짧은 이중모라면 털갈이 철엔 매일, 평소엔 주 2~3번 빗질하면 돼요. 커트는 필요 없어요.",
+      "potty": "토종 사냥견 계열은 바깥 배변을 선호하는 경우가 많아요. 실내에서 키운다면 어릴 때부터 패드 자리를 일정하게 정해 줘요.",
+      "home": "지금 거제개로 불리는 개는 혈통이 불확실한 경우가 많아 성격 편차가 커요. 처음 몇 주는 낯선 자극에 어떻게 반응하는지 살펴봐요.",
+      "health": "품종 기준과 질환 통계가 없어요. 중형 토종견에 흔한 관절·귀 문제를 중심으로 정기 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "새거제신문(2006, 거제개를 되살리자)",
+        "url": "https://www.saegeoje.com/news/articleView.html?idxno=52434"
+      },
+      {
+        "org": "농축산기계신문(국립축산과학원 토종개 연구 소개, 2020)",
+        "url": "https://www.alnews.co.kr/news/articleView.html?idxno=4659"
+      }
+    ]
+  },
+  {
+    "breed": "폼피츠",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "double",
+    "shedding": 4,
+    "brushing": "few",
+    "trimWeeks": null,
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      30,
+      60
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 2,
+    "voice": 4,
+    "heat": 3,
+    "cold": 1,
+    "kibble": "small",
+    "flags": [
+      "patella",
+      "trachea",
+      "dental"
+    ],
+    "notes": {
+      "food": "부모 크기에 따라 3~9kg까지 차이가 나서 성견이 된 뒤 체중에 맞춰 양을 정해요. 작은 알갱이를 하루 2번 줘요.",
+      "treat": "몸이 작아 간식 몇 개도 열량 비중이 커요. 훈련용은 잘게 쪼개 주고, 아주 딱딱한 뼈 모양 간식은 작은 이를 다치지 않게 피해요.",
+      "toy": "활발하고 경계심이 많아 삑삑이 장난감 쫓기와 가벼운 공놀이를 좋아해요. 씹는 힘은 약한 편이라 작은 크기가 맞아요.",
+      "walk": "하루 두 번, 합쳐 30~60분 걸어요. 포메라니안 쪽에서 기관 허탈이 보고돼 목줄보다 가슴줄을 써요.",
+      "grooming": "풍성한 이중모라 평소 주 2~3번, 털갈이 철엔 매일 빗질이 필요해요. 이중모를 너무 짧게 밀면 털이 고르게 다시 안 자랄 수 있어요.",
+      "potty": "영리해서 소형 패드 배변 훈련이 어렵지 않은 편이에요. 스피츠 쪽을 닮은 수컷은 영역 표시가 늘 수 있어 패드 위치를 일정하게 지켜요.",
+      "home": "소리에 예민해 바깥 소리에 잘 짖어요. 아파트라면 현관·복도 소리에 덜 반응하도록 어릴 때부터 연습해요.",
+      "health": "슬개골 탈구, 기관 허탈, 동맥관 개존증, 탈모(알로페시아 X)가 부모 품종에서 보고돼요. 무릎과 기침, 털 상태를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/pomeranian/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/japanese-spitz/"
+      }
+    ]
+  },
+  {
+    "breed": "말티푸",
+    "species": "dog",
+    "sizeClass": "toy",
+    "coat": "curly",
+    "shedding": 1,
+    "brushing": "daily",
+    "trimWeeks": [
+      4,
+      6
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      20,
+      40
+    ],
+    "walksPerDay": [
+      1,
+      2
+    ],
+    "chewer": 2,
+    "voice": 3,
+    "heat": 1,
+    "cold": 3,
+    "kibble": "small",
+    "flags": [
+      "patella",
+      "trachea",
+      "tearStain",
+      "dental",
+      "separation"
+    ],
+    "notes": {
+      "food": "2~6kg의 초소형견이라 작은 알갱이를 하루 2~3번 나눠 줘요. 어린 강아지가 오래 굶으면 저혈당이 올 수 있어 끼니 간격을 지켜요.",
+      "treat": "입이 작아 딱딱하고 큰 간식은 목에 걸릴 수 있어요. 손톱만 하게 잘라 주고 하루 간식은 조금만 줘요.",
+      "toy": "사람과 노는 걸 좋아해 작은 공 굴리기, 숨긴 간식 찾기 같은 실내 놀이로도 에너지를 충분히 써요.",
+      "walk": "하루 20~40분, 한두 번 짧게 걸어요. 말티즈와 토이푸들 모두 기관 허탈이 보고돼 가슴줄이 목에 부담이 적어요.",
+      "grooming": "푸들을 닮으면 곱슬, 말티즈를 닮으면 직모에 가까워요. 매일 빗고 4~6주마다 커트하며, 흰 털은 눈물 자국을 자주 닦아요.",
+      "potty": "머리가 좋아 소형 패드 훈련이 빠른 편이에요. 몸이 작아 패드가 멀면 실수가 늘어 생활 공간 가까이에 둬요.",
+      "home": "보호자와 떨어지면 불안해하는 경우가 있어요. 짧게 혼자 있는 연습을 어릴 때부터 하고, 미끄러운 바닥엔 매트를 깔아요.",
+      "health": "슬개골 탈구, 진행성 망막 위축, 간문맥 단락, 치주질환이 부모 품종에서 보고돼요. 무릎과 치아를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/maltese/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/poodle-toy/"
+      }
+    ]
+  },
+  {
+    "breed": "말티숑",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "curly",
+    "shedding": 1,
+    "brushing": "daily",
+    "trimWeeks": [
+      4,
+      6
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      30,
+      50
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 2,
+    "voice": 3,
+    "heat": 1,
+    "cold": 2,
+    "kibble": "small",
+    "flags": [
+      "patella",
+      "trachea",
+      "tearStain",
+      "skin",
+      "urinary",
+      "separation"
+    ],
+    "notes": {
+      "food": "3~7kg 소형견이라 작은 알갱이를 하루 2번 줘요. 비숑 쪽에서 요로결석이 보고되니 물을 잘 마시는지 살펴요.",
+      "treat": "애교가 많아 간식을 조르는 일이 잦아요. 조를 때마다 주면 살이 붙기 쉬우니 하루 양을 미리 덜어 두고 그 안에서 줘요.",
+      "toy": "명랑하고 사람을 좋아해 보호자와 함께하는 공놀이나 가벼운 터그 놀이를 즐겨요. 씹는 힘은 약한 편이에요.",
+      "walk": "하루 두 번, 합쳐 30~50분 걸어요. 말티즈 쪽에서 기관 허탈이 보고돼 목줄보다 가슴줄이 무난해요.",
+      "grooming": "흰 곱슬털이 솜처럼 잘 뭉쳐 매일 빗질과 4~6주마다 커트가 필요해요. 눈물 자국과 귓속 털 관리도 같이 해요.",
+      "potty": "배변 훈련은 무난한 편이지만 흰 털이라 엉덩이 주변이 쉽게 더러워져요. 위생 부위를 짧게 정리해 두면 편해요.",
+      "home": "애착이 강해 혼자 오래 있으면 짖거나 불안해할 수 있어요. 외출 전 노즈워크 장난감을 주고 짧게 떨어지는 연습을 해요.",
+      "health": "슬개골 탈구, 요로결석, 피부 알레르기, 백내장이 부모 품종에서 보고돼요. 소변 색과 피부 가려움을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/maltese/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/bichon-frise/"
+      }
+    ]
+  },
+  {
+    "breed": "폼말",
+    "species": "dog",
+    "sizeClass": "toy",
+    "coat": "long",
+    "shedding": 3,
+    "brushing": "daily",
+    "trimWeeks": [
+      4,
+      6
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      20,
+      40
+    ],
+    "walksPerDay": [
+      1,
+      2
+    ],
+    "chewer": 2,
+    "voice": 4,
+    "heat": 2,
+    "cold": 2,
+    "kibble": "small",
+    "flags": [
+      "patella",
+      "trachea",
+      "tearStain",
+      "dental"
+    ],
+    "notes": {
+      "food": "2~4kg 초소형이라 아주 작은 알갱이를 하루 2~3번 나눠 줘요. 어린 강아지는 저혈당이 보고돼 끼니를 거르지 않게 해요.",
+      "treat": "입이 작아 간식은 잘게 부숴 주고, 질긴 껌 종류는 삼키다 걸리지 않게 먹는 동안 지켜봐요.",
+      "toy": "활발하지만 몸이 작아 가벼운 봉제·삑삑이 장난감이 맞아요. 높은 데서 뛰어내리는 놀이는 무릎에 부담이 돼요.",
+      "walk": "하루 20~40분, 한두 번 짧게 걸어요. 포메라니안 쪽에서 기관 허탈이 보고돼 목줄보다 가슴줄을 써요.",
+      "grooming": "길고 부드러운 털이라 매일 빗질하고 4~6주마다 정리 미용을 해요. 말티즈를 닮으면 눈물 자국이 잘 생겨요.",
+      "potty": "소형 패드로 실내 배변이 무난해요. 추운 날엔 바깥 배변을 참는 경우가 있어 실내 자리를 함께 마련해 줘요.",
+      "home": "경계심에 짖음이 있을 수 있어 아파트라면 초인종 소리에 익숙해지는 연습이 필요해요. 소파와 침대엔 계단을 놓아 줘요.",
+      "health": "슬개골 탈구, 기관 허탈, 간문맥 단락, 동맥관 개존증이 부모 품종에서 보고돼요. 무릎과 심장 소리를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/pomeranian/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/maltese/"
+      }
+    ]
+  },
+  {
+    "breed": "시푸",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "curly",
+    "shedding": 1,
+    "brushing": "daily",
+    "trimWeeks": [
+      4,
+      6
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      30,
+      50
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 2,
+    "voice": 3,
+    "heat": 2,
+    "cold": 2,
+    "kibble": "small",
+    "flags": [
+      "patella",
+      "tearStain",
+      "dental"
+    ],
+    "notes": {
+      "food": "5~9kg 소형견이라 작은 알갱이를 하루 2번 줘요. 시추를 닮아 주둥이가 짧은 개체는 납작한 알갱이를 더 편하게 먹어요.",
+      "treat": "시추의 고집과 푸들의 영리함이 섞여 간식 보상이 훈련에 잘 통해요. 잘게 쪼개 하루 양 안에서 줘요.",
+      "toy": "차분한 편이라 격한 놀이보다 숨긴 간식 찾기나 가벼운 공 굴리기를 즐겨요. 부드러운 장난감도 오래 써요.",
+      "walk": "하루 두 번, 합쳐 30~50분 천천히 걸어요. 주둥이가 짧은 개체는 더운 날 숨이 차기 쉬워 아침·저녁에 걸어요.",
+      "grooming": "곱슬~웨이브 털이 잘 엉켜 매일 빗질하고 4~6주마다 커트해요. 눈 주변 털이 눈을 찌르지 않게 짧게 다듬어요.",
+      "potty": "시추 쪽 고집이 있으면 배변 훈련이 더딜 수 있어요. 같은 자리·같은 시간에 데려가 성공하면 바로 칭찬해요.",
+      "home": "실내 생활에 잘 맞는 소형견이에요. 여름엔 실내 온도를 낮게 유지하고, 미끄러운 바닥엔 매트를 깔아 무릎을 지켜요.",
+      "health": "진행성 망막 위축, 슬개골 탈구, 각막 질환이 부모 품종에서 보고되고, 주둥이가 짧으면 호흡 문제가 보고돼요. 눈과 호흡을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/shih-tzu/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/poodle-toy/"
+      }
+    ]
+  },
+  {
+    "breed": "코카푸",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "curly",
+    "shedding": 2,
+    "brushing": "daily",
+    "trimWeeks": [
+      4,
+      6
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      45,
+      60
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 3,
+    "heat": 1,
+    "cold": 2,
+    "kibble": "small",
+    "flags": [
+      "ears"
+    ],
+    "notes": {
+      "food": "부모 크기에 따라 7~14kg까지 달라 성견 체중에 맞춰 양을 정해요. 코커를 닮으면 먹성이 좋아 정해진 양을 하루 2번 줘요.",
+      "treat": "칭찬과 간식에 반응이 좋아 훈련이 잘 돼요. 간식은 작게 잘라 여러 번 나눠 주면 적은 양으로도 충분해요.",
+      "toy": "스패니얼 쪽 물어오기 본능이 있어 공이나 인형을 던지고 가져오는 놀이를 무척 좋아해요. 실내에선 가볍고 부드러운 공이 안전해요.",
+      "walk": "하루 두 번, 합쳐 45~60분 걸어요. 냄새 맡기를 좋아하니 산책 중 냄새 탐색 시간을 넉넉히 줘요.",
+      "grooming": "웨이브~곱슬 털이 잘 엉켜 매일 빗고 4~6주마다 커트해요. 늘어진 귀는 안쪽이 습해지기 쉬워 주 1번은 귀를 살펴요.",
+      "potty": "영리하고 보호자를 기쁘게 하려는 성향이라 배변 훈련이 무난한 편이에요. 체구에 맞게 소형~중형 패드를 써요.",
+      "home": "사람과 함께 있는 걸 좋아해 혼자 오래 두면 불안해할 수 있어요. 활동량이 있어 실내 놀이 시간을 매일 챙겨요.",
+      "health": "외이염, 진행성 망막 위축, 백내장, 애디슨병이 부모 품종에서 보고돼요. 귀 냄새와 눈 혼탁을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/cocker-spaniel/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/poodle-miniature/"
+      }
+    ]
+  },
+  {
+    "breed": "치푸",
+    "species": "dog",
+    "sizeClass": "toy",
+    "coat": "curly",
+    "shedding": 2,
+    "brushing": "daily",
+    "trimWeeks": [
+      4,
+      8
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      20,
+      40
+    ],
+    "walksPerDay": [
+      1,
+      2
+    ],
+    "chewer": 2,
+    "voice": 4,
+    "heat": 1,
+    "cold": 3,
+    "kibble": "small",
+    "flags": [
+      "patella",
+      "trachea",
+      "dental",
+      "heart"
+    ],
+    "notes": {
+      "food": "2~5kg 초소형견이라 아주 작은 알갱이를 하루 2~3번 나눠 줘요. 어린 강아지는 저혈당이 보고돼 끼니 간격을 지켜요.",
+      "treat": "입이 작아 딱딱한 간식은 잘게 부숴 줘요. 몸이 작아 간식 몇 개로도 하루 열량을 넘기기 쉬워요.",
+      "toy": "몸집에 비해 활발해 작은 공 쫓기나 삑삑이 장난감을 좋아해요. 큰 개용 장난감은 무거워 다칠 수 있어요.",
+      "walk": "하루 20~40분, 한두 번 짧게 걸어요. 치와와 쪽에서 기관 허탈이 보고돼 가슴줄을 쓰고, 추운 날엔 옷을 입혀요.",
+      "grooming": "털은 짧은 직모부터 곱슬까지 부모를 닮는 대로 달라요. 곱슬이면 매일 빗고 4~8주마다 커트, 짧은 털이면 주 1번이면 돼요.",
+      "potty": "추위를 타서 겨울엔 바깥 배변을 꺼려요. 실내 소형 패드 자리를 늘 마련해 두면 실수가 줄어요.",
+      "home": "경계심이 강해 낯선 소리에 짖는 편이에요. 몸이 작아 밟히거나 떨어지는 사고가 잦으니 소파엔 계단을 놓아요.",
+      "health": "슬개골 탈구, 기관 허탈, 승모판 질환, 수두증이 부모 품종에서 보고돼요. 심장 소리와 무릎을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/chihuahua/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/poodle-toy/"
+      }
+    ]
+  },
+  {
+    "breed": "요키푸",
+    "species": "dog",
+    "sizeClass": "toy",
+    "coat": "curly",
+    "shedding": 1,
+    "brushing": "daily",
+    "trimWeeks": [
+      4,
+      6
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      20,
+      40
+    ],
+    "walksPerDay": [
+      1,
+      2
+    ],
+    "chewer": 2,
+    "voice": 4,
+    "heat": 1,
+    "cold": 3,
+    "kibble": "small",
+    "flags": [
+      "patella",
+      "trachea",
+      "dental"
+    ],
+    "notes": {
+      "food": "2~5kg 초소형견이라 아주 작은 알갱이를 하루 2~3번 나눠 줘요. 입맛이 까다로운 개체가 있어 간식으로 배를 채우지 않게 해요.",
+      "treat": "테리어의 활기가 있어 간식 보상 훈련에 집중을 잘해요. 딱딱한 간식은 작은 이에 무리가 가니 부드러운 것을 잘게 줘요.",
+      "toy": "호기심이 많아 삑삑이 장난감 물고 흔들기와 숨긴 간식 찾기를 좋아해요. 작고 가벼운 장난감이 맞아요.",
+      "walk": "하루 20~40분, 한두 번 걸어요. 요크셔테리어 쪽에서 기관 허탈이 보고돼 목줄보다 가슴줄을 써요.",
+      "grooming": "가늘고 부드러운 털이 잘 엉켜 매일 빗고 4~6주마다 커트해요. 눈 위 털은 묶거나 짧게 다듬어 눈을 찌르지 않게 해요.",
+      "potty": "초소형 테리어는 배변 훈련이 더딘 경우가 있어요. 소형 패드를 생활 공간 가까이 두고 꾸준히 반복해요.",
+      "home": "짖음 성향이 있어 아파트라면 소리에 덜 반응하는 연습이 필요해요. 추위에 약해 겨울엔 실내 온도와 옷을 챙겨요.",
+      "health": "슬개골 탈구, 기관 허탈, 간문맥 단락, 치주질환이 부모 품종에서 보고돼요. 빠지지 않은 젖니와 치석을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/yorkshire-terrier/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/poodle-toy/"
+      }
+    ]
+  },
+  {
+    "breed": "슈나푸",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "curly",
+    "shedding": 1,
+    "brushing": "daily",
+    "trimWeeks": [
+      4,
+      6
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      30,
+      60
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 4,
+    "heat": 1,
+    "cold": 2,
+    "kibble": "small",
+    "flags": [
+      "patella",
+      "urinary"
+    ],
+    "notes": {
+      "food": "슈나우저 쪽에서 고지혈증과 췌장염이 보고돼요. 기름진 사람 음식은 피하고 지방이 높지 않은 사료를 하루 2번 줘요.",
+      "treat": "기름진 육포류보다 지방이 적은 간식을 잘게 잘라 써요. 영리해서 간식 보상 훈련에 반응이 빨라요.",
+      "toy": "활발하고 영리해 퍼즐 장난감과 숨긴 간식 찾기를 즐겨요. 씹는 힘은 보통이라 중간 내구성이면 충분해요.",
+      "walk": "하루 두 번, 합쳐 30~60분 걸어요. 낯선 개에게 짖는 경우가 있어 다른 개를 만나면 거리를 두고 간식으로 주의를 돌려요.",
+      "grooming": "웨이브~곱슬 털이라 매일 빗고 4~6주마다 커트해요. 슈나우저를 닮아 수염이 있으면 먹고 난 뒤 입가를 닦아요.",
+      "potty": "영리해서 배변 훈련은 빠른 편이에요. 슈나우저 쪽 요로결석 경향이 있어 패드에서 소변 색과 횟수를 자주 확인해요.",
+      "home": "경계심에 잘 짖는 편이라 아파트라면 초인종 소리에 익숙해지는 연습이 필요해요. 혼자 있을 땐 노즈워크 장난감을 줘요.",
+      "health": "고지혈증, 췌장염, 요로결석, 슬개골 탈구가 부모 품종에서 보고돼요. 혈중 지방 수치와 소변 검사를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/miniature-schnauzer/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/poodle-miniature/"
+      }
+    ]
+  },
+  {
+    "breed": "골든두들",
+    "species": "dog",
+    "sizeClass": "large",
+    "coat": "curly",
+    "shedding": 2,
+    "brushing": "daily",
+    "trimWeeks": [
+      6,
+      8
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 4,
+    "voice": 2,
+    "heat": 2,
+    "cold": 1,
+    "kibble": "large",
+    "flags": [
+      "hip",
+      "joint",
+      "bloat",
+      "ears"
+    ],
+    "notes": {
+      "food": "20~34kg 대형견이라 큰 알갱이를 하루 2번 나눠 줘요. 성장기엔 대형견 강아지용 사료로 너무 빨리 크지 않게 해요.",
+      "treat": "먹는 걸 좋아해 간식 보상 훈련이 잘 되지만 살도 잘 붙어요. 하루 간식은 전체 열량의 10% 안으로 맞춰요.",
+      "toy": "리트리버 쪽 물어오기 본능이 강해 공 던지기와 물놀이를 좋아해요. 입에 물고 다니길 즐겨 튼튼한 인형이 맞아요.",
+      "walk": "하루 60~90분, 두 번 이상 걷고 뛰게 해 줘요. 힘이 세고 반가운 사람에게 달려가 끌 수 있어 가슴줄이 다루기 쉬워요.",
+      "grooming": "푸들을 닮으면 곱슬, 리트리버를 닮으면 웨이브에 털이 빠지기도 해요. 매일 빗고 6~8주마다 커트하며, 늘어진 귀 안을 자주 살펴요.",
+      "potty": "영리하고 보호자를 잘 따라 바깥 배변 훈련이 순조로운 편이에요. 하루 두세 번 정해진 시간에 데리고 나가요.",
+      "home": "사람을 좋아해 혼자 오래 있으면 지루해하고 물건을 씹을 수 있어요. 미끄러운 바닥은 대형견 관절에 부담이라 매트를 깔아요.",
+      "health": "고관절·팔꿈치 이형성, 진행성 망막 위축, 위확장 염전, 애디슨병이 부모 품종에서 보고돼요. 관절과 눈을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/golden-retriever/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/poodle-standard/"
+      }
+    ]
+  },
+  {
+    "breed": "라브라두들",
+    "species": "dog",
+    "sizeClass": "large",
+    "coat": "curly",
+    "shedding": 2,
+    "brushing": "daily",
+    "trimWeeks": [
+      6,
+      8
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 5,
+    "exerciseMin": [
+      90,
+      120
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 5,
+    "voice": 2,
+    "heat": 2,
+    "cold": 1,
+    "kibble": "large",
+    "flags": [
+      "hip",
+      "joint",
+      "bloat",
+      "ears",
+      "obesity"
+    ],
+    "notes": {
+      "food": "래브라도를 닮으면 식탐이 강하고 살이 잘 쪄요. 큰 알갱이를 하루 2번 정량으로 주고, 빨리 먹으면 천천히 먹는 그릇을 써요.",
+      "treat": "간식에 반응이 커 훈련은 쉽지만 비만으로 이어지기 쉬워요. 하루 사료에서 일부를 덜어 훈련 보상으로 쓰면 열량이 덜 늘어요.",
+      "toy": "에너지가 많고 물고 씹는 걸 좋아해 단단한 고무 장난감이나 물어오기 공이 잘 맞아요. 약한 인형은 금방 뜯겨요.",
+      "walk": "하루 90~120분, 두 번 이상 걷고 달리게 해 줘요. 성장기엔 계단 오르내림과 높은 점프를 줄여 관절을 아껴요.",
+      "grooming": "털 타입이 개체마다 달라 곱슬이면 매일 빗고 6~8주마다 커트해요. 늘어진 귀는 수영이나 목욕 뒤 꼭 말려 줘요.",
+      "potty": "영리해서 바깥 배변 훈련이 잘 되는 편이에요. 몸집이 커서 하루 두세 번 바깥 배변 시간을 정해 두면 편해요.",
+      "home": "활동량이 많아 운동이 부족하면 집 안 물건을 씹어요. 아파트라면 매일 운동 시간을 꼭 채우고 바닥엔 미끄럼 방지 매트를 깔아요.",
+      "health": "고관절·팔꿈치 이형성, 진행성 망막 위축, 운동 유발성 허탈이 부모 품종에서 보고돼요. 격한 운동 뒤 비틀거리는지와 관절을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/labrador-retriever/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/poodle-standard/"
+      }
+    ]
+  },
+  {
+    "breed": "푸숑(비숑푸들)",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "curly",
+    "shedding": 1,
+    "brushing": "daily",
+    "trimWeeks": [
+      4,
+      6
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      30,
+      50
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 2,
+    "voice": 3,
+    "heat": 1,
+    "cold": 2,
+    "kibble": "small",
+    "flags": [
+      "patella",
+      "urinary",
+      "skin",
+      "tearStain",
+      "separation"
+    ],
+    "notes": {
+      "food": "4~8kg 소형견이라 작은 알갱이를 하루 2번 줘요. 부모 품종 모두 방광결석이 보고되니 물그릇을 여러 곳에 두어 물을 자주 마시게 해요.",
+      "treat": "애교가 많아 간식을 잘 얻어먹는 편이라 살이 쉽게 붙어요. 훈련용은 잘게 쪼개고 하루 양을 정해 둬요.",
+      "toy": "명랑하고 영리해 공놀이와 퍼즐 장난감을 모두 즐겨요. 씹는 힘은 약해 부드러운 장난감도 괜찮아요.",
+      "walk": "하루 두 번, 합쳐 30~50분 걸어요. 흰 털이라 비 오는 날엔 발과 배가 금방 더러워져 산책 뒤 닦아 줘요.",
+      "grooming": "털이 거의 빠지지 않지만 솜처럼 잘 뭉쳐 매일 빗질과 4~6주마다 커트가 필요해요. 눈물 자국도 자주 닦아요.",
+      "potty": "영리해서 소형 패드 배변 훈련이 빠른 편이에요. 소변 색이 진하거나 자주 보러 가면 기록해 두고 진료받아요.",
+      "home": "애착이 강해 혼자 있으면 짖거나 불안해할 수 있어요. 외출 전 짧게 떨어지는 연습을 하고 무릎을 위해 매트를 깔아요.",
+      "health": "슬개골 탈구, 진행성 망막 위축, 백내장, 방광결석, 피부 알레르기가 부모 품종에서 보고돼요. 소변 검사와 눈을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/bichon-frise/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/poodle-toy/"
+      },
+      {
+        "org": "Bichon Frise Club of America",
+        "url": "https://bichon.org/health/health-articles/general-health/health-issue/"
+      }
+    ]
+  },
+  {
+    "breed": "폼스키",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "double",
+    "shedding": 5,
+    "brushing": "few",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 4,
+    "voice": 4,
+    "heat": 3,
+    "cold": 1,
+    "kibble": "small",
+    "flags": [
+      "escape",
+      "patella",
+      "trachea"
+    ],
+    "notes": {
+      "food": "부모 크기 차이로 4~12kg까지 다양해 성견 체중에 맞춰 양을 정해요. 작은 알갱이를 하루 2번 줘요.",
+      "treat": "허스키 쪽 독립심이 강하면 간식 없이는 말을 잘 안 들을 수 있어요. 부르면 오기 훈련에 가장 맛있는 간식을 아껴 써요.",
+      "toy": "활동량이 많고 씹는 힘도 있어 단단한 장난감과 줄다리기, 달리며 쫓는 놀이를 좋아해요. 허스키를 닮으면 약한 장난감은 금방 뜯어요.",
+      "walk": "하루 두 번, 합쳐 60~90분 걸어요. 허스키 쪽 탈출 성향이 있어 가슴줄을 몸에 맞게 조이고 리드줄을 놓지 않아요.",
+      "grooming": "속털이 두꺼운 이중모라 털이 아주 많이 빠져요. 평소 주 2~3번, 털갈이 철엔 매일 속털을 빗어 내고 털은 밀지 않아요.",
+      "potty": "영리하지만 고집이 있어 배변 훈련엔 꾸준함이 필요해요. 실내 패드는 체구에 맞게 소형~중형을 써요.",
+      "home": "더위에 약해 여름엔 냉방이 필요해요. 혼자 지루하면 하울링과 짖음이 늘 수 있어 아파트라면 운동량을 꼭 채워요.",
+      "health": "슬개골 탈구, 기관 허탈, 백내장, 고관절 이형성이 부모 품종에서 보고돼요. 무릎과 눈을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/pomeranian/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/siberian-husky/"
+      }
+    ]
+  },
+  {
+    "breed": "카바푸",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "curly",
+    "shedding": 2,
+    "brushing": "daily",
+    "trimWeeks": [
+      4,
+      6
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      30,
+      60
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 2,
+    "voice": 2,
+    "heat": 1,
+    "cold": 2,
+    "kibble": "small",
+    "flags": [
+      "heart",
+      "ears",
+      "patella",
+      "separation"
+    ],
+    "notes": {
+      "food": "5~11kg 소형견이라 작은 알갱이를 하루 2번 줘요. 카발리에 쪽이 살이 잘 찌는 편이라 체중을 매달 재요.",
+      "treat": "온순하고 먹는 걸 좋아해 간식을 자주 조를 수 있어요. 하루 간식 양을 미리 정해 두고 훈련 보상으로만 써요.",
+      "toy": "다정한 성격이라 보호자와 함께하는 가벼운 공놀이나 물어오기를 좋아해요. 씹는 힘은 약한 편이에요.",
+      "walk": "하루 두 번, 합쳐 30~60분 걸어요. 심장 질환이 보고되는 계통이라 숨이 가빠지면 쉬어 가며 걸어요.",
+      "grooming": "웨이브~곱슬 털이라 매일 빗고 4~6주마다 커트해요. 늘어진 귀 안쪽 털이 엉키기 쉬워 주 1번 귀를 살펴요.",
+      "potty": "보호자를 잘 따라 배변 훈련이 무난한 편이에요. 소형 패드를 정해진 자리에 두고 칭찬으로 익혀요.",
+      "home": "사람 곁을 좋아해 혼자 오래 두면 불안해해요. 혼자 있는 연습을 짧게 시작하고, 미끄러운 바닥엔 매트를 깔아요.",
+      "health": "카발리에 쪽에서 승모판 질환(심장)과 척수공동증이, 부모 모두에서 슬개골 탈구가 보고돼요. 심잡음을 검진 때마다 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/cavalier-king-charles-spaniel/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/poodle-miniature/"
+      }
+    ]
+  },
+  {
+    "breed": "비글푸(비글×푸들)",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "curly",
+    "shedding": 2,
+    "brushing": "daily",
+    "trimWeeks": [
+      6,
+      8
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 4,
+    "heat": 1,
+    "cold": 2,
+    "kibble": "small",
+    "flags": [
+      "ears",
+      "obesity",
+      "back"
+    ],
+    "notes": {
+      "food": "비글을 닮으면 식탐이 강해 살이 잘 쪄요. 알갱이를 하루 2번 정량으로 주고, 음식을 뒤지지 않게 쓰레기통 뚜껑을 닫아 둬요.",
+      "treat": "먹을 것에 반응이 커서 간식 보상 훈련이 잘 통해요. 대신 비만이 되기 쉬우니 하루 사료 일부를 덜어 보상으로 써요.",
+      "toy": "비글의 후각을 닮아 숨긴 간식 찾기와 노즈워크 매트에 오래 집중해요. 씹는 힘은 보통이에요.",
+      "walk": "하루 60~90분, 두 번 걸어요. 냄새를 쫓아 앞만 보고 가는 성향이 있어 리드줄을 놓지 말고 냄새 맡을 시간을 줘요.",
+      "grooming": "털은 짧은 직모부터 곱슬까지 개체마다 달라요. 곱슬이면 매일 빗고 6~8주마다 커트, 직모면 주 1번 빗질로 빠진 털을 관리해요.",
+      "potty": "비글 쪽 고집이 있으면 배변 훈련이 오래 걸릴 수 있어요. 같은 시간·같은 자리를 지키고 성공하면 바로 보상해요.",
+      "home": "비글을 닮으면 하울링을 할 수 있어 아파트라면 혼자 있는 시간을 줄여요. 허리 디스크가 보고돼 높은 곳 점프는 줄여요.",
+      "health": "특발성 간질, 허리 디스크, 외이염, 갑상선 기능 저하, 슬개골 탈구가 부모 품종에서 보고돼요. 귀와 허리를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/beagle/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/poodle-miniature/"
+      }
+    ]
+  },
+  {
+    "breed": "코카숑(코커×비숑)",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "curly",
+    "shedding": 1,
+    "brushing": "daily",
+    "trimWeeks": [
+      4,
+      6
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      30,
+      60
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 2,
+    "voice": 3,
+    "heat": 1,
+    "cold": 2,
+    "kibble": "small",
+    "flags": [
+      "ears",
+      "urinary",
+      "skin",
+      "patella"
+    ],
+    "notes": {
+      "food": "7~14kg 소형견이라 알갱이는 작은 것을 하루 2번 줘요. 비숑 쪽에서 방광결석이 보고되니 물을 자주 마시게 해요.",
+      "treat": "다정하고 먹는 걸 좋아해 간식 보상 훈련이 잘 통해요. 코커를 닮으면 살이 잘 붙을 수 있어 하루 양을 정해 둬요.",
+      "toy": "코커의 물어오기 본능과 비숑의 명랑함이 섞여 공 던지기와 가벼운 터그 놀이를 즐겨요. 씹는 힘은 약한 편이에요.",
+      "walk": "하루 두 번, 합쳐 30~60분 걸어요. 냄새 맡기를 좋아해 산책 중 탐색 시간을 넉넉히 줘요.",
+      "grooming": "웨이브~곱슬 털이 잘 엉켜 매일 빗고 4~6주마다 커트해요. 늘어진 귀와 귓속 털 때문에 귀 안쪽을 자주 살펴요.",
+      "potty": "배변 훈련은 무난한 편이에요. 소변 색이 진하거나 자주 보러 가면 기록해 두고 진료받아요.",
+      "home": "사람을 잘 따라 혼자 오래 있으면 불안해할 수 있어요. 짧게 떨어지는 연습과 노즈워크 장난감을 함께 써요.",
+      "health": "외이염, 백내장·녹내장, 면역매개성 빈혈, 슬개골 탈구, 방광결석이 부모 품종에서 보고돼요. 귀와 눈을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/cocker-spaniel/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/bichon-frise/"
+      }
+    ]
+  },
+  {
+    "breed": "치말티(치와와×말티즈)",
+    "species": "dog",
+    "sizeClass": "toy",
+    "coat": "silky",
+    "shedding": 2,
+    "brushing": "daily",
+    "trimWeeks": [
+      6,
+      8
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      20,
+      40
+    ],
+    "walksPerDay": [
+      1,
+      2
+    ],
+    "chewer": 2,
+    "voice": 4,
+    "heat": 1,
+    "cold": 3,
+    "kibble": "small",
+    "flags": [
+      "patella",
+      "trachea",
+      "dental"
+    ],
+    "notes": {
+      "food": "2~5kg 초소형견이라 아주 작은 알갱이를 하루 2~3번 나눠 줘요. 어린 강아지는 끼니를 오래 거르면 저혈당이 올 수 있어요.",
+      "treat": "입이 작아 딱딱한 간식은 잘게 부숴 줘요. 간식을 많이 주면 사료를 거부하는 경우가 있어 양을 적게 유지해요.",
+      "toy": "치와와의 경계심과 말티즈의 활발함이 섞여 작은 삑삑이 장난감과 짧은 공놀이를 좋아해요. 몸에 맞는 작은 크기를 골라요.",
+      "walk": "하루 20~40분, 한두 번 짧게 걸어요. 기관 허탈이 보고되는 계통이라 가슴줄을 쓰고 추운 날엔 옷을 입혀요.",
+      "grooming": "짧은 털부터 말티즈식 긴 직모까지 달라요. 긴 털이면 매일 빗고 6~8주마다 정리 미용을 하며, 흰 털이면 눈물 자국을 닦아요.",
+      "potty": "추위를 타서 바깥 배변을 꺼리는 날이 있어요. 실내 소형 패드 자리를 생활 공간 가까이에 둬요.",
+      "home": "낯가림과 짖음이 있을 수 있어 아파트라면 방문객과 초인종 소리에 천천히 익숙해지게 해요. 소파엔 계단을 놓아요.",
+      "health": "슬개골 탈구, 기관 허탈, 수두증, 간문맥 단락이 부모 품종에서 보고돼요. 무릎과 기침 여부를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/chihuahua/"
+      },
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/maltese/"
+      }
+    ]
+  },
+  {
+    "breed": "믹스견(잡종)",
+    "species": "dog",
+    "sizeClass": "medium",
+    "coat": "double",
+    "shedding": 3,
+    "brushing": "few",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 3,
+    "heat": 2,
+    "cold": 2,
+    "kibble": "medium",
+    "flags": [
+      "obesity",
+      "dental"
+    ],
+    "notes": {
+      "food": "체구가 5kg부터 25kg 넘게까지 다양해요. 성견이 된 뒤 체중과 입 크기에 맞춰 알갱이와 양을 정하고 하루 2번 줘요.",
+      "treat": "부모를 모르면 음식 알레르기 여부도 알기 어려워요. 새 간식은 한 가지씩 소량으로 주며 피부와 변 상태를 살펴요.",
+      "toy": "씹는 힘과 놀이 취향이 개체마다 달라요. 처음엔 여러 종류를 주고 잘 노는 장난감과 부수는 정도를 보고 골라요.",
+      "walk": "하루 두 번, 합쳐 60~90분이 기준이에요. 진돗개 계열이 섞인 중형 믹스는 활동량이 많은 편이라 운동 시간을 넉넉히 잡아요.",
+      "grooming": "짧은 이중모가 흔하지만 장모나 곱슬도 있어요. 이중모는 주 2~3번(털갈이 철엔 매일), 곱슬은 매일 빗고 커트해요.",
+      "potty": "보호소 출신 성견은 새 집에서 배변 실수를 할 수 있어요. 처음 몇 주는 산책 시간을 일정하게 하고 성공하면 바로 칭찬해요.",
+      "home": "성격과 경계심이 개체마다 크게 달라요. 입양 초기엔 조용한 공간을 주고 소리와 사람에게 천천히 익숙해지게 해요.",
+      "health": "체구가 작으면 슬개골, 크면 고관절 문제가 보고되고, 비만과 치주질환은 체구와 상관없이 흔해요. 체중과 치아를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "WSAVA Global Nutrition Guidelines",
+        "url": "https://wsava.org/global-guidelines/global-nutrition-guidelines/"
+      },
+      {
+        "org": "농림축산식품부 동물보호관리시스템",
+        "url": "https://www.animal.go.kr/"
+      }
+    ]
+  },
+  {
+    "breed": "카발리에킹찰스스패니얼",
+    "species": "dog",
+    "sizeClass": "small",
+    "coat": "long",
+    "shedding": 2,
+    "brushing": "daily",
+    "trimWeeks": null,
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      30,
+      60
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 2,
+    "voice": 2,
+    "heat": 2,
+    "cold": 2,
+    "kibble": "small",
+    "flags": [
+      "heart",
+      "eyes",
+      "ears",
+      "patella",
+      "separation"
+    ],
+    "notes": {
+      "food": "6~8kg 소형견으로 먹는 걸 좋아해 살이 잘 쪄요. 체중이 늘면 심장에 부담이 되니 작은 알갱이를 하루 2번 정량으로 줘요.",
+      "treat": "간식을 자주 조르는 편이라 하루 양을 미리 정해 둬요. 칭찬과 쓰다듬기에도 반응이 좋아 간식을 줄여도 훈련이 돼요.",
+      "toy": "온순해서 격한 터그보다 가벼운 공 물어오기와 봉제 장난감 물고 다니기를 좋아해요. 씹는 힘은 약한 편이에요.",
+      "walk": "하루 두 번, 합쳐 30~60분 걸어요. 새를 보면 쫓아가려는 스패니얼 본능이 있어 리드줄을 잡고 걸어요.",
+      "grooming": "귀·가슴·다리의 긴 장식털이 엉키기 쉬워 매일 빗어요. 커트는 필요 없고 발바닥 털만 다듬어 미끄러지지 않게 해요.",
+      "potty": "보호자를 잘 따라 배변 훈련이 무난한 편이에요. 소형 패드로 실내 배변도 잘 익히고, 산책 때 바깥 배변에도 금방 익숙해져요.",
+      "home": "사람 곁을 떠나지 않으려는 성향이 강해 혼자 오래 두면 힘들어해요. 가족이 자주 집에 있는 환경에 잘 맞아요.",
+      "health": "승모판 질환(심장)이 비교적 이른 나이부터 보고되고 척수공동증, 안구 건조가 보고돼요. 검진 때마다 심잡음과 눈물량을 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/cavalier-king-charles-spaniel/"
+      }
+    ]
+  },
+  {
+    "breed": "그레이트피레니즈",
+    "species": "dog",
+    "sizeClass": "giant",
+    "coat": "double",
+    "shedding": 4,
+    "brushing": "few",
+    "trimWeeks": null,
+    "bathWeeks": [
+      6,
+      10
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      45,
+      75
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 4,
+    "heat": 3,
+    "cold": 1,
+    "kibble": "large",
+    "flags": [
+      "hip",
+      "joint",
+      "bloat",
+      "patella"
+    ],
+    "notes": {
+      "food": "40~50kg대 초대형견이라 큰 알갱이를 하루 2~3번에 나눠 줘요. 성장기엔 대형견 강아지용 사료로 천천히 키워요.",
+      "treat": "독립적이라 간식만으로 훈련이 잘 안 될 때가 있어요. 짧게 자주 연습하고, 큰 입에 맞게 크기가 있는 간식을 줘요.",
+      "toy": "가축을 지키던 개라 활발한 물어오기보다 큰 장난감을 물고 씹으며 노는 편이에요. 초대형견용 튼튼한 장난감이 맞아요.",
+      "walk": "하루 45~75분 느긋하게 걸어요. 넓은 영역을 순찰하던 본능이 있어 울타리 없는 곳에선 리드줄을 풀지 않아요.",
+      "grooming": "두꺼운 흰 이중모라 평소 주 2~3번, 털갈이 철엔 매일 속털을 빗어 내요. 체온 조절을 돕는 털이라 짧게 밀지 않아요.",
+      "potty": "초대형견이라 바깥 배변이 기본이에요. 독립적이라 훈련이 더딜 수 있으니 하루 두세 번 정해진 시간에 데리고 나가요.",
+      "home": "밤에 경계하며 짖는 성향이 있어 아파트에는 잘 맞지 않아요. 더위에 약해 여름엔 냉방이 꼭 필요해요.",
+      "health": "고관절 이형성, 슬개골 탈구, 위확장 염전, 골연골증이 보고돼요. 식후 바로 뛰지 않게 하고 관절을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/great-pyrenees/"
+      }
+    ]
+  },
+  {
+    "breed": "버니즈마운틴독",
+    "species": "dog",
+    "sizeClass": "giant",
+    "coat": "double",
+    "shedding": 5,
+    "brushing": "few",
+    "trimWeeks": null,
+    "bathWeeks": [
+      6,
+      10
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      45,
+      75
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 3,
+    "heat": 3,
+    "cold": 1,
+    "kibble": "large",
+    "flags": [
+      "hip",
+      "joint",
+      "bloat"
+    ],
+    "notes": {
+      "food": "성장이 빠른 초대형견이라 강아지 때는 대형견 강아지용 사료로 천천히 키워요. 성견은 큰 알갱이를 하루 2~3번 나눠 줘요.",
+      "treat": "보호자를 기쁘게 하려는 성향이라 간식 훈련이 잘 돼요. 살이 붙으면 관절 부담이 커져 간식 양을 줄여요.",
+      "toy": "느긋한 편이라 짧은 물어오기와 줄다리기를 즐기고, 큰 몸에 맞는 튼튼한 장난감이 필요해요.",
+      "walk": "하루 45~75분, 서늘한 시간에 걸어요. 성장기에는 오래 뛰거나 계단을 많이 오르내리지 않게 해 관절을 아껴요.",
+      "grooming": "길고 두꺼운 삼색 이중모라 주 2~3번, 털갈이 철엔 매일 빗어야 해요. 털이 아주 많이 빠지는 품종이에요.",
+      "potty": "영리하고 순해 바깥 배변 훈련이 잘 되는 편이에요. 몸집이 커서 실내 패드보다 바깥 배변이 현실적이에요.",
+      "home": "더위에 아주 약해 여름엔 냉방이 꼭 필요해요. 가족 곁을 좋아해 혼자 오래 두는 생활엔 맞지 않아요.",
+      "health": "조직구육종 같은 종양, 고관절·팔꿈치 이형성, 위확장 염전, 퇴행성 척수병증이 보고돼요. 혹이나 걸음걸이 변화를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/bernese-mountain-dog/"
+      }
+    ]
+  },
+  {
+    "breed": "올드잉글리시쉽독",
+    "species": "dog",
+    "sizeClass": "large",
+    "coat": "long",
+    "shedding": 3,
+    "brushing": "daily",
+    "trimWeeks": [
+      6,
+      10
+    ],
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 3,
+    "heat": 3,
+    "cold": 1,
+    "kibble": "large",
+    "flags": [
+      "hip"
+    ],
+    "notes": {
+      "food": "27~45kg 대형견으로 털에 가려 살찜이 잘 안 보여요. 갈비뼈를 손으로 만져 확인하고 큰 알갱이를 하루 2번 줘요.",
+      "treat": "영리하지만 자기 주관이 있어 간식 보상 훈련을 짧고 재미있게 해야 잘 따라와요. 큰 입에 맞게 넉넉한 크기로 줘요.",
+      "toy": "양 떼를 몰던 목양견이라 공을 몰고 다니거나 쫓는 놀이를 좋아해요. 튼튼하고 큰 공이 잘 맞아요.",
+      "walk": "하루 60~90분, 두 번 걸어요. 여름엔 두꺼운 털 때문에 금방 더워하니 이른 아침과 저녁에 걸어요.",
+      "grooming": "빽빽한 털이 잘 엉켜 매일 빗질이 필요해요. 집에서 관리가 어렵다면 6~10주마다 짧게 커트하고 눈 주변 털을 정리해요.",
+      "potty": "엉덩이 주변 털이 길어 배변이 묻기 쉬워요. 항문 주변 털을 짧게 정리해 두면 위생 관리가 편해요.",
+      "home": "털이 두꺼워 더위에 약해요. 실내 냉방을 하고, 큰 체구가 움직일 수 있는 공간이 있는 집이 맞아요.",
+      "health": "고관절 이형성, 백내장, 진행성 망막 위축, 갑상선 기능 저하가 보고돼요. 눈과 털 상태를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/old-english-sheepdog/"
+      }
+    ]
+  },
+  {
+    "breed": "잉글리시세터",
+    "species": "dog",
+    "sizeClass": "large",
+    "coat": "long",
+    "shedding": 3,
+    "brushing": "daily",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      90,
+      120
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 3,
+    "heat": 2,
+    "cold": 2,
+    "kibble": "large",
+    "flags": [
+      "hip",
+      "joint",
+      "skin",
+      "ears"
+    ],
+    "notes": {
+      "food": "20~36kg 사냥견이라 큰 알갱이를 하루 2번 줘요. 운동량이 많은 젊은 개는 날씬한 체형이 정상이니 과하게 먹이지 않아요.",
+      "treat": "온화하고 예민한 편이라 혼내기보다 간식과 칭찬으로 가르쳐야 잘 배워요. 간식은 작게 잘라 자주 보상해요.",
+      "toy": "새를 찾아 멈춰 서던 사냥견이라 깃털 달린 장난감 쫓기나 냄새로 찾기 놀이를 좋아해요. 물어오기도 즐겨요.",
+      "walk": "하루 90~120분, 두 번 이상 걷고 달리게 해 줘요. 새나 냄새를 따라 멀리 가는 성향이 있어 울타리 없는 곳에선 리드줄을 잡아요.",
+      "grooming": "귀·다리·꼬리의 깃털 같은 장식털이 엉키기 쉬워 매일 빗어요. 발바닥과 귀 주변 털은 가끔 다듬어요.",
+      "potty": "바깥 배변이 익숙한 품종이에요. 하루 두세 번 산책 때 배변하도록 시간을 맞추고, 어릴 땐 자고 일어난 직후 데리고 나가요.",
+      "home": "운동이 부족하면 지루해서 짖거나 물건을 씹어요. 늘어진 귀는 습해지기 쉬워 목욕 뒤 잘 말려요.",
+      "health": "고관절·팔꿈치 이형성, 선천성 난청, 갑상선 기능 저하, 피부 알레르기가 보고돼요. 흰 털이 많은 개체는 청력도 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/english-setter/"
+      }
+    ]
+  },
+  {
+    "breed": "아이리시세터",
+    "species": "dog",
+    "sizeClass": "large",
+    "coat": "long",
+    "shedding": 3,
+    "brushing": "daily",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 5,
+    "exerciseMin": [
+      90,
+      120
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 4,
+    "voice": 3,
+    "heat": 2,
+    "cold": 2,
+    "kibble": "large",
+    "flags": [
+      "bloat",
+      "hip"
+    ],
+    "notes": {
+      "food": "가슴이 깊은 대형견이라 하루 양을 2~3번에 나눠 주고, 식후 1시간은 뛰지 않게 해요. 알갱이는 큰 것이 맞아요.",
+      "treat": "성숙이 늦어 2~3살까지 장난꾸러기처럼 굴어요. 간식 훈련을 짧게 자주 하고 산만할 땐 쉬었다가 다시 해요.",
+      "toy": "에너지가 넘쳐 공 물어오기와 달리기 놀이를 끝없이 즐겨요. 어릴 땐 씹는 힘도 세서 튼튼한 장난감이 필요해요.",
+      "walk": "하루 90~120분, 두 번 이상 걷고 마음껏 달리게 해 줘요. 사냥 본능에 멀리 뛰어가니 울타리 없는 곳에선 리드줄을 잡아요.",
+      "grooming": "붉은 비단결 털과 귀·가슴·다리의 장식털이 엉키기 쉬워 매일 빗어요. 커트는 필요 없고 발 털만 가끔 다듬어요.",
+      "potty": "바깥 배변이 익숙해요. 어릴 땐 흥분하면 실수할 수 있어 산책 시간을 규칙적으로 맞추고 반가운 인사는 차분하게 해요.",
+      "home": "사람을 아주 좋아해 혼자 오래 두면 힘들어해요. 활동량이 커서 넓은 공간이 있는 집이 더 잘 맞아요.",
+      "health": "위확장 염전, 고관절 이형성, 진행성 망막 위축, 특발성 간질이 보고돼요. 식후 배가 부풀면 바로 진료받고 관절도 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/irish-setter/"
+      }
+    ]
+  },
+  {
+    "breed": "포인터",
+    "species": "dog",
+    "sizeClass": "large",
+    "coat": "short",
+    "shedding": 3,
+    "brushing": "weekly",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 5,
+    "exerciseMin": [
+      90,
+      120
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 3,
+    "heat": 2,
+    "cold": 2,
+    "kibble": "large",
+    "flags": [
+      "hip",
+      "skin"
+    ],
+    "notes": {
+      "food": "마른 근육형 사냥견이라 활동량에 맞춰 큰 알갱이를 하루 2번 줘요. 많이 뛴 날은 양을 조금 늘리고 쉬는 날은 줄여요.",
+      "treat": "집중력이 좋아 간식 보상 훈련이 잘 통해요. 멀리 달려가는 성향이 있어 부르면 오기 훈련에 특히 공을 들여요.",
+      "toy": "사냥감을 찾아 가리키던 본능이 있어 공·원반 물어오기와 냄새로 찾기 놀이를 좋아해요. 씹는 힘은 보통이에요.",
+      "walk": "하루 90~120분, 두 번 이상 걷고 달려야 해요. 사냥감을 보면 멀리 달려가니 울타리 없는 곳에선 리드줄을 꼭 잡아요.",
+      "grooming": "짧고 매끈한 털이라 주 1번 고무 브러시로 쓸어 주면 충분해요. 털이 얇아 겨울 산책엔 옷이 필요할 수 있어요.",
+      "potty": "바깥 배변이 익숙한 품종이에요. 활동량이 많아 산책 때 배변 시간을 규칙적으로 맞춰 줘요.",
+      "home": "운동이 부족하면 문제 행동이 생기기 쉬워요. 털이 짧고 몸이 말라 딱딱한 바닥보다 푹신한 방석에서 쉬게 해 줘요.",
+      "health": "고관절 이형성, 백내장, 안검내반, 선천성 난청, 피부 알레르기가 보고돼요. 눈꺼풀과 피부를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/pointer/"
+      }
+    ]
+  },
+  {
+    "breed": "알래스칸말라뮤트",
+    "species": "dog",
+    "sizeClass": "large",
+    "coat": "double",
+    "shedding": 4,
+    "brushing": "few",
+    "trimWeeks": null,
+    "bathWeeks": [
+      6,
+      10
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      90,
+      120
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 5,
+    "voice": 3,
+    "heat": 3,
+    "cold": 1,
+    "kibble": "large",
+    "flags": [
+      "hip",
+      "joint",
+      "escape",
+      "prey"
+    ],
+    "notes": {
+      "food": "34~39kg 썰매견으로 먹성이 좋아 살이 잘 붙어요. 큰 알갱이를 하루 2번 주고, 음식을 훔치지 않게 식탁 위를 비워 둬요.",
+      "treat": "독립적이고 고집이 있어 간식 보상이 훈련의 핵심 동기가 돼요. 큰 입에 맞게 넉넉한 크기로 줘요.",
+      "toy": "씹는 힘과 끄는 힘이 아주 세요. 줄다리기와 무거운 것을 끄는 놀이를 좋아해 튼튼한 장난감이 필요해요.",
+      "walk": "하루 90~120분 걷되 여름엔 한낮을 피해요. 끄는 힘이 세서 가슴줄이 맞고, 작은 동물을 쫓거나 달아날 수 있어 리드줄을 놓지 않아요.",
+      "grooming": "두껍고 거친 이중모라 평소 주 2~3번, 털갈이 철엔 매일 속털을 빗어 내요. 털이 더위와 햇볕을 막아 주니 짧게 밀지 않아요.",
+      "potty": "몸집이 커서 바깥 배변이 기본이에요. 고집이 있어 어릴 때 정해진 장소로 반복해 데려가 습관을 들여요.",
+      "home": "더위에 아주 약해 여름엔 냉방이 필수예요. 땅 파기와 탈출을 잘해 마당 울타리는 높게, 아래까지 막아야 해요.",
+      "health": "고관절·팔꿈치 이형성, 유전성 백내장, 다발신경병증, 갑상선 기능 저하가 보고돼요. 관절과 눈을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/alaskan-malamute/"
+      }
+    ]
+  },
+  {
+    "breed": "보르조이",
+    "species": "dog",
+    "sizeClass": "large",
+    "coat": "long",
+    "shedding": 3,
+    "brushing": "daily",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 3,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 2,
+    "voice": 1,
+    "heat": 2,
+    "cold": 1,
+    "kibble": "large",
+    "flags": [
+      "bloat",
+      "prey"
+    ],
+    "notes": {
+      "food": "가슴이 깊고 마른 체형이 정상인 사이트하운드라 큰 알갱이를 하루 2~3번에 나눠 주고 식후엔 쉬게 해요.",
+      "treat": "독립적이라 반복 훈련을 지루해해요. 간식 훈련은 짧게 하고, 말라 보여도 간식으로 살을 찌우려 하지 않아요.",
+      "toy": "움직이는 것을 눈으로 쫓는 본능이 강해 끈에 매단 장난감 쫓기 놀이를 좋아해요. 씹는 힘은 약한 편이에요.",
+      "walk": "하루 60~90분 걷고, 울타리 친 안전한 곳에서 전력 질주할 시간을 줘요. 추격 본능이 강해 열린 곳에선 리드줄을 풀지 않아요.",
+      "grooming": "길고 물결치는 비단결 털이라 매일 빗어 귀 뒤와 다리 뒤 엉킴을 풀어요. 커트는 필요 없어요.",
+      "potty": "깔끔한 편이라 배변 훈련은 어렵지 않아요. 몸집이 커서 바깥 배변 시간을 규칙적으로 정해 둬요.",
+      "home": "집 안에선 조용하고 차분해 실내 생활도 가능하지만, 길게 누울 넉넉한 방석과 미끄럽지 않은 바닥이 필요해요.",
+      "health": "위확장 염전, 골육종, 퇴행성 척수병증, 심장 부정맥이 보고돼요. 사이트하운드는 마취 반응이 다를 수 있어 수술 전 수의사와 상의해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/borzoi/"
+      }
+    ]
+  },
+  {
+    "breed": "아프간하운드",
+    "species": "dog",
+    "sizeClass": "large",
+    "coat": "silky",
+    "shedding": 1,
+    "brushing": "daily",
+    "trimWeeks": null,
+    "bathWeeks": [
+      1,
+      2
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 2,
+    "voice": 2,
+    "heat": 2,
+    "cold": 1,
+    "kibble": "large",
+    "flags": [
+      "prey",
+      "bloat"
+    ],
+    "notes": {
+      "food": "마른 체형이 정상인 사이트하운드로 입맛이 까다로운 개체가 있어요. 큰 알갱이를 하루 2번 나눠 주고 식후엔 쉬게 해요.",
+      "treat": "독립적이고 도도해 간식으로도 쉽게 따르지 않을 때가 있어요. 짧고 재미있게, 강압 없이 가르쳐요.",
+      "toy": "눈으로 쫓는 본능이 강해 움직이는 장난감 쫓기를 좋아해요. 씹는 놀이엔 관심이 적은 편이에요.",
+      "walk": "하루 60~90분 걷고 울타리 친 곳에서 달리게 해 줘요. 추격 본능이 강하고 불러도 잘 안 오니 열린 곳에선 리드줄을 꼭 잡아요.",
+      "grooming": "길고 가는 비단결 털이 잘 엉켜 매일 빗고 1~2주마다 목욕해요. 마른 털을 그대로 빗으면 끊어지기 쉬워 물을 살짝 뿌려 빗어요.",
+      "potty": "깔끔한 편이지만 고집이 있어 배변 훈련엔 시간이 걸릴 수 있어요. 긴 털에 배변이 묻지 않게 항문 주변을 정리해요.",
+      "home": "집 안에선 조용한 편이에요. 털이 길어 추위엔 강하지만 여름엔 더위를 타니 서늘한 자리를 마련해요.",
+      "health": "갑상선 기능 저하, 백내장, 척수병증, 후두마비, 위확장 염전이 보고돼요. 숨소리 변화와 뒷다리 걸음을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/afghan-hound/"
+      }
+    ]
+  },
+  {
+    "breed": "불테리어",
+    "species": "dog",
+    "sizeClass": "medium",
+    "coat": "short",
+    "shedding": 3,
+    "brushing": "weekly",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 5,
+    "voice": 2,
+    "heat": 2,
+    "cold": 2,
+    "kibble": "large",
+    "flags": [
+      "kidney",
+      "heart"
+    ],
+    "notes": {
+      "food": "근육질 체형에 먹성이 좋아 살이 잘 붙어요. 턱이 튼튼해 큰 알갱이도 잘 먹으니 하루 2번 정량으로 줘요.",
+      "treat": "고집이 세서 간식 보상 훈련을 짧고 즐겁게 해야 따라와요. 큰 간식을 씹지 않고 삼키지 않게 지켜봐요.",
+      "toy": "씹는 힘이 아주 세서 일반 장난감은 금방 망가져요. 단단한 고무 장난감과 줄다리기가 잘 맞아요.",
+      "walk": "하루 60~90분, 두 번 걸어요. 힘이 세고 흥분하면 끌어당기니 몸통을 감싸는 가슴줄이 다루기 쉬워요.",
+      "grooming": "짧고 빳빳한 털이라 주 1번 고무 브러시면 충분해요. 흰 털이 많은 개체는 귀와 코가 햇볕에 그을리지 않게 한낮 외출을 줄여요.",
+      "potty": "영리하지만 고집이 있어 배변 훈련엔 꾸준함이 필요해요. 바깥 배변 습관은 비교적 쉽게 들어요.",
+      "home": "지루하면 꼬리를 쫓아 빙빙 도는 강박 행동이 보고돼요. 혼자 두는 시간을 줄이고 매일 놀이로 에너지를 빼 줘요.",
+      "health": "다낭성 신장질환과 유전성 신염, 선천성 난청, 심장 판막 질환이 보고돼요. 소변 검사와 심장 소리, 흰 개체는 청력을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/bull-terrier/"
+      }
+    ]
+  },
+  {
+    "breed": "스태퍼드셔불테리어",
+    "species": "dog",
+    "sizeClass": "medium",
+    "coat": "short",
+    "shedding": 3,
+    "brushing": "weekly",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 5,
+    "voice": 2,
+    "heat": 2,
+    "cold": 2,
+    "kibble": "medium",
+    "flags": [
+      "dangerous",
+      "skin",
+      "hip",
+      "patella"
+    ],
+    "notes": {
+      "food": "11~17kg 근육질 중형견으로 살이 붙기 쉬워요. 보통 크기 알갱이를 하루 2번 정량으로 주고 체형을 자주 확인해요.",
+      "treat": "사람을 무척 좋아해 간식과 칭찬 훈련에 반응이 커요. 다른 개 앞에서 차분히 있기 연습에 간식을 활용해요.",
+      "toy": "턱 힘이 세서 일반 장난감은 오래 못 가요. 단단한 고무 장난감과 줄다리기를 좋아하고, 닳은 장난감은 바로 바꿔요.",
+      "walk": "하루 60~90분 걸어요. 동물보호법상 맹견이라 외출할 때 목줄과 입마개를 하거나 이동장치에 넣어야 하고, 다른 개와는 거리를 둬요.",
+      "grooming": "짧고 매끈한 털이라 주 1번 고무 브러시로 쓸어 주면 돼요. 피부가 예민한 개체가 있어 목욕은 자극이 적은 세정제로 해요.",
+      "potty": "영리해서 배변 훈련은 무난한 편이에요. 바깥 배변이 익숙해지면 하루 두세 번 시간을 맞춰 줘요.",
+      "home": "맹견은 사육 허가와 책임보험 가입이 법으로 정해져 있어요. 사람을 좋아해 혼자 오래 두면 물건을 씹을 수 있어요.",
+      "health": "L-2-HGA(대사성 신경질환), 유전성 백내장, 슬개골 탈구, 고관절 이형성, 아토피가 보고돼요. DNA 검사 결과와 피부를 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/staffordshire-bull-terrier/"
+      },
+      {
+        "org": "국가법령정보센터 — 동물보호법",
+        "url": "https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EB%8F%99%EB%AC%BC%EB%B3%B4%ED%98%B8%EB%B2%95"
+      }
+    ]
+  },
+  {
+    "breed": "도고아르헨티노",
+    "species": "dog",
+    "sizeClass": "large",
+    "coat": "short",
+    "shedding": 3,
+    "brushing": "weekly",
+    "trimWeeks": null,
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 5,
+    "exerciseMin": [
+      90,
+      120
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 5,
+    "voice": 2,
+    "heat": 2,
+    "cold": 2,
+    "kibble": "large",
+    "flags": [
+      "prey",
+      "hip",
+      "skin"
+    ],
+    "notes": {
+      "food": "40~45kg 대형견이라 큰 알갱이를 하루 2번 나눠 줘요. 성장기엔 대형견 강아지용 사료로 천천히 키워요.",
+      "treat": "보호 본능과 의지가 강해 간식 보상과 일관된 규칙으로 훈련해요. 큰 입에 맞게 넉넉한 크기로 줘요.",
+      "toy": "큰 짐승 사냥용으로 만든 품종이라 턱 힘이 아주 세요. 대형견용 단단한 장난감과 줄다리기가 맞아요.",
+      "walk": "하루 90~120분 강도 있게 걸어요. 사냥 본능이 강해 작은 동물을 보면 달려가니 리드줄을 짧게 잡고 다른 개와는 거리를 둬요.",
+      "grooming": "짧은 흰 털이라 주 1번 빗질이면 충분해요. 흰 피부는 햇볕에 약해 한여름 한낮 외출은 피해요.",
+      "potty": "대형견이라 바깥 배변이 기본이에요. 어릴 때부터 정해진 시간에 데리고 나가 습관을 들여요.",
+      "home": "경험 있는 보호자와 넓은 공간이 맞는 품종이에요. 다른 개에게 공격적일 수 있어 어릴 때 사회화가 꼭 필요해요.",
+      "health": "선천성 난청이 비교적 흔하게 보고되고 고관절 이형성, 갑상선 기능 저하, 후두마비가 보고돼요. 청력과 관절을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/dogo-argentino/"
+      }
+    ]
+  },
+  {
+    "breed": "스탠다드슈나우저",
+    "species": "dog",
+    "sizeClass": "medium",
+    "coat": "wire",
+    "shedding": 1,
+    "brushing": "few",
+    "trimWeeks": [
+      8,
+      12
+    ],
+    "bathWeeks": [
+      3,
+      6
+    ],
+    "energy": 4,
+    "exerciseMin": [
+      60,
+      90
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 3,
+    "voice": 3,
+    "heat": 1,
+    "cold": 1,
+    "kibble": "medium",
+    "flags": [
+      "hip",
+      "heart"
+    ],
+    "notes": {
+      "food": "14~20kg 중형견이라 보통 크기 알갱이를 하루 2번 줘요. 운동량이 줄면 금방 살이 붙으니 체형을 자주 봐요.",
+      "treat": "영리하지만 고집도 있어 간식 보상과 짧은 반복 훈련이 잘 맞아요. 수염에 부스러기가 남으니 먹은 뒤 닦아요.",
+      "toy": "머리를 쓰는 걸 좋아해 퍼즐 장난감과 숨긴 간식 찾기, 줄다리기를 즐겨요. 씹는 힘은 보통이에요.",
+      "walk": "하루 60~90분, 두 번 걸어요. 경계심이 있어 낯선 개를 보면 짖을 수 있으니 리드줄을 짧게 잡아요.",
+      "grooming": "뻣뻣한 털은 2~3개월마다 손으로 뽑는 스트리핑이나 클리핑으로 정리하고 주 2~3번 빗질해요. 수염과 눈썹도 다듬어요.",
+      "potty": "영리해서 배변 훈련이 빠른 편이에요. 중형 패드와 바깥 배변 모두 익힐 수 있어 생활에 맞게 한 가지로 정해 줘요.",
+      "home": "경비견 기질로 집을 지키며 짖는 편이라 아파트라면 소리에 덜 반응하는 연습이 필요해요. 운동과 두뇌 놀이를 매일 채워요.",
+      "health": "고관절 이형성, 확장성 심근병증, 유전성 백내장이 보고돼요. 심장 소리와 눈을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/standard-schnauzer/"
+      }
+    ]
+  },
+  {
+    "breed": "자이언트슈나우저",
+    "species": "dog",
+    "sizeClass": "large",
+    "coat": "wire",
+    "shedding": 2,
+    "brushing": "few",
+    "trimWeeks": [
+      8,
+      12
+    ],
+    "bathWeeks": [
+      4,
+      8
+    ],
+    "energy": 5,
+    "exerciseMin": [
+      90,
+      120
+    ],
+    "walksPerDay": [
+      2,
+      2
+    ],
+    "chewer": 4,
+    "voice": 3,
+    "heat": 2,
+    "cold": 1,
+    "kibble": "large",
+    "flags": [
+      "hip",
+      "joint",
+      "heart",
+      "bloat"
+    ],
+    "notes": {
+      "food": "25~48kg 대형견이라 큰 알갱이를 하루 2~3번에 나눠 주고, 식후 바로 뛰지 않게 해요.",
+      "treat": "영리하고 의지가 강해 간식 보상과 일관된 규칙이 함께 필요해요. 일을 맡기듯 훈련하면 집중을 잘해요.",
+      "toy": "작업견 출신이라 에너지가 크고 씹는 힘도 세요. 튼튼한 터그 장난감과 물어오기, 퍼즐 놀이가 맞아요.",
+      "walk": "하루 90~120분 이상 걷고 뛰게 해 줘요. 힘이 세서 가슴줄이 다루기 쉽고, 낯선 개 앞에선 거리를 둬요.",
+      "grooming": "뻣뻣한 이중모는 2~3개월마다 스트리핑이나 클리핑으로 정리하고 주 2~3번 빗어요. 수염은 먹고 난 뒤 닦아 줘요.",
+      "potty": "영리해서 바깥 배변 훈련이 잘 되는 편이에요. 몸집이 커서 하루 두세 번 시간을 정해 데리고 나가요.",
+      "home": "운동이 부족하면 집 안을 망가뜨릴 수 있어요. 경계심이 강해 아파트보다는 넓은 공간과 경험 있는 보호자가 맞아요.",
+      "health": "고관절·팔꿈치 이형성, 확장성 심근병증, 위확장 염전, 갑상선 기능 저하가 보고돼요. 심장과 관절을 검진 때 확인해 보세요."
+    },
+    "sources": [
+      {
+        "org": "AKC",
+        "url": "https://www.akc.org/dog-breeds/giant-schnauzer/"
+      }
+    ]
+  }
+]

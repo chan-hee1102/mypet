@@ -75,13 +75,14 @@ export function pretty(path: string | null): string {
 }
 
 /*
-  퍼널 단계 판정. 리포트 만들기는 한 주소(/diagnose) 안에서 단계가 바뀌어 주소로는 못 가른다 —
-  버튼 클릭 기록으로 가른다. data-track 라벨(DiagnoseForm)과 그 전 버튼 글자를 둘 다 받는다.
+  퍼널 단계 판정(2026-11-19 개편). 쿠팡 카드는 data-track 「쿠팡:카드 id」(components/board/ShopCards)로 클릭이 남는다.
 */
-export const reachedDiagnose = (r: VisitRow) =>
-  (r.landing ?? '').startsWith('/diagnose') || (r.exit_path ?? '').startsWith('/diagnose') || clicksOf(r).some((c) => (c.p ?? '').startsWith('/diagnose'));
-export const openedGuide = (r: VisitRow) => clicksOf(r).some((c) => c.t === '무료 가이드 보기' && (c.p ?? '').startsWith('/diagnose'));
-export const openedCheckout = (r: VisitRow) => clicksOf(r).some((c) => c.t === '리포트 받기');
+const SHOP_PREFIX = '쿠팡:';
+export const shopClicksOf = (r: VisitRow) => clicksOf(r).filter((c) => (c.t ?? '').startsWith(SHOP_PREFIX)).map((c) => (c.t ?? '').slice(SHOP_PREFIX.length));
+export const clickedShop = (r: VisitRow) => shopClicksOf(r).length > 0;
+/** 품종 안내판(/breed/이름)을 본 방문 — 첫 화면·마지막 화면·누른 곳 중 하나라도 */
+const onBoard = (p: string | null | undefined) => /^\/breed\/[^/]+\/?$/.test(p ?? '');
+export const viewedBoard = (r: VisitRow) => onBoard(r.landing) || onBoard(r.exit_path) || clicksOf(r).some((c) => onBoard(c.p));
 
 /** 기간 행을 전부 읽는다 — PostgREST 기본 상한(1,000행)에 걸리지 않게 1,000행씩 넘겨 가며 */
 export async function fetchVisits(db: SupabaseClient, sinceIso: string): Promise<VisitRow[]> {
