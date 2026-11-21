@@ -13,6 +13,7 @@ import { josa } from '@/lib/josa';
 import { Disclosure, ShopCards } from '@/components/board/ShopCards';
 import { careOf, shopIntro } from '@/lib/care';
 import { babyFirst, hasLive, picksFor } from '@/lib/shop';
+import { comparePath, pairsOf } from '@/lib/seoPages';
 import { NAVER_BING_ONLY } from '@/lib/searchScope';
 import { SITE } from '@/lib/site';
 
@@ -236,6 +237,16 @@ export default function BreedGrowthPage({ params }: { params: { slug: string } }
           {neighbors(b).map((o) => (
             <Link key={o.breed_ko} href={breedPath(o.breed_ko, 'growth')}>
               {baseName(o)} 개월별 몸무게
+            </Link>
+          ))}
+          {[3, 6].map((m) => (
+            <Link key={m} href={`/month/${b.species}/${m}`}>
+              {m}개월 {kindOf(b)} 몸무게 (다른 품종과 비교)
+            </Link>
+          ))}
+          {pairsOf(b.breed_ko).map(([x, y]) => (
+            <Link key={comparePath(x, y)} href={comparePath(x, y)}>
+              {baseName(x)} vs {baseName(y)}
             </Link>
           ))}
           <Link href="/tools/adult-weight">강아지·고양이 다 큰 몸무게 계산기</Link>

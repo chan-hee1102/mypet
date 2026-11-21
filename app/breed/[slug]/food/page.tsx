@@ -13,6 +13,7 @@ import { FEATURED_BREEDS, breedPath, breedSlugOf, featuredBreeds, fmtKg, slugMat
 import { josa } from '@/lib/josa';
 import { CUP_GRAM, careOf, cupText, shopIntro } from '@/lib/care';
 import { hasLive, picksFor } from '@/lib/shop';
+import { KGS, comparePath, pairsOf } from '@/lib/seoPages';
 import { NAVER_BING_ONLY } from '@/lib/searchScope';
 import { SITE } from '@/lib/site';
 
@@ -83,6 +84,7 @@ export default function BreedFoodPage({ params }: { params: { slug: string } }) 
   const b = find(params.slug);
   if (!b) notFound();
   const { f, name, puppy, adult, title, description, answer, faq } = copy(b);
+  const mid = adult[1];
   const url = `${SITE.url}${breedPath(b.breed_ko, 'food')}`;
   const cat = b.species === 'cat';
   const notes = breedNotes(b);
@@ -256,6 +258,16 @@ export default function BreedFoodPage({ params }: { params: { slug: string } }) 
           {neighbors(b).map((o) => (
             <Link key={o.breed_ko} href={breedPath(o.breed_ko, 'food')}>
               {baseName(o)} 사료량
+            </Link>
+          ))}
+          {KGS[b.species as 'dog' | 'cat'].includes(Math.round(mid.weight)) && (
+            <Link href={`/weight/${b.species}/${Math.round(mid.weight)}`}>
+              {Math.round(mid.weight)}kg {kindOf(b)} 사료량
+            </Link>
+          )}
+          {pairsOf(b.breed_ko).map(([x, y]) => (
+            <Link key={comparePath(x, y)} href={comparePath(x, y)}>
+              {baseName(x)} vs {baseName(y)}
             </Link>
           ))}
           <Link href="/tools/food">강아지·고양이 사료량 계산기</Link>

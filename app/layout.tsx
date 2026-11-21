@@ -85,6 +85,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <Link href="/start/dog">처음 데려온다면</Link>
               <Link href="/guide">정보 가이드</Link>
               <Link href="/tools">계산기</Link>
+              <Link href="/month">개월별 몸무게·사료량</Link>
+              <Link href="/weight">체중별 사료량</Link>
+              <Link href="/compare">품종 비교</Link>
+              <Link href="/age">나이별 사람 나이</Link>
               <Link href="/sources">정보 기준</Link>
               <Link href="/terms">이용약관</Link>
               <Link href="/privacy"><strong>개인정보처리방침</strong></Link>

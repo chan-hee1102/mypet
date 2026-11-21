@@ -227,6 +227,12 @@ body:has(.tz) .site-header-in,body:has(.tz) .site-footer-in{max-width:760px}
 /* 사료량·성장·가이드·계산기 페이지의 카드 구역(2026-11-22) — 제목은 그 페이지 h2 그대로, 위 구분선 없음 */
 .shop--sec{margin-top:0;padding-top:0;border-top:0}
 .shop--sec .shop-intro{margin-top:-4px}
+/* 「먹어도 되나요」 결론 배지(2026-11-22) — 안 돼요 빨강 · 조심 주황 · 괜찮아요 초록 */
+.vd{display:inline-flex;align-items:center;padding:6px 14px;border-radius:var(--pill);font-size:16px;font-weight:800;letter-spacing:-.01em}
+.vd--no{background:#fde4e4;color:#b42318}
+.vd--caution{background:#fdecd6;color:#a24b07}
+.vd--ok{background:#e4f5d8;color:#24600f}
+.bsec p .vd{padding:3px 10px;font-size:14px;margin-right:4px}
 .shop-head{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--tz-ink)}
 .shop-disc{margin-top:6px;font-size:13px;font-weight:600;line-height:1.5;color:var(--forest)}
 .shop-row{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}

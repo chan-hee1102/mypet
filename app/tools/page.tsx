@@ -34,6 +34,22 @@ export default function ToolsHub() {
           <b>다 큰 몸무게 계산기</b>
           <span>지금 나이·몸무게로 다 컸을 때 몸무게와 성장이 끝나는 때</span>
         </Link>
+        <Link href="/month">
+          <b>개월별 몸무게·사료량 표</b>
+          <span>2~12개월 강아지·고양이, 품종을 몰라도 다 큰 몸무게별로</span>
+        </Link>
+        <Link href="/weight">
+          <b>체중별 하루 사료량 표</b>
+          <span>강아지 1~40kg, 고양이 2~10kg — 중성화·노령별 g과 종이컵</span>
+        </Link>
+        <Link href="/age">
+          <b>나이별 사람 나이</b>
+          <span>강아지 1~20살·고양이 1~22살 — 체구별 환산과 노령기</span>
+        </Link>
+        <Link href="/compare">
+          <b>품종 비교</b>
+          <span>비슷한 체구의 인기 품종끼리 털 빠짐·짖음·미용·산책·사료량</span>
+        </Link>
         <Link href="/guide/dog-age-in-human-years">
           <b>사람 나이 환산표</b>
           <span>강아지·고양이 나이를 사람 나이로</span>

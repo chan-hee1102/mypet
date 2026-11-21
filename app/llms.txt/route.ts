@@ -3,6 +3,7 @@ import { GUIDES } from '@/lib/guides';
 import { SITE } from '@/lib/site';
 import { breedPath, isFeatured, type BreedRow } from '@/lib/growth';
 import { UPDATED } from '@/lib/breedSeo';
+import { AGES, KGS, MONTHS, comparePairs, comparePath } from '@/lib/seoPages';
 
 /**
  * /llms.txt — AI 답변엔진(챗GPT·퍼플렉시티·클로드 등)에게 「이 사이트에 무엇이 있고, 어떤 질문엔 어느 페이지가 답인지」 알려 주는 목차.
@@ -40,6 +41,10 @@ export function GET() {
     `- 「○○(품종) 하루 사료량은 몇 g?」「○○ 3개월 사료량」 → ${SITE.url}/breed/{품종}/food (165종, 아래 목록)`,
     `- 「○○ 개월별 몸무게」「○○ 다 크면 몇 kg?」 → ${SITE.url}/breed/{품종}/growth (165종)`,
     `- 「○○ 키우기 — 산책 시간·빗질·미용 주기·목욕·배변·준비물·조심할 질환」 → ${SITE.url}/breed/{품종} (188종)`,
+    `- 「강아지 3개월 몸무게」「아기 고양이 4개월 사료량」(품종 몰라도) → ${SITE.url}/month/{dog|cat}/{2~12} — 다 큰 몸무게별·인기 품종별 표`,
+    `- 「5kg 강아지 사료량」「4kg 고양이 하루 몇 g」 → ${SITE.url}/weight/dog/{1~40} · ${SITE.url}/weight/cat/{2~10} — 중성화·노령별 g, 종이컵, 간식 상한`,
+    `- 「강아지 10살 사람 나이」「고양이 15살 노령묘?」 → ${SITE.url}/age/dog/{1~20} · ${SITE.url}/age/cat/{1~22} — 체구별 사람 나이·생애 단계·건강검진 주기`,
+    `- 「말티즈 푸들 차이」「코숏 러시안블루 비교」 → ${SITE.url}/compare/{품종A}-vs-{품종B} — 몸무게·털 빠짐·짖음·미용·산책·사료량 표 (모음: ${SITE.url}/compare)`,
     `- 「강아지/고양이를 처음 데려오면 준비물·첫 주에 할 일」 → [처음 강아지를 데려온다면](${SITE.url}/start/dog) · [처음 고양이를 데려온다면](${SITE.url}/start/cat)`,
     `- 「품종을 모르는 믹스견 사료량·산책」 → [믹스견 안내판](${SITE.url}${breedPath('믹스견(잡종)')}) (소형·중형·대형을 골라 보는 표)`,
     ask('「길고양이·유기견을 데려오면 뭐부터? 신고·입양 절차·귀 끝 잘린 고양이」', 'found-stray-pet'),
@@ -67,6 +72,22 @@ export function GET() {
     '',
     `- [사료량 계산기](${SITE.url}/tools/food) — 몸무게·나이·중성화로 하루 열량과 건사료 g`,
     `- [다 큰 몸무게 계산기](${SITE.url}/tools/adult-weight) — 지금 나이·몸무게로 다 컸을 때 몸무게와 성장이 끝나는 시기`,
+    '',
+    '## 개월별 몸무게·사료량',
+    '',
+    ...(['dog', 'cat'] as const).map((sp) => `- ${sp === 'dog' ? '강아지' : '고양이'}: ${MONTHS.map((m) => `[${m}개월](${SITE.url}/month/${sp}/${m})`).join(' · ')}`),
+    '',
+    '## 체중별 하루 사료량',
+    '',
+    ...(['dog', 'cat'] as const).map((sp) => `- ${sp === 'dog' ? '강아지' : '고양이'}: ${KGS[sp].map((kg) => `[${kg}kg](${SITE.url}/weight/${sp}/${kg})`).join(' · ')}`),
+    '',
+    '## 나이별 사람 나이',
+    '',
+    ...(['dog', 'cat'] as const).map((sp) => `- ${sp === 'dog' ? '강아지' : '고양이'}: ${AGES[sp].map((y) => `[${y}살](${SITE.url}/age/${sp}/${y})`).join(' · ')}`),
+    '',
+    '## 품종 비교',
+    '',
+    ...comparePairs().map(([a, b]) => `- [${a.breed_ko} vs ${b.breed_ko}](${SITE.url}${encodeURI(comparePath(a, b))})`),
     '',
     '## 품종 188종',
     '',
