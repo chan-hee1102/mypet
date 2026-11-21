@@ -7,6 +7,8 @@ import { ORG_REF, PUBLISHED, socialMeta, SOURCES } from '@/lib/breedSeo';
 import { breedPath, featuredBreeds, GROWTH_END, growthRatio, type GrowthClass } from '@/lib/growth';
 import { NAVER_BING_ONLY } from '@/lib/searchScope';
 import { SITE } from '@/lib/site';
+import { Disclosure, ShopCards } from '@/components/board/ShopCards';
+import { PAGE_SHOP, hasLive, picksById } from '@/lib/shop';
 
 /**
  * 「강아지 다 크면 몇 kg」「성견 몸무게 예측」 계산기 — 품종을 몰라도(믹스견도) 쓸 수 있는 입구.
@@ -47,6 +49,9 @@ export const metadata: Metadata = {
 export default function AdultWeightTool() {
   const url = `${SITE.url}${URL_PATH}`;
   const breeds = featuredBreeds();
+  // 쿠팡 카드(2026-11-22 사장님 「전체 페이지에 다」) — 체급별 성장표 다음에 체구별 퍼피 사료
+  const picks = picksById(PAGE_SHOP['tool-adult-weight'].ids);
+  const live = hasLive(picks);
   return (
     <main className="container guide">
       <JsonLd
@@ -79,6 +84,8 @@ export default function AdultWeightTool() {
       </nav>
       <h1 className="gtitle">강아지 다 크면 몇 kg? 다 큰 몸무게 계산기</h1>
       <p className="gquestion">지금 나이와 몸무게만 넣으면 다 컸을 때 몸무게를 계산해요. 품종을 몰라도, 믹스견도 돼요.</p>
+      {/* ⚠️ 쿠팡 링크가 있는 페이지는 첫 부분에 대가성 문구(components/board/ShopCards) */}
+      {live ? <Disclosure /> : null}
 
       <AdultWeightCalc />
 
@@ -135,6 +142,10 @@ export default function AdultWeightTool() {
           <Icon name="info" size={14} />
           「6개월에」는 다 큰 몸무게의 몇 %까지 자랐는지예요. 체급 구분은 개 성장 곡선 연구(Salt 외, 2017)를 따랐고, 비율은 mypet이 그 패턴에 맞춰 정한 추정값이에요.
         </p>
+      </section>
+
+      <section className="bsec">
+        <ShopCards level={2} picks={picks} label={PAGE_SHOP['tool-adult-weight'].label} />
       </section>
 
       <section className="bsec">

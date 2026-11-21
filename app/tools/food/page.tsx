@@ -8,6 +8,8 @@ import { dailyFeeding } from '@/lib/energy';
 import { breedPath, featuredBreeds } from '@/lib/growth';
 import { NAVER_BING_ONLY } from '@/lib/searchScope';
 import { SITE } from '@/lib/site';
+import { Disclosure, ShopCards } from '@/components/board/ShopCards';
+import { PAGE_SHOP, hasLive, picksById } from '@/lib/shop';
 
 /**
  * 「강아지 사료량 계산기」「고양이 사료 급여량」「강아지 체중별 사료량」을 노린다.
@@ -75,6 +77,10 @@ export default function FoodTool() {
   const ex = dailyFeeding('dog', 5, 36, true);
   const answer = `하루 사료량은 몸무게로 쉬는 동안 쓰는 열량(70 × 몸무게의 0.75제곱)을 구하고, 나이와 중성화에 따른 계수를 곱해 정해요. 예를 들어 중성화한 5kg 성견은 하루 약 ${Math.round(ex.kcal / 10) * 10}kcal, 건사료로 ${gramText(ex)}이에요. 성장기는 2~3배로 늘고, 사료마다 열량이 달라 포장지의 kcal/kg으로 나누면 정확해요.`;
 
+  // 쿠팡 카드(2026-11-22 사장님 「전체 페이지에 다」) — 강아지 표 다음 강아지 사료, 고양이 표 다음 고양이 사료
+  const dogPicks = picksById(PAGE_SHOP['tool-food-dog'].ids);
+  const catPicks = picksById(PAGE_SHOP['tool-food-cat'].ids);
+  const live = hasLive(dogPicks) || hasLive(catPicks);
   return (
     <main className="container guide">
       <JsonLd
@@ -107,6 +113,8 @@ export default function FoodTool() {
       </nav>
       <h1 className="gtitle">강아지·고양이 사료량 계산기</h1>
       <p className="gquestion">몸무게와 나이만 넣으면 강아지·고양이 하루 사료량을 계산해요. 사료 포장지의 열량을 넣으면 그 사료 기준으로 바꿔 줘요.</p>
+      {/* ⚠️ 쿠팡 링크가 있는 페이지는 첫 부분에 대가성 문구(components/board/ShopCards) */}
+      {live ? <Disclosure /> : null}
 
       <FoodCalc />
 
@@ -125,12 +133,20 @@ export default function FoodTool() {
       </section>
 
       <section className="bsec">
+        <ShopCards level={2} picks={dogPicks} label={PAGE_SHOP['tool-food-dog'].label} />
+      </section>
+
+      <section className="bsec">
         <h2>고양이 체중별 하루 사료량</h2>
         <WeightTable species="cat" weights={CAT_W} />
         <p className="gnote">
           <Icon name="info" size={14} />
           1~10살 성묘 기준이에요. 아기 고양이는 필요한 열량이 성묘의 2배가 넘어요.
         </p>
+      </section>
+
+      <section className="bsec">
+        <ShopCards level={2} picks={catPicks} label={PAGE_SHOP['tool-food-cat'].label} />
       </section>
 
       <section className="bsec">

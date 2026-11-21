@@ -41,11 +41,16 @@ export function Disclosure() {
   );
 }
 
-export function ShopCards({ picks, label = '준비물', intro }: { picks: Pick[]; label?: string; intro?: string }) {
+/**
+ * level 2 = 사료량·성장·가이드·계산기 페이지(2026-11-22 사장님 「모든 품종 모든 페이지 다」) — 다른 구역처럼 h2 제목, 위 구분선 없음(.shop--sec).
+ * 기본 3 = 품종 안내판 번호 칸 안의 작은 묶음.
+ */
+export function ShopCards({ picks, label = '준비물', intro, level = 3 }: { picks: Pick[]; label?: string; intro?: string; level?: 2 | 3 }) {
   if (!picks.length) return null;
+  const Head = level === 2 ? 'h2' : 'h3';
   return (
-    <div className="shop">
-      <h3 className="shop-head">{label}</h3>
+    <div className={level === 2 ? 'shop shop--sec' : 'shop'}>
+      <Head className="shop-head">{label}</Head>
       {intro ? <p className="shop-intro">{intro}</p> : null}
       <ul className="shop-row">
         {picks.map((p) => {

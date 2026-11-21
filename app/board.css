@@ -224,6 +224,9 @@ body:has(.tz) .site-header-in,body:has(.tz) .site-footer-in{max-width:760px}
 
 /* ── 준비물 카드 ── */
 .shop{margin-top:24px;padding-top:22px;border-top:1px solid var(--tz-line)}
+/* 사료량·성장·가이드·계산기 페이지의 카드 구역(2026-11-22) — 제목은 그 페이지 h2 그대로, 위 구분선 없음 */
+.shop--sec{margin-top:0;padding-top:0;border-top:0}
+.shop--sec .shop-intro{margin-top:-4px}
 .shop-head{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--tz-ink)}
 .shop-disc{margin-top:6px;font-size:13px;font-weight:600;line-height:1.5;color:var(--forest)}
 .shop-row{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
@@ -451,6 +454,8 @@ a.shop-card:hover .shop-go svg{transform:translate(2px,-2px)}
   .sec-links{grid-template-columns:1fr}
   .shop-row{display:flex;gap:10px;margin:14px -18px 0;padding:0 18px 4px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 18px;scrollbar-width:none}
   .shop-row::-webkit-scrollbar{display:none}
+  /* 사료량·성장·가이드·계산기 페이지는 바깥 여백이 16px(.container, 480px 아래) — 같은 만큼만 끌어내야 가로로 안 넘친다 */
+  .shop--sec .shop-row{margin:14px -16px 0;padding:0 16px 4px;scroll-padding:0 16px}
   .shop-row li{flex:0 0 74%;scroll-snap-align:start}
   body:has(.tz) .site-header-in,body:has(.tz) .site-footer-in{padding:0 12px}
   .hp-hero{padding:12px 0 4px}

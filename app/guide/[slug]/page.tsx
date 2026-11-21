@@ -5,6 +5,8 @@ import { GUIDES, findGuide } from '@/lib/guides';
 import GuideBody from '@/components/GuideBody';
 import { Icon } from '@/components/icons';
 import { SITE } from '@/lib/site';
+import { Disclosure, ShopCards } from '@/components/board/ShopCards';
+import { PAGE_SHOP, hasLive, picksById } from '@/lib/shop';
 import { PUBLISHED, UPDATED } from '@/lib/breedSeo';
 
 /** 2026-11-19에 처음 연 가이드 — 처음 낸 날도 그날 */
@@ -45,6 +47,10 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 export default function GuidePage({ params }: { params: { slug: string } }) {
   const g = findGuide(params.slug);
   if (!g) notFound();
+  // 쿠팡 카드(2026-11-22 사장님 「전체 페이지에 다」) — 글 주제와 바로 이어지는 물건만(lib/shop PAGE_SHOP). 본문 다음, 자주 묻는 질문 앞
+  const shop = PAGE_SHOP[g.slug];
+  const picks = shop ? picksById(shop.ids) : [];
+  const live = hasLive(picks);
 
   const url = `${SITE.url}/guide/${g.slug}`;
   const related = g.related.map(findGuide).filter(Boolean);
@@ -102,6 +108,8 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
 
       <h1 className="gtitle">{g.title}</h1>
       <p className="gquestion">{g.lead}</p>
+      {/* ⚠️ 쿠팡 링크가 있는 페이지는 첫 부분에 대가성 문구(components/board/ShopCards) */}
+      {live ? <Disclosure /> : null}
 
       {/* 결론 — AI 답변엔진이 인용하는 자리. 표보다 위에 있어야 한다. */}
       <div className="ganswer">
@@ -112,6 +120,12 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       <article className="gbody">
         <GuideBody guide={g} />
       </article>
+
+      {shop && picks.length > 0 && (
+        <section className="bsec">
+          <ShopCards level={2} picks={picks} label={shop.label} />
+        </section>
+      )}
 
       <section className="gfaq">
         <h2>자주 묻는 질문</h2>

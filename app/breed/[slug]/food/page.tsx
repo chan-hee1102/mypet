@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Icon } from '@/components/icons';
+import { Disclosure, ShopCards } from '@/components/board/ShopCards';
 import { FaqList, JsonLd, breadcrumbJsonLd, faqJsonLd, type Faq } from '@/components/seo/SeoBits';
 import FoodCalc from '@/components/tools/FoodCalc';
 import {
@@ -10,7 +11,8 @@ import {
 } from '@/lib/breedSeo';
 import { FEATURED_BREEDS, breedPath, breedSlugOf, featuredBreeds, fmtKg, slugMatches, type BreedRow } from '@/lib/growth';
 import { josa } from '@/lib/josa';
-import { CUP_GRAM, careOf, cupText } from '@/lib/care';
+import { CUP_GRAM, careOf, cupText, shopIntro } from '@/lib/care';
+import { hasLive, picksFor } from '@/lib/shop';
 import { NAVER_BING_ONLY } from '@/lib/searchScope';
 import { SITE } from '@/lib/site';
 
@@ -84,6 +86,11 @@ export default function BreedFoodPage({ params }: { params: { slug: string } }) 
   const url = `${SITE.url}${breedPath(b.breed_ko, 'food')}`;
   const cat = b.species === 'cat';
   const notes = breedNotes(b);
+  // 쿠팡 카드(2026-11-22 사장님 「모든 품종 모든 페이지 다」) — 사료량을 찾는 사람에게 그 품종 사료 3장, 간식 문답 앞에 간식 3장
+  const care = careOf(b.breed_ko);
+  const foodPicks = care ? picksFor(care, 'food', 3) : [];
+  const treatPicks = care ? picksFor(care, 'treat', 3) : [];
+  const live = hasLive(foodPicks) || hasLive(treatPicks);
 
   return (
     <main className="container guide">
@@ -120,6 +127,8 @@ export default function BreedFoodPage({ params }: { params: { slug: string } }) 
 
       <h1 className="gtitle">{titleName(b)} 사료량</h1>
       <p className="gquestion">{nameWithAlias(b)}에게 하루에 몇 g을 줘야 할까요? 개월별, 체중별 급여량을 표로 정리했어요.</p>
+      {/* ⚠️ 쿠팡 링크가 있는 페이지는 첫 부분에 대가성 문구(components/board/ShopCards) */}
+      {live ? <Disclosure /> : null}
 
       <nav className="bsub" aria-label={`${name} 정보`}>
         <Link href={breedPath(b.breed_ko)}>성격·질환</Link>
@@ -164,6 +173,12 @@ export default function BreedFoodPage({ params }: { params: { slug: string } }) 
           {cat ? ' 노령묘는 살이 빠지기 시작하면 병원에서 먼저 확인해 보세요.' : ''}
         </p>
       </section>
+
+      {care && foodPicks.length > 0 && (
+        <section className="bsec">
+          <ShopCards level={2} picks={foodPicks} label={`${josa(name, '이/가')} 먹기 좋은 사료`} intro={shopIntro('food', b.breed_ko, care)} />
+        </section>
+      )}
 
       <section className="bsec">
         <h2>
@@ -226,6 +241,12 @@ export default function BreedFoodPage({ params }: { params: { slug: string } }) 
           성장기 계수를 몸무게 비율에 맞춰 낮춘 것은 마이펫이 정한 방식이에요.
         </p>
       </section>
+
+      {care && treatPicks.length > 0 && (
+        <section className="bsec">
+          <ShopCards level={2} picks={treatPicks} label={`${name}에게 주기 좋은 간식`} intro={`간식은 하루 열량의 10%까지예요. ${shopIntro('treat', b.breed_ko, care)}`} />
+        </section>
+      )}
 
       <FaqList items={faq} />
 

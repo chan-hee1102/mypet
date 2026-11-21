@@ -10,6 +10,9 @@ import {
 } from '@/lib/breedSeo';
 import { FEATURED_BREEDS, breedPath, breedSlugOf, featuredBreeds, fmtKg, slugMatches, type BreedRow } from '@/lib/growth';
 import { josa } from '@/lib/josa';
+import { Disclosure, ShopCards } from '@/components/board/ShopCards';
+import { careOf, shopIntro } from '@/lib/care';
+import { babyFirst, hasLive, picksFor } from '@/lib/shop';
 import { NAVER_BING_ONLY } from '@/lib/searchScope';
 import { SITE } from '@/lib/site';
 
@@ -74,6 +77,11 @@ export default function BreedGrowthPage({ params }: { params: { slug: string } }
   const sources = growthSources(b);
   const notes = breedNotes(b);
   const health = breedHealth(b);
+  // 쿠팡 카드(2026-11-22 사장님 「모든 품종 모든 페이지 다」) — 몸무게 표 다음에 사료(퍼피·키튼 먼저), 성장기에 챙길 것 다음에 집 환경
+  const care = careOf(b.breed_ko);
+  const foodPicks = care ? babyFirst(picksFor(care, 'food', 3)) : [];
+  const homePicks = care ? picksFor(care, 'home', 3) : [];
+  const live = hasLive(foodPicks) || hasLive(homePicks);
 
   return (
     <main className="container guide">
@@ -112,6 +120,8 @@ export default function BreedGrowthPage({ params }: { params: { slug: string } }
       <p className="gquestion">
         다 크면 몇 kg일까요? {nameWithAlias(b)} {babyWord(b)}의 2개월부터 {f.lastMonth}개월까지 예상 몸무게를 정리했어요.
       </p>
+      {/* ⚠️ 쿠팡 링크가 있는 페이지는 첫 부분에 대가성 문구(components/board/ShopCards) */}
+      {live ? <Disclosure /> : null}
 
       <nav className="bsub" aria-label={`${name} 정보`}>
         <Link href={breedPath(b.breed_ko)}>성격·질환</Link>
@@ -162,6 +172,12 @@ export default function BreedGrowthPage({ params }: { params: { slug: string } }
         </p>
       </section>
 
+      {care && foodPicks.length > 0 && (
+        <section className="bsec">
+          <ShopCards level={2} picks={foodPicks} label={`${josa(name, '이/가')} 먹기 좋은 사료`} intro={shopIntro('food', b.breed_ko, care)} />
+        </section>
+      )}
+
       <section className="bsec">
         <h2>지금 몸무게로 다 큰 몸무게 계산하기</h2>
         <p>나이와 지금 몸무게를 넣으면 {name} 성장 속도에 맞춰 다 컸을 때 몸무게를 계산해요.</p>
@@ -179,6 +195,12 @@ export default function BreedGrowthPage({ params }: { params: { slug: string } }
           개월별 사료량은 <Link href={breedPath(b.breed_ko, 'food')}>{name} 사료량 표</Link>에 정리했어요.
         </p>
       </section>
+
+      {care && homePicks.length > 0 && (
+        <section className="bsec">
+          <ShopCards level={2} picks={homePicks} label={`${name} 집 환경 준비물`} intro={shopIntro('home', b.breed_ko, care)} />
+        </section>
+      )}
 
       {health.diseases.length > 0 && (
         <section className="bsec">

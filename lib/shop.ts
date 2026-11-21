@@ -288,3 +288,28 @@ export function picksById(ids: string[]): Pick[] {
     .map((s) => ({ ...s, url: linkOf(s.id) }))
     .filter((s) => s.url || SHOW_EMPTY);
 }
+
+/** 성장 페이지용 — 같은 사료 카드 중 퍼피·키튼을 맨 앞으로(2026-11-22, 몸무게 표를 보는 사람은 대개 아기를 키운다) */
+export const babyFirst = (picks: Pick[]): Pick[] => [...picks].sort((a, b) => Number(/퍼피|키튼/.test(b.title)) - Number(/퍼피|키튼/.test(a.title)));
+
+/**
+ * 품종이 없는 페이지의 카드(2026-11-22 사장님 「전체 페이지에 다」) — 가이드 주제·계산기마다 그 글과 바로 이어지는 물건만.
+ * ⚠️ 제목은 쓰임만 말한다(「안전한 간식」「병에 좋은」 같은 효능·안전 보증 금지 — 표시광고법·추천보증 심사지침). 증상 글엔 병원 갈 때 쓰는 이동장만.
+ */
+export const PAGE_SHOP: Record<string, { label: string; ids: string[] }> = {
+  'dog-toxic-foods': { label: '강아지 간식 고르기', ids: ['dog-treat-single', 'dog-treat-training', 'dog-treat-dental-small'] },
+  'cat-toxic-foods': { label: '고양이 간식 고르기', ids: ['cat-treat-lick', 'cat-treat-freeze', 'cat-treat-dental'] },
+  'dog-vaccine-schedule': { label: '아기 강아지 준비물', ids: ['dog-food-puppy-small', 'dog-potty-pad', 'dog-home-crate'] },
+  'cat-vaccine-schedule': { label: '아기 고양이 준비물', ids: ['cat-food-kitten', 'cat-home-carrier', 'cat-potty-tofu'] },
+  'dog-age-in-human-years': { label: '나이 든 강아지 준비물', ids: ['dog-food-senior', 'dog-home-mat', 'dog-home-stairs'] },
+  'dog-walk-time': { label: '산책 준비물', ids: ['dog-walk-vest', 'dog-walk-leash', 'dog-walk-poopbag'] },
+  'dog-breed-weight': { label: '체구별 강아지 사료', ids: ['dog-food-adult-small', 'dog-food-adult-medium', 'dog-food-adult-large'] },
+  'pet-symptom-vet-signs': { label: '병원 갈 때 쓰는 이동장', ids: ['dog-home-crate', 'cat-home-carrier'] },
+  'found-stray-pet': { label: '임시 보호 준비물', ids: ['cat-home-carrier', 'cat-food-wet', 'dog-potty-pad'] },
+  'neutered-food-amount': { label: '중성화 뒤 사료·식기', ids: ['dog-food-light', 'cat-food-light', 'dog-food-slowbowl'] },
+  'kibble-cup-grams': { label: '강아지·고양이 사료', ids: ['dog-food-adult-small', 'dog-food-adult-medium', 'cat-food-adult'] },
+  'kitten-weight-by-week': { label: '아기 고양이 준비물', ids: ['cat-food-kitten', 'cat-food-wet', 'cat-potty-tofu'] },
+  'tool-food-dog': { label: '강아지 사료', ids: ['dog-food-adult-small', 'dog-food-adult-medium', 'dog-food-adult-large'] },
+  'tool-food-cat': { label: '고양이 사료', ids: ['cat-food-kitten', 'cat-food-adult', 'cat-food-wet'] },
+  'tool-adult-weight': { label: '아기 강아지 사료', ids: ['dog-food-puppy-small', 'dog-food-puppy-medium', 'dog-food-puppy-large'] },
+};
