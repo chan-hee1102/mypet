@@ -2,12 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import breedData from '@/lib/breedKnowledge.json';
-import { BreedPhoto, KeyLine, More, Profile, Step } from '@/components/board/BreedStory';
+import { BreedPhoto, KeyLine, Profile, Step } from '@/components/board/BreedStory';
 import { CareIcon, type CareIconName } from '@/components/board/CareIcon';
 import { Disclosure, ShopCards } from '@/components/board/ShopCards';
 import { FaqList, JsonLd, breadcrumbJsonLd, faqJsonLd, type Faq } from '@/components/seo/SeoBits';
 import type { ReactNode } from 'react';
-import { answerOf, careOf, feedOf, flagTexts, foodFacts, groomFacts, homeFacts, keyOf, metersOf, mixSizesOf, pottyFacts, rescueOf, rulesForBreed, shopIntro, sourcesOf, toyFacts, walkFacts, type CareRule, type MixSize } from '@/lib/care';
+import { answerOf, careOf, feedOf, flagTexts, keyOf, metersOf, mixSizesOf, rescueOf, rulesForBreed, shopIntro, sourcesOf, type CareRule, type MixSize } from '@/lib/care';
 import { breedImageOf } from '@/lib/breedImage';
 import { josa } from '@/lib/josa';
 import { BRUSH_LABEL, COAT_LABEL, SIZE_LABEL, type CareNotes, type CareProfile } from '@/lib/careProfile';
@@ -229,6 +229,18 @@ function shopHeading(key: SecKey, name: string, shopLabel: string, isDog: boolea
   }
 }
 
+/**
+ * 준비물 소개가 바로 위 요약(그 품종 한두 문장)과 거의 같은 말이면 빼기(2026-11-22 — 집 환경 칸에서 같은 문장이 두 번 나왔다).
+ * 소개 문장 낱말의 60% 이상이 요약에 이미 있으면 같은 말로 본다.
+ */
+function unlessSaid(said: string | undefined, intro: string): string | undefined {
+  if (!said) return intro;
+  const words = intro.replace(/[.,·—「」]/g, ' ').split(/\s+/).filter((w) => w.length > 1);
+  if (!words.length) return intro;
+  const hit = words.filter((w) => said.includes(w)).length;
+  return hit / words.length >= 0.6 ? undefined : intro;
+}
+
 export default function BreedPage({ params }: { params: { slug: string } }) {
   const b = findBreed(params.slug);
   if (!b) notFound();
@@ -241,25 +253,13 @@ export default function BreedPage({ params }: { params: { slug: string } }) {
 
   const cats: ShopCat[] = ['food', 'treat', 'toy', 'walk', 'grooming', 'potty', 'home'];
   const picksOf = (pp: CareProfile): Record<string, Pick[]> => Object.fromEntries(cats.map((c) => [c, picksFor(pp, c, 3)]));
-  const factsOf = (bb: BreedRow, pp: CareProfile): Record<SecKey, string[]> => ({
-    food: foodFacts(bb, pp),
-    treat: [],
-    toy: toyFacts(pp),
-    walk: walkFacts(pp),
-    grooming: groomFacts(pp),
-    potty: pottyFacts(pp),
-    home: homeFacts(pp),
-    health: [],
-  });
   // 믹스견은 체구 세 벌(소형·중형·대형) — 숫자·준비물이 체구마다 다르다(lib/care mixSizesOf)
   const mix = p ? mixSizesOf(b, p) : null;
   const picks: Record<string, Pick[]> = p ? picksOf(p) : {};
   const mixPicks = mix?.map((v) => picksOf(v.p));
-  const mixFacts = mix?.map((v) => factsOf(v.b, v.p));
   const live = [picks, ...(mixPicks ?? [])].some((pk) => cats.some((c) => hasLive(pk[c] ?? [])));
   const feed = feedOf(b);
 
-  const facts: Record<SecKey, string[]> = p ? factsOf(b, p) : { food: [], treat: [], toy: [], walk: [], grooming: [], potty: [], home: [], health: [] };
   const lawFor: Partial<Record<SecKey, CareRule[]>> = p ? rulesForBreed(b.breed_ko, p) : {};
   const rescue = rescueOf(b.breed_ko, isDog ? 'dog' : 'cat');
   const img = breedImageOf(b.breed_ko);
@@ -389,24 +389,22 @@ export default function BreedPage({ params }: { params: { slug: string } }) {
                       ))}
                     </ul>
                   ) : null}
-                  <More>
-                    <p className="sec-note">{p.notes[s.key]}</p>
-                    {bySize(mix, mixFacts?.map((f) => f[s.key]), facts[s.key], (items) => (
-                      <Facts items={items} />
-                    ))}
-                    {s.key === 'health' && (g.cautions?.length ?? 0) > 0 ? <Facts items={g.cautions!} /> : null}
-                    {s.key === 'food' ? (
-                      featured ? (
-                        <p className="sec-more">
-                          개월별로 보려면 <Link href={breedPath(b.breed_ko, 'food')}>{b.breed_ko} 사료량 표</Link>와 <Link href={breedPath(b.breed_ko, 'growth')}>개월별 몸무게 표</Link>를 보세요.
-                        </p>
-                      ) : (
-                        <p className="sec-more">
-                          지금 몸무게로 계산하려면 <Link href="/tools/food">사료량 계산기</Link>를 써 보세요.
-                        </p>
-                      )
-                    ) : null}
-                  </More>
+                  {/* 2026-11-22 사장님 「자세히 보기보다 간략하게 — 말티즈는 ○○이 어떠면 좋다, 그때 필요한 물품은 이런 것」:
+                      접기를 없애고 그 품종 한두 문장(notes)을 요약으로 바로 보여 준 뒤 준비물 카드로 잇는다.
+                      사실 목록(*Facts)은 요약·핵심 한 줄·준비물 소개와 겹쳐 뺐다(숫자는 핵심 한 줄·llms-full에 남는다). 건강 칸 주의 목록·사료 칸 표 링크만 남긴다 */}
+                  <p className="sec-note sec-sum">{p.notes[s.key]}</p>
+                  {s.key === 'health' && (g.cautions?.length ?? 0) > 0 ? <Facts items={g.cautions!} /> : null}
+                  {s.key === 'food' ? (
+                    featured ? (
+                      <p className="sec-more">
+                        개월별로 보려면 <Link href={breedPath(b.breed_ko, 'food')}>{b.breed_ko} 사료량 표</Link>와 <Link href={breedPath(b.breed_ko, 'growth')}>개월별 몸무게 표</Link>를 보세요.
+                      </p>
+                    ) : (
+                      <p className="sec-more">
+                        지금 몸무게로 계산하려면 <Link href="/tools/food">사료량 계산기</Link>를 써 보세요.
+                      </p>
+                    )
+                  ) : null}
                   {s.key === 'health' ? (
                     <div className="sec-links">
                       <Link href={isDog ? '/guide/dog-vaccine-schedule' : '/guide/cat-vaccine-schedule'}>예방접종 시기</Link>
@@ -417,7 +415,7 @@ export default function BreedPage({ params }: { params: { slug: string } }) {
 
                   {s.key !== 'health'
                     ? bySize(mix, mix?.map((v, i) => ({ pk: mixPicks![i][s.key] ?? [], vp: v.p })), { pk: picks[s.key] ?? [], vp: p }, ({ pk, vp }) => (
-                        <ShopCards picks={pk} label={shopHeading(s.key, name, shopLabel, isDog)} intro={shopIntro(s.key, b.breed_ko, vp)} />
+                        <ShopCards picks={pk} label={shopHeading(s.key, name, shopLabel, isDog)} intro={unlessSaid(p.notes[s.key], shopIntro(s.key, b.breed_ko, vp))} />
                       ))
                     : null}
                   <LawList rules={lawFor[s.key] ?? []} />
