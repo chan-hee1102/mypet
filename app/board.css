@@ -47,7 +47,19 @@ body:has(.tz) .site-header-in,body:has(.tz) .site-footer-in{max-width:760px}
 
 /* 번호 칸(순서형) — 번호 동그라미 + 칸 이름 + 아이콘, 핵심 한 줄은 연두 칸에 큰 글자, 맨 아래 근거 */
 .step{scroll-margin-top:84px}
-.step-head{display:flex;align-items:center;gap:12px}
+/* 칸 머리 색 띠(2026-11-22) — 칸마다 다른 옅은 색으로 사료·간식·산책·장난감·털·배변·집·건강이 한눈에 갈린다. 그림은 흰 타일 안에 */
+.step-head{display:flex;align-items:center;gap:12px;padding:12px 12px 12px 16px;border-radius:20px;background:var(--band,var(--tz-soft))}
+.tone-food{--band:#e4f5d8}
+.tone-treat{--band:#fdecd6}
+.tone-walk{--band:#d9f0ea}
+.tone-toy{--band:#dcebf8}
+.tone-grooming{--band:#f9e3e9}
+.tone-potty{--band:#f1ebde}
+.tone-home{--band:#e9e5f8}
+.tone-health{--band:#fbe6e6}
+.step-art{display:inline-flex;flex:none;align-items:center;justify-content:center;width:68px;height:68px;border-radius:18px;background:#fff;box-shadow:0 1px 2px rgba(14,15,12,.05)}
+.step-art img{width:58px;height:58px;object-fit:contain}
+.step-head .step-ico{background:#fff}
 .step-n{display:inline-flex;flex:none;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;font-size:16px;font-weight:800;font-variant-numeric:tabular-nums}
 .step-head h2{flex:1;min-width:0;font-size:22px;font-weight:800;letter-spacing:-.035em;color:var(--tz-ink)}
 .step-ico{display:inline-flex;flex:none;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:var(--ci-soft)}
@@ -398,6 +410,9 @@ a.shop-card:hover .shop-go svg{transform:translate(2px,-2px)}
   .bp{margin-top:16px}
   .bp-frame{border-radius:20px}
   .step-head h2{font-size:20px}
+  .step-head{padding:10px 10px 10px 14px;border-radius:18px}
+  .step-art{width:56px;height:56px;border-radius:15px}
+  .step-art img{width:48px;height:48px}
   .step-key{padding:16px 16px}
   .step-key b{font-size:23px}
   .step-key p{font-size:15.5px}

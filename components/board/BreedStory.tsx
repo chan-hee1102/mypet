@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import type { MeterRow, StoryKey, StorySource } from '@/lib/care';
 import type { BreedImage } from '@/lib/breedImage';
 import { CareIcon, type CareIconName } from './CareIcon';
+import { ART } from './ShopCards';
 
 /**
  * 품종 페이지 순서형 부품(2026-11-19 사장님 「카드가 한곳에 몰려 있고 누르면 빠진다 → 1번 사료, 2번 산책… 설명과 같이 순서대로」).
@@ -38,14 +39,23 @@ export function BreedPhoto({ img, name }: { img: BreedImage; name: string }) {
 export function Step({ n, id, title, icon, tone, keyLine, sources, children }: { n: number; id: string; title: string; icon: CareIconName; tone: string; keyLine?: ReactNode; sources: StorySource[]; children: ReactNode }) {
   return (
     <section id={id} className="sheet step">
-      <header className="step-head">
+      {/* 칸 머리 = 칸 색 띠 + 오른쪽 3D 그림 타일(2026-11-22 사장님 「사료·집·간식이 구분되게」) — 그림은 쿠팡 카드와 같은 public/shop/*.webp.
+          그림 배경이 흰색이라 색 띠 위에선 흰 타일 안에 둔다. 그림이 없는 칸(건강)은 예전 선 아이콘 */}
+      <header className={`step-head tone-${tone}`}>
         <span className="step-n" aria-hidden="true">
           {n}
         </span>
         <h2>{title}</h2>
-        <span className={`step-ico shop-ico--${tone}`} aria-hidden="true">
-          <CareIcon name={icon} size={30} />
-        </span>
+        {ART.has(icon) ? (
+          <span className="step-art" aria-hidden="true">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`/shop/${icon}.webp`} alt="" width={256} height={256} loading="lazy" decoding="async" />
+          </span>
+        ) : (
+          <span className={`step-ico shop-ico--${tone}`} aria-hidden="true">
+            <CareIcon name={icon} size={30} />
+          </span>
+        )}
       </header>
       {keyLine}
       {children}

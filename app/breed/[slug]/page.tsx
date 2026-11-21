@@ -84,7 +84,7 @@ const SECTIONS: { key: SecKey; dog: string; cat: string; icon: [CareIconName, Ca
   { key: 'toy', dog: '장난감', cat: '장난감', icon: ['ball', 'kicker'], shop: ['장난감', '장난감'] },
   { key: 'grooming', dog: '털 관리', cat: '털 관리', icon: ['brush', 'comb'], shop: ['털 관리 용품', '털 관리 용품'] },
   { key: 'potty', dog: '배변', cat: '화장실', icon: ['pad', 'litter'], shop: ['배변 용품', '화장실 용품'] },
-  { key: 'home', dog: '집 환경', cat: '집 환경', icon: ['house', 'house'], shop: ['집에 두면 좋은 것', '집에 두면 좋은 것'] },
+  { key: 'home', dog: '집 환경', cat: '집 환경', icon: ['bed', 'house'], shop: ['집에 두면 좋은 것', '집에 두면 좋은 것'] },
   { key: 'health', dog: '건강', cat: '건강', icon: ['heart', 'heart'], shop: ['', ''] },
 ];
 

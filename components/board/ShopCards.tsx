@@ -8,7 +8,7 @@ import { CareIcon } from './CareIcon';
  * 카드 그림이 있는 아이콘(public/shop/<아이콘>.webp, 2026-11-22) — OpenAI gpt-image-2로 3×3 격자 6장(물건 54개)을 그려 잘랐다(원본 C:/Users/mukke/mypet-img/shop).
  * 브랜드·글자 없는 일반 그림이라 특정 상품을 가리키지 않는다(링크는 쿠팡 검색 결과). 목록에 없는 아이콘은 예전처럼 선 아이콘.
  */
-const ART = new Set([
+export const ART = new Set([
   'bag', 'can', 'bowl', 'slowBowl', 'fountain', 'bone', 'chew', 'tube', 'leaf', 'nose', 'rope', 'ring', 'plush', 'ball', 'puzzle', 'wand', 'kicker', 'tunnel',
   'harness', 'leash', 'poopBag', 'tag', 'vest', 'muzzle', 'clothes', 'carrier', 'coolMat', 'brush', 'comb', 'rake', 'rubber', 'bottle', 'clipper', 'tooth', 'wipe', 'spray',
   'pad', 'tray', 'litter', 'box', 'mat', 'fence', 'stairs', 'bed', 'crate', 'cam', 'tower', 'wheel', 'hammock', 'scratcher', 'house', 'window', 'heater',
