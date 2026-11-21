@@ -216,19 +216,25 @@ body:has(.tz) .site-header-in,body:has(.tz) .site-footer-in{max-width:760px}
 .shop-disc{margin-top:6px;font-size:13px;font-weight:600;line-height:1.5;color:var(--forest)}
 .shop-row{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
 .shop-row li{min-width:0}
-.shop-card{position:relative;display:flex;flex-direction:column;height:100%;padding:16px;border-radius:20px;background:var(--tz-soft);text-decoration:none;transition:transform .15s var(--ease),background-color .15s}
-a.shop-card:hover{background:#ebefe7}
+/* 쿠팡 카드(2026-11-22 개편) — 위에 흰 상품 칸 + 3D 그림(public/shop/아이콘.webp, OpenAI gpt-image-2 격자 6장을 잘라 순백 배경),
+   아래 카드 폭을 꽉 채운 단추 「이 사료 보러 가기 ↗」. 그림은 브랜드 없는 일반 그림 — 링크는 쿠팡 검색 결과라 특정 상품처럼 보이지 않게.
+   ⚠️ 그림은 <img>로 그대로(next/image로 다시 압축하면 흰색이 254로 바뀌어 흰 칸 안에 네모가 비친다) */
+.shop-card{position:relative;display:flex;flex-direction:column;height:100%;padding:10px 10px 12px;border:2px solid transparent;border-radius:20px;background:var(--tz-soft);text-decoration:none;transition:transform .15s var(--ease),border-color .15s}
+a.shop-card:hover{border-color:var(--forest)}
 a.shop-card:active{transform:scale(.97)}
 .shop-card--empty{outline:1.5px dashed var(--grey300);outline-offset:-1.5px}
-.shop-ico{display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:18px;background:#fff;transition:transform .2s var(--spring)}
-.shop-ico{--ci-ink:var(--forest)}
-a.shop-card:hover .shop-ico{transform:rotate(-4deg) scale(1.05)}
-.shop-card b{margin-top:12px;font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--tz-ink)}
-.shop-pick{margin-top:4px;margin-bottom:16px;font-size:14px;line-height:1.55;color:var(--tz-sub)}
-/* 어디로 가는지 — 카드 오른쪽 위 작은 「쿠팡」(카드마다 수수료 문장을 뺀 대신, 2026-11-19) */
-.shop-src{position:absolute;top:16px;right:16px;font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--tz-sub)}
-.shop-go{display:inline-flex;align-items:center;gap:4px;align-self:flex-start;margin-top:auto;padding:8px 14px;border-radius:var(--pill);background:var(--forest);color:#fff;font-size:13.5px;font-weight:700}
-.shop-go svg{transition:transform .15s var(--ease)}
+.shop-art{position:relative;display:flex;align-items:center;justify-content:center;height:136px;border-radius:14px;background:#fff;overflow:hidden}
+.shop-art img{width:116px;height:116px;object-fit:contain;transition:transform .25s var(--ease)}
+a.shop-card:hover .shop-art img{transform:translateY(-3px) scale(1.06)}
+.shop-art .shop-ico{width:72px;height:72px;background:none}
+.shop-card b{margin-top:12px;padding:0 4px;font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--tz-ink)}
+.shop-pick{margin-top:4px;margin-bottom:14px;padding:0 4px;font-size:14px;line-height:1.55;color:var(--tz-sub)}
+/* 어디로 가는지 — 그림 칸 오른쪽 위 「쿠팡」. 같은 그림 카드 구분 꼬리표는 왼쪽 아래(ShopCards tagOf) */
+.shop-tag{position:absolute;left:8px;bottom:8px;padding:4px 10px;border-radius:var(--pill);background:var(--lime-soft);color:var(--forest);font-size:13px;font-weight:800;letter-spacing:-.01em}
+.shop-src{position:absolute;top:8px;right:8px;padding:3px 9px;border-radius:var(--pill);background:var(--tz-soft);font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--tz-sub)}
+.shop-go{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:auto;min-height:46px;padding:0 12px;border-radius:13px;background:var(--forest);color:#fff;font-size:15px;font-weight:700;letter-spacing:-.01em;transition:background-color .15s}
+.shop-go svg{flex:none;color:var(--lime);transition:transform .15s var(--ease)}
+a.shop-card:hover .shop-go{background:#244d0a}
 a.shop-card:hover .shop-go svg{transform:translate(2px,-2px)}
 .shop-card--empty .shop-go{background:var(--grey200);color:var(--tz-sub)}
 
@@ -465,6 +471,6 @@ a.shop-card:hover .shop-go svg{transform:translate(2px,-2px)}
   .bf-head{flex-direction:column;align-items:flex-start}
 }
 @media (prefers-reduced-motion:reduce){
-  .gl-row,.gl-go,.pic-card,.pic-img,.go,.shop-card,.shop-ico,.shop-go svg,.chip,.tz-nav a{transition:none}
+  .gl-row,.gl-go,.pic-card,.pic-img,.go,.shop-art img,.shop-card,.shop-ico,.shop-go svg,.chip,.tz-nav a{transition:none}
   .hp-photo img{animation:none}
 }

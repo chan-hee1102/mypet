@@ -1,8 +1,24 @@
 import type { Pick, ShopCat } from '@/lib/shop';
 
-/** 단추 글 — 「쿠팡에서 보기」 대신 무엇을 보러 가는지(2026-11-19 사장님). 어디로 가는지는 카드 오른쪽 위 「쿠팡」과 밖으로 나가는 화살표로 밝힌다 */
-const GO: Record<ShopCat, string> = { food: '맞는 사료 보기', treat: '맞는 간식 보기', toy: '맞는 장난감 보기', walk: '맞는 용품 보기', grooming: '맞는 용품 보기', potty: '맞는 용품 보기', home: '맞는 용품 보기' };
+/** 단추 글 — 무엇을 보러 가는지(2026-11-19 사장님 → 11-22 「더 유도하게」: 「이 사료 보러 가기」). 어디로 가는지는 그림 칸 오른쪽 위 「쿠팡」과 밖으로 나가는 화살표로 밝힌다 */
+const GO: Record<ShopCat, string> = { food: '이 사료 보러 가기', treat: '이 간식 보러 가기', toy: '이 장난감 보러 가기', walk: '이 용품 보러 가기', grooming: '이 용품 보러 가기', potty: '이 용품 보러 가기', home: '이 용품 보러 가기' };
 import { CareIcon } from './CareIcon';
+
+/**
+ * 카드 그림이 있는 아이콘(public/shop/<아이콘>.webp, 2026-11-22) — OpenAI gpt-image-2로 3×3 격자 6장(물건 54개)을 그려 잘랐다(원본 C:/Users/mukke/mypet-img/shop).
+ * 브랜드·글자 없는 일반 그림이라 특정 상품을 가리키지 않는다(링크는 쿠팡 검색 결과). 목록에 없는 아이콘은 예전처럼 선 아이콘.
+ */
+const ART = new Set([
+  'bag', 'can', 'bowl', 'slowBowl', 'fountain', 'bone', 'chew', 'tube', 'leaf', 'nose', 'rope', 'ring', 'plush', 'ball', 'puzzle', 'wand', 'kicker', 'tunnel',
+  'harness', 'leash', 'poopBag', 'tag', 'vest', 'muzzle', 'clothes', 'carrier', 'coolMat', 'brush', 'comb', 'rake', 'rubber', 'bottle', 'clipper', 'tooth', 'wipe', 'spray',
+  'pad', 'tray', 'litter', 'box', 'mat', 'fence', 'stairs', 'bed', 'crate', 'cam', 'tower', 'wheel', 'hammock', 'scratcher', 'house', 'window', 'heater',
+]);
+/**
+ * 같은 그림을 쓰는 카드끼리(사료 봉지 3장, 덴탈껌, 샴푸·귀 세정제…) 구분하는 작은 꼬리표 — 카드 이름에서 그대로 뽑는다(새 사실 없음).
+ * 앞에 있는 말이 먼저 잡힌다(「대형견 퍼피 사료」 → 퍼피).
+ */
+const TAG_WORDS = ['퍼피', '키튼', '성견', '성묘', '노령', '체중 관리', '덴탈', '동결건조', '오래 씹는', '훈련용', '귀 세정제', '샴푸', '눈가', '주름', '일반형', '메모리폼', '벤토나이트', '두부', '입구 낮은', 'Y형', '조끼형', '스트리핑', '일자', '대형묘', '대형'];
+const tagOf = (title: string) => TAG_WORDS.find((w) => title.includes(w));
 
 /**
  * 준비물 카드 — 쿠팡 파트너스 링크(lib/shop.ts). 그림은 우리 아이콘, 글은 「고르는 기준」(사실)만.
@@ -35,12 +51,20 @@ export function ShopCards({ picks, label = '준비물', intro }: { picks: Pick[]
         {picks.map((p) => {
           const body = (
             <>
-              <span className={`shop-ico shop-ico--${p.cat}`}>
-                <CareIcon name={p.icon} size={42} />
+              <span className="shop-art">
+                {ART.has(p.icon) ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={`/shop/${p.icon}.webp`} alt="" width={256} height={256} loading="lazy" decoding="async" />
+                ) : (
+                  <span className={`shop-ico shop-ico--${p.cat}`}>
+                    <CareIcon name={p.icon} size={46} />
+                  </span>
+                )}
+                {p.url ? <span className="shop-src">쿠팡</span> : null}
+                {tagOf(p.title) ? <span className="shop-tag">{tagOf(p.title)}</span> : null}
               </span>
               <b>{p.title}</b>
               <span className="shop-pick">{p.pick}</span>
-              {p.url ? <span className="shop-src">쿠팡</span> : null}
               <span className="shop-go">
                 {p.url ? GO[p.cat] : '링크 준비 중'}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

@@ -205,6 +205,30 @@ function bySize<T>(mix: MixSize[] | null, vals: T[] | undefined, base: T, render
   ));
 }
 
+/**
+ * 쿠팡 카드 묶음 제목(2026-11-22 사장님 「말티즈가 먹으면 좋은 사료 보기처럼 유도」) — 품종 이름이 들어간 권하는 말.
+ * ⚠️ 「먹으면 좋은」은 건강 효과처럼 읽혀(표시광고법·추천보증 심사지침) 「먹기 좋은」(알갱이 크기 — 바로 아래 소개 문장의 사실)으로 쓴다.
+ *    효능(좋아요·예방·개선)을 말하지 않는다. 나머지 칸은 쓰임만 말한다.
+ */
+function shopHeading(key: SecKey, name: string, shopLabel: string, isDog: boolean): string {
+  switch (key) {
+    case 'food':
+      return `${josa(name, '이/가')} 먹기 좋은 사료`;
+    case 'treat':
+      return `${name}에게 주기 좋은 간식`;
+    case 'toy':
+      return `${josa(name, '이/가')} 갖고 놀 장난감`;
+    case 'walk':
+      return isDog ? `${name} 산책 준비물` : `${name} 놀이 준비물`;
+    case 'grooming':
+      return `${name} 털 관리 용품`;
+    case 'potty':
+      return isDog ? `${name} 배변 용품` : `${name} 화장실 용품`;
+    default:
+      return key === 'home' ? `${name} 집 환경 준비물` : `${name}에게 맞는 ${shopLabel}`;
+  }
+}
+
 export default function BreedPage({ params }: { params: { slug: string } }) {
   const b = findBreed(params.slug);
   if (!b) notFound();
@@ -393,7 +417,7 @@ export default function BreedPage({ params }: { params: { slug: string } }) {
 
                   {s.key !== 'health'
                     ? bySize(mix, mix?.map((v, i) => ({ pk: mixPicks![i][s.key] ?? [], vp: v.p })), { pk: picks[s.key] ?? [], vp: p }, ({ pk, vp }) => (
-                        <ShopCards picks={pk} label={`${name}에게 맞는 ${shopLabel}`} intro={shopIntro(s.key, b.breed_ko, vp)} />
+                        <ShopCards picks={pk} label={shopHeading(s.key, name, shopLabel, isDog)} intro={shopIntro(s.key, b.breed_ko, vp)} />
                       ))
                     : null}
                   <LawList rules={lawFor[s.key] ?? []} />
