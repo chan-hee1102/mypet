@@ -63,6 +63,8 @@ export function ShopCards({ picks, label = '준비물', intro }: { picks: Pick[]
                 {p.url ? <span className="shop-src">쿠팡</span> : null}
                 {tagOf(p.title) ? <span className="shop-tag">{tagOf(p.title)}</span> : null}
               </span>
+              {/* 붙인 이유 — 상품 효과가 아니라 품종 사실(lib/shop whyOf, 2026-11-22). 「통증 완화」 같은 효능 문구 금지 */}
+              {p.why ? <span className="shop-why">{p.why}</span> : null}
               <b>{p.title}</b>
               <span className="shop-pick">{p.pick}</span>
               <span className="shop-go">

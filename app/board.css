@@ -227,6 +227,9 @@ a.shop-card:active{transform:scale(.97)}
 .shop-art img{width:116px;height:116px;object-fit:contain;transition:transform .25s var(--ease)}
 a.shop-card:hover .shop-art img{transform:translateY(-3px) scale(1.06)}
 .shop-art .shop-ico{width:72px;height:72px;background:none}
+.shop-why{display:inline-flex;align-items:center;gap:5px;align-self:flex-start;margin:12px 4px 0;padding:4px 10px 4px 6px;border-radius:var(--pill);background:#fff1e0;color:#8a4600;font-size:13px;font-weight:800;letter-spacing:-.01em}
+.shop-why::before{content:"!";display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:#ffdcb3;font-size:11px;font-weight:900}
+.shop-why+b{margin-top:8px}
 .shop-card b{margin-top:12px;padding:0 4px;font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--tz-ink)}
 .shop-pick{margin-top:4px;margin-bottom:14px;padding:0 4px;font-size:14px;line-height:1.55;color:var(--tz-sub)}
 /* 어디로 가는지 — 그림 칸 오른쪽 위 「쿠팡」. 같은 그림 카드 구분 꼬리표는 왼쪽 아래(ShopCards tagOf) */

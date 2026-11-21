@@ -184,12 +184,86 @@ export const searchUrl = (q: string) => `https://www.coupang.com/np/search?compo
 /** 개발 화면(또는 SHOP_PREVIEW=1로 빌드한 검수용)에선 링크 없는 카드도 보여 준다. 운영은 링크 있는 카드만 */
 const SHOW_EMPTY = process.env.NODE_ENV === 'development' || process.env.SHOP_PREVIEW === '1';
 
-export type Pick = Slot & { url: string | null };
+/** why = 이 품종에 이 카드를 붙인 이유(품종 데이터의 주의 항목) — 카드 꼬리표 「무릎(슬개골) 주의 품종」 */
+export type Pick = Slot & { url: string | null; why?: string };
 
-/** 이 품종·이 칸의 카드 — 점수 높은 순으로 n장 */
+/**
+ * 카드를 붙인 이유 꼬리표(2026-11-22 사장님 「무릎 통증 완화 같은 느낌으로 표시」).
+ * ⚠️ 상품의 효과(「통증 완화」「관절에 좋아요」「예방」)는 쓰지 않는다 — 근거 없는 효능 광고(표시광고법)·추천보증 심사지침 위반.
+ *    대신 「이 품종은 무릎(슬개골)을 조심해요」라는 **품종 사실**(lib/data/care flags — AKC 등 출처)을 붙인다. 읽는 사람은 왜 이 물건인지 안다.
+ * 카드마다 이유가 되는 주의 항목을 앞에서부터 본다 — 그 품종에 있는 첫 항목이 꼬리표가 된다. 없으면 꼬리표 없음.
+ */
+const FLAG_TAG: Partial<Record<P['flags'][number], string>> = {
+  patella: '무릎(슬개골) 주의 품종',
+  hip: '고관절 주의 품종',
+  back: '허리 디스크 주의 품종',
+  joint: '관절 주의 품종',
+  trachea: '기관 허탈 주의 품종',
+  brachy: '코가 짧은 단두종',
+  tearStain: '눈물 자국이 잘 생기는 품종',
+  eyes: '눈을 다치기 쉬운 품종',
+  ears: '외이염이 잦은 품종',
+  skinFold: '주름 관리가 필요한 품종',
+  skin: '피부가 예민한 품종',
+  dental: '치석이 잘 생기는 품종',
+  obesity: '살이 잘 찌는 품종',
+  bloat: '위확장 주의 품종',
+  separation: '혼자 있기 힘들어하는 품종',
+  prey: '추격 본능이 강한 품종',
+  escape: '탈출을 잘하는 품종',
+  dangerous: '법이 정한 맹견',
+  kidney: '신장병 주의 품종',
+  urinary: '요로 질환 주의 품종',
+  climber: '높은 곳을 좋아하는 품종',
+};
+const WHY: Record<string, P['flags']> = {
+  'dog-food-light': ['obesity'],
+  'dog-food-slowbowl': ['bloat', 'obesity'],
+  'dog-treat-dental-small': ['dental'],
+  'dog-treat-dental-large': ['dental'],
+  'dog-treat-single': ['skin'],
+  'dog-toy-nose': ['separation', 'prey'],
+  'dog-toy-puzzle': ['separation', 'obesity'],
+  'dog-walk-vest': ['trachea', 'brachy'],
+  'dog-walk-yharness': ['trachea', 'brachy'],
+  'dog-walk-leash': ['prey', 'escape'],
+  'dog-walk-muzzle': ['dangerous'],
+  'dog-groom-shampoo': ['skin', 'skinFold'],
+  'dog-groom-tooth': ['dental'],
+  'dog-groom-eye': ['tearStain', 'eyes'],
+  'dog-groom-ear': ['ears'],
+  'dog-groom-fold': ['skinFold'],
+  'dog-home-mat': ['patella', 'hip', 'back', 'joint'],
+  'dog-home-stairs': ['back', 'patella'],
+  'dog-home-orthobed': ['hip', 'joint'],
+  'dog-home-crate': ['separation'],
+  'dog-home-cam': ['separation'],
+  'cat-food-wet': ['kidney', 'urinary'],
+  'cat-food-light': ['obesity'],
+  'cat-food-bowl': ['brachy'],
+  'cat-treat-freeze': ['skin'],
+  'cat-treat-dental': ['dental'],
+  'cat-toy-track': ['separation'],
+  'cat-toy-puzzle': ['obesity'],
+  'cat-play-tower': ['climber'],
+  'cat-play-towerlow': ['joint'],
+  'cat-groom-tooth': ['dental'],
+  'cat-groom-eye': ['tearStain', 'eyes', 'brachy'],
+  'cat-groom-shampoo': ['skin'],
+  'cat-groom-ear': ['ears'],
+  'cat-potty-boxlow': ['joint'],
+  'cat-home-fountain': ['kidney', 'urinary'],
+  'cat-home-screen': ['escape'],
+};
+const whyOf = (p: P, id: string) => {
+  const f = (WHY[id] ?? []).find((x) => p.flags.includes(x));
+  return f ? FLAG_TAG[f] : undefined;
+};
+
+/** 이 품종·이 칸의 카드 — 점수 높은 순으로 n장(붙인 이유 꼬리표 why 포함) */
 export function picksFor(p: P, cat: ShopCat, n = 3): Pick[] {
   return rankFor(p, cat)
-    .map((s) => ({ ...s, url: linkOf(s.id) }))
+    .map((s) => ({ ...s, url: linkOf(s.id), why: whyOf(p, s.id) }))
     .filter((s) => s.url || SHOW_EMPTY)
     .slice(0, n);
 }
