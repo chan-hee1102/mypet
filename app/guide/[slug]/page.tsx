@@ -7,10 +7,13 @@ import { Icon } from '@/components/icons';
 import { SITE } from '@/lib/site';
 import { Disclosure, ShopCards } from '@/components/board/ShopCards';
 import { PAGE_SHOP, hasLive, picksById } from '@/lib/shop';
+import { VERDICT, foodPath, foodsFor } from '@/lib/foodSafety';
 import { PUBLISHED, UPDATED } from '@/lib/breedSeo';
 
 /** 2026-11-19에 처음 연 가이드 — 처음 낸 날도 그날 */
 const NEW_GUIDES = new Set(['found-stray-pet', 'neutered-food-amount', 'kibble-cup-grams', 'kitten-weight-by-week']);
+/** 2026-11-22에 연 법·제도 가이드 — 처음 낸 날·고친 날 모두 그날(조문 기준일은 본문 「시행」 줄) */
+const LAW_DAY = '2026-11-22';
 
 /**
  * 정보 가이드 상세 — 검색·AI 답변엔진 유입의 본체.
@@ -64,8 +67,8 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       inLanguage: 'ko',
       mainEntityOfPage: url,
       // 2026-11-19: 날짜·운영자(@id = SiteJsonLd의 카이랩)·이미지 — 생성형 검색은 「누가·언제」를 인용 판단에 쓴다
-      datePublished: NEW_GUIDES.has(g.slug) ? UPDATED : PUBLISHED,
-      dateModified: UPDATED,
+      datePublished: g.body === 'law' ? LAW_DAY : NEW_GUIDES.has(g.slug) ? UPDATED : PUBLISHED,
+      dateModified: g.body === 'law' ? LAW_DAY : UPDATED,
       image: `${SITE.url}/opengraph-image`,
       author: { '@id': `${SITE.url}/#org` },
       publisher: { '@id': `${SITE.url}/#org` },
@@ -120,6 +123,19 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       <article className="gbody">
         <GuideBody guide={g} />
       </article>
+
+      {g.body === 'toxic-foods' && g.species ? (
+        <section className="bsec">
+          <h2>음식별로 자세히 보기</h2>
+          <div className="blinks">
+            {foodsFor(g.species).map((f) => (
+              <Link key={f.slug} href={foodPath(g.species!, f.slug)}>
+                {f.name} — {VERDICT[f[g.species!].verdict!].short}
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {shop && picks.length > 0 && (
         <section className="bsec">

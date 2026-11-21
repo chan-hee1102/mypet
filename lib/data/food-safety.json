@@ -1,0 +1,3326 @@
+[
+ {
+  "slug": "grape",
+  "name": "포도·건포도",
+  "aliases": [
+   "포도",
+   "건포도",
+   "청포도",
+   "적포도",
+   "샤인머스캣",
+   "거봉",
+   "캠벨포도"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "강아지에게 포도와 건포도는 주면 안 돼요. 적은 양으로도 신장이 손상될 수 있어요.",
+   "why": "포도가 개에게 왜 해로운지는 아직 확실하지 않고, 주석산이 원인으로 추정돼요. 안전한 양이 정해져 있지 않아 몇 알만 먹어도 문제가 생기는 개가 있고, 씨 있는 것·씨 없는 것, 청포도·적포도, 유기농 여부와 상관없이 중독 사례가 있어요.",
+   "symptoms": [
+    "먹은 뒤 몇 시간~하루 안에 구토·설사",
+    "점점 기운이 없어짐",
+    "물을 많이 마시고 소변이 늘거나, 반대로 소변이 줄어듦",
+    "배 아파함",
+    "입에서 암모니아 같은 냄새",
+    "탈수"
+   ],
+   "howTo": "",
+   "ifEaten": "한 알이라도 먹었다면 증상이 없어도 바로 동물병원에 연락하세요. 일찍 치료할수록 결과가 좋아요. 언제, 몇 알 먹었는지 함께 알려 주세요."
+  },
+  "cat": {
+   "verdict": "no",
+   "answer": "고양이에게도 포도와 건포도는 주지 마세요. 개만큼 위험한지는 확실하지 않지만, 수의 자료들은 예방 차원에서 피하라고 권해요.",
+   "why": "고양이가 포도를 먹고 신장이 나빠졌다는 일화적 보고는 있지만, 정식으로 발표된 사례는 없어 위험 정도는 아직 몰라요. 고양이는 신장 손상에 민감한 편이라 피하는 것이 권장돼요.",
+   "symptoms": [
+    "신장 기능 이상(고양이는 일화적 보고만 있어요)"
+   ],
+   "howTo": "",
+   "ifEaten": "먹었다면 바로 동물병원에 연락하세요. 집에서 억지로 토하게 하지 마세요. 고양이를 안전하게 토하게 하는 일반 의약품은 없어요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Fruits and Vegetables Dogs Can or Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/",
+    "supports": "포도·건포도는 견종·성별·나이와 상관없이 개에게 독성이 강하고 급성 신부전을 일으킬 수 있음. 먹었다면 바로 수의사에게 연락."
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "주석산이 독성 성분으로 추정되며, 개는 이를 처리하지 못해 신장 손상이 생길 수 있음."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Grape, Raisin, and Currant Poisoning in Dogs",
+    "url": "https://vcahospitals.com/know-your-pet/grape-raisin-and-currant-poisoning-in-dogs",
+    "supports": "확립된 독성 용량이 없음. 씨 유무·색·유기농 여부와 상관없이 중독 사례. 12~24시간 안 구토·설사, 이후 갈증·다뇨·복통·암모니아 냄새·탈수·무기력. 빨리 치료할수록 예후가 좋음. 고양이는 일화적 보고만 있어 위험도 불명, 예방 차원에서 주지 말 것."
+   },
+   {
+    "org": "Merck Veterinary Manual",
+    "title": "Grape, Raisin, and Tamarind (Vitis spp, Tamarindus spp) Toxicosis in Dogs",
+    "url": "https://www.merckvetmanual.com/toxicology/food-hazards/grape-raisin-and-tamarind-vitis-spp-tamarindus-spp-toxicosis-in-dogs",
+    "supports": "주석산은 제안된 독성 원인. 대부분 6~12시간 안 구토·설사, 24~72시간 안 소변이 줄거나 나오지 않는 신부전. 고양이·페럿은 일화적 신부전 보고만 있고 발표된 증례는 없음."
+   },
+   {
+    "org": "Pet Poison Helpline",
+    "title": "Grapes Is Toxic To Dogs",
+    "url": "https://www.petpoisonhelpline.com/poison/grapes/",
+    "supports": "포도 섭취는 개에게 독성. 위장 증상 뒤 곧 신장 손상이 이어짐."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Household Hazards - Toxic Hazards for Cats",
+    "url": "https://vcahospitals.com/know-your-pet/household-hazards-toxic-hazards-for-cats",
+    "supports": "포도·건포도가 고양이에게 같은 문제를 일으키는지는 불명이나, 고양이는 신장 손상에 민감해 주지 말 것을 권함. 고양이를 안전하게 토하게 하는 일반 의약품은 없음."
+   }
+  ]
+ },
+ {
+  "slug": "banana",
+  "name": "바나나",
+  "aliases": [
+   "바나나",
+   "바나나 껍질",
+   "냉동 바나나"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 바나나를 조금 먹어도 괜찮아요. 껍질은 벗기고 간식으로 조금만 주세요.",
+   "why": "바나나 과육은 개에게 독성이 없어요. 다만 자연 당분이 있어 매일 주기보다는 가끔 주는 간식으로 적당해요. 껍질은 독은 없지만 소화가 잘 안 돼 배탈이 나거나 드물게 장이 막힐 수 있어요.",
+   "symptoms": [],
+   "howTo": "껍질을 벗기고 한입 크기로 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서 주는 게 기준이에요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "고양이도 바나나를 조금 먹는 건 괜찮아요. 다만 꼭 줄 필요는 없는 음식이에요.",
+   "why": "ASPCA는 바나나를 고양이에게 독성이 없는 식물로 분류하고, VCA는 노령묘 간식으로 바나나를 조금 주는 것을 소개해요. 고양이는 고기에서 영양을 얻는 육식동물이고 단맛을 거의 느끼지 못해요.",
+   "symptoms": [],
+   "howTo": "껍질을 벗기고 아주 작게 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Bananas? Benefits, Risks, and Safe Serving Tips",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-bananas/",
+    "supports": "개는 바나나를 먹어도 됨. 자연 당분이 있어 매일이 아니라 적당히. 껍질은 독성은 없지만 소화가 어려워 배탈이나 드물게 장폐색 가능, 껍질은 벗길 것."
+   },
+   {
+    "org": "AKC",
+    "title": "How Many Treats Can Your Dog Have?",
+    "url": "https://www.akc.org/expert-advice/nutrition/how-many-treats-can-dog-have/",
+    "supports": "간식은 하루 섭취 열량의 10%를 넘지 않는 것이 기준(개수가 아니라 열량 기준)."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-toxic Plants: Banana",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/banana",
+    "supports": "바나나(Musa acuminata)는 개·고양이·말에게 독성 없음."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Feeding Mature, Senior, and Geriatric Cats",
+    "url": "https://vcahospitals.com/know-your-pet/feeding-mature-senior-and-geriatric-cats",
+    "supports": "사과·바나나·오렌지·베리류를 조금씩 주면 노령묘 간식이 될 수 있음."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Cat Treats",
+    "url": "https://vcahospitals.com/know-your-pet/cat-treats",
+    "supports": "고양이 간식은 하루 열량의 10%로 제한."
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Feeding Your Cat",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "supports": "고양이는 동물성 식품에만 있는 영양소에 의존하는 육식동물(obligate carnivore)."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "10 Facts About Cats",
+    "url": "https://vcahospitals.com/resources/lifestyle-cat/facts-about-your-feline-friend",
+    "supports": "고양이는 단맛을 거의 또는 전혀 느끼지 못함."
+   }
+  ]
+ },
+ {
+  "slug": "apple",
+  "name": "사과",
+  "aliases": [
+   "사과",
+   "사과씨",
+   "사과 껍질",
+   "부사",
+   "홍로",
+   "애플"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 사과를 먹어도 돼요. 씨와 심지는 꼭 빼고 주세요.",
+   "why": "사과 과육은 개에게 독성이 없어요. 하지만 씨에는 소량의 시안화물(청산 성분)이 들어 있고, 심지와 꼭지는 질겨서 목에 걸릴 수 있어요. 사과 한 개에는 당분이 꽤 많아 통째로 주기엔 양이 많아요.",
+   "symptoms": [],
+   "howTo": "깨끗이 씻은 뒤 씨·심지·꼭지를 빼고 얇게 썰어 한두 조각만 주세요. 설탕이나 향신료가 들어간 사과 파이 같은 가공품은 피하세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "고양이도 씨와 심지를 뺀 사과를 조금 먹는 건 괜찮아요.",
+   "why": "VCA는 씨와 심지를 뺀 사과 조각을 고양이와 나눠 먹을 수 있는 간식으로 소개해요. 다만 ASPCA에 따르면 사과의 줄기·잎·씨에는 시안화물이 있어 고양이에게도 독성이 있어요.",
+   "symptoms": [],
+   "howTo": "씨·심지·꼭지를 빼고 양념 없이 아주 작게 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Apples? How to Safely Feed Apples to Dogs",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-apples/",
+    "supports": "씨에 소량의 시안화물이 있어 개가 먹지 않게 할 것. 심지·꼭지는 질겨 목에 걸릴 수 있음. 사과 한 개는 당분이 많아 한두 조각이면 충분. 씻어서 썰어 주고, 설탕·향신료가 든 사과 가공품은 피할 것."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-toxic Plants: Apple",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/apple",
+    "supports": "사과는 개·고양이·말에게 독성 식물로 분류. 줄기·잎·씨에 시안화물(시안 배당체)이 있음."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Fall food dos and don'ts for cats",
+    "url": "https://vcahospitals.com/urgent-care/health-and-safety-tips/fall-food-dos-and-donts-cats",
+    "supports": "사과 조각은 고양이와 나눠 먹을 수 있는 간식. 씨에 시안화물이 있으니 씨와 심지는 꼭 뺄 것."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "사과는 고양이가 먹어도 안전한 음식 목록에 포함. 양념 없이 줄 것. 간식 열량은 하루 열량의 10% 안."
+   },
+   {
+    "org": "AKC",
+    "title": "How Many Treats Can Your Dog Have?",
+    "url": "https://www.akc.org/expert-advice/nutrition/how-many-treats-can-dog-have/",
+    "supports": "간식은 하루 섭취 열량의 10%를 넘지 않는 것이 기준."
+   }
+  ]
+ },
+ {
+  "slug": "watermelon",
+  "name": "수박",
+  "aliases": [
+   "수박",
+   "수박씨",
+   "수박 껍질",
+   "씨없는수박",
+   "애플수박"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 씨와 껍질을 뺀 수박을 조금 먹어도 돼요.",
+   "why": "수박 과육은 대부분 수분이에요. 하지만 씨를 많이 먹거나 단단한 껍질을 큰 조각으로 삼키면 소화가 안 돼 배탈이 나거나 장이 막힐 수 있어요. 많이 먹으면 당분과 섬유질 때문에 설사할 수 있어요.",
+   "symptoms": [],
+   "howTo": "씨와 껍질을 모두 빼고 한입 크기로 몇 조각만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "고양이도 씨 없는 수박 과육을 조금 먹는 건 괜찮아요.",
+   "why": "VCA는 씨 없는 수박을 고양이가 먹어도 안전한 음식으로 소개해요. 다만 고양이는 단맛을 거의 느끼지 못하는 육식동물이라 꼭 줄 필요는 없어요.",
+   "symptoms": [],
+   "howTo": "씨와 껍질을 빼고 아주 작게 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Watermelon? Benefits, Risks, and Safe Serving Tips",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-watermelon/",
+    "supports": "씨를 많이 먹으면 장폐색, 껍질은 소화가 어려워 배탈·폐색 가능. 씨와 껍질을 먼저 제거. 적당히, 간식은 하루 열량의 10% 이하. 많이 먹으면 당분·섬유질로 설사 가능."
+   },
+   {
+    "org": "AKC",
+    "title": "Fruits and Vegetables Dogs Can or Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/",
+    "supports": "수박 과육은 약 92%가 수분. 껍질과 씨는 장폐색을 일으킬 수 있어 먼저 제거."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "씨 없는 수박은 고양이가 먹어도 안전한 음식 목록에 포함. 양념 없이, 간식 열량은 하루의 10% 안."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "10 Facts About Cats",
+    "url": "https://vcahospitals.com/resources/lifestyle-cat/facts-about-your-feline-friend",
+    "supports": "고양이는 단맛을 거의 또는 전혀 느끼지 못함."
+   }
+  ]
+ },
+ {
+  "slug": "strawberry",
+  "name": "딸기",
+  "aliases": [
+   "딸기",
+   "냉동 딸기",
+   "설향",
+   "킹스베리"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 딸기를 조금 먹어도 돼요. 꼭지를 떼고 잘라서 주세요.",
+   "why": "딸기는 개에게 독성이 없지만 자연 당분이 있어 당뇨가 있거나 살이 잘 찌는 개는 더 조심해야 해요. 통째로 주면 작은 개는 목에 걸릴 수 있고, 꼭지와 잎은 독은 없지만 배탈을 일으킬 수 있어요.",
+   "symptoms": [],
+   "howTo": "깨끗이 씻어 꼭지·잎을 떼고 작게 잘라 주세요. 하루 1~3개 정도로 시작하고 작은 개는 더 적게 주세요. 시럽에 절인 딸기나 통조림은 당분이 많아 주지 마세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "고양이도 딸기를 조금 먹는 건 괜찮아요.",
+   "why": "ASPCA는 딸기를 고양이에게 독성이 없는 식물로 분류하고, VCA도 고양이가 먹어도 안전한 음식으로 소개해요. 다만 고양이는 단맛을 거의 느끼지 못해 꼭 줄 필요는 없어요.",
+   "symptoms": [],
+   "howTo": "꼭지를 떼고 아주 작게 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Strawberries?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-strawberries/",
+    "supports": "적당히 먹어도 됨. 자연 당분이 있어 당뇨·비만 경향 개는 주의. 통딸기는 작은 개에게 질식 위험, 잘라서 줄 것. 꼭지·잎은 독성은 없으나 배탈 가능. 시럽·통조림 딸기는 피할 것. 하루 1~3개로 시작, 간식은 하루 열량의 10% 이하."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-toxic Plants: Strawberry",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/strawberry",
+    "supports": "딸기(Fragaria spp.)는 개·고양이·말에게 독성 없음."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "딸기는 고양이가 먹어도 안전한 음식 목록에 포함. 간식 열량은 하루의 10% 안."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "10 Facts About Cats",
+    "url": "https://vcahospitals.com/resources/lifestyle-cat/facts-about-your-feline-friend",
+    "supports": "고양이는 단맛을 거의 또는 전혀 느끼지 못함."
+   }
+  ]
+ },
+ {
+  "slug": "blueberry",
+  "name": "블루베리",
+  "aliases": [
+   "블루베리",
+   "냉동 블루베리",
+   "베리"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 블루베리를 먹어도 돼요. 아주 작은 개에게는 반으로 잘라 주세요.",
+   "why": "블루베리는 개에게 독성이 없어요. 다만 크기와 모양 때문에 아주 작은 개는 목에 걸릴 수 있어요.",
+   "symptoms": [],
+   "howTo": "씻어서 생으로 또는 얼려서 주세요. 작은 개는 2~3알이면 충분하고, 아주 작은 개는 반으로 잘라 주세요. 처음엔 조금만 주고, 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "고양이도 블루베리를 조금 먹는 건 괜찮아요.",
+   "why": "VCA는 블루베리를 고양이가 먹어도 안전한 음식으로 소개해요. 고양이는 육식동물이라 과일이 꼭 필요하지는 않아요.",
+   "symptoms": [],
+   "howTo": "씻어서 작게 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Blueberries? Benefits, Risks, and Feeding Tips",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-blueberries/",
+    "supports": "크기와 모양 때문에 아주 작은 개는 질식 위험. 작은 개는 2~3알이면 충분, 아주 작은 개는 반으로 자를 것. 생으로 또는 냉동으로, 씻어서. 간식은 하루 열량의 10% 미만."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "블루베리는 고양이가 먹어도 안전한 음식 목록에 포함. 간식 열량은 하루의 10% 안."
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Feeding Your Cat",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "supports": "고양이는 동물성 식품에만 있는 영양소에 의존하는 육식동물."
+   }
+  ]
+ },
+ {
+  "slug": "pear",
+  "name": "배",
+  "aliases": [
+   "배",
+   "신고배",
+   "서양배",
+   "배즙"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 씨와 심지를 뺀 배를 조금 먹어도 돼요.",
+   "why": "배 씨에는 미량의 시안화물이 들어 있어 개에게 주면 안 되고, 씨가 붙어 있는 심지도 빼야 해요. 시럽에 담긴 통조림 배는 당분이 너무 많아요.",
+   "symptoms": [],
+   "howTo": "씨와 심지를 빼고 한입 크기로 잘라 주세요. 작은 개는 가끔 한 조각 정도가 적당하고, 한 개를 통째로 주면 많아요. 먹는 동안 지켜봐 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": null,
+   "answer": "고양이에게 배를 줘도 되는지 직접 다룬 공식 수의 자료를 찾지 못했어요.",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Pears? Are Pears Good for Dogs?: What to Know",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-pears/",
+    "supports": "개는 배를 먹어도 됨. 씨에 미량의 시안화물이 있어 씨·심지는 주지 말 것. 통조림 배는 당분이 많아 부적합. 작은 개는 가끔 한 조각, 한 개 통째는 많음. 한입 크기로 자르고 먹는 동안 지켜볼 것. 간식은 하루 섭취량의 10% 이하."
+   }
+  ]
+ },
+ {
+  "slug": "mandarin-orange",
+  "name": "귤·오렌지",
+  "aliases": [
+   "귤",
+   "감귤",
+   "오렌지",
+   "만다린",
+   "한라봉",
+   "천혜향",
+   "귤껍질"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 껍질과 씨를 뺀 귤·오렌지 과육을 조금 먹어도 돼요.",
+   "why": "과육은 적은 양이면 괜찮아요. 껍질은 독성은 없지만 소화가 어려워 장이 막힐 수 있고, 씨는 작은 개에게 목에 걸릴 위험이 있어요. 감귤류의 껍질·씨·줄기·잎에는 정유 성분이 있어 많이 먹으면 자극이 될 수 있지만, 과육을 조금 먹는 정도는 가벼운 배탈 이상의 문제는 드물어요. 많이 먹으면 당분과 산 때문에 설사할 수 있어요.",
+   "symptoms": [],
+   "howTo": "껍질과 씨를 빼고 개 크기에 따라 하루 한두 쪽 정도만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "caution",
+   "answer": "고양이에게 귤·오렌지는 굳이 주지 않는 게 좋아요. 과육은 먹을 수 있지만 껍질과 식물 부분에는 고양이에게 해로운 성분이 있어요.",
+   "why": "ASPCA는 오렌지 나무를 고양이에게 독성이 있는 식물로 분류해요. 정유 성분과 소랄렌이 원인이고, 열매 과육은 먹을 수 있지만 껍질과 식물 부분이 문제를 일으킬 수 있다고 설명해요. VCA는 노령묘 간식의 예로 오렌지를 조금 주는 것을 언급하기도 해요.",
+   "symptoms": [
+    "구토",
+    "설사",
+    "처짐(기운 없음)",
+    "피부염"
+   ],
+   "howTo": "준다면 껍질과 씨를 완전히 빼고 과육만 아주 조금 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": "껍질이나 씨를 먹었거나 구토·설사가 보이면 동물병원에 연락하세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Oranges? Benefits, Risks, and Serving Tips",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-oranges/",
+    "supports": "개는 오렌지를 제한된 양만 먹을 수 있음. 껍질은 독성은 없지만 소화가 어렵고 폐색 가능, 씨는 작은 개에게 질식 위험. 하루 한두 쪽이면 충분, 간식은 하루 열량의 10% 안. 많이 먹으면 당분·산으로 설사. 만다린도 독성 없고 껍질·씨를 빼면 소량 가능."
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "감귤류의 줄기·잎·껍질·열매·씨에는 구연산과 정유가 있어 많이 먹으면 자극을 줄 수 있으나, 과육을 조금 먹는 정도는 가벼운 배탈 이상의 문제는 드묾."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-toxic Plants: Orange",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/orange",
+    "supports": "오렌지는 개·고양이·말에게 독성 식물로 분류(정유·소랄렌). 증상은 구토·설사·처짐·피부염 가능. 열매는 먹을 수 있으나 껍질과 식물 부분이 문제."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Feeding Mature, Senior, and Geriatric Cats",
+    "url": "https://vcahospitals.com/know-your-pet/feeding-mature-senior-and-geriatric-cats",
+    "supports": "사과·바나나·오렌지·베리류를 조금씩 주면 노령묘 간식이 될 수 있다고 언급."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Cat Treats",
+    "url": "https://vcahospitals.com/know-your-pet/cat-treats",
+    "supports": "고양이 간식은 하루 열량의 10%로 제한."
+   }
+  ]
+ },
+ {
+  "slug": "peach",
+  "name": "복숭아",
+  "aliases": [
+   "복숭아",
+   "백도",
+   "황도",
+   "천도복숭아",
+   "복숭아씨",
+   "복숭아 통조림"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 씨를 뺀 신선한 복숭아 과육을 조금 먹어도 돼요.",
+   "why": "복숭아 씨는 목에 걸리거나 장을 막을 수 있고, 시안화물 성분도 들어 있어요. 통조림이나 말린 복숭아는 당분이 많아 피하는 게 좋아요.",
+   "symptoms": [],
+   "howTo": "신선한 복숭아를 씨와 꼭지를 빼고 작은 깍둑 모양으로 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "caution",
+   "answer": "고양이에게 복숭아는 주지 않는 게 좋아요. 특히 씨·줄기·잎은 고양이에게 독성이 있어요.",
+   "why": "ASPCA는 복숭아를 고양이에게 독성이 있는 식물로 분류해요. 줄기·잎·씨에 시안화물이 있기 때문이에요. 과육을 고양이에게 줘도 되는지 직접 다룬 공식 자료는 찾지 못했어요.",
+   "symptoms": [
+    "잇몸이 벽돌색처럼 붉어짐",
+    "동공 확대",
+    "숨쉬기 힘들어함",
+    "헐떡임",
+    "쇼크"
+   ],
+   "howTo": "",
+   "ifEaten": "씨나 줄기·잎을 먹었다면 바로 동물병원에 연락하세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Peaches? Fruits Dogs Can Safely Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-peaches/",
+    "supports": "개는 복숭아를 적당히 먹을 수 있음. 씨는 질식·장폐색 위험이 있고 시안화물 성분이 있음. 통조림·말린 복숭아는 당분이 많아 비권장. 신선한 복숭아를 씨·꼭지를 빼고 작게 깍둑썰어 줄 것. 간식은 하루 열량의 10% 이하."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-toxic Plants: Peach",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/peach",
+    "supports": "복숭아는 개·고양이·말에게 독성 식물로 분류. 줄기·잎·씨에 시안화물. 증상은 벽돌색 점막, 동공 확대, 호흡 곤란, 헐떡임, 쇼크."
+   }
+  ]
+ },
+ {
+  "slug": "cherry",
+  "name": "체리",
+  "aliases": [
+   "체리",
+   "체리씨",
+   "버찌",
+   "마라스키노 체리"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "강아지에게 체리는 주지 않는 게 좋아요. 씨·줄기·잎에 시안화물이 있고, 씨가 장을 막을 수 있어요.",
+   "why": "체리는 잘 익은 과육을 빼면 식물 전체에 시안화물이 들어 있어요. 씨를 깨물어 부수면 시안화물이 나올 수 있고, 통째로 삼킨 씨는 특히 작은 개에게 장폐색을 일으킬 수 있어요. AKC는 과육을 조금 먹는 건 가능해도 체리는 권하지 않는다고 해요. 씨 없는 마라스키노 체리 같은 가공 체리는 당분이 많아요.",
+   "symptoms": [
+    "구토",
+    "식욕 저하",
+    "변비나 변 양이 줄어듦(장이 막혔을 때)",
+    "숨쉬기 힘들어함",
+    "선홍색 잇몸",
+    "동공 확대"
+   ],
+   "howTo": "",
+   "ifEaten": "몇 개를 먹었는지, 씨를 깨물었는지 확인하고 동물병원에 연락하세요. 여러 개를 먹었거나 양을 모른다면 증상이 없어도 바로 연락하세요."
+  },
+  "cat": {
+   "verdict": "no",
+   "answer": "고양이에게도 체리는 주지 마세요.",
+   "why": "ASPCA는 체리를 고양이에게도 독성이 있는 식물로 분류해요. Pet Poison Helpline도 개와 고양이 모두에게 체리 독성(경증)을 표시하고, 잘 익은 과육을 뺀 모든 부분에 시안화물이 있다고 설명해요.",
+   "symptoms": [
+    "동공 확대",
+    "숨쉬기 힘들어함",
+    "헐떡임",
+    "선홍색 잇몸",
+    "쇼크"
+   ],
+   "howTo": "",
+   "ifEaten": "씨·줄기·잎을 먹었다면 바로 동물병원에 연락하세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Cherries?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-have-cherries/",
+    "supports": "과육 소량은 먹을 수 있으나 독성·폐색 위험 때문에 체리는 권하지 않음. 씨·줄기·잎에 시안화물. 씨가 소화관에 걸릴 수 있고 작은 개는 특히 위험. 폐색 증상은 구토·식욕 저하·변비·변 감소, 시안화물 증상은 호흡 곤란·선홍색 잇몸·동공 확대. 여러 개를 먹었거나 양을 모르면 수의사에게 연락. 마라스키노 체리는 당분이 많아 피할 것."
+   },
+   {
+    "org": "Pet Poison Helpline",
+    "title": "Cherry Is Toxic To Dogs",
+    "url": "https://www.petpoisonhelpline.com/poison/cherry/",
+    "supports": "잘 익은 과육을 뺀 모든 부분에 시안화물. 씨를 깨물면 시안화물이 나올 수 있고, 통째로 삼키면 중독보다는 배탈·폐색 가능. 개·고양이 모두 독성 등급 경증. 독성량에서는 동공 확대·호흡 곤란·선홍색 잇몸·쇼크."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-toxic Plants: Cherry",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/cherry",
+    "supports": "체리(Prunus spp.)는 개·고양이·말에게 독성 식물. 시안 배당체. 증상은 벽돌색 점막, 동공 확대, 호흡 곤란, 헐떡임, 쇼크."
+   },
+   {
+    "org": "AKC",
+    "title": "Fruits and Vegetables Dogs Can or Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/",
+    "supports": "씨 주변 과육을 제외한 체리 식물에는 시안화물이 있어 개에게 독성."
+   }
+  ]
+ },
+ {
+  "slug": "mango",
+  "name": "망고",
+  "aliases": [
+   "망고",
+   "애플망고",
+   "망고씨",
+   "말린 망고"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 씨와 껍질을 뺀 망고를 가끔 조금 먹어도 돼요.",
+   "why": "망고 씨는 목에 걸리거나 소화관에 걸릴 수 있고, 소량의 시안화물도 들어 있어요. 껍질은 먹을 수는 있지만 소화가 어려워 빼는 게 좋아요. 당분이 많아 가끔 주는 간식으로 적당하고, 과일을 너무 많이 먹으면 배탈이나 설사가 날 수 있어요.",
+   "symptoms": [],
+   "howTo": "씨와 껍질을 빼고 작게 잘라 가끔 조금만 주세요. 하루 열량의 10%를 넘지 않게요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": null,
+   "answer": "고양이에게 망고를 줘도 되는지 직접 다룬 공식 수의 자료를 찾지 못했어요.",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Mango? Are Mangoes Good For Dogs?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-mango/",
+    "supports": "망고 씨는 심한 질식 위험이 있고 소화관에 걸릴 수 있으며 소량의 시안화물 함유. 껍질은 소화가 어려워 제거 권장. 하루 열량의 10% 이하. 과일·채소를 많이 먹으면 복통·설사."
+   },
+   {
+    "org": "AKC",
+    "title": "Fruits and Vegetables Dogs Can or Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/",
+    "supports": "망고는 당분이 많아 가끔 주는 간식으로. 씨는 먼저 제거."
+   }
+  ]
+ },
+ {
+  "slug": "pineapple",
+  "name": "파인애플",
+  "aliases": [
+   "파인애플",
+   "파인애플 통조림",
+   "파인애플 심"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 껍질과 심을 뺀 생 파인애플을 몇 조각 먹어도 돼요.",
+   "why": "가시 있는 껍질과 단단한 가운데 심은 장을 막을 수 있어 과육만 줘야 해요. 시럽에 담긴 통조림 파인애플은 당분이 너무 많아요. 처음 먹고 설사나 배탈이 나면 그 개에게는 맞지 않는 거예요.",
+   "symptoms": [],
+   "howTo": "껍질·심·윗부분 잎을 빼고 한입 크기로 몇 조각만 주세요. 처음 줄 때는 지켜봐 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": null,
+   "answer": "고양이에게 파인애플을 줘도 되는지 직접 다룬 공식 수의 자료를 찾지 못했어요.",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Pineapple?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-pineapple/",
+    "supports": "단단한 심과 가시 있는 껍질은 폐색을 일으킬 수 있어 과육만. 통조림은 시럽 당분이 너무 많음. 대부분의 개는 껍질 벗긴 생 파인애플 몇 조각이면 충분. 처음 줄 때 설사·배탈이 나면 맞지 않는 것."
+   },
+   {
+    "org": "AKC",
+    "title": "Fruits and Vegetables Dogs Can or Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/",
+    "supports": "파인애플은 가시 있는 껍질과 윗부분(크라운)을 먼저 제거하고 몇 조각."
+   },
+   {
+    "org": "AKC",
+    "title": "How Many Treats Can Your Dog Have?",
+    "url": "https://www.akc.org/expert-advice/nutrition/how-many-treats-can-dog-have/",
+    "supports": "간식은 하루 섭취 열량의 10%를 넘지 않는 것이 기준."
+   }
+  ]
+ },
+ {
+  "slug": "korean-melon",
+  "name": "참외",
+  "aliases": [
+   "참외",
+   "성주참외",
+   "꿀참외",
+   "참외씨",
+   "참외 껍질"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 껍질과 씨를 뺀 참외 과육을 조금 먹어도 돼요.",
+   "why": "참외만 따로 다룬 수의 자료는 없어서, 참외와 같은 멜론 종(Cucumis melo)인 칸탈루프 자료를 기준으로 했어요. AKC는 칸탈루프를 적당량이면 안전하다고 보지만, 당분이 많아 비만이나 당뇨가 있는 개에게는 맞지 않을 수 있어요. 단단한 껍질은 목에 걸리거나 배탈·장폐색을 일으킬 수 있고, 씨는 해롭진 않지만 목에 걸릴 수 있어 일부러 주지 않는 게 좋아요.",
+   "symptoms": [],
+   "howTo": "껍질과 씨를 빼고 작게 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "고양이도 껍질과 씨를 뺀 참외 과육을 조금 먹는 건 괜찮아요.",
+   "why": "ASPCA는 멜론 종(Cucumis melo — 칸탈루프·허니듀·머스크멜론)을 고양이에게 독성이 없는 식물로 분류해요. 참외도 같은 종이지만 참외만 따로 다룬 자료는 없어요. 고양이는 단맛을 거의 못 느끼는 육식동물이라 꼭 줄 필요는 없어요.",
+   "symptoms": [],
+   "howTo": "껍질과 씨를 빼고 아주 작게 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Cantaloupe? Is Cantaloupe Good For Dogs?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-cantaloupe/",
+    "supports": "칸탈루프(Cucumis melo)는 적당히 먹으면 안전. 당분이 많아 당뇨 개에게 부적합할 수 있음. 껍질은 질식 위험·배탈·장 막힘 가능. 씨는 해롭지 않으나 질식 위험이 있어 일부러 주지 말 것."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-Toxic Plant List — Cats",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/cats-plant-list",
+    "supports": "Casaba Melon·Honeydew Melon·True Cantaloupe·Muskmelon(모두 학명 Cucumis melo)이 고양이에게 독성 없는 식물 목록에 있음. 참외는 목록에 따로 없고 같은 종이라는 점으로 적용함."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "10 Facts About Cats",
+    "url": "https://vcahospitals.com/resources/lifestyle-cat/facts-about-your-feline-friend",
+    "supports": "고양이는 단맛을 거의 또는 전혀 느끼지 못함."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Cat Treats",
+    "url": "https://vcahospitals.com/know-your-pet/cat-treats",
+    "supports": "고양이 간식은 하루 열량의 10%로 제한."
+   }
+  ]
+ },
+ {
+  "slug": "melon",
+  "name": "멜론",
+  "aliases": [
+   "멜론",
+   "머스크멜론",
+   "칸탈루프",
+   "캔털루프",
+   "허니듀",
+   "하미과"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 껍질과 씨를 뺀 멜론 과육을 조금 먹어도 돼요.",
+   "why": "AKC는 칸탈루프 멜론을 적당량이면 안전하다고 봐요. 다만 당분이 많아 비만이나 당뇨가 있는 개에게는 맞지 않을 수 있어요. 단단한 껍질은 목에 걸리거나 배탈·장폐색을 일으킬 수 있고, 씨는 해롭진 않지만 목에 걸릴 수 있어 일부러 주지 않는 게 좋아요.",
+   "symptoms": [],
+   "howTo": "껍질과 씨를 빼고 작게 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "고양이도 껍질과 씨를 뺀 멜론 과육을 조금 먹는 건 괜찮아요.",
+   "why": "ASPCA는 칸탈루프·허니듀·머스크멜론을 고양이에게 독성이 없는 식물로 분류하고, VCA는 고양이 간식 열량표에 허니듀 멜론을 올려 두고 있어요. 고양이는 단맛을 거의 못 느끼는 육식동물이라 꼭 줄 필요는 없어요.",
+   "symptoms": [],
+   "howTo": "껍질과 씨를 빼고 아주 작게 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Cantaloupe? Is Cantaloupe Good For Dogs?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-cantaloupe/",
+    "supports": "칸탈루프는 적당히 먹으면 안전. 당분이 많아 당뇨 개에게 부적합할 수 있음. 껍질은 질식 위험·배탈·장 막힘 가능. 씨는 해롭지 않으나 질식 위험이 있어 일부러 주지 말 것."
+   },
+   {
+    "org": "AKC",
+    "title": "Fruits and Vegetables Dogs Can or Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/",
+    "supports": "칸탈루프는 당분이 많아 적당히, 과체중·당뇨 개는 제한."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-Toxic Plant List — Cats",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/cats-plant-list",
+    "supports": "Casaba Melon·Honeydew Melon·True Cantaloupe·Muskmelon(Cucumis melo)이 고양이에게 독성 없는 식물 목록에 있음."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "고양이 간식 열량표에 허니듀 멜론이 포함. 간식 열량은 하루의 10% 안, 양념 없이."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "10 Facts About Cats",
+    "url": "https://vcahospitals.com/resources/lifestyle-cat/facts-about-your-feline-friend",
+    "supports": "고양이는 단맛을 거의 또는 전혀 느끼지 못함."
+   }
+  ]
+ },
+ {
+  "slug": "kiwi",
+  "name": "키위",
+  "aliases": [
+   "키위",
+   "골드키위",
+   "그린키위",
+   "참다래",
+   "키위 껍질"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 껍질을 벗긴 키위를 작게 잘라 조금 먹어도 돼요.",
+   "why": "키위를 통째로 주면 개가 그대로 삼켜 기도가 막힐 수 있어요. 껍질은 독성은 없지만 질기고 섬유질이 많아 배탈이 날 수 있고, 많이 먹으면 섬유질 때문에 설사할 수 있어요.",
+   "symptoms": [],
+   "howTo": "껍질을 벗기고 작게 잘라 몇 조각부터 시작하고, 소화에 문제가 없는지 지켜봐 주세요. 가끔 주는 간식으로, 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": null,
+   "answer": "고양이에게 키위를 줘도 되는지 직접 다룬 공식 수의 자료를 찾지 못했어요.",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Kiwi? Is Kiwi Good for Dogs?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-kiwi/",
+    "supports": "적절히 손질해 가끔 소량은 가능. 통째로 주면 삼켜 기도가 막힐 수 있음. 껍질은 독성은 없지만 질기고 섬유질이 많아 벗기는 것을 권장. 많이 먹으면 섬유질로 설사. 몇 조각부터 시작."
+   },
+   {
+    "org": "AKC",
+    "title": "How Many Treats Can Your Dog Have?",
+    "url": "https://www.akc.org/expert-advice/nutrition/how-many-treats-can-dog-have/",
+    "supports": "간식은 하루 섭취 열량의 10%를 넘지 않는 것이 기준."
+   }
+  ]
+ },
+ {
+  "slug": "persimmon",
+  "name": "감",
+  "aliases": [
+   "감",
+   "단감",
+   "홍시",
+   "연시",
+   "곶감",
+   "감씨"
+  ],
+  "dog": {
+   "verdict": null,
+   "answer": "강아지에게 감을 줘도 되는지 직접 다룬 공식 수의 자료(AKC·ASPCA·VCA·Pet Poison Helpline·머크 매뉴얼)를 찾지 못했어요.",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": null,
+   "answer": "고양이에게 감을 줘도 되는지 직접 다룬 공식 수의 자료를 찾지 못했어요.",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "sources": []
+ },
+ {
+  "slug": "tomato",
+  "name": "토마토",
+  "aliases": [
+   "토마토",
+   "방울토마토",
+   "대추방울토마토",
+   "초록 토마토",
+   "토마토 잎",
+   "토마토 줄기"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "잘 익은 빨간 토마토 과육은 조금 먹어도 괜찮지만, 초록 토마토와 잎·줄기는 주면 안 돼요.",
+   "why": "잘 익은 토마토 과육은 개에게 독성이 없다고 봐요. 하지만 덜 익은 초록 토마토와 잎·줄기에는 솔라닌·토마틴이라는 독성 성분이 있어요. 토마토소스나 케첩에는 양파·마늘·소금·설탕이 들어 있을 수 있어요.",
+   "symptoms": [
+    "침을 많이 흘림",
+    "식욕 저하",
+    "구토·설사",
+    "근육에 힘이 빠지고 비틀거림",
+    "동공 확대",
+    "떨림이나 발작",
+    "배 아파함",
+    "심장 박동 이상",
+    "기운 없음"
+   ],
+   "howTo": "잘 익은 토마토만 초록 부분을 모두 떼고 잘게 잘라, 처음엔 아주 조금만 주세요. 소스·케첩은 주지 마세요. 가끔 주는 간식으로, 하루 열량의 10% 안에서요.",
+   "ifEaten": "초록 토마토나 잎·줄기를 먹었다면, 특히 많이 먹었다면 동물병원에 연락하세요."
+  },
+  "cat": {
+   "verdict": "caution",
+   "answer": "고양이에게 잘 익은 토마토 과육은 독성이 없다고 알려져 있지만, 초록 토마토와 잎·줄기는 위험해요.",
+   "why": "ASPCA는 토마토 식물을 고양이에게 독성이 있는 식물로 분류해요(솔라닌). 같은 자료에서 잘 익은 열매는 독성이 없다고 적고 있어요. 고양이는 육식동물이라 토마토를 꼭 줄 필요는 없어요.",
+   "symptoms": [
+    "침을 많이 흘림",
+    "식욕 저하",
+    "심한 구토·설사",
+    "처짐",
+    "힘이 빠짐",
+    "동공 확대",
+    "심장 박동이 느려짐"
+   ],
+   "howTo": "준다면 잘 익은 과육만 초록 부분을 모두 떼고 아주 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": "초록 토마토나 잎·줄기를 먹었다면 동물병원에 연락하세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Tomatoes?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-tomatoes/",
+    "supports": "잘 익은 토마토는 독성이 없어 가끔 소량 가능. 솔라닌·토마틴은 주로 초록 부분에 있어 초록 토마토·잎·줄기는 피할 것. 중독 증상(협응 장애, 식욕 저하, 근육 약화, 침 흘림, 동공 확대, 떨림·발작, 무기력, 복통, 부정맥, 구토·설사). 소스·케첩은 피할 것. 식물을 먹었으면 수의사에게 연락."
+   },
+   {
+    "org": "AKC",
+    "title": "Fruits and Vegetables Dogs Can or Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/",
+    "supports": "잘 익은 과육은 대체로 안전하나 초록 부분에 솔라닌. AKC는 토마토를 아예 건너뛰는 편이 낫다고도 적음."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-toxic Plants: Tomato Plant",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/tomato-plant",
+    "supports": "토마토 식물은 개·고양이·말에게 독성(솔라닌). 증상은 침 흘림, 식욕 저하, 심한 위장 장애, 처짐, 무력, 동공 확대, 느린 심박. 잘 익은 열매는 독성 없음."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Pets and Produce: Top Tips on Vegetable Garden Safety",
+    "url": "https://www.aspca.org/news/pets-and-produce-top-tips-vegetable-garden-safety",
+    "supports": "토마토 식물과 덜 익은 토마토는 독성(토마틴). 잘 익으면 토마틴이 줄어 간식으로 안전."
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Feeding Your Cat",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "supports": "고양이는 동물성 식품에만 있는 영양소에 의존하는 육식동물."
+   }
+  ]
+ },
+ {
+  "slug": "cucumber",
+  "name": "오이",
+  "aliases": [
+   "오이",
+   "백오이",
+   "취청오이",
+   "피클",
+   "오이지"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 오이를 먹어도 돼요. 먹기 좋게 작게 잘라 주세요.",
+   "why": "오이는 열량이 아주 낮고 대부분 수분이에요. 통째로 주면 잘 씹지 못해 목에 걸릴 수 있어요. 피클이나 절인 오이는 소금과 향신료가 들어 있어 주지 마세요.",
+   "symptoms": [],
+   "howTo": "깨끗이 씻은 생오이를 아무것도 넣지 않고 작게 잘라 주세요. 처음엔 조금씩 늘리고, 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "고양이도 오이를 조금 먹는 건 괜찮아요.",
+   "why": "ASPCA는 오이를 고양이에게 독성이 없는 식물로 분류하고, VCA는 오이 같은 수분 많은 채소를 열량이 낮은 노령묘 간식으로 소개해요.",
+   "symptoms": [],
+   "howTo": "씻어서 양념 없이 아주 작게 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Cucumbers?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-cucumbers/",
+    "supports": "개는 오이를 먹어도 됨. 적당한 크기로 잘라 질식 위험을 줄일 것. 간식은 하루 식단의 10% 이하. 피클은 소금·향신료 때문에 피할 것. 많이 먹으면 위장 장애. 씻어서 그냥 오이로."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-Toxic Plant List — Cats",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/cats-plant-list",
+    "supports": "Cucumber(Cucumis sativus)가 고양이에게 독성 없는 식물 목록에 있음."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Feeding Mature, Senior, and Geriatric Cats",
+    "url": "https://vcahospitals.com/know-your-pet/feeding-mature-senior-and-geriatric-cats",
+    "supports": "그린빈·당근·오이·브로콜리·상추 같은 수분 많은 채소는 열량이 아주 낮아 노령묘 간식으로 적합."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Cat Treats",
+    "url": "https://vcahospitals.com/know-your-pet/cat-treats",
+    "supports": "고양이 간식은 하루 열량의 10%로 제한."
+   }
+  ]
+ },
+ {
+  "slug": "carrot",
+  "name": "당근",
+  "aliases": [
+   "당근",
+   "생당근",
+   "익힌 당근",
+   "당근 스틱",
+   "미니당근"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 당근을 먹어도 돼요. 생으로든 익혀서든 괜찮아요.",
+   "why": "당근은 열량이 낮고 섬유질이 많은 채소예요. 통당근이나 큰 스틱은 목에 걸릴 수 있어 한입 크기로 잘라 주는 게 안전해요.",
+   "symptoms": [],
+   "howTo": "씻거나 껍질을 벗겨 한입 크기로 잘라 주세요. 하루에 얼마나 줄지는 수의사와 상의하고, 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "고양이도 당근을 조금 먹는 건 괜찮아요.",
+   "why": "VCA는 당근을 열량이 낮은 노령묘 간식으로 소개하고, 고양이 간식 열량표에도 생당근과 삶은 당근을 올려 두고 있어요. ASPCA도 당근을 고양이에게 독성이 없는 식물로 분류해요.",
+   "symptoms": [],
+   "howTo": "양념 없이 삶거나 아주 잘게 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Carrots?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-carrots/",
+    "supports": "개는 당근을 먹어도 됨. 생당근·익힌 당근 모두 가능. 통당근·스틱은 한입 크기로 자를 것. 씻거나 껍질을 벗길 것. 하루 양은 수의사와 상의."
+   },
+   {
+    "org": "AKC",
+    "title": "How Many Treats Can Your Dog Have?",
+    "url": "https://www.akc.org/expert-advice/nutrition/how-many-treats-can-dog-have/",
+    "supports": "간식은 하루 섭취 열량의 10%를 넘지 않는 것이 기준."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Feeding Mature, Senior, and Geriatric Cats",
+    "url": "https://vcahospitals.com/know-your-pet/feeding-mature-senior-and-geriatric-cats",
+    "supports": "당근 등 수분 많은 채소는 열량이 아주 낮아 노령묘 간식으로 적합."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "고양이 간식 열량표에 삶은 당근·생당근 포함. 양념 없이, 간식 열량은 하루의 10% 안."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-Toxic Plant List — Cats",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/cats-plant-list",
+    "supports": "Carrot Flower(Garden Carrot, Daucus carota var. sativa)가 고양이에게 독성 없는 식물 목록에 있음."
+   }
+  ]
+ },
+ {
+  "slug": "sweet-potato",
+  "name": "고구마",
+  "aliases": [
+   "고구마",
+   "군고구마",
+   "찐고구마",
+   "호박고구마",
+   "밤고구마",
+   "고구마 껍질"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 익힌 고구마를 껍질을 벗겨 조금 먹어도 돼요. 생고구마는 주지 마세요.",
+   "why": "생고구마는 배탈이나 장폐색을 일으킬 수 있고, 껍질은 소화가 어려워요. 혈당을 빨리 올리는 편이라 당뇨가 있는 개는 조심해야 하고, 너무 많이 먹으면 비타민 A가 지나쳐 뼈와 근육이 약해질 수 있어요.",
+   "symptoms": [],
+   "howTo": "푹 익혀 껍질을 벗기고 양념 없이 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "고양이도 익혀서 으깬 고구마를 조금 먹는 건 괜찮아요.",
+   "why": "VCA는 익혀서 으깬 고구마를 고양이 밥에 섞어 주는 방법을 소개해요. ASPCA도 고구마를 고양이에게 독성이 없는 식물로 분류해요. 처음 주는 음식은 수의사와 먼저 상의하는 게 좋아요.",
+   "symptoms": [],
+   "howTo": "익혀서 으깬 고구마를 양념 없이 아주 조금 사료에 섞어 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Sweet Potatoes?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-sweet-potatoes/",
+    "supports": "개는 고구마를 먹을 수 있음. 익히고 껍질을 벗길 것(껍질은 소화가 어려움). 생고구마는 절대 주지 말 것 — 배탈·장폐색 가능. 혈당지수가 높아 당뇨 개는 주의. 지나치면 비타민 A 과다로 뼈·근육 약화."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet",
+    "supports": "채소를 익혀서 줄 때는 양념을 피할 것."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Fall food dos and don'ts for cats",
+    "url": "https://vcahospitals.com/urgent-care/health-and-safety-tips/fall-food-dos-and-donts-cats",
+    "supports": "익혀서 으깬 고구마를 고양이의 평소 밥에 섞어 줄 수 있음. 처음 먹이는 음식은 수의사와 먼저 상의."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-Toxic Plant List — Cats",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/cats-plant-list",
+    "supports": "Sweet Potato Vine(Sweet potato, Ipomoea batatas)이 고양이에게 독성 없는 식물 목록에 있음."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Cat Treats",
+    "url": "https://vcahospitals.com/know-your-pet/cat-treats",
+    "supports": "고양이 간식은 하루 열량의 10%로 제한."
+   }
+  ]
+ },
+ {
+  "slug": "potato",
+  "name": "감자",
+  "aliases": [
+   "감자",
+   "찐감자",
+   "생감자",
+   "으깬 감자",
+   "매시드 포테이토",
+   "초록 감자"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "아무것도 넣지 않고 익힌 감자는 조금 먹어도 되지만, 생감자나 초록색으로 변한 감자는 주면 안 돼요.",
+   "why": "생감자나 초록색 반점이 생긴 감자는 솔라닌이 늘어나 개에게 해로울 수 있어요. 익힌 감자라도 버터를 듬뿍 넣으면 췌장염을 일으킬 수 있어요. 감자는 식사 대신이 아니라 간식으로만 줘야 해요.",
+   "symptoms": [],
+   "howTo": "초록색 부분이 없는 감자를 으깰 수 있을 만큼 푹 익혀, 버터·소금·양념 없이 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": "생감자나 초록색 감자를 먹었다면 먹은 양을 확인하고 동물병원에 연락하세요."
+  },
+  "cat": {
+   "verdict": null,
+   "answer": "고양이에게 감자를 줘도 되는지 직접 다룬 공식 수의 자료를 찾지 못했어요.",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Potatoes?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-potatoes/",
+    "supports": "개는 감자를 적당히 먹을 수 있음. 생감자·초록 감자는 안전하지 않고 독성 가능(초록 반점은 솔라닌 증가). 으깰 수 있을 만큼 익힐 것. 버터를 많이 넣으면 췌장염 위험, 버터·양념 없이. 식사 대신이 아니라 간식으로."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Pets and Produce: Top Tips on Vegetable Garden Safety",
+    "url": "https://www.aspca.org/news/pets-and-produce-top-tips-vegetable-garden-safety",
+    "supports": "생감자는 반려동물에게 문제가 될 수 있으나 익힌 감자는 적당히 간식으로 가능."
+   },
+   {
+    "org": "AKC",
+    "title": "How Many Treats Can Your Dog Have?",
+    "url": "https://www.akc.org/expert-advice/nutrition/how-many-treats-can-dog-have/",
+    "supports": "간식은 하루 섭취 열량의 10%를 넘지 않는 것이 기준."
+   }
+  ]
+ },
+ {
+  "slug": "kabocha-squash",
+  "name": "단호박",
+  "aliases": [
+   "단호박",
+   "밤호박",
+   "늙은호박",
+   "단호박찜",
+   "호박 퓨레"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 익힌 단호박을 씨와 껍질을 빼고 조금 먹어도 돼요.",
+   "why": "단호박만 따로 다룬 수의 자료는 없지만, AKC는 호박(펌킨)·버터넛·도토리호박 같은 호박류를 씨와 껍질을 빼면 개에게 안전하다고 해요. 찌거나 구운 것이 소화가 쉬워요. 호박파이 필링 같은 가공품에는 개에게 독성이 있는 자일리톨이 들어 있을 수 있어요.",
+   "symptoms": [],
+   "howTo": "찌거나 구워서 씨와 껍질을 빼고, 버터·소금·양파·마늘 양념 없이 조금만 주세요. 처음엔 소량으로 시작하고, 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "고양이도 익혀서 으깬 단호박을 조금 먹는 건 괜찮아요.",
+   "why": "VCA는 으깬 호박(펌킨)을 고양이 간식으로 소개하고, ASPCA도 호박류(Cucurbita)를 고양이에게 독성이 없는 식물로 분류해요. 단호박만 따로 다룬 자료는 없어요. 설탕이나 감미료가 든 호박 디저트는 고양이 배탈을 일으킬 수 있어 피해야 해요.",
+   "symptoms": [],
+   "howTo": "씨와 껍질을 빼고 익혀 으깬 단호박을 양념 없이 아주 조금만 주세요. 처음 주는 음식은 수의사와 먼저 상의하는 게 좋아요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Squash?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-squash/",
+    "supports": "버터넛·펌킨·주키니·도토리호박이 좋은 선택. 씨·껍질을 제거하면 안전. 찌거나 구운 것이 소화가 쉬움. 버터·양파·소금·마늘소금 없이. 천천히 적당히. 호박파이 필링에는 자일리톨이 있을 수 있음."
+   },
+   {
+    "org": "AKC",
+    "title": "Can Pumpkin Help Dogs With Diarrhea? Benefits, Dosage, & Tips",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-pumpkin-help-with-dog-diarrhea/",
+    "supports": "통조림 호박파이 믹스는 개에게 독성인 자일리톨이 있을 수 있어 쓰지 말 것. 섬유질이 과하지 않게 소량부터 시작."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Fall food dos and don'ts for cats",
+    "url": "https://vcahospitals.com/urgent-care/health-and-safety-tips/fall-food-dos-and-donts-cats",
+    "supports": "호박은 고양이 간식이 될 수 있음(퓨레 또는 간식에 넣어). 호박파이·호박 라떼 등 단 호박 간식은 보존료·감미료가 있어 피할 것. 처음 먹이는 음식은 수의사와 상의."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-Toxic Plant List — Cats",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/cats-plant-list",
+    "supports": "Acorn Squash(Cucurbita pepo)·Banana Squash(Cucurbita maxima var. banana) 등 호박류가 고양이에게 독성 없는 식물 목록에 있음."
+   }
+  ]
+ },
+ {
+  "slug": "broccoli",
+  "name": "브로콜리",
+  "aliases": [
+   "브로콜리",
+   "브로콜리 줄기",
+   "데친 브로콜리"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 브로콜리를 조금 먹어도 돼요. 가끔 주는 간식 정도가 적당해요.",
+   "why": "브로콜리 꽃송이에는 이소티오시아네이트라는 성분이 있어 많이 먹으면 위를 자극할 수 있어요. AKC 수석 수의사는 하루 섭취량의 10% 미만이면 안전하고 25%를 넘으면 독성이 있다고 봐요. 단단한 줄기는 특히 작은 개에게 식도를 막을 수 있어요.",
+   "symptoms": [],
+   "howTo": "양념·기름 없이 생으로든 익혀서든 한입 크기로 잘라 조금만 주세요. 먹는 동안 지켜봐 주세요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "고양이도 브로콜리를 조금 먹는 건 괜찮아요.",
+   "why": "VCA는 브로콜리 같은 수분 많은 채소를 열량이 낮은 노령묘 간식으로 소개해요. 고양이는 육식동물이라 채소가 꼭 필요하지는 않아요.",
+   "symptoms": [],
+   "howTo": "양념 없이 아주 작게 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Broccoli?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-broccoli/",
+    "supports": "양념·기름 없으면 생·익힌 것 모두 가능. 꽃송이의 이소티오시아네이트는 위 자극 가능. 하루 섭취량 10% 미만이면 안전, 25% 초과는 독성(AKC 수석 수의사). 줄기는 특히 작은 개에게 식도 폐색 위험, 한입 크기로 자르고 지켜볼 것."
+   },
+   {
+    "org": "AKC",
+    "title": "Fruits and Vegetables Dogs Can or Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/",
+    "supports": "브로콜리는 소량이면 안전하고 가끔 주는 간식으로 적합."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Feeding Mature, Senior, and Geriatric Cats",
+    "url": "https://vcahospitals.com/know-your-pet/feeding-mature-senior-and-geriatric-cats",
+    "supports": "그린빈·당근·오이·브로콜리·상추 같은 수분 많은 채소는 열량이 아주 낮아 노령묘 간식으로 적합."
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Feeding Your Cat",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "supports": "고양이는 동물성 식품에만 있는 영양소에 의존하는 육식동물."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Cat Treats",
+    "url": "https://vcahospitals.com/know-your-pet/cat-treats",
+    "supports": "고양이 간식은 하루 열량의 10%로 제한."
+   }
+  ]
+ },
+ {
+  "slug": "cabbage",
+  "name": "양배추",
+  "aliases": [
+   "양배추",
+   "적양배추",
+   "데친 양배추",
+   "양배추 심"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "강아지는 양배추를 조금 먹어도 돼요. 다만 가스가 많이 찰 수 있어요.",
+   "why": "양배추는 장에서 가스를 많이 만들어요. 위가 부풀기 쉬운 견종은 특히 조심해야 해요. 버터나 양념을 넣으면 문제가 될 수 있어요.",
+   "symptoms": [],
+   "howTo": "찌거나 데쳐서 양념·버터 없이 작게 잘라 주세요. 익힌 양배추가 배탈이 덜 나요. 가스가 잘 차거나 위가 부푸는 병(위확장)이 걱정되는 개는 먼저 수의사와 상의하세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": null,
+   "answer": "고양이에게 양배추를 줘도 되는지 직접 다룬 공식 수의 자료를 찾지 못했어요.",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Cabbage?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-cabbage/",
+    "supports": "양배추는 적당히 먹을 수 있음. 가스를 많이 만들어 위가 부풀기 쉬운 견종은 주의, 이런 개는 수의사와 상의. 찌거나 삶은 것이 배탈이 덜함. 양념하지 않고, 작게 잘라 질식 위험을 줄일 것."
+   },
+   {
+    "org": "AKC",
+    "title": "How Many Treats Can Your Dog Have?",
+    "url": "https://www.akc.org/expert-advice/nutrition/how-many-treats-can-dog-have/",
+    "supports": "간식은 하루 섭취 열량의 10%를 넘지 않는 것이 기준."
+   }
+  ]
+ },
+ {
+  "slug": "spinach",
+  "name": "시금치",
+  "aliases": [
+   "시금치",
+   "데친 시금치",
+   "시금치나물"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "강아지에게 시금치는 줄 수는 있지만 권할 만한 채소는 아니에요. 준다면 아주 조금만 주세요.",
+   "why": "시금치에는 옥살산(수산)이 많아 칼슘 흡수를 방해하고, 많이 먹으면 신장이 손상될 수 있어요. 신장이나 방광에 결석이 잘 생기는 개는 피하는 게 좋아요.",
+   "symptoms": [],
+   "howTo": "신장이 건강한 개에게만, 소금·기름·양념 없이 쪄서 잘게 다져 가끔 아주 조금만 주세요. 주기 전에 수의사와 상의하세요.",
+   "ifEaten": "많이 먹었거나 신장 질환·결석이 있는 개라면 동물병원에 문의하세요."
+  },
+  "cat": {
+   "verdict": null,
+   "answer": "고양이에게 시금치를 줘도 되는지 직접 다룬 공식 수의 자료를 찾지 못했어요.",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Spinach?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-spinach/",
+    "supports": "시금치는 옥살산이 많아 칼슘 흡수를 막고, 많이 먹으면 신장 손상·신부전 가능. 찌는 것이 가장 좋고 양념·소금·기름 없이, 잘게 다져서. 신장이 건강한 개에게만 가끔 소량. 신장·방광 결석이 잘 생기는 개는 피할 것. 수의사와 상의."
+   },
+   {
+    "org": "AKC",
+    "title": "Fruits and Vegetables Dogs Can or Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/",
+    "supports": "개는 시금치를 먹을 수 있지만 권할 만한 채소는 아님."
+   }
+  ]
+ },
+ {
+  "slug": "onion-scallion-chives",
+  "name": "양파·파·부추",
+  "aliases": [
+   "양파",
+   "대파",
+   "쪽파",
+   "실파",
+   "파",
+   "부추",
+   "차이브",
+   "리크",
+   "샬롯",
+   "양파 가루",
+   "양파즙"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "강아지에게 양파·파·부추는 절대 주지 마세요. 익히거나 말린 것도 위험해요.",
+   "why": "양파·파·부추·마늘 같은 파속(Allium) 채소는 개의 적혈구를 손상시켜 빈혈을 일으킬 수 있어요. 날것·익힌 것·말린 것·가루·즙 모두 위험하고, 가루처럼 농축된 형태가 더 위험해요. 빈혈 증상은 먹고 며칠 뒤에 나타날 수 있어요.",
+   "symptoms": [
+    "구토·설사",
+    "침 흘림·입 안 자극",
+    "배 아파함",
+    "기운 없음·힘이 빠짐",
+    "잇몸이 창백해짐",
+    "숨이 빨라지거나 가빠짐",
+    "심장이 빨리 뜀",
+    "붉은색 소변"
+   ],
+   "howTo": "",
+   "ifEaten": "먹은 양이 적어 보여도 바로 동물병원에 연락하세요. 빈혈 증상은 며칠 뒤에 나타날 수 있어 지금 괜찮아 보여도 진료가 필요할 수 있어요."
+  },
+  "cat": {
+   "verdict": "no",
+   "answer": "고양이에게 양파·파·부추는 절대 주지 마세요. 고양이는 개보다 더 민감해요.",
+   "why": "파속 채소는 적혈구를 파괴해 빈혈을 일으켜요. 머크 수의 매뉴얼은 고양이를 가장 민감한 동물로 꼽아요. 날것·익힌 것·말린 것·가루 모두 위험하고, 가루나 말린 양파처럼 농축된 형태로 먹은 경우가 많아요.",
+   "symptoms": [
+    "기운 없음·힘이 빠짐",
+    "잇몸이 창백하거나 노랗게 변함",
+    "식욕 저하",
+    "숨이 빨라짐",
+    "심장이 빨리 뜀",
+    "붉은색 소변"
+   ],
+   "howTo": "",
+   "ifEaten": "바로 동물병원에 연락하세요. 집에서 억지로 토하게 하지 마세요. 증상은 며칠 뒤에 나타날 수 있어요."
+  },
+  "sources": [
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "양파·마늘·차이브는 파속 채소로 위장 자극과 적혈구 손상(빈혈)을 일으킬 수 있음. 고양이가 더 민감하지만 개도 먹은 양에 따라 위험."
+   },
+   {
+    "org": "Merck Veterinary Manual",
+    "title": "Garlic and Onion (Allium spp) Toxicosis in Animals",
+    "url": "https://www.merckvetmanual.com/toxicology/food-hazards/garlic-and-onion-allium-spp-toxicosis-in-animals",
+    "supports": "마늘·양파·차이브·리크가 해당. 개·고양이는 날것·익힌 것·말린 것·가루 형태로 중독. 고양이가 가장 민감하고 다음이 개. 건조 플레이크·가루 같은 농축 형태와 관련이 많음. 무력·창백·황달·식욕 저하·빠른 호흡·빠른 심박·혈색소뇨. 용혈은 보통 3~5일 뒤."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Onion, Garlic, Chive, and Leek Toxicity in Dogs",
+    "url": "https://vcahospitals.com/know-your-pet/onion-garlic-chive-and-leek-toxicity-in-dogs",
+    "supports": "날것·익힌 것·말린 것·가루·액상 모두 개에게 독성, 가루가 더 농축. 어떤 양이든 입 자극·침 흘림·구토·복통·설사 가능, 많이 먹으면 무력·빠른 심박·빠른 호흡·창백한 잇몸·붉은 소변. 먹었을 수 있으면 바로 수의사에게 연락."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Household Hazards - Toxic Hazards for Cats",
+    "url": "https://vcahospitals.com/know-your-pet/household-hazards-toxic-hazards-for-cats",
+    "supports": "양파·마늘·차이브·샬롯·리크·쪽파(scallion)는 고양이의 적혈구를 파괴해 빈혈을 일으킴. 고양이를 안전하게 토하게 하는 일반 의약품은 없음."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-toxic Plants: Onion",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/onion",
+    "supports": "양파는 개·고양이·말에게 독성. 구토, 적혈구 파괴(용혈성·하인츠 소체 빈혈), 혈뇨, 무력, 빠른 심박, 헐떡임."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-Toxic Plant List — Cats",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/cats-plant-list",
+    "supports": "Chives(Allium schoenoprasum)·Leek(Allium ampeloprasum)·Onion이 고양이에게 독성 식물 목록에 있음."
+   },
+   {
+    "org": "AKC",
+    "title": "Fruits and Vegetables Dogs Can or Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/",
+    "supports": "개는 양파를 절대 먹으면 안 됨. 양파·마늘·리크·차이브는 개에게 독성이며 일부러 먹이면 안 됨."
+   }
+  ]
+ },
+ {
+  "slug": "garlic",
+  "name": "마늘",
+  "aliases": [
+   "마늘",
+   "다진 마늘",
+   "통마늘",
+   "구운 마늘",
+   "마늘 가루",
+   "마늘종"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "강아지에게 마늘은 주지 마세요. 파속 채소 가운데서도 독성이 가장 강한 편이에요.",
+   "why": "마늘은 양파보다 3~5배 독성이 강하다고 알려져 있어요. 적혈구를 손상시켜 빈혈을 일으킬 수 있고, 날것·익힌 것·말린 것·가루 모두 위험해요. 가루처럼 농축된 형태는 더 위험해요. 빈혈 증상은 먹고 며칠 뒤에 나타날 수 있어요.",
+   "symptoms": [
+    "구토·설사",
+    "침 흘림·입 안 자극",
+    "배 아파함",
+    "기운 없음·힘이 빠짐",
+    "잇몸이 창백해짐",
+    "숨이 빨라지거나 가빠짐",
+    "심장이 빨리 뜀",
+    "붉은색 소변"
+   ],
+   "howTo": "",
+   "ifEaten": "먹은 양이 적어 보여도 바로 동물병원에 연락하세요. 빈혈 증상은 며칠 뒤에 나타날 수 있어요."
+  },
+  "cat": {
+   "verdict": "no",
+   "answer": "고양이에게 마늘은 절대 주지 마세요. 고양이는 마늘·양파에 가장 민감한 동물이에요.",
+   "why": "마늘은 양파보다 독성이 3~5배 강하고, 적혈구를 파괴해 빈혈을 일으켜요. 머크 수의 매뉴얼은 고양이를 가장 민감한 동물로 꼽아요. 날것·익힌 것·말린 것·가루 모두 위험해요.",
+   "symptoms": [
+    "기운 없음·힘이 빠짐",
+    "잇몸이 창백하거나 노랗게 변함",
+    "식욕 저하",
+    "숨이 빨라짐",
+    "심장이 빨리 뜀",
+    "붉은색 소변"
+   ],
+   "howTo": "",
+   "ifEaten": "바로 동물병원에 연락하세요. 집에서 억지로 토하게 하지 마세요. 증상은 며칠 뒤에 나타날 수 있어요."
+  },
+  "sources": [
+   {
+    "org": "Merck Veterinary Manual",
+    "title": "Garlic and Onion (Allium spp) Toxicosis in Animals",
+    "url": "https://www.merckvetmanual.com/toxicology/food-hazards/garlic-and-onion-allium-spp-toxicosis-in-animals",
+    "supports": "마늘은 양파보다 약 3~5배 독성이 강함. 개·고양이는 날것·익힌 것·말린 것·가루로 중독. 고양이가 가장 민감, 다음이 개. 무력·창백·황달·식욕 저하·빠른 호흡·빠른 심박·혈색소뇨. 용혈은 보통 3~5일 뒤."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Onion, Garlic, Chive, and Leek Toxicity in Dogs",
+    "url": "https://vcahospitals.com/know-your-pet/onion-garlic-chive-and-leek-toxicity-in-dogs",
+    "supports": "마늘은 파속 네 가지 중 가장 독성이 강함. 모든 형태가 개에게 독성, 가루가 더 농축. 증상(입 자극·침·구토·복통·설사, 많이 먹으면 무력·빠른 심박·빠른 호흡·창백한 잇몸·붉은 소변). 바로 수의사에게 연락."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Household Hazards - Toxic Hazards for Cats",
+    "url": "https://vcahospitals.com/know-your-pet/household-hazards-toxic-hazards-for-cats",
+    "supports": "마늘 등 파속 채소는 고양이의 적혈구를 파괴해 빈혈을 일으킴. 고양이를 안전하게 토하게 하는 일반 의약품은 없음."
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "마늘은 파속 채소로 위장 자극과 적혈구 손상(빈혈) 가능. 고양이가 더 민감하지만 개도 위험."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-Toxic Plant List — Cats",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/cats-plant-list",
+    "supports": "Garlic(Allium sativum)이 고양이에게 독성 식물 목록에 있음."
+   },
+   {
+    "org": "AKC",
+    "title": "Fruits and Vegetables Dogs Can or Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/",
+    "supports": "양파·마늘·리크·차이브는 개에게 독성이며 일부러 먹이면 안 됨."
+   }
+  ]
+ },
+ {
+  "slug": "avocado",
+  "name": "아보카도",
+  "aliases": [
+   "아보카도",
+   "아보카도 씨",
+   "과카몰리"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "강아지에게 아보카도는 주지 않는 게 좋아요. 특히 씨는 장을 막을 수 있어 위험해요.",
+   "why": "아보카도의 씨·껍질·잎에는 퍼신이라는 성분이 있어 구토·설사를 일으킬 수 있어요. 과육은 개에게 심한 독은 아니라고 보는 자료도 있지만, 지방이 많아 배탈이나 췌장염의 원인이 될 수 있고, 씨를 삼키면 장이 막힐 수 있어요. 과카몰리에는 개에게 독성이 있는 양파·마늘이 들어 있는 경우가 많아요.",
+   "symptoms": [
+    "구토",
+    "설사",
+    "식욕 저하",
+    "기운 없음",
+    "배변 시 힘주기·배 불편해함(씨로 장이 막혔을 때)"
+   ],
+   "howTo": "",
+   "ifEaten": "씨를 삼켰다면 응급 상황이니 바로 동물병원에 연락하세요. 과카몰리를 먹었다면 양파·마늘 때문에 바로 연락하세요. 과육을 조금 먹은 정도라도 먹은 양을 확인하고 동물병원에 문의하세요."
+  },
+  "cat": {
+   "verdict": "caution",
+   "answer": "고양이에게 아보카도 과육은 독성이 없다고 알려져 있지만, 일부러 줄 필요는 없어요. 씨는 특히 위험해요.",
+   "why": "Pet Poison Helpline은 아보카도가 고양이에게 독성이 없다고 보지만, 씨는 목에 걸리거나 장을 막을 수 있다고 해요. 지방이 많아 일부 반려동물에게 췌장염을 일으킬 수 있어요. 아보카도의 퍼신은 주로 새·토끼·말 같은 동물에게 문제가 돼요.",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": "씨를 삼켰다면 바로 동물병원에 연락하세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Fruits and Vegetables Dogs Can or Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/",
+    "supports": "아보카도는 개에게 주면 안 되는 과일로 분류. 씨·껍질·잎의 퍼신은 구토·설사를 일으킬 수 있고, 과육은 지방이 많아 배탈·췌장염 위험."
+   },
+   {
+    "org": "Pet Poison Helpline",
+    "title": "Can Dogs Eat Avocado? Safety, Risks & What To Do",
+    "url": "https://www.petpoisonhelpline.com/blog/can-dogs-eat-avocado/",
+    "supports": "과육은 개·고양이에게 독성으로 보지 않지만 간식으로 권하지 않음. 퍼신은 주로 새·토끼·말·반추동물에게 문제, 개는 덜 민감하나 구토·설사 가능. 씨는 장폐색(응급) 위험, 고양이도 씨는 질식·폐색 위험. 지방이 많아 일부 반려동물 췌장염. 과카몰리는 양파·마늘 함유 많음. 폐색 증상은 반복 구토·무기력·식욕 저하·힘주기·복부 불편."
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "아보카도는 주로 새·토끼·당나귀·말·양·염소 같은 반추동물에게 문제."
+   },
+   {
+    "org": "ASPCA",
+    "title": "Toxic and Non-toxic Plants: Avocado",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/avocado",
+    "supports": "ASPCA 식물 목록은 아보카도(퍼신)를 말에게 독성으로만 표시."
+   }
+  ]
+ },
+ {
+  "slug": "mushroom",
+  "name": "버섯(마트 식용 버섯)",
+  "aliases": [
+   "버섯",
+   "양송이버섯",
+   "표고버섯",
+   "새송이버섯",
+   "팽이버섯",
+   "느타리버섯",
+   "야생 버섯"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "마트에서 산 식용 버섯은 대체로 괜찮지만, 일부러 줄 필요는 없어요. 산이나 공원에서 자란 야생 버섯은 절대 안 돼요.",
+   "why": "사람이 먹으려고 파는 식용 버섯은 개에게 대체로 안전하다고 봐요. 하지만 버섯 요리에 들어가는 기름·버터·양념·양파·마늘이 개에게 해로울 수 있어요. 야생 버섯은 독버섯과 구별하기 어렵고, 일부는 간·신장을 손상시켜 생명을 위협할 수 있어요.",
+   "symptoms": [
+    "구토·설사",
+    "침 흘림",
+    "기운 없음·힘이 빠짐",
+    "비틀거림",
+    "발작",
+    "황달(눈·잇몸이 노래짐)",
+    "배 아파함"
+   ],
+   "howTo": "준다면 마트에서 산 식용 버섯을 씻어서 기름·버터·양념 없이 아주 조금만 주세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": "야생 버섯이나 어떤 버섯인지 모르는 것을 먹었다면 증상이 없어도 바로 동물병원에 가세요. 일부 독버섯은 잠깐 나아 보였다가 심해질 수 있어요. 먹은 버섯을 젖은 키친타월에 싸서 종이봉투에 담아 가져가면 도움이 돼요."
+  },
+  "cat": {
+   "verdict": "caution",
+   "answer": "마트 식용 버섯이라도 고양이 식단에는 넣지 않는 게 좋아요. 야생 버섯은 절대 안 돼요.",
+   "why": "Pet Poison Helpline은 고양이 식단에 버섯을 더하지 말라고 권하고, 사람이 먹으려고 산 것이 아닌 버섯은 모두 독버섯으로 여기라고 해요. 독버섯은 겉모습만으로 구별하기 어려워요.",
+   "symptoms": [
+    "구토·설사",
+    "비틀거림",
+    "떨림·발작",
+    "시력 변화",
+    "방향 감각 상실",
+    "검은 타르 같은 변",
+    "물을 많이 마시고 소변이 늘어남"
+   ],
+   "howTo": "",
+   "ifEaten": "야생 버섯이나 출처를 모르는 버섯을 먹었다면 바로 동물병원에 데려가세요. 증상은 15~30분 만에, 늦으면 24시간 뒤에 나타날 수 있어요. 가능하면 먹은 버섯을 가져가세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Mushrooms? Why These Fungi Can Be Dangerous",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-mushrooms/",
+    "supports": "대형 마트에서 파는 버섯은 대체로 안전할 수 있으나 기름·버터·양념·양파·마늘은 해로움. 개에게 필요한 음식이 아니라 굳이 줄 필요 없음. 야생 버섯은 구별이 어렵고 간부전·신장 손상·사망 가능. 증상 목록, 일부 아마니타는 일시 회복 뒤 악화. 바로 수의사·응급병원에 연락, 젖은 키친타월에 싸 종이봉투에 담아 샘플 지참."
+   },
+   {
+    "org": "AKC",
+    "title": "Fruits and Vegetables Dogs Can or Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/",
+    "supports": "야생 버섯은 절대 안 되지만, 사람이 먹으려고 마트에서 산 버섯을 씻은 것은 대체로 괜찮음."
+   },
+   {
+    "org": "Pet Poison Helpline",
+    "title": "Can Cats Eat Mushrooms",
+    "url": "https://www.petpoisonhelpline.com/pet-tips/can-cats-eat-mushrooms/",
+    "supports": "사람이 먹으려고 산 것이 아닌 버섯은 모두 독성으로 간주. 고양이 식단에 버섯을 더하지 말 것. 증상은 15~30분~24시간 사이(구토·설사, 비틀거림·떨림·발작·시력 변화·방향 감각 상실, 검은 변, 다음·다뇨). 바로 동물병원으로, 가능하면 샘플 지참."
+   }
+  ]
+ },
+ {
+  "slug": "corn",
+  "name": "옥수수(알·속대)",
+  "aliases": [
+   "옥수수",
+   "옥수수 속대",
+   "옥수수대",
+   "옥수수 알",
+   "찰옥수수",
+   "초당옥수수",
+   "콘"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "속대에서 떼어 낸 옥수수 알은 조금 먹어도 되지만, 옥수수 속대는 절대 주면 안 돼요.",
+   "why": "양념 없는 옥수수 알은 개에게 대체로 안전해요. 하지만 속대는 개가 조각이나 통째로 삼킬 수 있고, 장에서 소화되지 않아 목에 걸리거나 장을 막아 응급 처치가 필요할 수 있어요. 버터·소금·양념은 지방과 나트륨이 많아 배탈을 일으킬 수 있어요.",
+   "symptoms": [
+    "반복되는 구토",
+    "식욕 저하",
+    "기운 없음·활동이 줄어듦",
+    "설사",
+    "탈수"
+   ],
+   "howTo": "속대에서 떼어 낸 알만 버터·소금·양념 없이 가끔 조금만 주세요. 먹고 남은 속대는 개가 닿지 않게 치워 두세요. 간식은 하루 열량의 10% 안에서요.",
+   "ifEaten": "속대를 삼켰다면 증상이 없어도 바로 동물병원에 연락하세요."
+  },
+  "cat": {
+   "verdict": null,
+   "answer": "고양이에게 옥수수를 간식으로 줘도 되는지 직접 다룬 공식 수의 자료를 찾지 못했어요.",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Corn?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-corn/",
+    "supports": "속대에서 뗀 양념 없는 옥수수 알은 적당히 먹으면 대체로 안전. 속대는 조각이나 통째로 삼켜 질식·장폐색을 일으켜 응급 처치가 필요할 수 있음. 폐색 증상은 탈수·무기력·활동 감소·반복 구토·식욕 저하·설사, 이런 증상이 보이면 바로 수의사에게 연락. 버터·소금·양념은 배탈 원인."
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Can you feed pets certain fruits and veggies",
+    "url": "https://vcahospitals.com/resources/preventive-dog/nutrition/can-you-feed-pets-certain-fruits-and-veggies",
+    "supports": "옥수수 속대를 통째로 주지 말 것. 위나 장에 걸릴 수 있음."
+   },
+   {
+    "org": "AKC",
+    "title": "How Many Treats Can Your Dog Have?",
+    "url": "https://www.akc.org/expert-advice/nutrition/how-many-treats-can-dog-have/",
+    "supports": "간식은 하루 섭취 열량의 10%를 넘지 않는 것이 기준."
+   }
+  ]
+ },
+ {
+  "slug": "chocolate",
+  "name": "초콜릿",
+  "aliases": [
+   "코코아",
+   "카카오",
+   "초코",
+   "다크초콜릿",
+   "밀크초콜릿",
+   "화이트초콜릿",
+   "핫초코",
+   "초코과자",
+   "코코아 가루"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "강아지에게 초콜릿은 주면 안 돼요. 개가 먹어도 '안전한 양'은 없다고 안내돼요.",
+   "why": "초콜릿에는 테오브로민과 카페인이 들어 있는데, 개는 이 성분을 사람보다 훨씬 느리게 처리해서 몸에 쌓여요. 코코아 가루·베이킹용 초콜릿이 가장 위험하고 다크, 밀크 초콜릿 순이며, 먹은 양과 몸무게에 따라 위험도가 달라져요. 화이트 초콜릿은 이 성분이 아주 적지만 지방과 당이 많아 배탈이나 췌장염을 일으킬 수 있어요.",
+   "symptoms": [
+    "구토",
+    "설사",
+    "물을 많이 마시고 소변을 자주 봄",
+    "안절부절못함·과잉 흥분",
+    "침 흘림·헐떡임",
+    "빨라진 심장 박동·부정맥",
+    "떨림",
+    "발작"
+   ],
+   "howTo": "",
+   "ifEaten": "먹은 초콜릿의 종류·양·시간을 확인하고 포장지를 챙겨 바로 동물병원에 연락하세요. 증상은 6~12시간 뒤에 나타나기도 해서 멀쩡해 보여도 연락하는 게 좋아요. 수의사 지시 없이 집에서 토하게 하지 마세요."
+  },
+  "cat": {
+   "verdict": "no",
+   "answer": "고양이에게 초콜릿은 양과 상관없이 독이 돼요. 조금도 주면 안 돼요.",
+   "why": "고양이는 초콜릿 속 테오브로민을 사람보다 느리게 흡수·처리하고 카페인에도 예민해서, 많지 않은 양으로도 위험할 수 있어요. 고양이는 단맛을 잘 느끼지 못해 스스로 찾아 먹는 일은 드물지만, 초콜릿 칩 몇 개만 먹어도 연락하라고 안내돼요.",
+   "symptoms": [
+    "구토",
+    "설사",
+    "과잉 흥분",
+    "떨림",
+    "물을 많이 마심",
+    "빠른 호흡",
+    "근육 경직",
+    "경련"
+   ],
+   "howTo": "",
+   "ifEaten": "조금만 먹었더라도 바로 동물병원에 연락하세요. 집에서 고양이를 토하게 하는 안전한 방법은 없으니 직접 하지 마세요."
+  },
+  "sources": [
+   {
+    "org": "Pet Poison Helpline",
+    "title": "My Dog Ate Chocolate: What To Do (Even If They Seem Fine)",
+    "url": "https://www.petpoisonhelpline.com/pet-tips/what-to-do-if-your-dog-ate-chocolate/",
+    "supports": "개는 테오브로민·카페인을 느리게 처리해 쌓이고 안전한 양이 없음, 종류별 위험 순서, 화이트 초콜릿의 지방·당·췌장염, 증상과 6~12시간 뒤 발현, 종류·양·시간 확인 후 연락·집에서 토하게 하지 말 것"
+   },
+   {
+    "org": "Pet Poison Helpline",
+    "title": "Why Is Chocolate Bad for Cats",
+    "url": "https://www.petpoisonhelpline.com/pet-tips/why-is-chocolate-bad-for-cats/",
+    "supports": "고양이는 테오브로민을 느리게 흡수하고 카페인에 예민함, 어떤 양이든 독성, 증상 목록, 초콜릿 칩 몇 개도 연락, 집에서 토하게 하는 안전한 방법 없음"
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "초콜릿·커피·카페인의 메틸잔틴이 구토·설사·헐떡임·부정맥·떨림·발작을 일으키고, 베이킹 초콜릿·코코아 가루가 가장 위험하며 화이트 초콜릿이 가장 적음"
+   },
+   {
+    "org": "AKC",
+    "title": "People Foods Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/human-foods-dogs-can-and-cant-eat/",
+    "supports": "개에게 초콜릿은 절대 주면 안 되며 화이트 초콜릿도 안전하지 않음"
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Common Cat Hazards",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/common-cat-hazards",
+    "supports": "초콜릿을 고양이에게 독이 되는 음식으로 꼽음, 전문가 지시 없이 토하게 하지 말 것"
+   }
+  ]
+ },
+ {
+  "slug": "xylitol",
+  "name": "자일리톨(껌·사탕)",
+  "aliases": [
+   "자일리톨",
+   "자일리톨껌",
+   "껌",
+   "무설탕 껌",
+   "무설탕 사탕",
+   "사탕",
+   "캔디",
+   "민트 사탕"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "자일리톨은 강아지에게 아주 위험해요. 적은 양도 문제가 될 수 있으니 무설탕 껌·사탕은 닿지 않는 곳에 두세요.",
+   "why": "개가 자일리톨을 먹으면 인슐린이 한꺼번에 나와 혈당이 급격히 떨어지고, 양이 많으면 간이 망가질 수도 있어요. 무설탕 껌이 가장 흔한 원인이고, 사탕·민트·구운 과자·일부 땅콩버터·치약·구강청결제·영양제에도 들어 있으니 성분표를 확인하세요.",
+   "symptoms": [
+    "구토",
+    "힘없음·늘어짐",
+    "비틀거림",
+    "떨림",
+    "발작",
+    "의식 저하(혼수)",
+    "잇몸·눈 흰자가 노래짐(간 손상)",
+    "멍이 들거나 피가 잘 멈추지 않음(간 손상)"
+   ],
+   "howTo": "",
+   "ifEaten": "먹은 제품·양·시간을 확인해 바로 동물병원에 연락하세요. 저혈당은 30분~2시간 안에 올 수 있고, 간 손상은 하루이틀 뒤에 나타날 수 있어요. 수의사 지시 없이 토하게 하거나 뭔가를 먹이지 마세요."
+  },
+  "cat": {
+   "verdict": "caution",
+   "answer": "고양이는 개처럼 자일리톨로 저혈당이나 간 손상이 생긴다는 보고가 거의 없어요. 다만 껌·사탕은 고양이 음식이 아니고 피하라고 안내하는 기관도 있어 주지 않는 게 좋아요.",
+   "why": "Merck 수의학 매뉴얼은 자일리톨 중독이 보고된 가정 동물은 개뿐이고 고양이는 저혈당·간 손상 위험이 없다고 적고 있고, ASPCA도 고양이는 자일리톨의 영향을 받지 않는다고 해요. 반면 코넬대 고양이 건강센터와 VCA는 자일리톨이 든 음식을 고양이가 피해야 할 목록에 넣고 있어요.",
+   "symptoms": [],
+   "howTo": "일부러 줄 이유가 없는 음식이에요. 껌·사탕은 고양이가 닿지 않는 곳에 두세요.",
+   "ifEaten": "먹은 양과 제품 성분표를 확인해 동물병원에 문의하세요. 평소와 다른 모습이 보이면 바로 진료를 받으세요."
+  },
+  "sources": [
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Xylitol Poisoning in Dogs",
+    "url": "https://vcahospitals.com/know-your-pet/xylitol-toxicity-in-dogs",
+    "supports": "개에서 인슐린 급증→저혈당, 고용량 간부전, 들어 있는 제품(껌·사탕·민트·구운 과자·땅콩버터·치약 등), 증상, 저혈당 30분~2시간·간부전 24~48시간, 수의사 지시 없이 토하게 하거나 먹이지 말 것"
+   },
+   {
+    "org": "Merck Veterinary Manual",
+    "title": "Xylitol Toxicosis in Dogs",
+    "url": "https://www.merckvetmanual.com/toxicology/food-hazards/xylitol-toxicosis-in-dogs",
+    "supports": "자일리톨 중독은 가정 동물 중 개에서만 보고됐고 고양이는 저혈당·간 손상 위험이 없음, 개의 간 손상 증상(황달·응고 장애)"
+   },
+   {
+    "org": "ASPCA",
+    "title": "Updated Safety Warning on Xylitol: How to Protect Your Pets",
+    "url": "https://www.aspca.org/news/updated-safety-warning-xylitol-how-protect-your-pets",
+    "supports": "사람·고양이·페럿은 자일리톨의 악영향을 받지 않음, 개는 저혈당·간 손상"
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "자일리톨은 껌·사탕·구운 과자·치약에 들어 있고 저혈당·간 손상·비정상 출혈을 일으킬 수 있음"
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Common Cat Hazards",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/common-cat-hazards",
+    "supports": "자일리톨이 든 것을 고양이가 피해야 할 음식 목록에 넣음"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "자일리톨이 든 음식을 고양이가 피해야 할 음식으로 꼽음"
+   }
+  ]
+ },
+ {
+  "slug": "caffeine",
+  "name": "커피·카페인",
+  "aliases": [
+   "커피",
+   "카페인",
+   "원두",
+   "커피 가루",
+   "믹스커피",
+   "녹차",
+   "홍차",
+   "티백",
+   "에너지 음료",
+   "콜라"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "커피·카페인은 강아지에게 주면 안 돼요. 특히 원두, 커피 가루, 티백, 카페인 알약·에너지 음료는 위험해요.",
+   "why": "개는 사람보다 카페인에 더 예민한 것으로 보여요. 커피를 한두 번 핥은 정도로 중독되는 경우는 드물지만, 쓰지 않은 원두나 커피 가루, 티백, 카페인 보조제는 심각한 중독을 일으킬 수 있어요. 카페인은 초콜릿 속 성분과 같은 계열(메틸잔틴)이라 증상도 비슷해요.",
+   "symptoms": [
+    "과잉 흥분·안절부절못함",
+    "구토",
+    "설사",
+    "헐떡임",
+    "빨라진 심장 박동·부정맥",
+    "떨림",
+    "발작"
+   ],
+   "howTo": "",
+   "ifEaten": "무엇을(원두·가루·음료·알약) 얼마나 먹었는지 확인해 바로 동물병원에 연락하세요. 수의사 지시 없이 집에서 토하게 하지 마세요."
+  },
+  "cat": {
+   "verdict": "no",
+   "answer": "커피·카페인은 고양이에게 주면 안 돼요. 원두, 커피 가루, 티백, 카페인 보조제는 특히 위험해요.",
+   "why": "고양이도 사람보다 카페인에 더 예민한 것으로 보여요. 몇 번 핥은 정도로 중독되는 경우는 드물지만, 원두·커피 가루·티백·보조제를 먹으면 심각한 중독이 생길 수 있어요.",
+   "symptoms": [
+    "과잉 흥분",
+    "구토·설사",
+    "심장 박동·혈압 변화",
+    "떨림",
+    "발작"
+   ],
+   "howTo": "",
+   "ifEaten": "먹은 것과 양을 확인해 바로 동물병원에 연락하세요. 수의사 지시 없이 집에서 토하게 하지 마세요."
+  },
+  "sources": [
+   {
+    "org": "Pet Poison Helpline",
+    "title": "Caffeine (Pet Poison Helpline poison page)",
+    "url": "https://www.petpoisonhelpline.com/poison/caffeine/",
+    "supports": "개·고양이는 사람보다 카페인에 예민, 한두 번 핥는 건 대개 중독 아님, 원두·가루·티백·보조제는 심각한 중독, 과잉 흥분·위장 증상·심박 변화·떨림·발작"
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "커피·카페인은 메틸잔틴을 담고 있어 구토·설사·헐떡임·과잉 흥분·부정맥·떨림·발작을 일으킬 수 있음"
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Common Cat Hazards",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/common-cat-hazards",
+    "supports": "독성 물질을 먹었으면 바로 동물병원에 연락하고 전문가 지시 없이 토하게 하지 말 것"
+   }
+  ]
+ },
+ {
+  "slug": "alcohol",
+  "name": "술(알코올)",
+  "aliases": [
+   "술",
+   "알코올",
+   "맥주",
+   "소주",
+   "와인",
+   "막걸리",
+   "양주",
+   "칵테일",
+   "술 든 초콜릿"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "술은 강아지에게 주면 안 돼요. 맥주·와인·칵테일을 핥는 것도, 술이 든 사탕·초콜릿도 피해야 해요.",
+   "why": "알코올은 위장에서 빠르게 흡수돼 신경을 억누르고, 구토·비틀거림부터 심하면 호흡 곤란·혼수·사망까지 일으킬 수 있어요. 발효 중인 빵 반죽도 뱃속에서 알코올을 만들어 같은 문제를 일으켜요.",
+   "symptoms": [
+    "구토",
+    "설사",
+    "비틀거림",
+    "늘어짐",
+    "떨림",
+    "호흡 곤란",
+    "혼수"
+   ],
+   "howTo": "",
+   "ifEaten": "먹은 술의 종류·양·시간을 확인해 바로 동물병원에 연락하세요. 알코올은 흡수가 빨라 빨리 진료받는 게 중요해요."
+  },
+  "cat": {
+   "verdict": "no",
+   "answer": "술은 고양이에게 아주 위험해요. 작은 숟가락 하나(약 1티스푼) 정도로도 중독될 수 있어요.",
+   "why": "고양이는 몸집이 작아 적은 양의 술로도 목숨이 위험할 수 있고, 빈속일 때 중독이 더 잘 생겨요. 와인·맥주·칵테일뿐 아니라 알코올이 든 소독제·구강청결제도 해로울 수 있어요.",
+   "symptoms": [
+    "구토",
+    "비틀거림",
+    "혼란·방향 감각 잃음",
+    "늘어짐",
+    "근육 떨림",
+    "느리고 얕은 호흡",
+    "경련",
+    "의식 저하"
+   ],
+   "howTo": "",
+   "ifEaten": "바로 동물병원에 연락하세요. 대부분 회복하지만 얼마나 빨리 치료받느냐가 중요해요."
+  },
+  "sources": [
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "알코올은 구토·설사·비틀거림·떨림·호흡 곤란·혼수·사망을 일으킬 수 있고 흡수가 빨라 빠른 진료가 중요, 생반죽도 알코올을 만듦"
+   },
+   {
+    "org": "Pet Poison Helpline",
+    "title": "Alcohol Is Toxic To Pets",
+    "url": "https://www.petpoisonhelpline.com/poison/alcohol/",
+    "supports": "개·고양이 모두 해당, 칵테일·맥주·와인을 핥거나 술이 든 사탕·생반죽을 먹어 생김, 빠른 신경 증상·구토"
+   },
+   {
+    "org": "Pet Poison Helpline",
+    "title": "Can Cats Drink Alcohol",
+    "url": "https://www.petpoisonhelpline.com/pet-tips/can-cats-drink-alcohol/",
+    "supports": "고양이는 1티스푼으로도 중독될 수 있고 빈속일 때 더 잘 생김, 소독제·구강청결제도 위험, 증상 목록, 대부분 회복하지만 시간이 중요"
+   }
+  ]
+ },
+ {
+  "slug": "milk",
+  "name": "우유",
+  "aliases": [
+   "흰 우유",
+   "우유",
+   "산양유",
+   "염소 우유",
+   "소 우유"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "우유는 강아지에게 가끔 조금은 괜찮을 수 있지만, 유당을 잘 소화하지 못하는 개가 많아 배탈이 날 수 있어요.",
+   "why": "개는 강아지 시기가 지나면 우유 속 유당을 잘 분해하지 못하는 경우가 많아 설사·구토·가스가 생길 수 있어요. 우유는 지방과 당도 많아 많이 먹으면 비만이나 췌장염 위험이 있어요.",
+   "symptoms": [
+    "묽은 변·설사",
+    "가스",
+    "구토",
+    "복통"
+   ],
+   "howTo": "주고 싶다면 소·염소 우유 몇 숟가락 정도만 가끔 주세요. 한 그릇씩 주지 말고, 조금 먹고도 배탈이 나면 다른 간식으로 바꾸세요. 간식은 하루 열량의 10% 안에서 주고, 마실 것은 깨끗한 물이 기본이에요.",
+   "ifEaten": "많이 마셨다면 설사·구토가 있는지 지켜보고, 증상이 계속되거나 심하면 동물병원에 문의하세요."
+  },
+  "cat": {
+   "verdict": "no",
+   "answer": "고양이에게 우유는 주지 않는 게 좋아요. 다 큰 고양이는 대부분 우유를 제대로 소화하지 못해요.",
+   "why": "고양이는 우유 속 유당을 충분히 소화하지 못하는 경우가 많아 설사 같은 소화 문제가 생길 수 있어요. 코넬대 고양이 건강센터는 우유를 간식으로 권하지 않고, iCatCare도 소·양·염소 우유를 피할 음료로 꼽아요. 마실 것은 늘 깨끗한 물을 주세요.",
+   "symptoms": [
+    "설사",
+    "배탈(소화 장애)"
+   ],
+   "howTo": "",
+   "ifEaten": "조금 마셨다면 설사가 있는지 지켜보세요. 설사가 계속되거나 기운이 없으면 동물병원에 문의하세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Drink Milk? Is Milk Bad for Dogs?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-drink-milk/",
+    "supports": "많은 개가 유당불내증, 몇 숟가락을 가끔은 괜찮지만 한 그릇은 설사·구토, 지방·당으로 비만·췌장염, 증상 후 다른 간식으로"
+   },
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Yogurt?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-yogurt/",
+    "supports": "개는 강아지 시기 이후 유당을 잘 소화하지 못해 가스·설사·구토가 생길 수 있음"
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "반려동물은 유당 분해 효소가 적어 우유·유제품이 설사 등 소화 문제를 일으킬 수 있음"
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Feeding Your Cat",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "supports": "많은 고양이가 유당불내증이라 우유를 간식으로 권하지 않음, 유제품은 소화 문제, 깨끗한 물은 항상"
+   },
+   {
+    "org": "International Cat Care",
+    "title": "How to encourage your cat to drink",
+    "url": "https://icatcare.org/articles/how-to-encourage-your-cat-to-drink",
+    "supports": "소·양·염소 우유는 고양이가 완전히 소화하지 못해 설사를 일으킬 수 있어 피할 음료"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Human Foods That Kittens Should Avoid",
+    "url": "https://vcahospitals.com/pediatric/kitten/health-wellness/human-foods-that-are-bad-for-kittens",
+    "supports": "대부분의 고양이는 유당불내증이라 유제품이 위장 문제를 일으킬 수 있음"
+   }
+  ]
+ },
+ {
+  "slug": "cheese",
+  "name": "치즈",
+  "aliases": [
+   "슬라이스 치즈",
+   "모차렐라",
+   "코티지치즈",
+   "체다치즈",
+   "스트링치즈"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "치즈는 강아지에게 조금씩, 가끔은 괜찮아요. 다만 지방이 많고 유당에 예민한 개도 있어요.",
+   "why": "치즈는 우유보다 유당이 훨씬 적어 비교적 소화가 쉽지만, 유당에 아주 예민한 개는 조금만 먹어도 배탈이 날 수 있어요. 지방이 많아 자주 많이 먹으면 비만이나 췌장염으로 이어질 수 있고, 마늘·양파·차이브 같은 허브가 든 치즈는 개에게 해로워요.",
+   "symptoms": [
+    "설사",
+    "구토",
+    "가스"
+   ],
+   "howTo": "모차렐라·코티지치즈처럼 지방이 적은 치즈를 작은 큐브 하나나 몇 가닥 정도만 가끔 주세요. 마늘·양파·허브가 들어간 치즈는 피하세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": "많이 먹었다면 설사·구토가 있는지 지켜보세요. 마늘·양파가 든 치즈였거나 증상이 심하면 동물병원에 문의하세요."
+  },
+  "cat": {
+   "verdict": "caution",
+   "answer": "치즈는 고양이가 좋아하는 간식으로 꼽히지만, 유당 때문에 배탈이 날 수 있어 아주 조금만 주세요.",
+   "why": "VCA는 치즈를 고양이가 흔히 좋아하는 간식으로 소개하지만, 코넬대 고양이 건강센터는 많은 고양이가 유당을 잘 소화하지 못해 유제품을 먹으면 소화 문제가 생길 수 있다고 안내해요.",
+   "symptoms": [
+    "설사",
+    "구토"
+   ],
+   "howTo": "양념·향신료가 없는 치즈를 아주 작게 잘라 가끔만 주세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": "설사·구토가 이어지면 동물병원에 문의하세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Cheese? Feeding Cheese to Your Dog",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-cheese/",
+    "supports": "개는 치즈를 적당히 먹을 수 있음, 저지방(모차렐라·코티지) 권장, 지방→비만·췌장염, 마늘·양파·차이브 든 치즈 해로움, 작은 큐브·몇 가닥, 우유보다 유당 적음"
+   },
+   {
+    "org": "ASPCA",
+    "title": "Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet",
+    "supports": "치즈 작은 큐브 하나는 괜찮지만 많으면 소화 문제(반려동물 일반)"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "치즈를 고양이가 흔히 좋아하는 음식으로 꼽음, 양념 없이·저열량, 간식은 하루 열량 10% 이내"
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Feeding Your Cat",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "supports": "많은 고양이가 유당불내증이라 유제품을 먹으면 소화 문제가 생길 수 있음"
+   }
+  ]
+ },
+ {
+  "slug": "yogurt",
+  "name": "요거트",
+  "aliases": [
+   "요구르트",
+   "그릭요거트",
+   "플레인 요거트",
+   "떠먹는 요구르트",
+   "무가당 요거트"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "설탕·감미료가 없는 플레인 요거트라면 유당을 잘 견디는 강아지에게 조금 줄 수 있어요. 단맛을 낸 요거트는 피하세요.",
+   "why": "요거트 자체는 독성이 없지만 많은 개가 유당을 잘 소화하지 못해 배탈이 날 수 있어요. 설탕, 코코아, 자일리톨 같은 감미료가 든 요거트는 해로울 수 있으니 성분표를 꼭 확인하세요. 지방이 많은 유제품은 배탈이나 췌장염을 일으킬 수 있어요.",
+   "symptoms": [
+    "가스",
+    "설사",
+    "구토"
+   ],
+   "howTo": "설탕·감미료가 없는 플레인 요거트(유당이 적은 그릭 요거트가 더 낫다고 안내돼요)를 아주 조금부터 주고 반응을 보세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": "자일리톨이 든 요거트를 먹었다면 바로 동물병원에 연락하세요. 그 밖에는 설사·구토가 있는지 지켜보고, 증상이 이어지면 동물병원에 문의하세요."
+  },
+  "cat": {
+   "verdict": "caution",
+   "answer": "요거트도 유제품이라 유당을 잘 소화하지 못하는 고양이는 배탈이 날 수 있어요. 일부러 챙겨 줄 필요는 없어요.",
+   "why": "코넬대 고양이 건강센터는 많은 고양이가 유당을 잘 소화하지 못해 유제품을 먹으면 소화 문제가 생길 수 있다고 안내해요. 요거트도 여기에 해당해요.",
+   "symptoms": [
+    "설사",
+    "구토"
+   ],
+   "howTo": "주고 싶다면 설탕·감미료·과일이 없는 플레인 제품을 아주 조금만 주고, 배탈이 나면 끊으세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": "설사·구토가 이어지면 동물병원에 문의하세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Yogurt?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-yogurt/",
+    "supports": "요거트는 독성은 없지만 유당 때문에 배탈, 감미료 없는 플레인, 자일리톨 독성, 그릭 요거트가 유당 적음, 조금부터 시작, 고지방 유제품→배탈·췌장염"
+   },
+   {
+    "org": "AKC",
+    "title": "People Foods Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/human-foods-dogs-can-and-cant-eat/",
+    "supports": "유제품을 견디는 개에게 플레인 요거트는 괜찮고, 설탕·코코아·자일리톨이 든 것은 피할 것"
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Feeding Your Cat",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "supports": "많은 고양이가 유당불내증이라 유제품을 먹으면 소화 문제가 생길 수 있음"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "고양이 간식은 하루 열량의 10% 이내"
+   }
+  ]
+ },
+ {
+  "slug": "egg",
+  "name": "계란",
+  "aliases": [
+   "달걀",
+   "삶은 계란",
+   "삶은 달걀",
+   "날계란",
+   "생계란",
+   "스크램블에그",
+   "계란 노른자",
+   "계란 흰자"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "완전히 익힌 계란은 강아지에게 가끔 간식으로 줘도 괜찮아요. 날계란은 권하지 않아요.",
+   "why": "익힌 계란에는 단백질·지방·비타민·미네랄이 들어 있어요. 날계란은 살모넬라균 감염 위험이 있고(보호자도 옮을 수 있어요), 날 흰자 속 아비딘이 비오틴 흡수를 막을 수 있어요. 아비딘은 익히면 없어져요.",
+   "symptoms": [],
+   "howTo": "기름·버터·소금·양념 없이 삶거나 스크램블로 완전히 익혀 가끔 조금만 주세요. 매일 주는 주식처럼 주지 말고, 간식은 하루 열량의 10% 안에서 주세요. 처음엔 조금만 주고 구토·설사·가려움 같은 알레르기 반응이 없는지 보세요. 실수로 날계란을 먹었다면 구토·설사가 있는지 지켜보고, 증상이 보이면 동물병원에 문의하세요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "익힌 계란은 고양이가 좋아하는 간식으로 소개돼요. 날계란은 주지 마세요.",
+   "why": "VCA는 익힌 계란을 고양이가 흔히 좋아하는 음식으로 꼽아요. 날계란에는 살모넬라·대장균 같은 세균이 있을 수 있고, 날 흰자 속 효소(아비딘)가 비타민(비오틴) 흡수를 막아 피부·털 문제를 일으킬 수 있어요. 이 효소는 익히면 없어져요.",
+   "symptoms": [],
+   "howTo": "양념 없이 완전히 익혀 작게 잘라 가끔 주세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Eggs? Benefits, Risks, and Safety Tips",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-eggs/",
+    "supports": "개에게 완전히 익힌 계란을 양념 없이 가끔, 날계란은 살모넬라·비오틴 결핍 위험, 날계란 먹었으면 증상 관찰, 알레르기 확인"
+   },
+   {
+    "org": "Merck Veterinary Manual",
+    "title": "Nutritional Requirements of Small Animals",
+    "url": "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/nutritional-requirements-of-small-animals",
+    "supports": "날 흰자의 아비딘이 비오틴 흡수를 막고, 익히면 아비딘이 파괴됨"
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "날계란은 살모넬라·대장균 위험, 날계란 속 효소가 비타민 흡수를 막아 피부·털 문제(반려동물 일반)"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "익힌 계란을 고양이가 흔히 좋아하는 음식으로 꼽음, 양념 없이, 간식 10% 이내"
+   }
+  ]
+ },
+ {
+  "slug": "chicken",
+  "name": "닭고기",
+  "aliases": [
+   "닭가슴살",
+   "삶은 닭",
+   "닭안심",
+   "백숙",
+   "닭 살코기"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "양념 없이 익힌 닭고기는 강아지에게 좋은 단백질 간식이에요. 뼈는 꼭 발라내세요.",
+   "why": "닭고기는 사료에도 흔히 들어가는 단백질이에요. 익힌 닭뼈는 쉽게 쪼개져 목에 걸리거나 소화관을 다치게 할 수 있고, 날 닭고기는 살모넬라균 같은 세균 감염 위험이 있어 대부분 권하지 않아요. 닭고기에 알레르기가 있는 개도 있어요.",
+   "symptoms": [],
+   "howTo": "굽거나 삶아 완전히 익히고, 양념 없이 뼈를 모두 발라내 기름기 적은 살코기 위주로 작게 잘라 주세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "양념 없이 익힌 닭고기 살코기는 고양이에게 조금씩 줘도 괜찮아요. 뼈는 빼고 주세요.",
+   "why": "ASPCA는 뼈와 양념이 없는 기름기 적은 익힌 닭고기를 조금 나눠 줘도 된다고 안내하고, VCA도 익힌 고기를 고양이가 좋아하는 간식으로 꼽아요. 날고기는 세균이나 톡소플라스마 같은 감염 위험이 있어 권하지 않아요.",
+   "symptoms": [],
+   "howTo": "완전히 익힌 살코기를 양념 없이, 뼈를 빼고 작게 잘라 주세요. 간식은 하루 열량의 10% 안에서 주고, 주식은 고양이용 완전 사료로 주세요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Chicken?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-chicken/",
+    "supports": "개는 양념 없이 익힌 닭고기를 먹을 수 있음, 익힌 뼈는 쪼개져 위험하니 발라낼 것, 날 닭고기는 살모넬라 때문에 대부분 비권장, 닭 알레르기"
+   },
+   {
+    "org": "ASPCA",
+    "title": "Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet",
+    "supports": "뼈·양념 없는 기름기 적은 익힌 닭고기는 반려동물에게 조금 괜찮음"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "익힌 고기를 고양이 간식으로 꼽음, 양념 없이, 간식 10% 이내"
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Feeding Your Cat",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "supports": "날고기는 톡소플라스마 등 감염 위험으로 고양이에게 권하지 않음"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "A raw deal: The dangers of feeding raw meat to cats",
+    "url": "https://vcahospitals.com/resources/lifestyle-cat/hazards-safety/the-dangers-of-feeding-raw-meat-to-cats",
+    "supports": "날고기는 살모넬라·리스테리아·대장균 위험, 가족에게도 옮을 수 있음"
+   }
+  ]
+ },
+ {
+  "slug": "chicken-bone",
+  "name": "닭뼈(익힌 뼈)",
+  "aliases": [
+   "닭뼈",
+   "치킨 뼈",
+   "닭다리 뼈",
+   "익힌 뼈",
+   "닭날개 뼈",
+   "가금류 뼈"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "익힌 닭뼈는 강아지에게 주면 안 돼요. 쉽게 쪼개져 목이나 장을 다치게 할 수 있어요.",
+   "why": "익힌 뼈는 날카롭게 쪼개지기 쉽고 잘 녹지도 않아요. 목에 걸리거나 식도·위장에 상처를 내거나 막힐 수 있고, 장염·췌장염으로 이어지기도 해요. 날 뼈도 안전하지 않다고 안내돼요.",
+   "symptoms": [
+    "구토·역류",
+    "침 흘림",
+    "삼키기 힘들어함",
+    "컥컥거림",
+    "목을 길게 뺌",
+    "밥을 먹지 않음",
+    "설사"
+   ],
+   "howTo": "",
+   "ifEaten": "동물병원에 전화해 상황을 알리고 지시를 따르세요. 집에서 토하게 하지 마세요(식도가 막히거나 다칠 수 있어요). 뼈를 감싸려고 빵 같은 음식을 바로 먹이지도 마세요. 컥컥거림·삼키기 힘듦·반복 구토가 보이면 바로 응급 진료를 받으세요. 12~24시간 동안 증상 없이 잘 먹으면 대개 큰 문제는 없다고 안내돼요."
+  },
+  "cat": {
+   "verdict": "no",
+   "answer": "익힌 닭뼈는 고양이에게도 주면 안 돼요.",
+   "why": "뼈를 먹으면 목에 걸리거나, 쪼개진 조각이 소화관에 박히거나 구멍을 낼 수 있어요. ASPCA는 개와 고양이 모두 이런 부상을 입을 수 있다고 경고하고, VCA는 날것이든 익힌 것이든 칠면조 같은 가금류 뼈를 고양이에게 주지 말라고 해요.",
+   "symptoms": [
+    "컥컥거리거나 삼키기 힘들어함",
+    "구토",
+    "밥을 먹지 않음"
+   ],
+   "howTo": "",
+   "ifEaten": "바로 동물병원에 연락하세요. 수의사 지시 없이 집에서 토하게 하지 마세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Chicken Bones? (What to Do if Your Dog Ate Chicken Bones)",
+    "url": "https://www.akc.org/expert-advice/health/what-to-do-dog-eats-chicken-bone/",
+    "supports": "익힌 닭뼈가 더 잘 쪼개지고 늦게 녹음, 장염·췌장염·식도 손상·막힘, 증상 목록, 수의사 전화·집에서 토하게 하지 말 것·빵 먹이지 말 것, 12~24시간 증상 없으면 대개 괜찮음"
+   },
+   {
+    "org": "AKC",
+    "title": "People Foods Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/human-foods-dogs-can-and-cant-eat/",
+    "supports": "익힌 가금류 뼈는 개에게 절대 주지 말 것"
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "뼈는 목에 걸리거나 쪼개져 소화관에 박히거나 구멍을 낼 수 있고 개·고양이 모두 다칠 수 있음"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Fall food dos and don'ts for cats",
+    "url": "https://vcahospitals.com/urgent-care/health-and-safety-tips/fall-food-dos-and-donts-cats",
+    "supports": "칠면조 뼈는 날것이든 익힌 것이든 고양이에게 주지 말 것, 쪼개져 질식·막힘"
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Common Cat Hazards",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/common-cat-hazards",
+    "supports": "전문가 지시 없이 토하게 하지 말 것"
+   }
+  ]
+ },
+ {
+  "slug": "pork",
+  "name": "돼지고기",
+  "aliases": [
+   "돼지 살코기",
+   "수육",
+   "삼겹살",
+   "목살",
+   "돼지 안심"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "양념 없이 완전히 익힌 돼지고기 살코기는 강아지에게 조금 줘도 괜찮아요. 기름진 부위와 뼈, 햄·베이컨 같은 가공육은 피하세요.",
+   "why": "돼지고기 지방은 개가 소화하기 어려워 배탈이나 췌장염을 일으킬 수 있어요. 덜 익힌 돼지고기는 기생충(선모충) 감염 위험이 있고, 익힌 돼지뼈는 쪼개져 다칠 수 있어요. 양파·마늘 가루 같은 양념은 개에게 해롭고, 햄·베이컨은 지방과 소금이 많아요.",
+   "symptoms": [],
+   "howTo": "완전히 익힌 살코기를 기름을 떼고 뼈와 양념 없이 작게 잘라 주세요. 처음엔 조금만 주고 반응을 보세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "양념 없이 익힌 돼지고기 살코기는 고양이에게 조금 줘도 괜찮아요.",
+   "why": "ASPCA는 뼈·양념이 없는 기름기 적은 익힌 돼지고기를 반려동물에게 조금 나눠 줘도 된다고 하고, 햄·베이컨 같은 가공육은 소금이 많아 피하라고 해요. 날고기는 세균·기생충 위험이 있어 고양이에게 권하지 않아요.",
+   "symptoms": [],
+   "howTo": "완전히 익힌 살코기를 양념 없이, 뼈를 빼고 작게 잘라 주세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Pork?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-pork/",
+    "supports": "양념 없이 익힌 돼지고기는 개에게 안전, 양파·마늘 가루 독성, 날 돼지고기 선모충, 지방→소화불량·췌장염, 익힌 뼈 쪼개짐, 햄·베이컨 지방·소금"
+   },
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Hamburgers?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-hamburger/",
+    "supports": "이 옛 글은 '익혔거나 양념한 돼지고기는 주지 말라'고 적어 AKC 안에서도 의견이 갈림"
+   },
+   {
+    "org": "ASPCA",
+    "title": "Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet",
+    "supports": "뼈·양념 없는 기름기 적은 익힌 돼지고기는 반려동물에게 조금 괜찮음, 햄·베이컨 등 가공육은 소금이 많아 피할 것"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "익힌 고기를 고양이 간식으로 꼽음, 양념 없이, 간식 10% 이내"
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Feeding Your Cat",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "supports": "날고기는 감염 위험으로 고양이에게 권하지 않음"
+   }
+  ]
+ },
+ {
+  "slug": "beef",
+  "name": "소고기",
+  "aliases": [
+   "쇠고기",
+   "한우",
+   "소고기 살코기",
+   "다짐육",
+   "스테이크",
+   "우둔살"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "양념 없이 익힌 소고기는 강아지에게 단백질 간식으로 줄 수 있어요.",
+   "why": "날 소고기에는 살모넬라·대장균 같은 세균이 있을 수 있어 개와 사람 모두에게 해로울 수 있어요. 양념한 고기는 배탈이나 췌장염을 일으킬 수 있고, 양파·마늘은 개에게 독이 돼요. 익힌 뼈는 쪼개져 다칠 수 있어요.",
+   "symptoms": [],
+   "howTo": "완전히 익혀서 기름을 떼고, 양념·뼈 없이 한입 크기로 잘라 주세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "양념 없이 익힌 소고기 살코기는 고양이에게 조금 줘도 괜찮아요.",
+   "why": "ASPCA는 뼈·양념이 없는 기름기 적은 익힌 소고기를 반려동물에게 조금 나눠 줘도 된다고 하고, VCA도 익힌 고기를 고양이가 좋아하는 간식으로 꼽아요. 날고기는 세균·기생충 위험이 있어 권하지 않아요.",
+   "symptoms": [],
+   "howTo": "완전히 익힌 살코기를 양념 없이, 뼈를 빼고 작게 잘라 주세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Hamburgers?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-hamburger/",
+    "supports": "양념 없이 익힌 소고기·햄버거 패티는 개에게 단백질 간식, 기름 제거·한입 크기, 날고기 살모넬라·대장균, 양파·마늘 독성, 양념→배탈·췌장염, 익힌 뼈 금지"
+   },
+   {
+    "org": "ASPCA",
+    "title": "Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet",
+    "supports": "뼈·양념 없는 기름기 적은 익힌 소고기는 반려동물에게 조금 괜찮음"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "익힌 고기를 고양이 간식으로 꼽음, 양념 없이, 간식 10% 이내"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "A raw deal: The dangers of feeding raw meat to cats",
+    "url": "https://vcahospitals.com/resources/lifestyle-cat/hazards-safety/the-dangers-of-feeding-raw-meat-to-cats",
+    "supports": "날고기는 고양이와 가족에게 세균 감염 위험"
+   }
+  ]
+ },
+ {
+  "slug": "salmon-fish",
+  "name": "연어·생선",
+  "aliases": [
+   "연어",
+   "생선",
+   "흰살생선",
+   "대구",
+   "훈제연어",
+   "생선회",
+   "연어회",
+   "구운 생선"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "완전히 익힌 연어·생선은 강아지에게 가끔 줘도 괜찮아요. 날생선, 훈제 연어, 가시는 피하세요.",
+   "why": "생선은 단백질과 오메가-3 지방산이 들어 있지만, 가장 큰 위험은 가시예요. 목·위·장에 걸리거나 찌를 수 있어요. 날 연어는 기생충을 통해 '연어 중독증'을 옮길 수 있는데, 치료하지 않으면 90%가 죽을 만큼 위험해요. 훈제 연어는 소금이 많고, 기름을 많이 써서 조리한 생선은 배탈·췌장염을 일으킬 수 있어요.",
+   "symptoms": [],
+   "howTo": "기름·양념 없이 찌거나 굽거나 삶아 속까지 완전히 익히고(연어는 속 온도 약 60℃), 가시를 모두 발라 주세요. 연어는 일주일에 한 번 넘게 주지 않는 게 좋다고 안내돼요. 통조림이라면 소금이 적고 물에 담긴 제품을 고르세요. 간식은 하루 열량의 10% 안에서 주세요. 날 연어를 먹었다면 적은 양이라도 바로 동물병원에 연락하세요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "익힌 생선은 고양이가 좋아하는 간식이에요. 날생선은 피하고, 생선만 많이 먹이지는 마세요.",
+   "why": "VCA는 익힌 해산물을 고양이가 흔히 좋아하는 간식으로 꼽아요. 날 민물고기 등에는 비타민 B1(티아민)을 파괴하는 효소가 있어 결핍을 일으킬 수 있는데, 이 효소는 익히면 없어져요. 생선 위주로 먹은 고양이에게 비타민 E가 부족해져 지방 조직에 염증이 생기는 '황색 지방증'이 생긴 사례가 있어요.",
+   "symptoms": [],
+   "howTo": "양념 없이 완전히 익혀 가시를 빼고 조금만 주세요. 간식은 하루 열량의 10% 안에서 주고, 주식은 고양이용 완전 사료로 주세요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Fish?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-fish/",
+    "supports": "기름·양념 없이 완전히 익힌 생선은 개에게 괜찮음, 가장 큰 위험은 가시, 날생선 세균, 기름 많은 조리→배탈·췌장염, 간식 10%"
+   },
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Salmon?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-salmon/",
+    "supports": "익힌 연어는 개에게 안전, 날 연어 기생충·연어 중독증(미치료 90% 사망)·소량도 바로 수의사, 속 온도 140℉, 가시 제거, 훈제 연어 피할 것, 주 1회 이하, 통조림은 저염"
+   },
+   {
+    "org": "AKC",
+    "title": "People Foods Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/human-foods-dogs-can-and-cant-eat/",
+    "supports": "생선 통조림은 무염·물에 담긴 것, 훈제 연어는 소금 때문에 좋지 않음"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "익힌 해산물을 고양이 간식으로 꼽음, 양념 없이, 간식 10% 이내"
+   },
+   {
+    "org": "Merck Veterinary Manual",
+    "title": "Nutritional Requirements of Small Animals",
+    "url": "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/nutritional-requirements-of-small-animals",
+    "supports": "날 민물고기·조개의 티아민 분해 효소가 결핍을 일으킬 수 있고 익히면 파괴됨"
+   },
+   {
+    "org": "Merck Veterinary Manual",
+    "title": "Muscle Disorders in Cats",
+    "url": "https://www.merckvetmanual.com/cat-owners/bone-joint-and-muscle-disorders-of-cats/muscle-disorders-in-cats",
+    "supports": "황색 지방증 사례 대부분이 생선 위주 식단, 불포화지방산 과다+비타민 E 부족"
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Feeding Your Cat",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "supports": "날고기·날 식단은 고양이에게 권하지 않음"
+   }
+  ]
+ },
+ {
+  "slug": "tuna",
+  "name": "참치",
+  "aliases": [
+   "참치캔",
+   "참치 통조림",
+   "살코기참치",
+   "참치회",
+   "가다랑어"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "참치는 독이 되는 음식은 아니지만 수은이 많아 가끔 아주 조금만 줄 수 있어요.",
+   "why": "참치처럼 오래 사는 큰 생선은 수은이 쌓여 있고, 개는 사람보다 수은에 더 예민해요. 한 번 먹은 것보다 자주 먹이는 게 문제이고, 오래 먹이면 수은 중독으로 이어질 수 있어요. 날참치는 기생충·세균 위험도 있어요.",
+   "symptoms": [
+    "(자주 먹여 수은이 쌓였을 때) 털 빠짐",
+    "불안·초조",
+    "시력 저하·비틀거림",
+    "발 감각 저하·떨림",
+    "소변을 못 보거나 배가 부풀어 오름",
+    "피를 토하거나 혈변·물설사"
+   ],
+   "howTo": "주더라도 '라이트' 또는 가다랑어(skipjack) 참치를 물에 담긴, 소금·양념 없는 제품으로 골라 가끔 조금만 주세요. 알바코어('화이트') 참치와 기름에 담긴 참치는 피하세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": "한 번 조금 먹은 건 크게 걱정하지 않아도 돼요. 참치를 자주 먹여 왔는데 위 증상이 보이면 바로 동물병원에 가세요."
+  },
+  "cat": {
+   "verdict": "caution",
+   "answer": "참치는 고양이가 좋아하지만 자주 먹이면 문제가 생길 수 있어요. 가끔 아주 조금만 주세요.",
+   "why": "VCA는 수은 때문에 참치를 자주 먹이는 것이 위험하고, 참치 맛에 길들면 사료를 거부할 수 있다고 해요. 참치 통조림을 많이 먹은 고양이에게 비타민 E 결핍으로 '황색 지방증'이 생긴 사례가 있고(Merck), 사람용 생선 통조림을 먹은 일부 고양이에게 신경계 이상이 생겼다는 보고도 있어요(코넬대).",
+   "symptoms": [
+    "(황색 지방증) 털이 푸석해짐",
+    "기운이 없고 몸놀림이 둔해짐",
+    "배·등을 만지면 아파함",
+    "피부 밑 지방 덩어리",
+    "열",
+    "식욕 저하"
+   ],
+   "howTo": "사람용 참치 통조림을 주식처럼 주지 말고, 양념 없는 것을 간식으로 가끔 조금만 주세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": "가끔 조금 먹은 것보다 자주 먹는 게 문제예요. 참치를 자주 먹어 왔고 위 증상이 보이면 동물병원에 가세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Tuna?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-tuna/",
+    "supports": "참치는 개에게 독성은 아니지만 수은이 많음, 개는 수은에 더 예민, 알바코어·기름 담긴 참치 피하고 라이트·가다랑어 물 담긴 무염 제품을 가끔 소량, 수은 중독 증상, 한 번은 걱정 말 것"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Human Foods That Kittens Should Avoid",
+    "url": "https://vcahospitals.com/pediatric/kitten/health-wellness/human-foods-that-are-bad-for-kittens",
+    "supports": "수은 때문에 참치를 자주 먹이는 것은 위험, 참치 때문에 사료를 거부할 수 있음"
+   },
+   {
+    "org": "Merck Veterinary Manual",
+    "title": "Nutritional Requirements of Small Animals",
+    "url": "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/nutritional-requirements-of-small-animals",
+    "supports": "참치 통조림을 많이 먹은 고양이에게 비타민 E 결핍으로 황색 지방증 발생"
+   },
+   {
+    "org": "Merck Veterinary Manual",
+    "title": "Muscle Disorders in Cats",
+    "url": "https://www.merckvetmanual.com/cat-owners/bone-joint-and-muscle-disorders-of-cats/muscle-disorders-in-cats",
+    "supports": "황색 지방증 증상(푸석한 털, 무기력, 배·등 통증, 피하 지방 덩어리, 열, 식욕 저하)"
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Feeding Your Cat",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "supports": "사람용 생선 통조림을 먹은 일부 고양이에게 심각할 수 있는 신경계 이상"
+   }
+  ]
+ },
+ {
+  "slug": "shrimp",
+  "name": "새우",
+  "aliases": [
+   "대하",
+   "칵테일새우",
+   "새우살",
+   "삶은 새우",
+   "흰다리새우"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "익힌 새우는 껍질을 벗겨 한두 마리 정도 가끔 줘도 괜찮아요.",
+   "why": "새우는 지방·열량이 낮지만 콜레스테롤이 높아 많이 먹이면 좋지 않아요. 날새우에는 해로운 병원균이 있을 수 있고, 껍질은 목에 걸리거나 장을 막을 수 있어요(특히 작은 개). 튀기거나 버터·마늘·양념으로 조리한 새우는 피하세요.",
+   "symptoms": [],
+   "howTo": "찌거나 삶아 완전히 익히고 껍질·머리·다리·꼬리를 떼어 주세요. 대부분 한두 마리면 충분하고, 작은 개는 한 마리를 나눠 주세요. 배탈 증상이 보이면 그만 주세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "ok",
+   "answer": "양념 없이 익힌 새우는 고양이에게 간식으로 조금 줄 수 있어요.",
+   "why": "VCA는 익힌 해산물을 고양이가 흔히 좋아하는 간식으로 꼽으면서 양념 없이 주라고 안내해요. 날것은 세균 위험이 있어 고양이에게 권하지 않아요.",
+   "symptoms": [],
+   "howTo": "완전히 익혀 양념 없이 작게 잘라 조금만 주세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Shrimp?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-shrimp/",
+    "supports": "익힌 새우는 개에게 괜찮음, 저지방·고콜레스테롤, 날새우 병원균, 껍질 질식·막힘(작은 개), 튀김 피할 것, 한두 마리·작은 개는 일부, 배탈 시 중단"
+   },
+   {
+    "org": "AKC",
+    "title": "People Foods Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/human-foods-dogs-can-and-cant-eat/",
+    "supports": "껍질·머리·다리·꼬리를 떼고, 튀기거나 버터·양념한 새우는 피할 것"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "익힌 해산물을 고양이 간식으로 꼽음, 양념 없이, 간식 10% 이내"
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Feeding Your Cat",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "supports": "날 식단은 세균·바이러스·기생충 위험으로 고양이에게 권하지 않음"
+   }
+  ]
+ },
+ {
+  "slug": "dried-anchovy",
+  "name": "멸치·건어물",
+  "aliases": [
+   "멸치",
+   "건멸치",
+   "잔멸치",
+   "멸치볶음",
+   "건어물",
+   "황태",
+   "북어",
+   "말린 생선"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "멸치 자체는 개가 먹을 수 있는 생선으로 꼽히지만, 짜게 말렸거나 양념한 멸치·건어물은 피하는 게 좋아요.",
+   "why": "AKC는 멸치를 개가 먹어도 되는 생선 목록에 넣고, 정어리는 '저염' 제품을 권해요. 소금을 많이 먹으면 갈증·잦은 소변부터 구토·설사·떨림·발작까지 생길 수 있어요. 멸치볶음처럼 간장·설탕·기름으로 조리한 것은 소금이 많고 배탈을 일으킬 수 있어요.",
+   "symptoms": [
+    "(짠 것을 많이 먹었을 때) 심한 갈증·잦은 소변",
+    "구토",
+    "설사",
+    "늘어짐",
+    "떨림",
+    "발작"
+   ],
+   "howTo": "주더라도 소금·양념이 없는 것을 골라 아주 조금만 간식으로 주세요. 간식은 하루 열량의 10% 안에서 주고, 늘 깨끗한 물을 마실 수 있게 해 주세요.",
+   "ifEaten": "짠 건어물이나 양념한 멸치를 많이 먹었다면 먹은 양을 확인하고, 구토·떨림·심한 갈증이 보이면 바로 동물병원에 연락하세요."
+  },
+  "cat": {
+   "verdict": "caution",
+   "answer": "익힌 생선은 고양이 간식이 될 수 있지만, 짠 건어물이나 양념한 멸치는 피하세요.",
+   "why": "VCA는 익힌 해산물을 고양이 간식으로 꼽는 한편, 짠 과자 같은 짠 음식은 피하라고 해요. 소금을 너무 많이 먹으면 고양이도 구토·설사·탈수가 생기고 심하면 떨림·발작이 올 수 있어요.",
+   "symptoms": [
+    "구토",
+    "설사",
+    "소변 증가",
+    "탈수",
+    "늘어짐",
+    "떨림",
+    "발작"
+   ],
+   "howTo": "소금·양념이 없는 것을 아주 조금만 주세요. 간식은 하루 열량의 10% 안에서 주고, 늘 깨끗한 물을 마실 수 있게 해 주세요.",
+   "ifEaten": "짠 건어물을 많이 먹었다면 먹은 양을 확인하고, 구토·떨림 같은 증상이 보이면 바로 동물병원에 연락하세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Salmon?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-salmon/",
+    "supports": "개가 안전하게 먹을 수 있는 생선 목록에 '멸치(Anchovies)'와 '저염 정어리' 포함"
+   },
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Fish?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-fish/",
+    "supports": "기름 많이 쓴 생선은 배탈·췌장염, 양념(마늘 등)도 해로움"
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "소금 과다는 갈증·잦은 소변·전해질 이상, 중독 시 구토·설사·떨림·발작"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "익힌 해산물은 고양이 간식, 짠 과자류는 피할 음식"
+   },
+   {
+    "org": "Pet Poison Helpline",
+    "title": "Is Salt Bad for Cats",
+    "url": "https://www.petpoisonhelpline.com/pet-tips/is-salt-bad-for-cats/",
+    "supports": "고양이 소금 과다 시 구토·설사·소변 증가·탈수·늘어짐·떨림·발작"
+   },
+   {
+    "org": "Merck Veterinary Manual",
+    "title": "Salt Poisoning",
+    "url": "https://www.merckvetmanual.com/special-pet-topics/poisoning/salt-poisoning",
+    "supports": "깨끗한 물을 마실 수 있으면 소금 중독 가능성이 낮음"
+   }
+  ]
+ },
+ {
+  "slug": "seaweed",
+  "name": "김",
+  "aliases": [
+   "조미김",
+   "맛김",
+   "구운 김",
+   "생김",
+   "김밥 김",
+   "파래김"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "아무것도 넣지 않은 김은 조금 줘도 괜찮지만, 소금·기름·양념을 바른 조미김은 피하세요.",
+   "why": "AKC 수석 수의사는 소금이나 마늘이 들어가지 않은 가공 김(노리)은 개가 먹어도 된다고 해요. 간장 같은 양념은 소금이 많고, 김을 많이 먹으면 배탈이 나거나 요오드 과다로 갑상선에 영향을 줄 수 있어요. 바닷가에 떠밀려 온 해초는 짜고 장을 막을 수 있어 위험해요.",
+   "symptoms": [
+    "구토",
+    "설사"
+   ],
+   "howTo": "소금·기름·마늘·간장이 들어가지 않은 김을 작게 찢어 조금만 주세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": "조미김을 많이 먹었다면 갈증·구토 등을 지켜보고 증상이 보이면 동물병원에 문의하세요. 바닷가 해초를 먹었다면 바로 동물병원에 문의하세요."
+  },
+  "cat": {
+   "verdict": null,
+   "answer": "고양이에게 김을 줘도 되는지에 대해서는 신뢰할 만한 수의 기관 자료를 찾지 못했어요.",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Seaweed? Can You Feed Your Dog Seaweed?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-seaweed/",
+    "supports": "소금·마늘 없는 가공 김은 개에게 괜찮음, 소금·간장·양념 든 것은 안 됨, 많이 먹으면 배탈·요오드 과다로 갑상선 영향, 바닷가 해초는 소금 중독·장 막힘 위험이라 바로 수의사"
+   }
+  ]
+ },
+ {
+  "slug": "tofu",
+  "name": "두부",
+  "aliases": [
+   "순두부",
+   "연두부",
+   "부침두부",
+   "두부 부침"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "두부는 독성이 없어 양념 없는 것을 가끔 조금 줄 수 있어요. 주식처럼 많이 주지는 마세요.",
+   "why": "두부만으로는 개에게 필요한 단백질이 부족해요. 콩 알레르기가 있는 개는 피해야 하고, 콩을 많이 먹으면 배탈·가스가 생길 수 있어요. 많이 먹이면 호르몬 균형에 영향을 줄 수 있고, 규산염이 많아 결석 위험을 높일 수 있다고 안내돼요. 위 확장(고창증) 위험이 큰 견종은 피하는 게 좋아요.",
+   "symptoms": [
+    "배탈",
+    "가스"
+   ],
+   "howTo": "간이 안 된 플레인 두부를 익혀 식힌 뒤 작게 잘라 조금만 주세요. 양파·마늘이 든 두부 요리는 안 돼요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": "양파·마늘·간장 등으로 양념한 두부 요리를 먹었다면 먹은 양을 확인해 동물병원에 문의하세요."
+  },
+  "cat": {
+   "verdict": null,
+   "answer": "고양이에게 두부를 줘도 되는지에 대해서는 신뢰할 만한 수의 기관 자료를 찾지 못했어요.",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Tofu?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-tofu/",
+    "supports": "두부는 개에게 독성 없음, 가끔 적당량, 단백질 부족해 주식 불가, 무염 플레인·양파·마늘 없이·익혀 식혀 작게, 콩 알레르기, 식물성 에스트로겐, 규산염·결석, 배탈·가스, 고창증 위험 견종은 피할 것"
+   }
+  ]
+ },
+ {
+  "slug": "rice",
+  "name": "밥(쌀)",
+  "aliases": [
+   "쌀밥",
+   "흰쌀밥",
+   "현미밥",
+   "쌀",
+   "흰밥",
+   "공깃밥"
+  ],
+  "dog": {
+   "verdict": "ok",
+   "answer": "양념 없이 물로만 지은 밥은 강아지에게 조금 줘도 괜찮아요.",
+   "why": "쌀은 일부 사료에도 들어가는 재료예요. 흰쌀밥은 소화가 쉬워 배탈 때 주는 담백한 식단에 쓰이지만, 혈당을 올리기 쉬워 당뇨가 있는 개에게는 자주 주지 않는 게 좋아요. 현미는 영양은 많지만 소화가 더 어려워요. 사료에도 탄수화물이 있으니 밥을 많이 더 주면 살이 찔 수 있어요.",
+   "symptoms": [],
+   "howTo": "물로만 지은 밥을 양념 없이 조금 주세요. 처음엔 조금씩 시작하고, 간식은 하루 열량의 10% 안에서 주세요. 양념이 들어간 밥은 피하세요.",
+   "ifEaten": ""
+  },
+  "cat": {
+   "verdict": "caution",
+   "answer": "고양이는 고기에서 영양을 얻는 육식동물이라 밥을 일부러 줄 필요는 없어요. 배탈 때 닭가슴살과 흰쌀밥을 잠깐 주는 식단이 쓰여 왔지만, 영양이 부족해 오래 먹이면 안 돼요.",
+   "why": "코넬대 고양이 건강센터는 고양이를 '절대 육식동물'로 설명해요. VCA는 삶은 닭가슴살과 흰쌀밥으로 만든 전통적인 담백 식단을 개·고양이에게 써 왔지만, 필수 영양소가 10가지 넘게 부족해 지금은 수의사 처방 식단을 더 권한다고 해요.",
+   "symptoms": [],
+   "howTo": "주더라도 양념 없이 지은 흰쌀밥을 조금만 주세요. 배탈 때 집에서 만든 식단은 수의사와 상의한 뒤 짧게만 쓰세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": "양파·마늘 같은 양념이 든 밥을 먹었다면 먹은 양을 확인해 동물병원에 문의하세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Rice?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-rice/",
+    "supports": "개는 밥을 먹을 수 있음, 흰쌀은 배탈 식단에 쓰이고 혈당을 올리기 쉬워 당뇨견은 가끔만, 현미는 소화 어려움, 양념 없이 물로 지을 것, 탄수화물 과다→체중 증가, 천천히 시작"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Bland Diet Instructions for Dogs and Cats",
+    "url": "https://vcahospitals.com/know-your-pet/bland-diet-instructions-for-dogs-and-cats",
+    "supports": "삶은 닭가슴살+흰쌀밥 전통 담백 식단을 개·고양이에 써 왔으나 필수 영양소 10가지 이상 부족, 며칠만, 지금은 처방 식단을 더 권함"
+   },
+   {
+    "org": "Cornell Feline Health Center",
+    "title": "Feeding Your Cat",
+    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "supports": "고양이는 절대 육식동물, 간식은 하루 열량 10~15% 이내"
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "양파·마늘 등 파속 식물은 고양이가 개보다 더 민감"
+   }
+  ]
+ },
+ {
+  "slug": "bread",
+  "name": "빵",
+  "aliases": [
+   "식빵",
+   "모닝빵",
+   "바게트",
+   "토스트",
+   "통밀빵",
+   "빵 조각"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "아무것도 들지 않은 플레인 빵은 아주 조금은 괜찮지만, 영양가가 거의 없고 위험한 재료가 든 빵이 많아요.",
+   "why": "흰 식빵·통밀빵 같은 플레인 빵은 알레르기가 없는 개라면 대개 탈이 나지 않지만, 탄수화물이 많아 살이 찌기 쉬워요. 건포도 빵, 자일리톨이 든 빵, 마늘빵, 마카다미아 같은 견과가 든 빵은 개에게 해로워요. 굽지 않은 반죽은 훨씬 위험하니 '빵 반죽' 항목을 보세요.",
+   "symptoms": [],
+   "howTo": "건포도·자일리톨·마늘·견과류·초콜릿이 없는 플레인 빵을 아주 작게 떼어 가끔만 주세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": "건포도·자일리톨·마늘·마카다미아·초콜릿이 든 빵을 먹었다면 먹은 양과 시간을 확인해 바로 동물병원에 연락하세요."
+  },
+  "cat": {
+   "verdict": null,
+   "answer": "다 구운 빵을 고양이에게 줘도 되는지에 대해서는 신뢰할 만한 수의 기관 자료를 찾지 못했어요. 굽지 않은 빵 반죽은 고양이에게 위험해요('빵 반죽' 항목 참고).",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Bread?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-bread/",
+    "supports": "플레인 흰빵·통밀빵은 대개 안전하지만 영양이 없고 탄수화물로 비만, 아주 작게 가끔, 건포도·자일리톨·마늘·마카다미아 등 견과가 든 빵은 해로움"
+   },
+   {
+    "org": "AKC",
+    "title": "People Foods Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/human-foods-dogs-can-and-cant-eat/",
+    "supports": "독성 재료가 없는 플레인 빵 소량은 대개 안전, 생 이스트 반죽은 위험"
+   }
+  ]
+ },
+ {
+  "slug": "bread-dough",
+  "name": "빵 반죽(생반죽)",
+  "aliases": [
+   "생반죽",
+   "빵 반죽",
+   "이스트 반죽",
+   "발효 반죽",
+   "피자 반죽",
+   "굽지 않은 반죽"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "굽지 않은 빵 반죽(이스트 반죽)은 강아지에게 아주 위험해요. 조금이라도 먹었다면 바로 동물병원에 연락하세요.",
+   "why": "이스트가 든 생반죽은 따뜻한 위 속에서 계속 부풀어 배가 빵빵해지고, 가슴이 깊은 큰 개에서는 위가 꼬이거나 터지는 응급 상황으로 이어질 수 있어요. 발효하면서 알코올도 만들어져 알코올 중독을 일으켜요.",
+   "symptoms": [
+    "배가 부풀어 오름",
+    "구토",
+    "안절부절못함",
+    "비틀거림(취한 듯한 걸음)",
+    "늘어짐·기운 없음",
+    "체온 저하",
+    "일어서지 못함",
+    "경련·혼수"
+   ],
+   "howTo": "",
+   "ifEaten": "먹은 반죽의 양과 시간을 확인해 증상이 없어도 바로 동물병원에 연락하세요. 일찍 치료할수록 결과가 좋아요. 수의사 지시 없이 집에서 토하게 하지 마세요."
+  },
+  "cat": {
+   "verdict": "no",
+   "answer": "굽지 않은 빵 반죽은 고양이에게도 위험해요. 먹었다면 바로 동물병원에 연락하세요.",
+   "why": "생반죽은 고양이 위 속에서도 계속 부풀어 소화관을 막거나 가스로 배가 부풀 수 있고, 이스트가 만든 알코올 때문에 알코올 중독이 생겨요. 치료하지 않으면 목숨을 잃을 수 있지만, 빨리 치료하면 회복 가능성이 아주 높아요.",
+   "symptoms": [
+    "배가 부풀거나 단단해짐",
+    "구토·헛구역질",
+    "숨쉬기 힘들어함",
+    "힘없음",
+    "비틀거림(취한 듯한 모습)",
+    "저혈당",
+    "혼수"
+   ],
+   "howTo": "",
+   "ifEaten": "바로 동물병원에 연락하세요. 집에서 토하게 하면 고양이에게 치명적일 수 있으니 절대 직접 하지 마세요."
+  },
+  "sources": [
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "생 이스트 반죽은 위 속에서 부풀어 위가 꼬이는 응급 상황을 일으킬 수 있고 알코올 중독도 일으킴"
+   },
+   {
+    "org": "Pet Poison Helpline",
+    "title": "Bread Dough Is a Don't for Pets",
+    "url": "https://www.petpoisonhelpline.com/pet-owner-blog/bread-dough-is-a-dont-for-pets/",
+    "supports": "생반죽은 개·고양이 모두에게 위험, 위 속 팽창·큰 개 위 꼬임/파열, 발효 알코올 흡수, 증상, 증상 없어도 즉시 수의사, 일찍 치료하면 결과 좋음"
+   },
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Bread?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-bread/",
+    "supports": "생반죽 팽창과 에탄올 방출, 알코올 중독 증상(비틀거림·체온 저하·경련·혼수), 먹었으면 즉시 수의사"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Bread Dough Poisoning in Cats",
+    "url": "https://vcahospitals.com/know-your-pet/bread-dough-poisoning-in-cats",
+    "supports": "고양이 위 속 팽창·막힘·가스·알코올 중독, 증상 목록, 즉시 연락, 집에서 토하게 하면 고양이에게 치명적일 수 있음, 미치료 시 치명적·빨리 치료하면 회복 가능성 높음"
+   }
+  ]
+ },
+ {
+  "slug": "peanut-butter",
+  "name": "땅콩·땅콩버터",
+  "aliases": [
+   "땅콩",
+   "땅콩버터",
+   "피넛버터",
+   "볶은 땅콩",
+   "땅콩잼"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "자일리톨이 없는 땅콩버터나 소금·양념 없는 땅콩은 조금 줘도 괜찮아요. 자일리톨이 든 제품은 절대 안 돼요.",
+   "why": "일부 땅콩버터에는 개에게 치명적인 자일리톨이 들어 있어요. 땅콩버터와 땅콩은 지방·열량이 높아 많이 먹으면 살이 찌거나 췌장 문제로 이어질 수 있고, 소금이 많은 제품도 좋지 않아요. 땅콩은 목에 걸릴 수도 있어요.",
+   "symptoms": [
+    "(자일리톨이 든 제품을 먹었을 때) 힘없음·쓰러짐",
+    "비틀거림",
+    "발작"
+   ],
+   "howTo": "성분표에서 자일리톨이 없는지 꼭 확인하고, 무염·무가당 땅콩버터를 아주 조금만 주세요. 땅콩은 껍질을 까고 소금·양념 없이 볶은 것만 조금 주세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": "자일리톨이 든 땅콩버터를 먹었다면 바로 동물병원에 연락하세요. 일반 땅콩버터를 많이 먹었다면 구토·설사가 있는지 지켜보고, 증상이 있으면 동물병원에 문의하세요."
+  },
+  "cat": {
+   "verdict": "caution",
+   "answer": "자일리톨·첨가물이 없는 땅콩버터는 고양이 간식으로 조금 줄 수 있어요. 지방이 많으니 양은 아주 적게 주세요.",
+   "why": "VCA는 첨가물 없는 자연 그대로의 땅콩버터를 고양이 간식으로 소개하면서, 보존료와 자일리톨이 든 제품은 피하라고 해요. ASPCA는 땅콩버터가 지방이 많아 양을 적게 주라고 안내해요.",
+   "symptoms": [],
+   "howTo": "보존료·자일리톨이 없는 땅콩버터를 아주 조금만 주세요. 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": "한 번에 많이 먹었다면 구토·설사가 있는지 지켜보고, 증상이 있으면 동물병원에 문의하세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Peanut Butter? Pet-Safe Peanut Butter",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-peanut-butter/",
+    "supports": "자일리톨 없는 땅콩버터는 개에게 적당히 괜찮음, 일부 제품에 자일리톨(10~60분 내 저혈당), 무염 제품 권장·소금 많으면 문제, 증상, 간식 10%"
+   },
+   {
+    "org": "AKC",
+    "title": "People Foods Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/human-foods-dogs-can-and-cant-eat/",
+    "supports": "자일리톨 든 땅콩버터 절대 금지, 땅콩은 껍질 깐 무염 볶은 것만 적당히"
+   },
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Nuts?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-nuts/",
+    "supports": "땅콩은 무염·무양념이면 아주 조금 괜찮지만 지방이 많고 목에 걸릴 수 있음"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Fall food dos and don'ts for cats",
+    "url": "https://vcahospitals.com/urgent-care/health-and-safety-tips/fall-food-dos-and-donts-cats",
+    "supports": "자연 그대로의 땅콩버터는 고양이 간식으로 안전, 보존료·자일리톨 없는 제품"
+   },
+   {
+    "org": "ASPCA",
+    "title": "Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet",
+    "supports": "땅콩버터는 자일리톨 확인, 지방이 많아 양을 적게(반려동물 일반)"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "자일리톨이 든 일부 땅콩버터는 고양이가 피할 음식, 간식 10% 이내"
+   }
+  ]
+ },
+ {
+  "slug": "macadamia",
+  "name": "마카다미아",
+  "aliases": [
+   "마카다미아넛",
+   "마카다미아 쿠키",
+   "초코 마카다미아"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "마카다미아는 강아지에게 독이 돼요. 주면 안 돼요.",
+   "why": "마카다미아를 먹은 개는 힘이 빠지고 뒷다리를 잘 못 쓰는 등의 증상을 보여요. 지방도 많아 췌장염을 일으킬 수 있어요. 지금까지 이 중독은 개에게서만 확인됐어요.",
+   "symptoms": [
+    "구토",
+    "열(체온 상승)",
+    "늘어짐·무기력",
+    "비틀거림",
+    "뒷다리 힘 빠짐·일어서지 못함",
+    "관절이 뻣뻣함",
+    "떨림"
+   ],
+   "howTo": "",
+   "ifEaten": "먹은 양과 시간을 확인해 바로 동물병원에 연락하세요. 초콜릿을 입힌 마카다미아라면 초콜릿 중독도 함께 확인해야 해요. 증상은 보통 12시간 안에 나타나고, 적절한 치료를 받으면 대개 하루이틀 안에 회복해요."
+  },
+  "cat": {
+   "verdict": "no",
+   "answer": "마카다미아는 고양이에게도 주지 마세요.",
+   "why": "마카다미아 중독은 지금까지 개에게서만 확인됐지만, VCA는 고양이가 피해야 할 음식 목록에 마카다미아를 넣고 있어요. 견과류는 지방과 기름이 많아 반려동물에게 구토·설사, 심하면 췌장염을 일으킬 수 있어요.",
+   "symptoms": [
+    "구토",
+    "설사"
+   ],
+   "howTo": "",
+   "ifEaten": "먹은 양과 시간을 확인해 동물병원에 문의하세요."
+  },
+  "sources": [
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Macadamia Nut Poisoning",
+    "url": "https://vcahospitals.com/know-your-pet/macadamia-nut-poisoning",
+    "supports": "마카다미아 중독은 현재 개에서만 확인, 증상(구토·열·무기력→비틀거림·뒷다리·관절 경직·떨림), 지방→췌장염, 즉시 연락, 치료 시 24~48시간 내 회복"
+   },
+   {
+    "org": "Pet Poison Helpline",
+    "title": "Macadamia Nuts (Pet Poison Helpline poison page)",
+    "url": "https://www.petpoisonhelpline.com/poison/macadamia-nuts/",
+    "supports": "개 증상 목록(무기력·체온 상승·구토·떨림·관절 경직·뒷다리 약화), 기름이 많아 췌장염"
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "개에서 무기력·비틀거림·구토·떨림·체온 상승, 보통 12시간 안에 증상, 24~72시간 회복, 견과류 지방→구토·설사·췌장염"
+   },
+   {
+    "org": "AKC",
+    "title": "People Foods Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/human-foods-dogs-can-and-cant-eat/",
+    "supports": "마카다미아는 독성, 먹고 증상을 보이는 것으로 알려진 종은 개뿐"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "마카다미아를 고양이가 피해야 할 음식으로 꼽음"
+   }
+  ]
+ },
+ {
+  "slug": "nuts",
+  "name": "아몬드·호두 등 견과류",
+  "aliases": [
+   "아몬드",
+   "호두",
+   "견과류",
+   "피칸",
+   "피스타치오",
+   "캐슈넛",
+   "하루견과",
+   "믹스넛"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "아몬드·호두 같은 견과류는 강아지에게 주지 않는 게 좋아요. 대부분 바로 독이 되지는 않지만 소화가 어렵고 위험 요소가 많아요.",
+   "why": "견과류는 지방이 많아 구토·설사, 심하면 췌장염을 일으킬 수 있어요. 아몬드는 식도·장·기도를 막을 수 있고(특히 작은 개), 소금·양념한 견과는 더 해로워요. 흑호두나 곰팡이 핀 호두에는 떨림·발작을 일으키는 독소가 있을 수 있어요. 섞인 견과에는 개에게 독이 되는 마카다미아가 들어 있을 수 있으니 확인하세요.",
+   "symptoms": [
+    "구토",
+    "설사",
+    "가스",
+    "식욕 저하",
+    "늘어짐",
+    "(곰팡이 핀 호두) 근육 떨림·발작"
+   ],
+   "howTo": "",
+   "ifEaten": "한두 알 먹은 정도라면 너무 걱정하지 말고 구토나 장이 막힌 듯한 증상이 없는지 지켜보세요. 여러 알을 먹었거나 흑호두·곰팡이 핀 호두·마카다미아를 먹었다면 바로 동물병원에 연락하세요."
+  },
+  "cat": {
+   "verdict": "no",
+   "answer": "아몬드·호두 같은 견과류는 고양이에게 주지 않는 게 좋아요.",
+   "why": "ASPCA는 견과류를 반려동물에게 주지 말아야 할 음식으로 꼽아요. 지방과 기름이 많아 구토·설사, 심하면 췌장염을 일으킬 수 있어요. 시중의 단 아몬드나 피스타치오 자체는 독성이 없지만 배탈을 일으킬 수 있고, 껍질째 먹은 피스타치오는 장을 막을 수 있어요.",
+   "symptoms": [
+    "구토",
+    "설사"
+   ],
+   "howTo": "",
+   "ifEaten": "여러 알을 먹었거나 구토·설사가 이어지면 동물병원에 문의하세요. 마카다미아가 섞여 있었다면 먹은 양을 확인해 바로 문의하세요."
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Almonds? Are Almonds Bad for Dogs?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-almonds/",
+    "supports": "개에게 아몬드는 '아니요', 소화 어려움·지방→췌장염·식도/장/기도 막힘(작은 개), 양념·소금 아몬드, 증상, 한두 알은 관찰·여러 알이면 수의사"
+   },
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Walnuts?",
+    "url": "https://www.akc.org/expert-advice/advice/can-dogs-eat-walnuts/",
+    "supports": "호두는 좋은 선택 아님(질식·지방→췌장염), 흑호두 주글론 독성, 곰팡이 핀 호두 아플라톡신·페니트렘 A(떨림·발작), 흑호두·곰팡이 호두는 즉시 수의사. 이 글은 아몬드를 '가끔 아주 조금은 괜찮다'고 적어 AKC 아몬드 글과 다름"
+   },
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Nuts?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-nuts/",
+    "supports": "견과류는 대부분 지방이 많아 비만·췌장 문제, 소금 견과 문제, 아몬드 질식, 마카다미아는 매우 독성, 많이 먹으면 수의사"
+   },
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "아몬드·피칸·호두 등 견과류는 지방·기름이 많아 구토·설사·췌장염을 일으킬 수 있음(반려동물 일반)"
+   },
+   {
+    "org": "ASPCA",
+    "title": "Internet Myths and Rumors: Pet Toxin Edition",
+    "url": "https://www.aspca.org/news/internet-myths-and-rumors-pet-toxin-edition",
+    "supports": "시중 단 아몬드·피스타치오는 반려동물에게 독성은 없지만 배탈·구토·설사·췌장염 가능, 껍질째 피스타치오는 장 막힘"
+   }
+  ]
+ },
+ {
+  "slug": "honey",
+  "name": "꿀",
+  "aliases": [
+   "벌꿀",
+   "꿀물",
+   "생꿀",
+   "아카시아꿀",
+   "사양꿀"
+  ],
+  "dog": {
+   "verdict": "caution",
+   "answer": "건강한 성견에게 꿀은 아주 조금은 괜찮지만, 당이 많아 자주 줄 이유는 없어요. 새끼 강아지·면역이 약한 개·당뇨가 있는 개에게는 주지 마세요.",
+   "why": "꿀은 대부분 당이라 많이 먹으면 비만과 충치로 이어질 수 있어요. 가공하지 않은 생꿀에는 보툴리누스균 포자가 있을 수 있어 새끼 강아지나 면역이 약한 개에게는 주지 말라고 안내돼요. 꿀의 건강 효과로 알려진 이야기는 대부분 과학적 근거가 부족해요.",
+   "symptoms": [],
+   "howTo": "건강한 성견에게만 아주 조금, 가끔 주세요. 양은 수의사와 상의하고, 간식은 하루 열량의 10% 안에서 주세요.",
+   "ifEaten": "많이 먹었다면 구토·설사가 있는지 지켜보세요. 당뇨가 있는 개이거나 증상이 있으면 동물병원에 문의하세요."
+  },
+  "cat": {
+   "verdict": null,
+   "answer": "고양이에게 꿀을 줘도 되는지에 대해서는 신뢰할 만한 수의 기관 자료를 찾지 못했어요.",
+   "why": "",
+   "symptoms": [],
+   "howTo": "",
+   "ifEaten": ""
+  },
+  "sources": [
+   {
+    "org": "AKC",
+    "title": "Can Dogs Eat Honey?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-honey/",
+    "supports": "꿀은 개에게 소량 안전, 당→비만·충치, 생꿀 보툴리누스 포자로 새끼·면역 약한 개 금지, 당뇨견 금지, 건강 효과는 대부분 근거 부족, 양은 수의사와 상의"
+   },
+   {
+    "org": "AKC",
+    "title": "People Foods Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/human-foods-dogs-can-and-cant-eat/",
+    "supports": "건강한 성견에게 꿀 소량은 대개 괜찮지만 대부분 당이라 자주 줄 이유가 없음"
+   }
+  ]
+ },
+ {
+  "slug": "salt",
+  "name": "소금·짠 음식",
+  "aliases": [
+   "소금",
+   "짠 음식",
+   "라면",
+   "라면 국물",
+   "국물",
+   "찌개",
+   "과자",
+   "감자칩",
+   "젓갈",
+   "육수"
+  ],
+  "dog": {
+   "verdict": "no",
+   "answer": "짠 음식은 강아지에게 주지 마세요. 라면·국물·과자처럼 사람이 먹는 짠 음식을 많이 먹으면 소금 중독이 생길 수 있어요.",
+   "why": "소금을 지나치게 먹으면 갈증과 잦은 소변, 혈액 속 전해질 이상이 생기고, 심하면 떨림·발작·사망까지 이를 수 있어요. 신장병이나 당뇨가 있는 개는 더 위험해요. 라면 스프나 국물에는 소금 말고도 양파·마늘처럼 개에게 해로운 재료가 들어갈 수 있어요.",
+   "symptoms": [
+    "심한 갈증·잦은 소변",
+    "구토",
+    "설사",
+    "식욕 저하",
+    "늘어짐",
+    "비틀거림",
+    "떨림",
+    "발작"
+   ],
+   "howTo": "",
+   "ifEaten": "먹은 음식과 양, 시간을 확인해 바로 동물병원에 연락하세요. 소금 중독은 치료할 때도 나트륨 수치를 천천히 내려야 해서, 집에서 물을 한꺼번에 많이 먹이거나 토하게 하지 말고 수의사 지시를 따르세요."
+  },
+  "cat": {
+   "verdict": "no",
+   "answer": "짠 음식은 고양이에게 주지 마세요. 국물·육수·그레이비처럼 짠 국물도 피해야 해요.",
+   "why": "VCA는 짠 과자 같은 짠 음식을 고양이가 피해야 할 음식으로 꼽고, iCatCare는 육수·그레이비·소금물 같은 짠 국물을 피할 음료로 꼽아요. 소금을 너무 많이 먹으면 구토·설사·탈수가 생기고, 심하면 떨림·발작이나 신장 문제로 이어질 수 있어요. 양파·마늘이 든 국물은 고양이가 개보다 더 민감해 특히 위험해요.",
+   "symptoms": [
+    "구토",
+    "설사",
+    "식욕 저하",
+    "소변 증가",
+    "탈수",
+    "늘어짐",
+    "떨림",
+    "발작"
+   ],
+   "howTo": "",
+   "ifEaten": "먹은 음식과 양을 확인해 바로 동물병원에 연락하세요. 집에서 직접 처치하지 말고 수의사 지시를 따르세요."
+  },
+  "sources": [
+   {
+    "org": "ASPCA",
+    "title": "People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/people-foods-avoid-feeding-your-pets",
+    "supports": "소금 과다는 갈증·잦은 소변·전해질 이상, 중독 시 구토·설사·우울·떨림·발작·사망, 양파·마늘은 고양이가 개보다 더 민감"
+   },
+   {
+    "org": "Pet Poison Helpline",
+    "title": "My Dog Ate Too Much Salt",
+    "url": "https://www.petpoisonhelpline.com/pet-tips/my-dog-ate-too-much-salt/",
+    "supports": "짠 과자·프레첼·소금 견과 등 사람 음식이 원인, 증상 목록, 신장병·당뇨견 고위험, 즉시 수의사, 뇌부종 위험"
+   },
+   {
+    "org": "Merck Veterinary Manual",
+    "title": "Salt Poisoning",
+    "url": "https://www.merckvetmanual.com/special-pet-topics/poisoning/salt-poisoning",
+    "supports": "물을 한꺼번에 많이 주면 신경 증상이 악화될 수 있음, 개·고양이는 수액을 천천히, 특별한 해독제 없음"
+   },
+   {
+    "org": "Pet Poison Helpline",
+    "title": "Is Salt Bad for Cats",
+    "url": "https://www.petpoisonhelpline.com/pet-tips/is-salt-bad-for-cats/",
+    "supports": "고양이 소금 과다는 탈수·구토·설사·신부전, 증상 목록, 즉시 연락"
+   },
+   {
+    "org": "International Cat Care",
+    "title": "How to encourage your cat to drink",
+    "url": "https://icatcare.org/articles/how-to-encourage-your-cat-to-drink",
+    "supports": "소금물·육수·그레이비 같은 짠 국물은 고양이가 피할 음료"
+   },
+   {
+    "org": "VCA Animal Hospitals",
+    "title": "Using Food and Treats for Training Cats",
+    "url": "https://vcahospitals.com/know-your-pet/using-food-and-treats-for-training-cats",
+    "supports": "짠 과자류는 고양이가 피해야 할 음식"
+   }
+  ]
+ }
+]

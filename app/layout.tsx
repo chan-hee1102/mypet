@@ -89,6 +89,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <Link href="/weight">체중별 사료량</Link>
               <Link href="/compare">품종 비교</Link>
               <Link href="/age">나이별 사람 나이</Link>
+              <Link href="/can-eat">먹어도 되나요</Link>
+              <Link href="/ranking">인기 품종 순위</Link>
               <Link href="/sources">정보 기준</Link>
               <Link href="/terms">이용약관</Link>
               <Link href="/privacy"><strong>개인정보처리방침</strong></Link>

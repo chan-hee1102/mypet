@@ -3,6 +3,7 @@ import { breedPath } from './breedSlug';
 import { featuredBreeds } from './growth';
 import { SITE } from './site';
 import { AGES, KGS, MONTHS, comparePairs, comparePath } from './seoPages';
+import { foodPath, foodsFor } from './foodSafety';
 
 /**
  * 네이버·빙에만 올리는 페이지(2026-09-27 사장님 지시: 「구글은 대량 생성 페이지 제재가 심하니 네이버·빙에만」).
@@ -31,6 +32,8 @@ export function naverBingOnlyUrls(): string[] {
     ...(['dog', 'cat'] as const).flatMap((s) => KGS[s].map((kg) => `/weight/${s}/${kg}`)),
     '/age',
     ...(['dog', 'cat'] as const).flatMap((s) => AGES[s].map((y) => `/age/${s}/${y}`)),
+    '/can-eat',
+    ...(['dog', 'cat'] as const).flatMap((s) => foodsFor(s).map((f) => foodPath(s, f.slug))),
     '/compare',
     ...comparePairs().map(([a, b]) => encodeURI(comparePath(a, b))),
   ].map((p) => `${SITE.url}${p}`);

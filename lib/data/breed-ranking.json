@@ -1,0 +1,288 @@
+{
+ "korea": {
+  "year": "2025",
+  "dog": [
+   {
+    "rank": 1,
+    "name": "몰티즈",
+    "pct": 20.4,
+    "breed_ko": "말티즈"
+   },
+   {
+    "rank": 2,
+    "name": "푸들",
+    "pct": 18.9,
+    "breed_ko": null,
+    "note": "크기 구분 없는 '푸들'. 우리 사이트에는 토이푸들·미니어처푸들·스탠다드푸들로 나뉘어 있어요."
+   },
+   {
+    "rank": 3,
+    "name": "믹스견",
+    "pct": 15.1,
+    "breed_ko": "믹스견(잡종)",
+    "note": "보고서의 믹스견에는 부모 품종을 모르는 경우와 몰티푸·코카푸·폼피츠 같은 의도적 교배가 함께 들어 있어요."
+   },
+   {
+    "rank": 4,
+    "name": "포메라니안",
+    "pct": 12.8,
+    "breed_ko": "포메라니안"
+   },
+   {
+    "rank": 5,
+    "name": "비숑 프리제",
+    "pct": 7,
+    "breed_ko": "비숑프리제"
+   },
+   {
+    "rank": 6,
+    "name": "치와와",
+    "pct": 5.3,
+    "breed_ko": "치와와"
+   },
+   {
+    "rank": 7,
+    "name": "시추",
+    "pct": 5.1,
+    "breed_ko": "시츄"
+   }
+  ],
+  "cat": [
+   {
+    "rank": 1,
+    "name": "코리안숏헤어",
+    "pct": 44.7,
+    "breed_ko": "코리안숏헤어"
+   },
+   {
+    "rank": 2,
+    "name": "러시안블루",
+    "pct": 12.8,
+    "breed_ko": "러시안블루"
+   },
+   {
+    "rank": 3,
+    "name": "페르시안",
+    "pct": 9.6,
+    "breed_ko": "페르시안"
+   },
+   {
+    "rank": 4,
+    "name": "잘 모르겠다",
+    "pct": 9.1,
+    "breed_ko": null,
+    "is_breed": false,
+    "note": "품종이 아닌 응답이지만 보고서 표에 4위로 올라 있어요."
+   },
+   {
+    "rank": 5,
+    "name": "스코티시폴드",
+    "pct": 7.9,
+    "breed_ko": "스코티시폴드"
+   },
+   {
+    "rank": 6,
+    "name": "샴",
+    "pct": 5.9,
+    "breed_ko": "샴"
+   },
+   {
+    "rank": 7,
+    "name": "터키시앙고라",
+    "pct": 5.7,
+    "breed_ko": "터키시앙고라"
+   }
+  ],
+  "note": "보고서 표가 7위까지만 공개돼 10위까지는 없어요. 단위 %, 복수응답, 반려견가구 n=702·반려묘가구 n=407(전국 20~69세 2,000명 온라인 설문).",
+  "source": {
+   "org": "KB경영연구소 (KB금융그룹)",
+   "title": "2025 한국 반려동물 보고서 — 1장 한국 반려동물 현황 (양육 중인 반려견 품종 변화 / 반려묘 품종 변화 표)",
+   "published": "2025-06-29",
+   "url": "https://kbthink.com/investment/deepdive/research/250629-2.html",
+   "pdf_url": "https://kbthink.com/content/dam/kb-financial-group/holdings/IBR/05/2025/06/202506290838130/2025한국반려동물보고서.pdf",
+   "table_images": [
+    "https://cdn.kbthink.com/content/dam/kb-financial-group/holdings/IBR/05/2025/06/202506290838130/images/023.jpg",
+    "https://cdn.kbthink.com/content/dam/kb-financial-group/holdings/IBR/05/2025/06/202506290838130/images/024.jpg"
+   ],
+   "supports": "2025년 반려견 7위·반려묘 7위까지 순위와 비율(표 이미지로 확인)"
+  }
+ },
+ "akc": {
+  "year": "2025",
+  "announced": "2026-03-18",
+  "top": [
+   {
+    "rank": 1,
+    "name_en": "French Bulldog",
+    "breed_ko": "프렌치불도그"
+   },
+   {
+    "rank": 2,
+    "name_en": "Labrador Retriever",
+    "breed_ko": "래브라도리트리버"
+   },
+   {
+    "rank": 3,
+    "name_en": "Golden Retriever",
+    "breed_ko": "골든리트리버"
+   },
+   {
+    "rank": 4,
+    "name_en": "German Shepherd Dog",
+    "breed_ko": "저먼셰퍼드"
+   },
+   {
+    "rank": 5,
+    "name_en": "Dachshund",
+    "breed_ko": "닥스훈트"
+   },
+   {
+    "rank": 6,
+    "name_en": "Poodle",
+    "breed_ko": null,
+    "note": "AKC는 토이·미니어처·스탠다드 푸들을 한 품종으로 집계해요. 사이트에는 세 가지로 나뉘어 있어요."
+   },
+   {
+    "rank": 7,
+    "name_en": "Beagle",
+    "breed_ko": "비글"
+   },
+   {
+    "rank": 8,
+    "name_en": "Rottweiler",
+    "breed_ko": "로트와일러"
+   },
+   {
+    "rank": 9,
+    "name_en": "German Shorthaired Pointer",
+    "breed_ko": null
+   },
+   {
+    "rank": 10,
+    "name_en": "Bulldog",
+    "breed_ko": "잉글리시불도그"
+   },
+   {
+    "rank": 11,
+    "name_en": "Cane Corso",
+    "breed_ko": null
+   },
+   {
+    "rank": 12,
+    "name_en": "Cavalier King Charles Spaniel",
+    "breed_ko": "카발리에킹찰스스패니얼"
+   },
+   {
+    "rank": 13,
+    "name_en": "Yorkshire Terrier",
+    "breed_ko": "요크셔테리어"
+   },
+   {
+    "rank": 14,
+    "name_en": "Australian Shepherd",
+    "breed_ko": "오스트레일리안셰퍼드"
+   },
+   {
+    "rank": 15,
+    "name_en": "Doberman Pinscher",
+    "breed_ko": "도베르만핀셔"
+   },
+   {
+    "rank": 16,
+    "name_en": "Pembroke Welsh Corgi",
+    "breed_ko": "웰시코기(펨브로크)"
+   },
+   {
+    "rank": 17,
+    "name_en": "Miniature Schnauzer",
+    "breed_ko": "미니어처슈나우저"
+   },
+   {
+    "rank": 18,
+    "name_en": "Boxer",
+    "breed_ko": "보크서"
+   },
+   {
+    "rank": 19,
+    "name_en": "Pomeranian",
+    "breed_ko": "포메라니안"
+   },
+   {
+    "rank": 20,
+    "name_en": "Bernese Mountain Dog",
+    "breed_ko": "버니즈마운틴독"
+   }
+  ],
+  "source": {
+   "org": "American Kennel Club",
+   "title": "The Most Popular Dog Breeds of 2025 (updated Aug 11, 2026)",
+   "url": "https://www.akc.org/expert-advice/dog-breeds/most-popular-dog-breeds-2025/",
+   "press_release_url": "https://www.akc.org/press-releases/je-taime-once-again-french-bulldog-remains-americas-most-popular-pup-for-the-fourth-year/",
+   "supports": "2025년 등록 통계 순위 1~25위(1~20위 사용), 보도자료 2026-03-18"
+  }
+ },
+ "cfa": {
+  "year": "2026",
+  "data_year": "2025 (CFA는 전년 자료로 매년 순위를 발표해요)",
+  "top": [
+   {
+    "rank": 1,
+    "name_en": "Maine Coon Cat",
+    "breed_ko": "메인쿤"
+   },
+   {
+    "rank": 2,
+    "name_en": "Ragdoll",
+    "breed_ko": "랙돌"
+   },
+   {
+    "rank": 3,
+    "name_en": "Persian",
+    "breed_ko": "페르시안"
+   },
+   {
+    "rank": 4,
+    "name_en": "Exotic",
+    "breed_ko": "엑조틱숏헤어",
+    "note": "CFA 공식 품종명 Exotic = 엑조틱 숏헤어"
+   },
+   {
+    "rank": 5,
+    "name_en": "Devon Rex",
+    "breed_ko": "데본렉스"
+   },
+   {
+    "rank": 6,
+    "name_en": "Abyssinian",
+    "breed_ko": "아비시니안"
+   },
+   {
+    "rank": 7,
+    "name_en": "British Shorthair",
+    "breed_ko": "브리티시숏헤어"
+   },
+   {
+    "rank": 8,
+    "name_en": "Siberian",
+    "breed_ko": "시베리안"
+   },
+   {
+    "rank": 9,
+    "name_en": "American Shorthair",
+    "breed_ko": "아메리칸숏헤어"
+   },
+   {
+    "rank": 10,
+    "name_en": "Russian Blue",
+    "breed_ko": "러시안블루"
+   }
+  ],
+  "source": {
+   "org": "The Cat Fanciers' Association",
+   "title": "Most Popular Breeds for 2026",
+   "published": "2026-04-22",
+   "url": "https://cfa.org/cat-talk/most-popular-breeds-for-2026/",
+   "supports": "2026년 발표 Top 10(전년 자료 기준)"
+  }
+ }
+}

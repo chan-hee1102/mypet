@@ -427,6 +427,42 @@ function KittenWeightTable() {
   );
 }
 
+/** 법·제도 — 핵심 정리 · 위반하면 · 시행일(2026-11-22). 조문 출처는 페이지 아래 근거 자료 */
+function LawBody({ guide }: { guide: Guide }) {
+  return (
+    <>
+      {guide.points?.length ? (
+        <>
+          <h2>핵심 정리</h2>
+          <ul className="glist">
+            {guide.points.map((p) => (
+              <li key={p}>{p}</li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+      {guide.penalties?.length ? (
+        <>
+          <h2>위반하면</h2>
+          <div className="gtable-wrap">
+            <table className="gtable gtable--stack">
+              <thead><tr><th style={{ width: '50%' }}>위반</th><th>과태료·처벌</th></tr></thead>
+              <tbody>
+                {guide.penalties.map((p) => (
+                  <tr key={p.what}><td><b>{p.what}</b></td><td>{p.amount}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      ) : null}
+      {guide.effective ? (
+        <p className="gnote"><Icon name="info" size={15} /> 시행: {guide.effective}</p>
+      ) : null}
+    </>
+  );
+}
+
 export default function GuideBody({ guide }: { guide: Guide }) {
   switch (guide.body) {
     case 'toxic-foods':  return <ToxicTable species={guide.species ?? 'dog'} />;
@@ -439,5 +475,6 @@ export default function GuideBody({ guide }: { guide: Guide }) {
     case 'neuter-food':  return <NeuterFoodTable />;
     case 'cup-grams':    return <CupGramsTable />;
     case 'kitten-weight': return <KittenWeightTable />;
+    case 'law':          return <LawBody guide={guide} />;
   }
 }

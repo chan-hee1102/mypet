@@ -4,6 +4,7 @@ import { SITE } from '@/lib/site';
 import { breedPath, isFeatured, type BreedRow } from '@/lib/growth';
 import { UPDATED } from '@/lib/breedSeo';
 import { AGES, KGS, MONTHS, comparePairs, comparePath } from '@/lib/seoPages';
+import { VERDICT, foodPath, foodsFor } from '@/lib/foodSafety';
 
 /**
  * /llms.txt — AI 답변엔진(챗GPT·퍼플렉시티·클로드 등)에게 「이 사이트에 무엇이 있고, 어떤 질문엔 어느 페이지가 답인지」 알려 주는 목차.
@@ -44,6 +45,13 @@ export function GET() {
     `- 「강아지 3개월 몸무게」「아기 고양이 4개월 사료량」(품종 몰라도) → ${SITE.url}/month/{dog|cat}/{2~12} — 다 큰 몸무게별·인기 품종별 표`,
     `- 「5kg 강아지 사료량」「4kg 고양이 하루 몇 g」 → ${SITE.url}/weight/dog/{1~40} · ${SITE.url}/weight/cat/{2~10} — 중성화·노령별 g, 종이컵, 간식 상한`,
     `- 「강아지 10살 사람 나이」「고양이 15살 노령묘?」 → ${SITE.url}/age/dog/{1~20} · ${SITE.url}/age/cat/{1~22} — 체구별 사람 나이·생애 단계·건강검진 주기`,
+    `- 「강아지 포도 먹어도 되나요?」「고양이 우유 줘도 돼요?」 → ${SITE.url}/can-eat/{dog|cat}/{음식} — 결론·이유·증상·먹었을 때, ASPCA·AKC·VCA·Merck 원문 출처 (모음: ${SITE.url}/can-eat)`,
+    `- 「우리나라 인기 견종·묘종 순위」「AKC 인기 순위」 → [인기 품종 순위](${SITE.url}/ranking) — KB경영연구소 2025 보고서·AKC 2025·CFA 2026`,
+    ask('「동물등록 안 하면 과태료?」', 'dog-registration'),
+    ask('「강아지 목줄 몇 m? 엘리베이터에서는?」', 'leash-rules'),
+    ask('「맹견 종류·사육허가·보험」', 'dangerous-dogs'),
+    ask('「반려동물이 죽으면 마당에 묻어도 되나요?」', 'pet-remains'),
+    ask('「동물병원 진료비 미리 알 수 있나요?」', 'vet-fee-posting'),
     `- 「말티즈 푸들 차이」「코숏 러시안블루 비교」 → ${SITE.url}/compare/{품종A}-vs-{품종B} — 몸무게·털 빠짐·짖음·미용·산책·사료량 표 (모음: ${SITE.url}/compare)`,
     `- 「강아지/고양이를 처음 데려오면 준비물·첫 주에 할 일」 → [처음 강아지를 데려온다면](${SITE.url}/start/dog) · [처음 고양이를 데려온다면](${SITE.url}/start/cat)`,
     `- 「품종을 모르는 믹스견 사료량·산책」 → [믹스견 안내판](${SITE.url}${breedPath('믹스견(잡종)')}) (소형·중형·대형을 골라 보는 표)`,
@@ -80,6 +88,10 @@ export function GET() {
     '## 체중별 하루 사료량',
     '',
     ...(['dog', 'cat'] as const).map((sp) => `- ${sp === 'dog' ? '강아지' : '고양이'}: ${KGS[sp].map((kg) => `[${kg}kg](${SITE.url}/weight/${sp}/${kg})`).join(' · ')}`),
+    '',
+    '## 먹어도 되나요 (음식별)',
+    '',
+    ...(['dog', 'cat'] as const).map((sp) => `- ${sp === 'dog' ? '강아지' : '고양이'}: ${foodsFor(sp).map((f) => `[${f.name} — ${VERDICT[f[sp].verdict!].short}](${SITE.url}${foodPath(sp, f.slug)})`).join(' · ')}`),
     '',
     '## 나이별 사람 나이',
     '',
